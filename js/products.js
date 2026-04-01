@@ -2219,7 +2219,7 @@ const products = [
         name: 'Lion Rolling Circus tips Silver',
         category: 'filtros',
         brand: 'filtro',
-        image: 'img/productos/lion-rolling-tips (2).jpg',
+        image: 'img/productos/lion-rolling-tips.jpg',
         sizes: [{size: 'X200', price: 1500}],
         description: 'filtros silver',
         featured: false,
