@@ -1,5 +1,56 @@
 // Shop functionality - Cart and filters
 let cart = [];
+const validCategories = new Set(['todos', 'fertilizantes', 'plaguicidas', 'herramientas', 'macetas', 'parafernalia', 'papeles', 'filtros']);
+
+function escapeHtml(value = '') {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function renderImageFallback(product, compact = false) {
+    const brand = escapeHtml(product.brand || 'Awka Liwen');
+    const name = escapeHtml(product.name || 'Producto');
+    const initials = escapeHtml((product.brand || product.name || 'AW')
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(word => word[0])
+        .join('')
+        .toUpperCase());
+    const compactClass = compact ? ' image-fallback--compact' : '';
+
+    return `
+        <div class="image-fallback${compactClass}" role="img" aria-label="${name}">
+            <span class="image-fallback-badge">${initials}</span>
+            <span class="image-fallback-brand">${brand}</span>
+            <span class="image-fallback-name">${name}</span>
+        </div>
+    `;
+}
+
+function renderProductImage(product, compact = false) {
+    if (!product.image) {
+        return product.icon || renderImageFallback(product, compact);
+    }
+
+    const name = escapeHtml(product.name || 'Producto');
+    const brand = escapeHtml(product.brand || 'Awka Liwen');
+    const compactAttr = compact ? 'true' : 'false';
+
+    return `<img src="${product.image}" alt="${name}" loading="lazy" onerror="handleImageError(this)" data-product-name="${name}" data-product-brand="${brand}" data-compact="${compactAttr}">`;
+}
+
+function handleImageError(image) {
+    const fallbackMarkup = renderImageFallback({
+        name: image.dataset.productName || image.alt || 'Producto',
+        brand: image.dataset.productBrand || 'Awka Liwen'
+    }, image.dataset.compact === 'true');
+    image.outerHTML = fallbackMarkup;
+}
 
 // Get category display name
 function getCategoryName(category) {
@@ -44,9 +95,7 @@ function renderProducts(category = 'todos', searchTerm = '') {
         }
 
         const offerBadge = product.offer ? `<div class="offer-badge">${product.offerText || 'OFERTA'}</div>` : '';
-        const imageContent = product.image ? 
-            `<img src="${product.image}" alt="${product.name}">` : 
-            product.icon;
+        const imageContent = renderProductImage(product);
 
         return `
         <div class="product-card" onclick="showProductDetails(${product.id})">
@@ -82,11 +131,15 @@ function showProductDetails(productId) {
     if (product.image) {
         modalIcon.style.display = 'none';
         modalImage.style.display = 'block';
-        modalImage.innerHTML = `<img src="${product.image}" alt="${product.name}" style="width:100%; height:100%; object-fit:contain;">`;
-    } else {
+        modalImage.innerHTML = renderProductImage(product);
+    } else if (product.icon) {
         modalIcon.style.display = 'block';
         modalImage.style.display = 'none';
         modalIcon.textContent = product.icon;
+    } else {
+        modalIcon.style.display = 'none';
+        modalImage.style.display = 'block';
+        modalImage.innerHTML = renderImageFallback(product);
     }
 
     modalName.textContent = product.name;
@@ -170,9 +223,7 @@ function updateCart() {
         cartItems.innerHTML = cart.map(item => {
             const itemId = item.cartId || item.id;
             const sizeInfo = item.selectedSize ? ` - ${item.selectedSize}` : '';
-            const imageContent = item.image ? 
-                `<img src="${item.image}" alt="${item.name}">` : 
-                item.icon;
+            const imageContent = renderProductImage(item, true);
             return `
             <div class="cart-item">
                 <div class="cart-item-image">${imageContent}</div>
@@ -244,18 +295,44 @@ function setupSearch() {
     }
 }
 
+function getCategoryFromHash() {
+    const hashCategory = window.location.hash.replace('#', '').trim().toLowerCase();
+    return validCategories.has(hashCategory) ? hashCategory : 'todos';
+}
+
+function syncCategoryUI(category) {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.category === category);
+    });
+}
+
+function applyCategoryFromHash() {
+    const category = getCategoryFromHash();
+    const searchInput = document.getElementById('searchInput');
+    const searchTerm = searchInput ? searchInput.value : '';
+    syncCategoryUI(category);
+    renderProducts(category, searchTerm);
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     // Filter Functionality
     const filters = document.getElementById('filters');
     if (filters) {
         filters.addEventListener('click', (e) => {
-            if (e.target.classList.contains('filter-btn')) {
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                e.target.classList.add('active');
+            const filterButton = e.target.closest('.filter-btn');
+            if (filterButton) {
+                const nextCategory = filterButton.dataset.category;
+                syncCategoryUI(nextCategory);
                 const searchInput = document.getElementById('searchInput');
                 const searchTerm = searchInput ? searchInput.value : '';
-                renderProducts(e.target.dataset.category, searchTerm);
+                renderProducts(nextCategory, searchTerm);
+
+                if (nextCategory === 'todos') {
+                    window.history.replaceState(null, '', window.location.pathname + window.location.search);
+                } else {
+                    window.history.replaceState(null, '', `#${nextCategory}`);
+                }
             }
         });
     }
@@ -264,5 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSearch();
 
     // Initial render
-    renderProducts();
+    applyCategoryFromHash();
 });
+
+window.addEventListener('hashchange', applyCategoryFromHash);

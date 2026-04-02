@@ -58,7 +58,7 @@
 
                 <a href="shop.html#herramientas" class="category-card">
                     <div class="category-image">
-                        <img src="/awka-liwen-sitio/img/categorias/herramientas.jpg" alt="Herramientas">
+                        <img src="img/categorias/herramientas.jpg" alt="Herramientas" loading="lazy">
                     </div>
                     <div class="category-info">
                         <div class="category-name">Herramientas</div>
@@ -68,7 +68,7 @@
 
                 <a href="shop.html#parafernalia" class="category-card">
                     <div class="category-image">
-                        <img src="/awka-liwen-sitio/img/categorias/parafernalia.jpg" alt="Parafernalia">
+                        <img src="img/categorias/parafernalia.jpg" alt="Parafernalia" loading="lazy">
                     </div>
                     <div class="category-info">
                         <div class="category-name">Parafernalia</div>
@@ -224,9 +224,7 @@
                 ? `<div class="offer-badge">${product.offerText || 'OFERTA'}</div>`
                 : '';
 
-            const imageContent = product.image
-                ? `<img src="${product.image}" alt="${product.name}" loading="lazy">`
-                : product.icon;
+            const imageContent = renderProductImage(product);
 
             const btnAction = product.sizes && product.sizes.length > 1
                 ? `showProductDetails(${product.id})`
