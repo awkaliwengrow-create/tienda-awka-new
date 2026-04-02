@@ -973,6 +973,15 @@ nav a.active::after {
     box-shadow: 0 10px 30px rgba(142,74,200,0.35);
 }
 
+.contact-float--whatsapp,
+.contact-float--whatsapp:hover {
+    background: #25D366;
+}
+
+.contact-float--whatsapp:hover {
+    box-shadow: 0 10px 30px rgba(37,211,102,0.45);
+}
+
 .contact-float svg,
 .whatsapp-float svg {
     width: 22px;
