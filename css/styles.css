@@ -300,9 +300,9 @@ nav a.active::after {
     transform: translateY(-6px);
     box-shadow: var(--shadow-lg);
 }
-
 .category-image {
-    height: 140px;
+    position: relative;
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -310,6 +310,18 @@ nav a.active::after {
     background: linear-gradient(135deg, var(--earth-green), var(--moss));
     color: var(--white);
     overflow: hidden;
+}
+
+.category-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+}
+
+.category-info {
+    position: relative;
+    z-index: 2;
 }
 
 .category-image img {
