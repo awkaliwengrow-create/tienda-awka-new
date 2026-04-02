@@ -61,12 +61,15 @@ body::before {
 
 /* ── HEADER ── */
 header {
-    background: linear-gradient(135deg, var(--earth-green), var(--moss));
+    background:
+        linear-gradient(135deg, rgba(44,62,41,0.94), rgba(74,103,65,0.9));
     padding: 1.2rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 20px rgba(44,62,41,0.15);
+    box-shadow: 0 10px 30px rgba(44,62,41,0.16);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(245,241,232,0.08);
 }
 
 .header-content {
@@ -84,6 +87,7 @@ header {
     letter-spacing: 2px;
     text-decoration: none;
     white-space: nowrap;
+    transform: rotate(-1.5deg);
 }
 
 /* Nav */
@@ -100,7 +104,7 @@ nav a {
     font-size: 1.1rem;
     transition: var(--transition);
     position: relative;
-    padding: 0.3rem 0;
+    padding: 0.45rem 0.1rem;
 }
 
 nav a::after {
@@ -121,7 +125,7 @@ nav a.active::after {
 
 /* Cart button */
 .cart-button {
-    background: var(--terracotta);
+    background: linear-gradient(135deg, var(--terracotta), var(--clay));
     color: var(--cream);
     border: none;
     padding: 0.75rem 1.4rem;
@@ -133,10 +137,11 @@ nav a.active::after {
     transition: var(--transition);
     position: relative;
     white-space: nowrap;
+    box-shadow: 0 10px 24px rgba(201,123,77,0.22);
 }
 
 .cart-button:hover {
-    background: var(--clay);
+    background: linear-gradient(135deg, var(--clay), var(--terracotta));
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(201,123,77,0.3);
 }
@@ -1186,7 +1191,8 @@ nav a.active::after {
     font-family: 'Crimson Pro', serif;
     font-size: 1rem;
     font-weight: 600;
-    box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 14px 34px rgba(37,211,102,0.24);
     transition: var(--transition);
 }
 
@@ -1215,7 +1221,9 @@ nav a.active::after {
 
 /* ── FOOTER ── */
 footer {
-    background: var(--earth-dark);
+    background:
+        radial-gradient(circle at top left, rgba(143,185,134,0.08), transparent 38%),
+        linear-gradient(180deg, #243320, #1c2819);
     color: var(--sand);
     padding: 3rem 0 1.5rem;
 }
@@ -1229,9 +1237,14 @@ footer {
 
 .footer-section h3 {
     font-family: 'Covered By Your Grace', cursive;
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: var(--leaf);
     margin-bottom: 1rem;
+}
+
+.footer-section p {
+    color: rgba(232,220,196,0.88);
+    max-width: 36ch;
 }
 
 .footer-section ul { list-style: none; }
@@ -1257,6 +1270,7 @@ footer {
     border-top: 1px solid rgba(95,124,88,0.4);
     color: var(--sage);
     font-size: 0.9rem;
+    letter-spacing: 0.03em;
 }
 
 /* ── BUTTONS ── */
