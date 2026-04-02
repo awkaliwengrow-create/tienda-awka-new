@@ -46,51 +46,75 @@
     </header>
 
     <div class="container shop-page-wrapper">
-        <!-- Search -->
-        <div class="search-section">
-            <div class="search-bar">
-                <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos...">
-                <span class="search-icon">🔍</span>
+        <section class="shop-hero">
+            <div class="shop-hero-copy">
+                <div class="shop-kicker">Catálogo Awka Liwen</div>
+                <h1>Una experiencia de compra más clara, rápida y cuidada</h1>
+                <p>Explorá el catálogo completo, filtrá por categoría y encontrá desde nutrición y control de plagas hasta herramientas, papeles y accesorios.</p>
             </div>
-        </div>
+            <div class="shop-hero-panel">
+                <div class="shop-hero-stat">
+                    <strong>Categorías curadas</strong>
+                    <span>Acceso directo a las líneas más buscadas del grow.</span>
+                </div>
+                <div class="shop-hero-stat">
+                    <strong>Atención por WhatsApp</strong>
+                    <span>Resolvé dudas rápido antes de comprar.</span>
+                </div>
+                <div class="shop-hero-stat">
+                    <strong>Retiro y envíos</strong>
+                    <span>Comprá online y coordiná como te quede mejor.</span>
+                </div>
+            </div>
+        </section>
 
-        <!-- Filters -->
-        <div class="filters" id="filters">
-            <button class="filter-btn active" data-category="todos">
-                <span class="filter-icon"></span>
-                <span>Todo el Catálogo</span>
-            </button>
-            <button class="filter-btn" data-category="fertilizantes">
-                <span class="filter-icon"></span>
-                <span>Fertilizantes & Nutrición</span>
-            </button>
-            <button class="filter-btn" data-category="plaguicidas">
-                <span class="filter-icon"></span>
-                <span>Control & Protección</span>
-            </button>
-            <button class="filter-btn" data-category="herramientas">
-                <span class="filter-icon"></span>
-                <span>Herramientas</span>
-            </button>
-            <button class="filter-btn" data-category="macetas">
-                <span class="filter-icon"></span>
-                <span>Macetas & Contenedores</span>
-            </button>
-            <button class="filter-btn" data-category="parafernalia">
-                <span class="filter-icon"></span>
-                <span>Parafernalia</span>
-            </button>
-            <button class="filter-btn" data-category="papeles">
-                <span class="filter-icon"></span>
-                <span>Papeles</span>
-            </button>
-            <button class="filter-btn" data-category="filtros">
-                <span class="filter-icon"></span>
-                <span>Filtros & Tips</span>
-            </button>
-        </div>
+        <section class="shop-toolbar">
+            <div class="search-section">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar por producto, marca o descripción">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
 
-        <!-- Products -->
+            <div class="filters-wrap">
+                <div class="filters-label">Filtrar por categoría</div>
+                <div class="filters" id="filters">
+                    <button class="filter-btn active" data-category="todos">
+                        <span class="filter-icon">◌</span>
+                        <span>Todo el catálogo</span>
+                    </button>
+                    <button class="filter-btn" data-category="fertilizantes">
+                        <span class="filter-icon">✿</span>
+                        <span>Fertilizantes & Nutrición</span>
+                    </button>
+                    <button class="filter-btn" data-category="plaguicidas">
+                        <span class="filter-icon">⟡</span>
+                        <span>Control & Protección</span>
+                    </button>
+                    <button class="filter-btn" data-category="herramientas">
+                        <span class="filter-icon">✦</span>
+                        <span>Herramientas</span>
+                    </button>
+                    <button class="filter-btn" data-category="macetas">
+                        <span class="filter-icon">◒</span>
+                        <span>Macetas & Contenedores</span>
+                    </button>
+                    <button class="filter-btn" data-category="parafernalia">
+                        <span class="filter-icon">◆</span>
+                        <span>Parafernalia</span>
+                    </button>
+                    <button class="filter-btn" data-category="papeles">
+                        <span class="filter-icon">▤</span>
+                        <span>Papeles</span>
+                    </button>
+                    <button class="filter-btn" data-category="filtros">
+                        <span class="filter-icon">◍</span>
+                        <span>Filtros & Tips</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
         <section class="products">
             <div class="products-grid" id="productsGrid"></div>
         </section>
