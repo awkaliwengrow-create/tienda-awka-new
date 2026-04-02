@@ -1,0 +1,15 @@
+{
+  "name": "Awka Liwen Growshop",
+  "short_name": "Awka Liwen",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F1E8",
+  "theme_color": "#2C3E29",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
