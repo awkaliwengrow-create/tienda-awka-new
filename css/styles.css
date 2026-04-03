@@ -318,7 +318,7 @@ nav a.active::after {
 }
 
 .promo-strip {
-    margin-top: -3.5rem;
+    margin-top: 1.5rem;
     padding: 0 0 2rem;
     position: relative;
     z-index: 2;
@@ -1547,7 +1547,7 @@ footer {
     .hero-actions { flex-direction: column; align-items: flex-start; }
     .hero-cta { width: min(100%, 320px); }
     .hero-trust { gap: 0.6rem; }
-    .promo-strip { margin-top: -2rem; }
+    .promo-strip { margin-top: 1rem; }
     .promo-carousel { grid-template-columns: 1fr; }
     .promo-nav { display: none; }
     .promo-slide { padding: 1.5rem; min-height: 220px; }
@@ -1574,7 +1574,7 @@ footer {
     .hero-trust {
         justify-content: flex-start;
     }
-    .promo-strip { margin-top: -1.4rem; }
+    .promo-strip { margin-top: 0.75rem; }
     .promo-slide h2 { font-size: 1.6rem; }
     .shop-page-wrapper { padding: 1.2rem 0 3rem; }
     .shop-hero-copy,
