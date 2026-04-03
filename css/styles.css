@@ -352,6 +352,12 @@ nav a.active::after {
     box-shadow: 0 24px 50px rgba(44,62,41,0.18);
 }
 
+.promo-slide-offer {
+    background:
+        radial-gradient(circle at top right, rgba(201,123,77,0.22), transparent 30%),
+        linear-gradient(145deg, rgba(36,51,32,0.98), rgba(91,66,43,0.95));
+}
+
 .promo-slide.is-active {
     display: block;
     animation: fadeUp 0.45s ease;
