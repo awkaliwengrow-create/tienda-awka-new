@@ -61,6 +61,42 @@
         </div>
     </section>
 
+    <section class="promo-strip" aria-label="Promociones destacadas">
+        <div class="container">
+            <div class="promo-carousel" data-promo-carousel>
+                <button class="promo-nav promo-nav-prev" type="button" aria-label="Promo anterior" data-promo-prev>‹</button>
+                <div class="promo-viewport">
+                    <div class="promo-track" data-promo-track>
+                        <article class="promo-slide is-active">
+                            <div class="promo-kicker">Destacado</div>
+                            <h2>Cultivo completo en un solo lugar</h2>
+                            <p>Fertilizantes, herramientas y accesorios elegidos para resolver tu compra en menos tiempo.</p>
+                            <a href="shop.html" class="promo-link">Ver productos</a>
+                        </article>
+                        <article class="promo-slide">
+                            <div class="promo-kicker">Compra simple</div>
+                            <h2>Retiro en tienda y atenciÃ³n cercana</h2>
+                            <p>CoordinÃ¡ tu compra, pasÃ¡ a buscarla y recibÃ­ asesoramiento segÃºn tu cultivo y tu espacio.</p>
+                            <a href="#contacto" class="promo-link">CÃ³mo comprar</a>
+                        </article>
+                        <article class="promo-slide">
+                            <div class="promo-kicker">Beneficios</div>
+                            <h2>Pagos flexibles para cada compra</h2>
+                            <p>ElegÃ­ la forma de pago que te quede mejor y resolvÃ© todo desde un mismo lugar.</p>
+                            <a href="shop.html#parafernalia" class="promo-link">Explorar categorÃ­as</a>
+                        </article>
+                    </div>
+                </div>
+                <button class="promo-nav promo-nav-next" type="button" aria-label="Promo siguiente" data-promo-next>›</button>
+            </div>
+            <div class="promo-dots" data-promo-dots>
+                <button class="promo-dot is-active" type="button" aria-label="Ir a promo 1"></button>
+                <button class="promo-dot" type="button" aria-label="Ir a promo 2"></button>
+                <button class="promo-dot" type="button" aria-label="Ir a promo 3"></button>
+            </div>
+        </div>
+    </section>
+
     <section class="categories-section" id="categorias">
         <div class="container">
             <h2 class="section-title">Categorías Destacadas</h2>
@@ -270,6 +306,52 @@
                 </div>
             </div>`;
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.querySelector('[data-promo-carousel]');
+            if (!carousel) return;
+
+            const slides = Array.from(carousel.querySelectorAll('.promo-slide'));
+            const dots = Array.from(document.querySelectorAll('.promo-dot'));
+            const prev = carousel.querySelector('[data-promo-prev]');
+            const next = carousel.querySelector('[data-promo-next]');
+            let current = 0;
+            let autoplay;
+
+            function render(index) {
+                current = (index + slides.length) % slides.length;
+                slides.forEach((slide, slideIndex) => slide.classList.toggle('is-active', slideIndex === current));
+                dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === current));
+            }
+
+            function restartAutoplay() {
+                clearInterval(autoplay);
+                autoplay = setInterval(() => render(current + 1), 5000);
+            }
+
+            prev.addEventListener('click', () => {
+                render(current - 1);
+                restartAutoplay();
+            });
+
+            next.addEventListener('click', () => {
+                render(current + 1);
+                restartAutoplay();
+            });
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    render(index);
+                    restartAutoplay();
+                });
+            });
+
+            carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
+            carousel.addEventListener('mouseleave', restartAutoplay);
+
+            render(0);
+            restartAutoplay();
+        });
     </script>
 </body>
 </html>
