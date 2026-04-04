@@ -1,4 +1,4 @@
-// Shop functionality - Cart and filters
+﻿// Shop functionality - Cart and filters
 let cart = [];
 const validCategories = new Set(['todos', 'fertilizantes', 'plaguicidas', 'herramientas', 'macetas', 'parafernalia', 'papeles', 'filtros']);
 
@@ -102,7 +102,7 @@ function renderProducts(category = 'todos', searchTerm = '') {
             ${offerBadge}
             <div class="product-image">${imageContent}</div>
             <div class="product-info">
-                <div class="product-category">${product.brand} · ${getCategoryName(product.category)}</div>
+                <div class="product-category">${product.brand} Â· ${getCategoryName(product.category)}</div>
                 <div class="product-name">${product.name}</div>
                 <div class="product-description">${product.description}</div>
                 <div class="product-footer">
