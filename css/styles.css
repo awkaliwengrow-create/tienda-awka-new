@@ -881,6 +881,18 @@ nav a.active::after {
     padding: 0 0 1.2rem;
 }
 
+.search-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid rgba(245,241,232,0.14);
+    background: rgba(245,241,232,0.08);
+    color: var(--cream);
+    cursor: pointer;
+    font-size: 1rem;
+}
+
 .search-bar {
     position: relative;
     max-width: 100%;
@@ -1529,6 +1541,7 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
     .hamburger { display: flex; }
+    .search-toggle { display: inline-flex; align-items: center; justify-content: center; }
 
     nav {
         display: none;
@@ -1605,6 +1618,14 @@ footer {
 
     .filters {
         justify-content: flex-start;
+    }
+
+    .shop-toolbar.is-search-collapsed .search-section {
+        display: none;
+    }
+
+    .shop-toolbar.is-search-open .search-section {
+        display: block;
     }
 
     .cart-sidebar {

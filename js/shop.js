@@ -316,6 +316,23 @@ function applyCategoryFromHash() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    const searchToggle = document.getElementById('searchToggle');
+    const shopToolbar = document.querySelector('.shop-toolbar');
+    const searchInput = document.getElementById('searchInput');
+
+    if (searchToggle && shopToolbar && window.innerWidth <= 768) {
+        shopToolbar.classList.add('is-search-collapsed');
+
+        searchToggle.addEventListener('click', () => {
+            const isOpen = shopToolbar.classList.toggle('is-search-open');
+            shopToolbar.classList.toggle('is-search-collapsed', !isOpen);
+
+            if (isOpen && searchInput) {
+                requestAnimationFrame(() => searchInput.focus());
+            }
+        });
+    }
+
     // Filter Functionality
     const filters = document.getElementById('filters');
     if (filters) {
