@@ -80,14 +80,16 @@ header {
 }
 
 .logo {
-    font-family: 'Covered By Your Grace', cursive;
-    font-size: 2.5rem;
-    color: var(--cream);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    letter-spacing: 2px;
     text-decoration: none;
-    white-space: nowrap;
-    transform: rotate(-1.5deg);
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 62px;
+    height: 62px;
+    display: block;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.18));
 }
 
 /* Nav */
@@ -274,6 +276,11 @@ nav a.active::after {
     gap: 1rem;
     flex-wrap: wrap;
     margin-bottom: 1.25rem;
+}
+
+.hero-trust,
+.hero .container > span {
+    display: none !important;
 }
 
 .hero-cta {
@@ -1504,7 +1511,7 @@ footer {
         position: relative;
     }
 
-    .logo { font-size: 2rem; }
+    .logo img { width: 52px; height: 52px; }
 
     .cart-button { padding: 0.65rem 1rem; font-size: 0.9rem; }
 
