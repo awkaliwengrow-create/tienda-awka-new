@@ -7,11 +7,11 @@
     <meta name="theme-color" content="#2C3E29">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Awka Liwen Growshop">
-    <meta property="og:description" content="Catalogo natural con fertilizantes, herramientas y parafernalia para cultivadores.">
-    <meta property="og:url" content="https://tienda-awka-new.vercel.app/">
-    <meta property="og:image" content="https://tienda-awka-new.vercel.app/img/categorias/fertilizantes.jpg">
+    <meta property="og:description" content="Catálogo natural con fertilizantes, herramientas y parafernalia para cultivadores.">
+    <meta property="og:url" content="https://tienda-awka.netlify.app/">
+    <meta property="og:image" content="https://tienda-awka.netlify.app/img/categorias/fertilizantes.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://tienda-awka-new.vercel.app/">
+    <link rel="canonical" href="https://tienda-awka.netlify.app/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="manifest" href="site.webmanifest">
@@ -33,9 +33,11 @@
                         <li><a href="#contacto">Contacto</a></li>
                     </ul>
                 </nav>
-                <button class="cart-button" onclick="toggleCart()" aria-label="Abrir carrito">Carrito <span class="cart-count" id="cartCount">0</span>
+                <button class="cart-button" onclick="toggleCart()" aria-label="Abrir carrito">
+                    🛒 Carrito
+                    <span class="cart-count" id="cartCount">0</span>
                 </button>
-                <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleNav()">
+                <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()">
                     <span></span><span></span><span></span>
                 </button>
             </div>
@@ -45,9 +47,12 @@
     <section class="hero">
         <div class="container">
             <h1>Todo para tu cultivo, en un solo lugar</h1>
-            <p>Encontra fertilizantes, control de plagas, herramientas y parafernalia con atencion cercana, retiro en tienda y asesoramiento real.</p>
+            <p>Encontrá fertilizantes, control de plagas, herramientas y parafernalia con atención cercana, retiro en tienda y asesoramiento real.</p>
             <div class="hero-actions">
-                <a href="shop.html" class="hero-cta">Explorar catalogo</a>
+                <a href="shop.html" class="hero-cta">Explorar catálogo</a>
+            </div>
+                <span>Atención personalizada</span>
+                <span>Medios de pago variados</span>
             </div>
         </div>
     </section>
@@ -55,30 +60,30 @@
     <section class="promo-strip" aria-label="Promociones destacadas">
         <div class="container">
             <div class="promo-carousel" data-promo-carousel>
-                <button class="promo-nav promo-nav-prev" type="button" aria-label="Promo anterior" data-promo-prev>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¹</button>
+                <button class="promo-nav promo-nav-prev" type="button" aria-label="Promo anterior" data-promo-prev>‹</button>
                 <div class="promo-viewport">
                     <div class="promo-track" data-promo-track>
                         <article class="promo-slide is-active promo-slide-offer">
-                            <div class="promo-kicker">Promocion semanal</div>
+                            <div class="promo-kicker">PromociÃ³n semanal</div>
                             <h2>Todos los jueves 15% OFF</h2>
-                            <p>Aprovecha descuentos especiales en productos seleccionados del grow.</p>
+                            <p>AprovechÃ¡ descuentos especiales en productos seleccionados del grow.</p>
                             <a href="shop.html" class="promo-link">Ver productos</a>
                         </article>
                         <article class="promo-slide">
-                            <div class="promo-kicker">Promocion semanal</div>
+                            <div class="promo-kicker">Combo recomendado</div>
                             <h2>La Pacha + Golden Collection</h2>
-                            <p>Sustrato artesanal y genÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©tica de calidad para arrancar con una base sÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³lida.</p>
+                            <p>Sustrato artesanal y genÃ©tica de calidad para arrancar con una base sÃ³lida.</p>
                             <a href="shop.html" class="promo-link">Ver combo</a>
                         </article>
                         <article class="promo-slide">
-                            <div class="promo-kicker">Promocion semanal</div>
+                            <div class="promo-kicker">Combo cultivo</div>
                             <h2>Tree Mix + semilla</h2>
-                            <p>Potencia vegetacion y micorrizas con una propuesta simple para resolver tu cultivo.</p>
+                            <p>PotenciÃ¡ vegetaciÃ³n y micorrizas con una propuesta simple para resolver tu cultivo.</p>
                             <a href="shop.html" class="promo-link">Explorar productos</a>
                         </article>
                     </div>
                 </div>
-                <button class="promo-nav promo-nav-next" type="button" aria-label="Promo siguiente" data-promo-next>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âº</button>
+                <button class="promo-nav promo-nav-next" type="button" aria-label="Promo siguiente" data-promo-next>›</button>
             </div>
             <div class="promo-dots" data-promo-dots>
                 <button class="promo-dot is-active" type="button" aria-label="Ir a promo 1"></button>
@@ -90,8 +95,8 @@
 
     <section class="categories-section" id="categorias">
         <div class="container">
-            <h2 class="section-title">CategorÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­as Destacadas</h2>
-            <p class="section-lead">ElegÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­ rÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡pido la lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nea de productos que necesitÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡s y entrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ directo al sector del catÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡logo.</p>
+            <h2 class="section-title">Categorías Destacadas</h2>
+            <p class="section-lead">Elegí rápido la línea de productos que necesitás y entrá directo al sector del catálogo.</p>
             <div class="categories-grid">
                 <a href="shop.html#fertilizantes" class="category-card">
                     <div class="category-image">
@@ -99,7 +104,7 @@
                     </div>
                     <div class="category-info">
                         <div class="category-name">Fertilizantes</div>
-                        <div class="category-description">NutriciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n, estimuladores y lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­neas para crecimiento y floraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n.</div>
+                        <div class="category-description">Nutrición, estimuladores y líneas para crecimiento y floración.</div>
                     </div>
                 </a>
 
@@ -109,7 +114,7 @@
                     </div>
                     <div class="category-info">
                         <div class="category-name">Herramientas</div>
-                        <div class="category-description">Medidores, tijeras, temporizadores y accesorios para el dÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a a dÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a.</div>
+                        <div class="category-description">Medidores, tijeras, temporizadores y accesorios para el día a día.</div>
                     </div>
                 </a>
 
@@ -129,7 +134,7 @@
     <section class="featured-section">
         <div class="container">
             <h2 class="section-title">Productos Destacados</h2>
-            <p class="section-lead">Una selecciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de productos elegidos para que encuentres rÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡pido lo mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡s buscado del grow.</p>
+            <p class="section-lead">Una selección de productos elegidos para que encuentres rápido lo más buscado del grow.</p>
             <div class="categories-grid featured-categories-grid">
                 <a href="shop.html#fertilizantes" class="category-card">
                     <div class="category-image">
@@ -137,7 +142,7 @@
                     </div>
                     <div class="category-info">
                         <div class="category-name">Tree Mix Pro</div>
-                        <div class="category-description">Micorrizas y nutriciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n para potenciar el desarrollo del cultivo.</div>
+                        <div class="category-description">Micorrizas y nutriciÃ³n para potenciar el desarrollo del cultivo.</div>
                     </div>
                 </a>
                 <a href="shop.html#parafernalia" class="category-card">
@@ -148,7 +153,7 @@
                     </div>
                     <div class="category-info">
                         <div class="category-name">Pipa de madera</div>
-                        <div class="category-description">Una pieza clÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡sica de parafernalia para sumar al kit esencial.</div>
+                        <div class="category-description">Una pieza clÃ¡sica de parafernalia para sumar al kit esencial.</div>
                     </div>
                 </a>
                 <a href="shop.html#herramientas" class="category-card">
@@ -157,7 +162,7 @@
                     </div>
                     <div class="category-info">
                         <div class="category-name">Lupa</div>
-                        <div class="category-description">Ideal para revisar detalles y acompaÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ar mejor cada etapa.</div>
+                        <div class="category-description">Ideal para revisar detalles y acompaÃ±ar mejor cada etapa.</div>
                     </div>
                 </a>
             </div>
@@ -168,20 +173,21 @@
         <div class="container">
             <div class="info-grid">
                 <div class="info-card">
-                    <div class="info-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡</div>
-                    <h3 class="info-title">EnvÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­os a Domicilio</h3>
+                    <div class="info-icon">🚚</div>
+                    <h3 class="info-title">Envíos a Domicilio</h3>
                     <p class="info-text">Coordinamos entregas para que recibas tus productos de forma simple y segura.</p>
                 </div>
                 <div class="info-card">
-                    <div class="info-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âª</div>
-                    <h3 class="info-title">Retiro y AtenciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n</h3>
-                    <p class="info-text">Castelli 97 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· Lun a SÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡b de 17:30 a 20:30 hs, con atenciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n personalizada.</p>
+                    <div class="info-icon">🏪</div>
+                    <h3 class="info-title">Retiro y Atención</h3>
+                    <p class="info-text">Castelli 97 · Lun a Sáb de 17:30 a 20:30 hs, con atención personalizada.</p>
                 </div>
                 <div class="info-card">
-                    <div class="info-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³</div>
+                    <div class="info-icon">💳</div>
                     <h3 class="info-title">Todos los Medios de Pago</h3>
                     <p class="info-text">Aceptamos efectivo, transferencia y otras opciones para facilitar tu compra.</p>
                 </div>
+            </div>
         </div>
     </section>
 
@@ -190,18 +196,18 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Awka Liwen</h3>
-                    <p>AcompaÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±amos a cultivadores con productos seleccionados, atenciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n cercana y una tienda pensada para comprar mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡s fÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡cil.</p>
+                    <p>Acompañamos a cultivadores con productos seleccionados, atención cercana y una tienda pensada para comprar más fácil.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Contacto</h3>
                     <ul>
-                        <li>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ awkaliwengrow@hotmail.com</li>
-                        <li>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Lun a SÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡b: 17:30 a 20:30hs</li>
-                        <li>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Castelli 97, Buenos Aires</li>
+                        <li>📧 awkaliwengrow@hotmail.com</li>
+                        <li>🕐 Lun a Sáb: 17:30 a 20:30hs</li>
+                        <li>📍 Castelli 97, Buenos Aires</li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>SÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­guenos</h3>
+                    <h3>Síguenos</h3>
                     <ul>
                         <li><a href="https://www.instagram.com/awkaliwengrowshop/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                         <li><a href="mailto:awkaliwengrow@hotmail.com">Correo</a></li>
@@ -230,12 +236,12 @@
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h2>Tu Carrito</h2>
-            <button class="close-cart" onclick="toggleCart()" aria-label="Cerrar carrito">ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â</button>
+            <button class="close-cart" onclick="toggleCart()" aria-label="Cerrar carrito">×</button>
         </div>
         <div class="cart-items" id="cartItems">
             <div class="empty-cart">
-                <div class="empty-cart-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±</div>
-                <p>Tu carrito estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ vacÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­o</p>
+                <div class="empty-cart-icon">🌱</div>
+                <p>Tu carrito está vacío</p>
             </div>
         </div>
         <div class="cart-footer" id="cartFooter" style="display: none;">
@@ -250,7 +256,7 @@
     <!-- Size Modal -->
     <div class="modal-overlay" id="sizeModal" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â</button>
+            <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">×</button>
             <div class="modal-product-header">
                 <div class="modal-product-icon" id="modalIcon"></div>
                 <div class="modal-product-image" id="modalImage" style="display: none;"></div>
@@ -293,7 +299,7 @@
                                     <div class="product-size">${product.sizes[0].size}</div>`;
                 } else {
                     priceDisplay = `<div class="product-price">Desde $${Math.min(...product.sizes.map(s => s.price)).toLocaleString()}</div>
-                                    <div class="product-size">${product.sizes.length} tamaÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±os</div>`;
+                                    <div class="product-size">${product.sizes.length} tamaños</div>`;
                 }
             }
 
@@ -316,7 +322,7 @@
                 ${offerBadge}
                 <div class="product-image">${imageContent}</div>
                 <div class="product-info">
-                    <div class="product-category">${product.brand} ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· ${getCategoryName(product.category)}</div>
+                    <div class="product-category">${product.brand} · ${getCategoryName(product.category)}</div>
                     <div class="product-name">${product.name}</div>
                     <div class="product-description">${product.description}</div>
                     <div class="product-footer">

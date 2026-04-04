@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explora el catalogo de Awka Liwen Growshop con fertilizantes, herramientas, parafernalia, papeles y mas.">
+    <meta name="description" content="Explorá el catálogo de Awka Liwen Growshop con fertilizantes, herramientas, parafernalia, papeles y más.">
     <meta name="theme-color" content="#2C3E29">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Catalogo - Awka Liwen Growshop">
-    <meta property="og:description" content="Catalogo completo con filtros por categoria para encontrar productos rapido.">
-    <meta property="og:url" content="https://tienda-awka-new.vercel.app/shop.html">
-    <meta property="og:image" content="https://tienda-awka-new.vercel.app/img/categorias/fertilizantes.jpg">
+    <meta property="og:title" content="Shop - Awka Liwen Growshop">
+    <meta property="og:description" content="Catálogo completo con filtros por categoría para encontrar productos rápido.">
+    <meta property="og:url" content="https://tienda-awka.netlify.app/shop.html">
+    <meta property="og:image" content="https://tienda-awka.netlify.app/img/categorias/fertilizantes.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://tienda-awka-new.vercel.app/shop.html">
+    <link rel="canonical" href="https://tienda-awka.netlify.app/shop.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="manifest" href="site.webmanifest">
-    <title>Catalogo - Awka Liwen Growshop</title>
+    <title>Shop - Awka Liwen Growshop</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Crimson+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -25,18 +25,20 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="index.html" class="logo" aria-label="Awka Liwen"><img src="favicon.svg" alt="Awka Liwen"></a>
+                <a href="index.html" class="logo">Awka Liwen</a>
                 <nav id="mainNav">
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
-                        <li><a href="shop.html" class="active">Catalogo</a></li>
+                        <li><a href="shop.html" class="active">CatÃ¡logo</a></li>
                         <li><a href="index.html#contacto">Contacto</a></li>
                     </ul>
                 </nav>
-                <button class="search-toggle" id="searchToggle" aria-label="Abrir buscador">Buscar</button>
-                <button class="cart-button" onclick="toggleCart()" aria-label="Abrir carrito">Carrito <span class="cart-count" id="cartCount">0</span>
+                <button class="search-toggle" id="searchToggle" aria-label="Abrir buscador">🔍</button>
+                <button class="cart-button" onclick="toggleCart()" aria-label="Abrir carrito">
+                    🛒 Carrito
+                    <span class="cart-count" id="cartCount">0</span>
                 </button>
-                <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleNav()">
+                <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()">
                     <span></span><span></span><span></span>
                 </button>
             </div>
@@ -46,22 +48,22 @@
     <div class="container shop-page-wrapper">
         <section class="shop-hero">
             <div class="shop-hero-copy">
-                <div class="shop-kicker">Catalogo Awka Liwen</div>
-                <h1>Una experiencia de compra mas clara, rapida y cuidada</h1>
-                <p>Explora el catalogo completo, filtra por categoria y encontra desde nutricion y control de plagas hasta herramientas, papeles y accesorios.</p>
+                <div class="shop-kicker">Catálogo Awka Liwen</div>
+                <h1>Una experiencia de compra más clara, rápida y cuidada</h1>
+                <p>Explorá el catálogo completo, filtrá por categoría y encontrá desde nutrición y control de plagas hasta herramientas, papeles y accesorios.</p>
             </div>
             <div class="shop-hero-panel">
                 <div class="shop-hero-stat">
-                    <strong>Categorias curadas</strong>
-                    <span>Acceso directo a las lineas mas buscadas del grow.</span>
+                    <strong>Categorías curadas</strong>
+                    <span>Acceso directo a las líneas más buscadas del grow.</span>
                 </div>
                 <div class="shop-hero-stat">
-                    <strong>Atencion por WhatsApp</strong>
-                    <span>Resolve dudas rapido antes de comprar.</span>
+                    <strong>Atención por WhatsApp</strong>
+                    <span>Resolvé dudas rápido antes de comprar.</span>
                 </div>
                 <div class="shop-hero-stat">
-                    <strong>Retiro y envios</strong>
-                    <span>Compra online y coordina como te quede mejor.</span>
+                    <strong>Retiro y envíos</strong>
+                    <span>Comprá online y coordiná como te quede mejor.</span>
                 </div>
             </div>
         </section>
@@ -69,44 +71,44 @@
         <section class="shop-toolbar">
             <div class="search-section">
                 <div class="search-bar">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar por producto, marca o descripcion">
-                    <span class="search-icon">Buscar</span>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar por producto, marca o descripción">
+                    <span class="search-icon">🔍</span>
                 </div>
             </div>
 
             <div class="filters-wrap">
-                <div class="filters-label">Filtrar por categoria</div>
+                <div class="filters-label">Filtrar por categoría</div>
                 <div class="filters" id="filters">
                     <button class="filter-btn active" data-category="todos">
-                        <span class="filter-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢</span>
-                        <span>Todo el catalogo</span>
+                        <span class="filter-icon">◌</span>
+                        <span>Todo el catálogo</span>
                     </button>
                     <button class="filter-btn" data-category="fertilizantes">
-                        <span class="filter-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿</span>
-                        <span>Fertilizantes & Nutricion</span>
+                        <span class="filter-icon">✿</span>
+                        <span>Fertilizantes & Nutrición</span>
                     </button>
                     <button class="filter-btn" data-category="plaguicidas">
-                        <span class="filter-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡</span>
-                        <span>Control & ProtecciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n</span>
+                        <span class="filter-icon">⟡</span>
+                        <span>Control & Protección</span>
                     </button>
                     <button class="filter-btn" data-category="herramientas">
-                        <span class="filter-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¦</span>
+                        <span class="filter-icon">✦</span>
                         <span>Herramientas</span>
                     </button>
                     <button class="filter-btn" data-category="macetas">
-                        <span class="filter-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢</span>
+                        <span class="filter-icon">◒</span>
                         <span>Macetas & Contenedores</span>
                     </button>
                     <button class="filter-btn" data-category="parafernalia">
-                        <span class="filter-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â </span>
+                        <span class="filter-icon">◆</span>
                         <span>Parafernalia</span>
                     </button>
                     <button class="filter-btn" data-category="papeles">
-                        <span class="filter-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¤</span>
+                        <span class="filter-icon">▤</span>
                         <span>Papeles</span>
                     </button>
                     <button class="filter-btn" data-category="filtros">
-                        <span class="filter-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</span>
+                        <span class="filter-icon">◍</span>
                         <span>Filtros & Tips</span>
                     </button>
                 </div>
@@ -122,19 +124,19 @@
         <div class="container">
             <div class="info-grid">
                 <div class="info-card">
-                    <div class="info-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡</div>
-                    <h3 class="info-title">EnvÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­os a Domicilio</h3>
-                    <p class="info-text">Llevamos tus productos donde estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©s</p>
+                    <div class="info-icon">🚚</div>
+                    <h3 class="info-title">Envíos a Domicilio</h3>
+                    <p class="info-text">Llevamos tus productos donde estés</p>
                 </div>
                 <div class="info-card">
-                    <div class="info-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âª</div>
+                    <div class="info-icon">🏪</div>
                     <h3 class="info-title">Retiro en Tienda</h3>
-                    <p class="info-text">Castelli 97 ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· Lun a SÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡b 17:30-20:30hs</p>
+                    <p class="info-text">Castelli 97 · Lun a Sáb 17:30-20:30hs</p>
                 </div>
                 <div class="info-card">
-                    <div class="info-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³</div>
+                    <div class="info-icon">💳</div>
                     <h3 class="info-title">Todos los Medios de Pago</h3>
-                    <p class="info-text">Efectivo, transferencia, tarjetas y mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡s</p>
+                    <p class="info-text">Efectivo, transferencia, tarjetas y más</p>
                 </div>
             </div>
         </div>
@@ -145,18 +147,18 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Awka Liwen</h3>
-                    <p>Tu growshop de confianza desde 2020. Cultivamos comunidad, cosechamos calidad. EnvÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­os a domicilio y retiro en tienda.</p>
+                    <p>Tu growshop de confianza desde 2020. Cultivamos comunidad, cosechamos calidad. Envíos a domicilio y retiro en tienda.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Contacto</h3>
                     <ul>
-                        <li>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ awkaliwengrow@hotmail.com</li>
-                        <li>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Lun a SÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡b: 17:30 a 20:30hs</li>
-                        <li>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Castelli 97, Buenos Aires</li>
+                        <li>📧 awkaliwengrow@hotmail.com</li>
+                        <li>🕐 Lun a Sáb: 17:30 a 20:30hs</li>
+                        <li>📍 Castelli 97, Buenos Aires</li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>SÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­guenos</h3>
+                    <h3>Síguenos</h3>
                     <ul>
                         <li><a href="https://www.instagram.com/awkaliwengrowshop/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                         <li><a href="mailto:awkaliwengrow@hotmail.com">Correo</a></li>
@@ -185,12 +187,12 @@
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h2>Tu Carrito</h2>
-            <button class="close-cart" onclick="toggleCart()" aria-label="Cerrar carrito">ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â</button>
+            <button class="close-cart" onclick="toggleCart()" aria-label="Cerrar carrito">×</button>
         </div>
         <div class="cart-items" id="cartItems">
             <div class="empty-cart">
-                <div class="empty-cart-icon">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±</div>
-                <p>Tu carrito estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ vacÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­o</p>
+                <div class="empty-cart-icon">🌱</div>
+                <p>Tu carrito está vacío</p>
             </div>
         </div>
         <div class="cart-footer" id="cartFooter" style="display: none;">
@@ -205,7 +207,7 @@
     <!-- Size Modal -->
     <div class="modal-overlay" id="sizeModal" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â</button>
+            <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">×</button>
             <div class="modal-product-header">
                 <div class="modal-product-icon" id="modalIcon"></div>
                 <div class="modal-product-image" id="modalImage" style="display: none;"></div>
