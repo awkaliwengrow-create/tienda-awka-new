@@ -306,6 +306,19 @@ function syncCategoryUI(category) {
     });
 }
 
+function scrollToProductsOnMobile() {
+    if (window.innerWidth > 768) return;
+
+    const productsSection = document.querySelector('.products');
+    if (!productsSection) return;
+
+    const header = document.querySelector('header');
+    const headerOffset = header ? header.offsetHeight : 0;
+    const top = productsSection.getBoundingClientRect().top + window.scrollY - headerOffset - 16;
+
+    window.scrollTo({ top, behavior: 'smooth' });
+}
+
 function applyCategoryFromHash() {
     const category = getCategoryFromHash();
     const searchInput = document.getElementById('searchInput');
@@ -344,6 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const searchInput = document.getElementById('searchInput');
                 const searchTerm = searchInput ? searchInput.value : '';
                 renderProducts(nextCategory, searchTerm);
+                scrollToProductsOnMobile();
 
                 if (nextCategory === 'todos') {
                     window.history.replaceState(null, '', window.location.pathname + window.location.search);
