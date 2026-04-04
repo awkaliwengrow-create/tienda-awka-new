@@ -1737,20 +1737,32 @@ footer {
 
     .hero {
         height: auto;
-        min-height: 78vh;
+        min-height: 74vh;
     }
     .hero .container {
-        padding-top: 5.5rem;
-        padding-bottom: 4rem;
+        padding-top: 4.9rem;
+        padding-bottom: 3.35rem;
     }
     .hero-actions { flex-direction: column; align-items: flex-start; }
-    .hero-cta { width: min(100%, 320px); }
+    .hero h1 { font-size: clamp(2.8rem, 10vw, 4rem); }
+    .hero p { max-width: 34ch; }
+    .hero-cta { width: min(100%, 320px); padding: 0.95rem 1.4rem; }
     .hero-trust { gap: 0.6rem; }
-    .promo-strip { margin-top: 1rem; }
+    .promo-strip { margin-top: 0.9rem; }
     .promo-carousel { grid-template-columns: 1fr; }
     .promo-nav { display: none; }
-    .promo-slide { padding: 2rem 1.5rem; min-height: 300px; border-radius: 0; }
+    .promo-slide { padding: 2rem 1.25rem 2.15rem; min-height: 284px; border-radius: 0; }
+    .promo-slide p { font-size: 0.98rem; line-height: 1.7; }
     .promo-strip .container { padding: 0; }
+    .categories-section,
+    .featured-section { padding: 74px 0; }
+    .section-title { margin-bottom: 40px; }
+    .section-lead { margin: -18px auto 34px; font-size: 0.96rem; line-height: 1.7; }
+    .categories-grid { gap: 1.1rem; }
+    .category-image { height: 170px; }
+    .category-info { padding: 1rem; }
+    .category-name { font-size: 1.08rem; }
+    .category-description { font-size: 0.88rem; }
 
     .contact-float span,
     .whatsapp-float span { display: none; }
@@ -1761,21 +1773,22 @@ footer {
 @media (max-width: 480px) {
     .container { padding: 0 1rem; }
     .hero .container {
-        padding-top: 5rem;
-        padding-bottom: 3rem;
+        padding-top: 4.5rem;
+        padding-bottom: 2.85rem;
     }
     .hero h1 {
-        font-size: 2.9rem;
+        font-size: 2.55rem;
     }
     .hero p {
-        font-size: 1.02rem;
+        font-size: 0.98rem;
     }
     .hero-actions,
     .hero-trust {
         justify-content: flex-start;
     }
     .promo-strip { margin-top: 0.75rem; }
-    .promo-slide h2 { font-size: 1.6rem; }
+    .promo-slide h2 { font-size: 1.75rem; }
+    .promo-slide { min-height: 266px; }
     .cart-button { width: 48px; height: 48px; }
     .shop-page-wrapper { padding: 1.2rem 0 3rem; }
     .shop-hero-copy,
