@@ -772,15 +772,11 @@ nav a.active::after {
 /* ── SEARCH ── */
 .shop-page-wrapper {
     min-height: 60vh;
-    padding: 2rem 0 4rem;
+    padding: 1rem 0 4rem;
 }
 
 .shop-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.28fr) minmax(300px, 0.92fr);
-    gap: 1rem;
-    align-items: stretch;
-    margin-bottom: 1.4rem;
+    display: none;
 }
 
 .shop-hero-copy,
@@ -873,7 +869,7 @@ nav a.active::after {
 
 .shop-toolbar {
     padding: 1.2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.4rem;
     border-radius: 28px;
     background:
         linear-gradient(180deg, rgba(255,255,255,0.96), rgba(245,241,232,0.92));
