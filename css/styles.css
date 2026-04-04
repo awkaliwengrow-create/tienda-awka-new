@@ -86,8 +86,9 @@ header {
 }
 
 .logo img {
-    width: 62px;
-    height: 62px;
+    width: 168px;
+    height: auto;
+    max-height: 62px;
     display: block;
     filter: drop-shadow(0 10px 20px rgba(0,0,0,0.18));
 }
@@ -1675,7 +1676,7 @@ footer {
         position: relative;
     }
 
-    .logo img { width: 52px; height: 52px; }
+    .logo img { width: 132px; height: auto; max-height: 52px; }
 
     .cart-button {
         margin-left: auto;
