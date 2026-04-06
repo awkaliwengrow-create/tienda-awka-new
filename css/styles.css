@@ -1273,6 +1273,21 @@ nav a.active::after {
     box-shadow: 0 8px 25px rgba(201,123,77,0.4);
 }
 
+.cart-actions {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.checkout-btn-secondary {
+    background: linear-gradient(135deg, #2fbf63, #26a851);
+    box-shadow: 0 14px 30px rgba(47, 191, 99, 0.22);
+}
+
+.checkout-btn-secondary:hover {
+    background: linear-gradient(135deg, #26a851, #209247);
+    box-shadow: 0 8px 25px rgba(38, 168, 81, 0.35);
+}
+
 .empty-cart {
     text-align: center;
     padding: 3rem 2rem;

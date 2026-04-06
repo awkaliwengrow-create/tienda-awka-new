@@ -304,8 +304,7 @@ function toggleCart() {
     document.getElementById('cartSidebar').classList.toggle('open');
 }
 
-// Checkout
-function checkout() {
+function checkoutWhatsApp() {
     if (cart.length === 0) {
         alert('Tu carrito esta vacio');
         return;
@@ -313,6 +312,41 @@ function checkout() {
 
     const whatsappUrl = `https://wa.me/${WHATSAPP_ORDER_NUMBER}?text=${encodeURIComponent(formatCartMessage())}`;
     window.open(whatsappUrl, '_blank', 'noopener');
+}
+
+// Checkout
+async function checkout() {
+    if (cart.length === 0) {
+        alert('Tu carrito esta vacio');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/create-preference', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                items: cart.map((item) => ({
+                    title: item.selectedSize ? `${item.name} - ${item.selectedSize}` : item.name,
+                    quantity: item.quantity,
+                    unit_price: item.price
+                }))
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || (!data.init_point && !data.sandbox_init_point)) {
+            throw new Error('Mercado Pago no devolvio una URL de pago');
+        }
+
+        window.location.href = data.sandbox_init_point || data.init_point;
+    } catch (error) {
+        alert('No se pudo iniciar Mercado Pago. Te llevamos a WhatsApp como respaldo.');
+        checkoutWhatsApp();
+    }
 }
 
 // Search functionality
@@ -360,6 +394,27 @@ function applyCategoryFromHash() {
     renderProducts(category, searchTerm);
 }
 
+function handlePaymentStatus() {
+    const params = new URLSearchParams(window.location.search);
+    const paymentStatus = params.get('payment');
+
+    if (!paymentStatus) return;
+
+    if (paymentStatus === 'success') {
+        cart = [];
+        updateCart();
+        alert('Pago aprobado. Gracias por tu compra.');
+    } else if (paymentStatus === 'pending') {
+        alert('Tu pago quedo pendiente. Te avisaremos cuando se confirme.');
+    } else if (paymentStatus === 'failure') {
+        alert('El pago no se completo. Podes intentar de nuevo o pedir por WhatsApp.');
+    }
+
+    params.delete('payment');
+    const cleanUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ''}${window.location.hash}`;
+    window.history.replaceState({}, '', cleanUrl);
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     const searchToggle = document.getElementById('searchToggle');
@@ -403,6 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadCart();
     updateCart();
+    handlePaymentStatus();
 
     // Setup search
     setupSearch();
