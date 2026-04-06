@@ -8,10 +8,10 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Awka Liwen Growshop">
     <meta property="og:description" content="Catálogo natural con fertilizantes, herramientas y parafernalia para cultivadores.">
-    <meta property="og:url" content="https://tienda-awka.netlify.app/">
-    <meta property="og:image" content="https://tienda-awka.netlify.app/img/categorias/fertilizantes.jpg">
+    <meta property="og:url" content="https://tienda-awka-new.vercel.app/">
+    <meta property="og:image" content="https://tienda-awka-new.vercel.app/img/categorias/fertilizantes.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://tienda-awka.netlify.app/">
+    <link rel="canonical" href="https://tienda-awka-new.vercel.app/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="manifest" href="site.webmanifest">
@@ -50,9 +50,6 @@
             <p>Encontrá fertilizantes, control de plagas, herramientas y parafernalia con atención cercana, retiro en tienda y asesoramiento real.</p>
             <div class="hero-actions">
                 <a href="shop.html" class="hero-cta">Explorar catálogo</a>
-            </div>
-                <span>Atención personalizada</span>
-                <span>Medios de pago variados</span>
             </div>
         </div>
     </section>
@@ -278,62 +275,6 @@
             nav.classList.toggle('open');
             btn.classList.toggle('open');
         }
-
-        // Featured products
-        document.addEventListener('DOMContentLoaded', () => {
-            const featuredGrid = document.getElementById('featuredProducts');
-            if (!featuredGrid) return;
-
-            const featured = products.filter(p => p.featured).slice(0, 8);
-            const list = featured.length > 0
-                ? featured
-                : products.sort(() => 0.5 - Math.random()).slice(0, 8);
-
-            featuredGrid.innerHTML = list.map(renderProductCard).join('');
-        });
-
-        function renderProductCard(product) {
-            let priceDisplay = '';
-            if (product.sizes && product.sizes.length > 0) {
-                if (product.sizes.length === 1) {
-                    priceDisplay = `<div class="product-price">$${product.sizes[0].price.toLocaleString()}</div>
-                                    <div class="product-size">${product.sizes[0].size}</div>`;
-                } else {
-                    priceDisplay = `<div class="product-price">Desde $${Math.min(...product.sizes.map(s => s.price)).toLocaleString()}</div>
-                                    <div class="product-size">${product.sizes.length} tamaños</div>`;
-                }
-            }
-
-            const offerBadge = product.offer
-                ? `<div class="offer-badge">${product.offerText || 'OFERTA'}</div>`
-                : '';
-
-            const imageContent = renderProductImage(product);
-
-            const btnAction = product.sizes && product.sizes.length > 1
-                ? `showProductDetails(${product.id})`
-                : `addToCart(${product.id}, 0)`;
-
-            const btnLabel = product.sizes && product.sizes.length > 1
-                ? 'Ver opciones'
-                : 'Agregar';
-
-            return `
-            <div class="product-card" onclick="showProductDetails(${product.id})">
-                ${offerBadge}
-                <div class="product-image">${imageContent}</div>
-                <div class="product-info">
-                    <div class="product-category">${product.brand} · ${getCategoryName(product.category)}</div>
-                    <div class="product-name">${product.name}</div>
-                    <div class="product-description">${product.description}</div>
-                    <div class="product-footer">
-                        <div>${priceDisplay}</div>
-                        <button class="add-to-cart" onclick="event.stopPropagation(); ${btnAction}">${btnLabel}</button>
-                    </div>
-                </div>
-            </div>`;
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             const carousel = document.querySelector('[data-promo-carousel]');
             if (!carousel) return;
@@ -382,3 +323,4 @@
     </script>
 </body>
 </html>
+
