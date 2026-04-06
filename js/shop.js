@@ -338,11 +338,11 @@ async function checkout() {
 
         const data = await response.json();
 
-        if (!response.ok || (!data.init_point && !data.sandbox_init_point)) {
+        if (!response.ok || !data.init_point) {
             throw new Error('Mercado Pago no devolvio una URL de pago');
         }
 
-        window.location.href = data.sandbox_init_point || data.init_point;
+        window.location.href = data.init_point;
     } catch (error) {
         alert('No se pudo iniciar Mercado Pago. Te llevamos a WhatsApp como respaldo.');
         checkoutWhatsApp();
