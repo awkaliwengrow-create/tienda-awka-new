@@ -1,4 +1,6 @@
 // Shop functionality - Cart and filters
+const CART_STORAGE_KEY = 'awka-cart';
+const WHATSAPP_ORDER_NUMBER = '542494009164';
 let cart = [];
 const validCategories = new Set(['todos', 'fertilizantes', 'plaguicidas', 'herramientas', 'macetas', 'parafernalia', 'papeles', 'filtros']);
 
@@ -65,6 +67,39 @@ function getCategoryName(category) {
         'sin-definir': 'Sin Definir'
     };
     return names[category] || category;
+}
+
+function saveCart() {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+}
+
+function loadCart() {
+    try {
+        const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+        cart = savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+        cart = [];
+    }
+}
+
+function formatCartMessage() {
+    const lines = [
+        'Hola Awka Liwen, quiero finalizar esta compra:',
+        ''
+    ];
+
+    cart.forEach(item => {
+        const sizeInfo = item.selectedSize ? ` - ${item.selectedSize}` : '';
+        const subtotal = item.price * item.quantity;
+        lines.push(`- ${item.name}${sizeInfo} x${item.quantity} | $${subtotal.toLocaleString()}`);
+    });
+
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    lines.push('');
+    lines.push(`Total: $${total.toLocaleString()}`);
+    lines.push('Quiero coordinar pago y entrega.');
+
+    return lines.join('\n');
 }
 
 // Render Products
@@ -208,6 +243,8 @@ function updateCart() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
+    saveCart();
+
     cartCount.textContent = totalItems;
     cartTotal.textContent = `$${totalPrice.toLocaleString()}`;
 
@@ -270,16 +307,12 @@ function toggleCart() {
 // Checkout
 function checkout() {
     if (cart.length === 0) {
-        alert('Tu carrito está vacío');
+        alert('Tu carrito esta vacio');
         return;
     }
-    
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    alert(`¡Gracias por tu compra!\n\nTotal: $${total.toLocaleString()}\n\nSerás redirigido al pago...`);
-    
-    cart = [];
-    updateCart();
-    toggleCart();
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_ORDER_NUMBER}?text=${encodeURIComponent(formatCartMessage())}`;
+    window.open(whatsappUrl, '_blank', 'noopener');
 }
 
 // Search functionality
@@ -368,6 +401,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    loadCart();
+    updateCart();
+
     // Setup search
     setupSearch();
 
@@ -376,3 +412,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 window.addEventListener('hashchange', applyCategoryFromHash);
+
