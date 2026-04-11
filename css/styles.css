@@ -1646,6 +1646,528 @@ footer {
     padding: 2rem 0 4rem;
 }
 
+/* CLUB AWKA */
+.club-preview-section,
+.club-pillars-section,
+.club-roadmap-section {
+    padding: 88px 0;
+}
+
+.club-benefits-section,
+.club-profile-section,
+.club-cta-section {
+    padding: 0 0 88px;
+}
+
+.club-preview-shell,
+.club-benefits-shell,
+.club-cta-card,
+.club-hero-panel,
+.club-member-card,
+.club-pillar-card,
+.club-roadmap-item,
+.club-benefit-item,
+.club-preview-card {
+    box-shadow: var(--shadow-md);
+}
+
+.club-preview-shell,
+.club-benefits-shell,
+.club-cta-card {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+    align-items: center;
+    background: linear-gradient(145deg, rgba(61,40,23,0.98), rgba(44,62,41,0.95));
+    color: var(--cream);
+    border-radius: 32px;
+    padding: 2.5rem;
+    border: 1px solid rgba(245,241,232,0.08);
+}
+
+.club-preview-copy h2,
+.club-benefits-copy h2,
+.club-cta-card h2,
+.club-hero-copy h1 {
+    font-size: clamp(2.4rem, 5vw, 4.1rem);
+    line-height: 1.04;
+    margin-bottom: 1rem;
+    color: var(--cream);
+}
+
+.club-preview-copy p,
+.club-benefits-copy p,
+.club-cta-card p,
+.club-hero-copy p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(245,241,232,0.82);
+}
+
+.club-preview-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.95rem;
+    border-radius: var(--radius-pill);
+    background: rgba(245,241,232,0.08);
+    border: 1px solid rgba(245,241,232,0.14);
+    color: var(--leaf);
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.club-preview-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.6rem;
+}
+
+.club-preview-panel,
+.club-hero-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.club-preview-card,
+.club-member-card,
+.club-pillar-card,
+.club-roadmap-item,
+.club-benefit-item {
+    background: linear-gradient(145deg, rgba(245,241,232,0.94), rgba(232,220,196,0.88));
+    border-radius: 24px;
+    padding: 1.35rem;
+    border: 1px solid rgba(61,40,23,0.08);
+}
+
+.club-preview-card strong,
+.club-pillar-card h3,
+.club-roadmap-item h3,
+.club-benefit-item strong,
+.club-member-name {
+    display: block;
+    font-size: 1.25rem;
+    margin-bottom: 0.45rem;
+    color: var(--soil);
+}
+
+.club-preview-card p,
+.club-pillar-card p,
+.club-roadmap-item p,
+.club-benefit-item span,
+.club-member-caption {
+    color: rgba(61,40,23,0.8);
+    line-height: 1.65;
+}
+
+.club-preview-grid,
+.club-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.club-preview-card-primary {
+    background: linear-gradient(145deg, rgba(143,185,134,0.18), rgba(245,241,232,0.92));
+}
+
+.club-preview-label,
+.club-roadmap-phase,
+.club-member-eyebrow {
+    display: inline-flex;
+    margin-bottom: 0.7rem;
+    color: var(--earth-green);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.club-preview-step,
+.club-pillar-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 0.9rem;
+    border-radius: 50%;
+    background: rgba(74,103,65,0.12);
+    color: var(--earth-green);
+    font-weight: 700;
+}
+
+.club-page .contact-float {
+    position: fixed;
+}
+
+.club-page {
+    background:
+        radial-gradient(circle at top left, rgba(143,185,134,0.16), transparent 32%),
+        radial-gradient(circle at right, rgba(201,123,77,0.14), transparent 28%),
+        var(--cream);
+}
+
+.club-header-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.35rem;
+    border-radius: var(--radius-pill);
+    background: rgba(245,241,232,0.12);
+    border: 1px solid rgba(245,241,232,0.18);
+    color: var(--cream);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.club-header-link:hover {
+    background: rgba(245,241,232,0.18);
+    transform: translateY(-2px);
+}
+
+.club-hero {
+    padding: 92px 0 88px;
+}
+
+.club-hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.club-hero-copy {
+    max-width: 620px;
+}
+
+.club-hero-notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.4rem;
+}
+
+.club-hero-notes span {
+    display: inline-flex;
+    padding: 0.65rem 0.95rem;
+    border-radius: var(--radius-pill);
+    background: rgba(44,62,41,0.08);
+    border: 1px solid rgba(74,103,65,0.12);
+    color: var(--earth-dark);
+    font-weight: 600;
+}
+
+.club-member-card {
+    background: linear-gradient(145deg, rgba(44,62,41,0.98), rgba(61,40,23,0.96));
+    border-color: rgba(245,241,232,0.08);
+    color: var(--cream);
+    padding: 2rem;
+}
+
+.club-member-top,
+.club-member-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.club-member-pill {
+    display: inline-flex;
+    align-items: center;
+    height: fit-content;
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--radius-pill);
+    background: rgba(143,185,134,0.14);
+    color: var(--leaf);
+    border: 1px solid rgba(143,185,134,0.16);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.club-member-name,
+.club-member-points,
+.club-member-card .club-member-caption,
+.club-member-stats strong,
+.club-member-stats span {
+    color: var(--cream);
+}
+
+.club-member-balance {
+    display: grid;
+    gap: 0.45rem;
+    padding: 1.35rem 0;
+}
+
+.club-member-points {
+    font-size: 2.6rem;
+    line-height: 1;
+}
+
+.club-member-stats {
+    align-items: stretch;
+}
+
+.club-member-stats div {
+    flex: 1;
+    display: grid;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 18px;
+    background: rgba(245,241,232,0.06);
+    border: 1px solid rgba(245,241,232,0.08);
+}
+
+.club-member-stats span {
+    font-size: 0.9rem;
+    opacity: 0.76;
+}
+
+.club-pillar-card,
+.club-roadmap-item {
+    background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(232,220,196,0.88));
+}
+
+.club-roadmap {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.club-roadmap-item.is-active {
+    background: linear-gradient(145deg, rgba(143,185,134,0.24), rgba(255,255,255,0.9));
+    border-color: rgba(74,103,65,0.18);
+}
+
+.club-benefits-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.club-profile-shell {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.club-profile-intro h2 {
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1.08;
+    margin-bottom: 1rem;
+}
+
+.club-profile-intro p {
+    font-size: 1.02rem;
+    line-height: 1.75;
+    margin-bottom: 1.1rem;
+}
+
+.club-profile-list {
+    list-style: none;
+    display: grid;
+    gap: 0.7rem;
+}
+
+.club-profile-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--earth-dark);
+    font-weight: 600;
+}
+
+.club-profile-list li::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    box-shadow: 0 0 0 6px rgba(201,123,77,0.12);
+}
+
+.club-profile-box,
+.club-profile-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(232,220,196,0.88));
+    border-radius: 28px;
+    border: 1px solid rgba(61,40,23,0.08);
+    box-shadow: var(--shadow-md);
+}
+
+.club-profile-box {
+    padding: 1.5rem;
+}
+
+.club-profile-form label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: var(--earth-dark);
+    font-weight: 700;
+}
+
+.club-profile-form-row {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.club-profile-form-row input {
+    flex: 1;
+    min-height: 56px;
+    border-radius: 18px;
+    border: 1px solid rgba(74,103,65,0.18);
+    padding: 0 1rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.78);
+    color: var(--soil);
+}
+
+.club-profile-form-row input:focus {
+    outline: none;
+    border-color: var(--earth-green);
+    box-shadow: 0 0 0 4px rgba(74,103,65,0.12);
+}
+
+.club-profile-button {
+    min-height: 56px;
+}
+
+.club-profile-feedback {
+    margin-top: 0.8rem;
+    min-height: 24px;
+    color: rgba(61,40,23,0.8);
+}
+
+.club-profile-feedback.is-error {
+    color: #a03f2f;
+}
+
+.club-profile-feedback.is-success {
+    color: var(--earth-green);
+}
+
+.club-profile-result {
+    margin-top: 1rem;
+}
+
+.club-profile-empty {
+    padding: 1.25rem;
+    border-radius: 20px;
+    background: rgba(245,241,232,0.74);
+    border: 1px dashed rgba(74,103,65,0.24);
+    color: rgba(61,40,23,0.78);
+    line-height: 1.7;
+}
+
+.club-profile-card {
+    padding: 1.35rem;
+}
+
+.club-profile-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: start;
+    margin-bottom: 1.2rem;
+}
+
+.club-profile-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.35rem;
+    color: var(--soil);
+}
+
+.club-profile-header p {
+    color: rgba(61,40,23,0.8);
+    line-height: 1.65;
+}
+
+.club-profile-phone {
+    display: inline-flex;
+    padding: 0.65rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background: rgba(74,103,65,0.1);
+    color: var(--earth-green);
+    font-weight: 700;
+}
+
+.club-profile-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.club-profile-stat {
+    display: grid;
+    gap: 0.3rem;
+    padding: 1rem;
+    border-radius: 20px;
+    background: rgba(245,241,232,0.7);
+}
+
+.club-profile-stat strong {
+    font-size: 1.6rem;
+    color: var(--soil);
+}
+
+.club-profile-stat span,
+.club-profile-meta {
+    color: rgba(61,40,23,0.75);
+}
+
+.club-profile-meta {
+    margin-top: 1rem;
+}
+
+.club-profile-history {
+    margin-top: 1.1rem;
+}
+
+.club-profile-history-title {
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    color: var(--soil);
+}
+
+.club-history-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.95rem 0;
+    border-top: 1px solid rgba(61,40,23,0.08);
+}
+
+.club-history-item strong,
+.club-history-badge {
+    color: var(--soil);
+}
+
+.club-history-item span {
+    display: block;
+    color: rgba(61,40,23,0.72);
+}
+
+.club-history-badge {
+    padding: 0.45rem 0.7rem;
+    border-radius: var(--radius-pill);
+    background: rgba(61,40,23,0.06);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.club-history-badge.is-win {
+    background: rgba(74,103,65,0.14);
+    color: var(--earth-green);
+}
+
 /* ── ANIMATIONS ── */
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -1740,6 +2262,37 @@ footer {
         max-width: none;
     }
 
+    .club-preview-shell,
+    .club-benefits-shell,
+    .club-cta-card,
+    .club-hero-grid,
+    .club-profile-shell,
+    .club-roadmap {
+        grid-template-columns: 1fr;
+    }
+
+    .club-preview-grid,
+    .club-pillars-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .club-header-link {
+        display: none;
+    }
+
+    .club-hero,
+    .club-preview-section,
+    .club-pillars-section,
+    .club-roadmap-section {
+        padding: 72px 0;
+    }
+
+    .club-benefits-section,
+    .club-profile-section,
+    .club-cta-section {
+        padding-bottom: 72px;
+    }
+
     .filters {
         justify-content: flex-start;
     }
@@ -1818,6 +2371,36 @@ footer {
     .shop-hero-panel,
     .shop-toolbar { padding: 1rem; }
     .shop-hero-copy h1 { font-size: 1.9rem; }
+    .club-preview-shell,
+    .club-benefits-shell,
+    .club-cta-card,
+    .club-member-card,
+    .club-profile-box,
+    .club-profile-card {
+        padding: 1.35rem;
+        border-radius: 24px;
+    }
+    .club-preview-copy h2,
+    .club-benefits-copy h2,
+    .club-cta-card h2,
+    .club-hero-copy h1 {
+        font-size: 2rem;
+    }
+    .club-preview-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .club-member-top,
+    .club-member-stats {
+        flex-direction: column;
+    }
+    .club-profile-form-row,
+    .club-profile-header {
+        flex-direction: column;
+    }
+    .club-profile-stats {
+        grid-template-columns: 1fr 1fr;
+    }
     .search-input { font-size: 0.98rem; }
     .filters {
         grid-template-columns: 1fr;

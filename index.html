@@ -30,6 +30,7 @@
                     <ul>
                         <li><a href="index.html" class="active">Inicio</a></li>
                         <li><a href="shop.html">Catálogo</a></li>
+                        <li><a href="club.html">Club Awka</a></li>
                         <li><a href="#contacto">Contacto</a></li>
                     </ul>
                 </nav>
@@ -47,9 +48,12 @@
     <section class="hero">
         <div class="container">
             <h1>Todo para tu cultivo, en un solo lugar</h1>
-            <p>Encontrá fertilizantes, control de plagas, herramientas y parafernalia con atención cercana, retiro en tienda y asesoramiento real.</p>
+            <p>Encontrá fertilizantes, control de plagas, herramientas, parafernalia y otros. Con atención cercana, retiro en tienda y asesoramiento real.</p>
             <div class="hero-actions">
                 <a href="shop.html" class="hero-cta">Explorar catálogo</a>
+            </div>
+                <span>Atención personalizada</span>
+                <span>Medios de pago variados</span>
             </div>
         </div>
     </section>
@@ -166,6 +170,51 @@
         </div>
     </section>
 
+    <section class="club-preview-section" id="club-awka">
+        <div class="container">
+            <div class="club-preview-shell">
+                <div class="club-preview-copy">
+                    <div class="club-preview-kicker">Awka Club · Fase 1</div>
+                    <h2>Empezamos a construir el ecosistema Awka</h2>
+                    <p>Sumamos el primer punto de encuentro para la comunidad: un espacio pensado para reunir puntos, desbloquear beneficios y preparar el camino hacia la ruleta y futuras experiencias del Club.</p>
+                    <div class="club-preview-actions">
+                        <a href="club.html" class="hero-cta">Conocer Club Awka</a>
+                        <a href="shop.html" class="promo-link">Ver catálogo</a>
+                    </div>
+                </div>
+                <div class="club-preview-panel" aria-label="Resumen del ecosistema Awka">
+                    <div class="club-preview-card club-preview-card-primary">
+                        <span class="club-preview-label">Awka Club</span>
+                        <strong>Puntos por compra</strong>
+                        <p>Cada compra pasa a ser parte de una relación más larga con la marca, no un pedido aislado.</p>
+                    </div>
+                    <div class="club-preview-grid">
+                        <div class="club-preview-card">
+                            <span class="club-preview-step">01</span>
+                            <strong>Shop</strong>
+                            <p>Compra, consulta y vuelve al grow con más facilidad.</p>
+                        </div>
+                        <div class="club-preview-card">
+                            <span class="club-preview-step">02</span>
+                            <strong>Club</strong>
+                            <p>Perfil, historial, beneficios y acumulación de puntos.</p>
+                        </div>
+                        <div class="club-preview-card">
+                            <span class="club-preview-step">03</span>
+                            <strong>Play</strong>
+                            <p>Ruleta y activaciones especiales cuando el beneficio esté desbloqueado.</p>
+                        </div>
+                        <div class="club-preview-card">
+                            <span class="club-preview-step">04</span>
+                            <strong>Admin</strong>
+                            <p>Control del sistema, giros, premios y seguimiento real.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="info-section" id="contacto">
         <div class="container">
             <div class="info-grid">
@@ -275,6 +324,62 @@
             nav.classList.toggle('open');
             btn.classList.toggle('open');
         }
+
+        // Featured products
+        document.addEventListener('DOMContentLoaded', () => {
+            const featuredGrid = document.getElementById('featuredProducts');
+            if (!featuredGrid) return;
+
+            const featured = products.filter(p => p.featured).slice(0, 8);
+            const list = featured.length > 0
+                ? featured
+                : products.sort(() => 0.5 - Math.random()).slice(0, 8);
+
+            featuredGrid.innerHTML = list.map(renderProductCard).join('');
+        });
+
+        function renderProductCard(product) {
+            let priceDisplay = '';
+            if (product.sizes && product.sizes.length > 0) {
+                if (product.sizes.length === 1) {
+                    priceDisplay = `<div class="product-price">$${product.sizes[0].price.toLocaleString()}</div>
+                                    <div class="product-size">${product.sizes[0].size}</div>`;
+                } else {
+                    priceDisplay = `<div class="product-price">Desde $${Math.min(...product.sizes.map(s => s.price)).toLocaleString()}</div>
+                                    <div class="product-size">${product.sizes.length} tamaños</div>`;
+                }
+            }
+
+            const offerBadge = product.offer
+                ? `<div class="offer-badge">${product.offerText || 'OFERTA'}</div>`
+                : '';
+
+            const imageContent = renderProductImage(product);
+
+            const btnAction = product.sizes && product.sizes.length > 1
+                ? `showProductDetails(${product.id})`
+                : `addToCart(${product.id}, 0)`;
+
+            const btnLabel = product.sizes && product.sizes.length > 1
+                ? 'Ver opciones'
+                : 'Agregar';
+
+            return `
+            <div class="product-card" onclick="showProductDetails(${product.id})">
+                ${offerBadge}
+                <div class="product-image">${imageContent}</div>
+                <div class="product-info">
+                    <div class="product-category">${product.brand} · ${getCategoryName(product.category)}</div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-description">${product.description}</div>
+                    <div class="product-footer">
+                        <div>${priceDisplay}</div>
+                        <button class="add-to-cart" onclick="event.stopPropagation(); ${btnAction}">${btnLabel}</button>
+                    </div>
+                </div>
+            </div>`;
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const carousel = document.querySelector('[data-promo-carousel]');
             if (!carousel) return;
@@ -323,4 +428,3 @@
     </script>
 </body>
 </html>
-
