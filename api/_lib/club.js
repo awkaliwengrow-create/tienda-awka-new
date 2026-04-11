@@ -58,11 +58,14 @@ async function supabaseRequest(path, options = {}) {
 }
 
 function buildProfile({ phone, customer, pointsRow, spins, pendingSpins }) {
-    const history = (spins || []).slice(0, 5).map((spin) => ({
+    const normalizedSpins = (spins || []).map((spin) => ({
         prize: spin.premio || 'Sin resultado',
         winner: Boolean(spin.ganador),
         createdAt: spin.created_at || spin.fecha || null
     }));
+    const history = normalizedSpins.slice(0, 5);
+    const latestWin = normalizedSpins.find((spin) => spin.winner) || null;
+    const latestSpin = normalizedSpins[0] || null;
 
     return {
         exists: Boolean(customer),
@@ -75,8 +78,12 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins }) {
         },
         spins: {
             pending: pendingSpins?.length || 0,
-            total: spins?.length || 0,
-            wins: (spins || []).filter((spin) => spin.ganador).length
+            total: normalizedSpins.length,
+            wins: normalizedSpins.filter((spin) => spin.winner).length,
+            latestPrize: latestSpin?.prize || null,
+            latestPrizeAt: latestSpin?.createdAt || null,
+            latestWinPrize: latestWin?.prize || null,
+            latestWinAt: latestWin?.createdAt || null
         },
         history
     };

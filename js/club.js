@@ -3,6 +3,17 @@ const clubPhoneInput = document.getElementById('clubPhone');
 const clubFeedback = document.getElementById('clubFeedback');
 const clubResult = document.getElementById('clubProfileResult');
 
+const PRIZE_EMOJIS = {
+    'Sin resultado': '🎯',
+    '¡Seguí participando!': '🎯',
+    'Sticker Gratis': '🖼️',
+    '5% OFF': '✨',
+    'Semilla Gratis': '🌱',
+    '10% OFF': '💸',
+    'Humus Gratis': '🪱',
+    '20% OFF': '🔥'
+};
+
 function formatPhone(phone = '') {
     return String(phone).replace(/\D/g, '').slice(-10);
 }
@@ -22,6 +33,41 @@ function formatDate(value) {
     });
 }
 
+function prizeEmoji(prize) {
+    return PRIZE_EMOJIS[prize] || '🎁';
+}
+
+function renderSpinSummary(profile) {
+    if (!profile.spins.total) {
+        return `
+            <div class="club-spin-highlight is-empty">
+                <strong>Todavía no giró la ruleta</strong>
+                <span>Cuando tenga su primer giro registrado, acá vamos a mostrar el último resultado y el último premio ganado.</span>
+            </div>
+        `;
+    }
+
+    const latestPrize = profile.spins.latestPrize || 'Sin resultado';
+    const latestWinPrize = profile.spins.latestWinPrize || 'Todavía sin premio';
+
+    return `
+        <div class="club-spin-highlight">
+            <div class="club-spin-highlight-icon">${prizeEmoji(latestPrize)}</div>
+            <div class="club-spin-highlight-copy">
+                <strong>Último giro: ${latestPrize}</strong>
+                <span>${formatDate(profile.spins.latestPrizeAt)}</span>
+            </div>
+        </div>
+        <div class="club-spin-highlight">
+            <div class="club-spin-highlight-icon">${prizeEmoji(latestWinPrize)}</div>
+            <div class="club-spin-highlight-copy">
+                <strong>Último premio ganado: ${latestWinPrize}</strong>
+                <span>${profile.spins.latestWinAt ? formatDate(profile.spins.latestWinAt) : 'Aún no registra premios ganados'}</span>
+            </div>
+        </div>
+    `;
+}
+
 function renderHistory(items = []) {
     if (!items.length) {
         return '<div class="club-profile-empty">Todavía no hay historial de giros cargado para este perfil.</div>';
@@ -29,9 +75,12 @@ function renderHistory(items = []) {
 
     return items.map((item) => `
         <article class="club-history-item">
-            <div>
+            <div class="club-history-main">
+                <div class="club-history-icon">${prizeEmoji(item.prize)}</div>
+                <div>
                 <strong>${item.prize}</strong>
                 <span>${formatDate(item.createdAt)}</span>
+                </div>
             </div>
             <span class="club-history-badge${item.winner ? ' is-win' : ''}">${item.winner ? 'Premio' : 'Intento'}</span>
         </article>
@@ -74,6 +123,9 @@ function renderProfile(profile) {
             </div>
             <div class="club-profile-meta">
                 <span>Última actividad: ${formatDate(profile.points.lastActivity)}</span>
+            </div>
+            <div class="club-profile-spin-summary">
+                ${renderSpinSummary(profile)}
             </div>
             <div class="club-profile-history">
                 <div class="club-profile-history-title">Historial reciente</div>
