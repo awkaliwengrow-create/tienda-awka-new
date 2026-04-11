@@ -86,9 +86,10 @@ header {
 }
 
 .logo img {
-    width: 154px;
-    height: auto;
-    max-height: 56px;
+    width: auto;
+    height: 58px;
+    max-width: 220px;
+    object-fit: contain;
     display: block;
     filter: drop-shadow(0 10px 20px rgba(0,0,0,0.18));
 }
@@ -1696,7 +1697,7 @@ footer {
         position: relative;
     }
 
-    .logo img { width: 118px; height: auto; max-height: 46px; }
+    .logo img { width: auto; height: 46px; max-width: 170px; }
 
     .cart-button {
         margin-left: auto;
@@ -1793,7 +1794,7 @@ footer {
 
 @media (max-width: 480px) {
     .container { padding: 0 1rem; }
-    .logo img { width: 104px; max-height: 42px; }
+    .logo img { width: auto; height: 40px; max-width: 150px; }
     .hero .container {
         padding-top: 4.5rem;
         padding-bottom: 2.85rem;
