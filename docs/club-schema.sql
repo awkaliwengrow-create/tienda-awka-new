@@ -45,14 +45,27 @@ create table if not exists public.club_puntos_movimientos (
     created_at timestamptz not null default now()
 );
 
+create table if not exists public.club_compras (
+    id bigserial primary key,
+    referencia text not null unique,
+    telefono text not null,
+    nombre text not null,
+    monto_total numeric(12,2) not null default 0,
+    canal text not null default 'mercado_pago',
+    estado text not null default 'aprobada' check (estado in ('aprobada', 'pendiente', 'cancelada')),
+    created_at timestamptz not null default now()
+);
+
 create index if not exists idx_clientes_telefono on public.clientes (telefono);
 create index if not exists idx_puntos_telefono on public.puntos (telefono);
 create index if not exists idx_giros_telefono_estado on public.giros_habilitados (telefono, estado);
 create index if not exists idx_ruleta_telefono_created on public.ruleta_registros (telefono, created_at desc);
 create index if not exists idx_movimientos_telefono_created on public.club_puntos_movimientos (telefono, created_at desc);
+create index if not exists idx_club_compras_telefono_created on public.club_compras (telefono, created_at desc);
 
 comment on table public.clientes is 'Base de identidad liviana para Club Awka.';
 comment on table public.puntos is 'Saldo de puntos acumulados y canjeados por cliente.';
 comment on table public.giros_habilitados is 'Control de acceso a la ruleta y beneficios desbloqueados.';
 comment on table public.ruleta_registros is 'Historial auditable de resultados de ruleta.';
 comment on table public.club_puntos_movimientos is 'Auditoria e idempotencia de puntos acreditados por compras.';
+comment on table public.club_compras is 'Compras aprobadas que permiten calcular nivel y progreso del club.';

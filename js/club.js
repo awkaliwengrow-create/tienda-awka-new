@@ -19,10 +19,10 @@ function formatPhone(phone = '') {
 }
 
 function formatDate(value) {
-    if (!value) return 'Sin actividad aún';
+    if (!value) return 'Sin actividad aun';
 
     const parsed = new Date(value);
-    if (Number.isNaN(parsed.getTime())) return 'Sin actividad aún';
+    if (Number.isNaN(parsed.getTime())) return 'Sin actividad aun';
 
     return parsed.toLocaleString('es-AR', {
         day: '2-digit',
@@ -41,28 +41,28 @@ function renderSpinSummary(profile) {
     if (!profile.spins.total) {
         return `
             <div class="club-spin-highlight is-empty">
-                <strong>Todavía no giró la ruleta</strong>
-                <span>Cuando tenga su primer giro registrado, acá vamos a mostrar el último resultado y el último premio ganado.</span>
+                <strong>Todavia no giro la ruleta</strong>
+                <span>Cuando tenga su primer giro registrado, aca vamos a mostrar el ultimo resultado y el ultimo premio ganado.</span>
             </div>
         `;
     }
 
     const latestPrize = profile.spins.latestPrize || 'Sin resultado';
-    const latestWinPrize = profile.spins.latestWinPrize || 'Todavía sin premio';
+    const latestWinPrize = profile.spins.latestWinPrize || 'Todavia sin premio';
 
     return `
         <div class="club-spin-highlight">
             <div class="club-spin-highlight-icon">${prizeEmoji(latestPrize)}</div>
             <div class="club-spin-highlight-copy">
-                <strong>Último giro: ${latestPrize}</strong>
+                <strong>Ultimo giro: ${latestPrize}</strong>
                 <span>${formatDate(profile.spins.latestPrizeAt)}</span>
             </div>
         </div>
         <div class="club-spin-highlight">
             <div class="club-spin-highlight-icon">${prizeEmoji(latestWinPrize)}</div>
             <div class="club-spin-highlight-copy">
-                <strong>Último premio ganado: ${latestWinPrize}</strong>
-                <span>${profile.spins.latestWinAt ? formatDate(profile.spins.latestWinAt) : 'Aún no registra premios ganados'}</span>
+                <strong>Ultimo premio ganado: ${latestWinPrize}</strong>
+                <span>${profile.spins.latestWinAt ? formatDate(profile.spins.latestWinAt) : 'Aun no registra premios ganados'}</span>
             </div>
         </div>
     `;
@@ -70,7 +70,7 @@ function renderSpinSummary(profile) {
 
 function renderHistory(items = []) {
     if (!items.length) {
-        return '<div class="club-profile-empty">Todavía no hay historial de giros cargado para este perfil.</div>';
+        return '<div class="club-profile-empty">Todavia no hay historial de giros cargado para este perfil.</div>';
     }
 
     return items.map((item) => `
@@ -78,8 +78,8 @@ function renderHistory(items = []) {
             <div class="club-history-main">
                 <div class="club-history-icon">${prizeEmoji(item.prize)}</div>
                 <div>
-                <strong>${item.prize}</strong>
-                <span>${formatDate(item.createdAt)}</span>
+                    <strong>${item.prize}</strong>
+                    <span>${formatDate(item.createdAt)}</span>
                 </div>
             </div>
             <span class="club-history-badge${item.winner ? ' is-win' : ''}">${item.winner ? 'Premio' : 'Intento'}</span>
@@ -87,11 +87,28 @@ function renderHistory(items = []) {
     `).join('');
 }
 
+function renderLevel(profile) {
+    const nextStep = profile.level.nextLabel
+        ? `Te faltan ${profile.level.purchasesToNext} compra${profile.level.purchasesToNext === 1 ? '' : 's'} para pasar a ${profile.level.nextLabel}.`
+        : 'Ya estas en el nivel mas alto de esta primera version del club.';
+
+    return `
+        <div class="club-level-banner">
+            <div class="club-level-badge">${profile.level.label}</div>
+            <div class="club-level-copy">
+                <strong>${profile.level.purchaseCount} compra${profile.level.purchaseCount === 1 ? '' : 's'} aprobada${profile.level.purchaseCount === 1 ? '' : 's'}</strong>
+                <span>${nextStep}</span>
+            </div>
+            <div class="club-level-total">$${Number(profile.level.totalSpent || 0).toLocaleString('es-AR')}</div>
+        </div>
+    `;
+}
+
 function renderProfile(profile) {
     const stateLabel = profile.exists ? 'Perfil encontrado' : 'Perfil listo para activarse';
     const stateCopy = profile.exists
         ? 'Este cliente ya tiene trazabilidad dentro del club y puede crecer sobre puntos, beneficios y giros.'
-        : 'El número todavía no tiene cuenta registrada, pero la base ya está lista para conectarlo al sistema.';
+        : 'El numero todavia no tiene cuenta registrada, pero la base ya esta lista para conectarlo al sistema.';
 
     clubResult.innerHTML = `
         <div class="club-profile-card">
@@ -103,7 +120,8 @@ function renderProfile(profile) {
                 </div>
                 <div class="club-profile-phone">${profile.phone}</div>
             </div>
-            <div class="club-profile-stats">
+            ${renderLevel(profile)}
+            <div class="club-profile-stats club-profile-stats-5">
                 <div class="club-profile-stat">
                     <strong>${profile.points.current}</strong>
                     <span>Puntos activos</span>
@@ -120,9 +138,13 @@ function renderProfile(profile) {
                     <strong>${profile.spins.wins}/${profile.spins.total}</strong>
                     <span>Premios / giros</span>
                 </div>
+                <div class="club-profile-stat">
+                    <strong>${profile.level.label}</strong>
+                    <span>Nivel actual</span>
+                </div>
             </div>
             <div class="club-profile-meta">
-                <span>Última actividad: ${formatDate(profile.points.lastActivity)}</span>
+                <span>Ultima actividad: ${formatDate(profile.points.lastActivity)}</span>
             </div>
             <div class="club-profile-spin-summary">
                 ${renderSpinSummary(profile)}
@@ -133,7 +155,7 @@ function renderProfile(profile) {
             </div>
         </div>
     `;
-};
+}
 
 async function handleClubProfileSubmit(event) {
     event.preventDefault();
@@ -141,7 +163,7 @@ async function handleClubProfileSubmit(event) {
     const phone = formatPhone(clubPhoneInput.value);
 
     if (phone.length < 8) {
-        clubFeedback.textContent = 'Ingresá un WhatsApp válido para consultar el perfil.';
+        clubFeedback.textContent = 'Ingresa un WhatsApp valido para consultar el perfil.';
         clubFeedback.className = 'club-profile-feedback is-error';
         return;
     }
@@ -166,7 +188,7 @@ async function handleClubProfileSubmit(event) {
         clubFeedback.className = 'club-profile-feedback is-error';
         clubResult.innerHTML = `
             <div class="club-profile-empty">
-                Cuando conectemos las credenciales server-side de Supabase, esta consulta va a traer puntos, giros e historial real del cliente.
+                Esta consulta deberia traer puntos, giros, compras y nivel real del cliente.
             </div>
         `;
     }

@@ -2279,6 +2279,53 @@ footer {
     gap: 0.8rem;
 }
 
+.club-profile-stats-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.club-level-banner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem 1.1rem;
+    border-radius: 22px;
+    background: linear-gradient(145deg, rgba(74,103,65,0.12), rgba(245,241,232,0.88));
+}
+
+.club-level-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 96px;
+    min-height: 44px;
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background: var(--earth-green);
+    color: var(--cream);
+    font-weight: 700;
+}
+
+.club-level-copy {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.club-level-copy strong {
+    color: var(--soil);
+}
+
+.club-level-copy span,
+.club-level-total {
+    color: rgba(61,40,23,0.76);
+}
+
+.club-level-total {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
 .club-profile-stat {
     display: grid;
     gap: 0.3rem;
@@ -2636,6 +2683,9 @@ footer {
         flex-direction: column;
     }
     .club-profile-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+    .club-profile-stats-5 {
         grid-template-columns: 1fr 1fr;
     }
     .search-input { font-size: 0.98rem; }

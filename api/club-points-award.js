@@ -127,6 +127,19 @@ module.exports = async (req, res) => {
             })
         });
 
+        await supabaseRequest('club_compras?on_conflict=referencia', {
+            method: 'POST',
+            body: JSON.stringify({
+                referencia: reference,
+                telefono: phone,
+                nombre: name,
+                monto_total: totalAmount,
+                canal: 'mercado_pago',
+                estado: 'aprobada',
+                created_at: new Date().toISOString()
+            })
+        });
+
         json(res, 200, {
             awarded: true,
             duplicate: false,
