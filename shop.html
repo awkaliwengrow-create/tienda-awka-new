@@ -223,6 +223,29 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="checkoutModal" onclick="closeCheckoutModal(event)">
+        <div class="modal-content checkout-modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeCheckoutModal()" aria-label="Cerrar">×</button>
+            <div class="modal-product-header checkout-modal-header">
+                <div class="modal-product-name">Finalizar compra y sumar puntos</div>
+                <div class="modal-product-brand">Antes de ir a Mercado Pago, necesitamos tus datos para acreditar puntos en Club Awka.</div>
+            </div>
+            <form id="checkoutProfileForm" class="checkout-profile-form">
+                <div class="checkout-profile-field">
+                    <label for="checkoutName">Nombre</label>
+                    <input id="checkoutName" name="checkoutName" type="text" placeholder="Ej: Marisol" autocomplete="name">
+                </div>
+                <div class="checkout-profile-field">
+                    <label for="checkoutPhone">WhatsApp</label>
+                    <input id="checkoutPhone" name="checkoutPhone" type="tel" inputmode="numeric" placeholder="Ej: 1123456789" autocomplete="tel">
+                </div>
+                <div class="checkout-profile-help">Cada $5.000 suman 1 punto en esta primera etapa del club.</div>
+                <div id="checkoutProfileFeedback" class="checkout-profile-feedback"></div>
+                <button type="submit" class="checkout-btn">Ir a Mercado Pago</button>
+            </form>
+        </div>
+    </div>
+
     <script src="js/products.js"></script>
     <script src="js/shop.js"></script>
     <script>

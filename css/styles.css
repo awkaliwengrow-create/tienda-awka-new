@@ -1329,6 +1329,60 @@ nav a.active::after {
     box-shadow: 0 28px 60px rgba(44,62,41,0.22);
 }
 
+.checkout-modal-content {
+    max-width: 560px;
+}
+
+.checkout-modal-header {
+    margin-bottom: 1.5rem;
+}
+
+.checkout-profile-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.checkout-profile-field {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.checkout-profile-field label {
+    color: var(--earth-dark);
+    font-weight: 700;
+}
+
+.checkout-profile-field input {
+    min-height: 56px;
+    border-radius: 18px;
+    border: 1px solid rgba(74,103,65,0.18);
+    padding: 0 1rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.78);
+    color: var(--soil);
+}
+
+.checkout-profile-field input:focus {
+    outline: none;
+    border-color: var(--earth-green);
+    box-shadow: 0 0 0 4px rgba(74,103,65,0.12);
+}
+
+.checkout-profile-help,
+.checkout-profile-feedback {
+    color: rgba(61,40,23,0.78);
+    line-height: 1.6;
+}
+
+.checkout-profile-feedback {
+    min-height: 24px;
+}
+
+.checkout-profile-feedback.is-error {
+    color: #a03f2f;
+}
+
 .modal-close {
     position: absolute;
     top: 1rem;
@@ -2423,6 +2477,10 @@ footer {
     .shop-hero-copy,
     .shop-hero-panel,
     .shop-toolbar { padding: 1rem; }
+    .checkout-modal-content {
+        width: calc(100% - 1.5rem);
+        padding: 1.5rem;
+    }
     .shop-hero-copy h1 { font-size: 1.9rem; }
     .club-preview-shell,
     .club-benefits-shell,

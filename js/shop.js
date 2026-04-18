@@ -1,6 +1,9 @@
 // Shop functionality - Cart and filters
 const CART_STORAGE_KEY = 'awka-cart';
+const CHECKOUT_PROFILE_STORAGE_KEY = 'awka-checkout-profile';
+const PENDING_PURCHASE_STORAGE_KEY = 'awka-pending-purchase';
 const WHATSAPP_ORDER_NUMBER = '542494009164';
+const CLUB_POINTS_PER_AMOUNT = 5000;
 let cart = [];
 const validCategories = new Set(['todos', 'fertilizantes', 'plaguicidas', 'herramientas', 'macetas', 'parafernalia', 'papeles', 'filtros']);
 
@@ -80,6 +83,44 @@ function loadCart() {
     } catch (error) {
         cart = [];
     }
+}
+
+function normalizePhone(phone = '') {
+    return String(phone).replace(/\D/g, '').slice(-10);
+}
+
+function saveCheckoutProfile(profile) {
+    localStorage.setItem(CHECKOUT_PROFILE_STORAGE_KEY, JSON.stringify(profile));
+}
+
+function loadCheckoutProfile() {
+    try {
+        const savedProfile = localStorage.getItem(CHECKOUT_PROFILE_STORAGE_KEY);
+        return savedProfile ? JSON.parse(savedProfile) : { name: '', phone: '' };
+    } catch (error) {
+        return { name: '', phone: '' };
+    }
+}
+
+function savePendingPurchase(purchase) {
+    localStorage.setItem(PENDING_PURCHASE_STORAGE_KEY, JSON.stringify(purchase));
+}
+
+function loadPendingPurchase() {
+    try {
+        const savedPurchase = localStorage.getItem(PENDING_PURCHASE_STORAGE_KEY);
+        return savedPurchase ? JSON.parse(savedPurchase) : null;
+    } catch (error) {
+        return null;
+    }
+}
+
+function clearPendingPurchase() {
+    localStorage.removeItem(PENDING_PURCHASE_STORAGE_KEY);
+}
+
+function buildOrderReference(phone) {
+    return `awka-${Date.now()}-${normalizePhone(phone)}`;
 }
 
 function formatCartMessage() {
@@ -321,13 +362,94 @@ async function checkout() {
         return;
     }
 
+    openCheckoutModal();
+}
+
+function openCheckoutModal() {
+    const modal = document.getElementById('checkoutModal');
+    const profile = loadCheckoutProfile();
+    const nameInput = document.getElementById('checkoutName');
+    const phoneInput = document.getElementById('checkoutPhone');
+    const feedback = document.getElementById('checkoutProfileFeedback');
+
+    if (!modal || !nameInput || !phoneInput || !feedback) return;
+
+    nameInput.value = profile.name || '';
+    phoneInput.value = profile.phone || '';
+    feedback.textContent = '';
+    feedback.className = 'checkout-profile-feedback';
+    modal.classList.add('active');
+}
+
+function closeCheckoutModal(event) {
+    if (!event || event.target.id === 'checkoutModal') {
+        const modal = document.getElementById('checkoutModal');
+        if (modal) {
+            modal.classList.remove('active');
+        }
+    }
+}
+
+async function submitCheckoutProfile(event) {
+    event.preventDefault();
+
+    if (cart.length === 0) {
+        alert('Tu carrito esta vacio');
+        closeCheckoutModal();
+        return;
+    }
+
+    const nameInput = document.getElementById('checkoutName');
+    const phoneInput = document.getElementById('checkoutPhone');
+    const feedback = document.getElementById('checkoutProfileFeedback');
+    const submitButton = event.submitter || event.target.querySelector('button[type="submit"]');
+
+    const customer = {
+        name: (nameInput?.value || '').trim(),
+        phone: normalizePhone(phoneInput?.value || '')
+    };
+
+    if (!customer.name) {
+        feedback.textContent = 'Ingresá tu nombre para acreditar puntos.';
+        feedback.className = 'checkout-profile-feedback is-error';
+        return;
+    }
+
+    if (customer.phone.length < 8) {
+        feedback.textContent = 'Ingresá un WhatsApp válido para acreditar puntos.';
+        feedback.className = 'checkout-profile-feedback is-error';
+        return;
+    }
+
+    feedback.textContent = 'Preparando tu pago...';
+    feedback.className = 'checkout-profile-feedback';
+
+    if (submitButton) {
+        submitButton.disabled = true;
+    }
+
     try {
+        const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const reference = buildOrderReference(customer.phone);
+
+        saveCheckoutProfile(customer);
+        savePendingPurchase({
+            reference,
+            phone: customer.phone,
+            name: customer.name,
+            totalAmount,
+            createdAt: new Date().toISOString()
+        });
+
         const response = await fetch('/api/create-preference', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                customer,
+                reference,
+                total_amount: totalAmount,
                 items: cart.map((item) => ({
                     title: item.selectedSize ? `${item.name} - ${item.selectedSize}` : item.name,
                     quantity: item.quantity,
@@ -342,8 +464,14 @@ async function checkout() {
             throw new Error('Mercado Pago no devolvio una URL de pago');
         }
 
+        closeCheckoutModal();
         window.location.href = data.init_point;
     } catch (error) {
+        if (submitButton) {
+            submitButton.disabled = false;
+        }
+        feedback.textContent = 'No se pudo iniciar Mercado Pago. Te llevamos a WhatsApp como respaldo.';
+        feedback.className = 'checkout-profile-feedback is-error';
         alert('No se pudo iniciar Mercado Pago. Te llevamos a WhatsApp como respaldo.');
         checkoutWhatsApp();
     }
@@ -397,13 +525,14 @@ function applyCategoryFromHash() {
 function handlePaymentStatus() {
     const params = new URLSearchParams(window.location.search);
     const paymentStatus = params.get('payment');
+    const reference = params.get('reference');
 
     if (!paymentStatus) return;
 
     if (paymentStatus === 'success') {
+        processApprovedPurchase(reference);
         cart = [];
         updateCart();
-        alert('Pago aprobado. Gracias por tu compra.');
     } else if (paymentStatus === 'pending') {
         alert('Tu pago quedo pendiente. Te avisaremos cuando se confirme.');
     } else if (paymentStatus === 'failure') {
@@ -413,6 +542,51 @@ function handlePaymentStatus() {
     params.delete('payment');
     const cleanUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ''}${window.location.hash}`;
     window.history.replaceState({}, '', cleanUrl);
+}
+
+async function processApprovedPurchase(referenceFromUrl) {
+    const pendingPurchase = loadPendingPurchase();
+
+    if (!pendingPurchase) {
+        alert('Pago aprobado. Gracias por tu compra.');
+        return;
+    }
+
+    if (referenceFromUrl && pendingPurchase.reference !== referenceFromUrl) {
+        alert('Pago aprobado. Gracias por tu compra.');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/club-points-award', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                reference: pendingPurchase.reference,
+                phone: pendingPurchase.phone,
+                name: pendingPurchase.name,
+                totalAmount: pendingPurchase.totalAmount
+            })
+        });
+
+        const data = await response.json();
+        clearPendingPurchase();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Pago aprobado, pero no pudimos acreditar los puntos.');
+        }
+
+        const awardedPoints = Number(data.points) || 0;
+        const suffix = awardedPoints > 0
+            ? ` Sumaste ${awardedPoints} punto${awardedPoints === 1 ? '' : 's'} en Club Awka.`
+            : ` Esta compra queda lista para Club Awka, pero no sumó puntos porque el monto no alcanzó $${CLUB_POINTS_PER_AMOUNT.toLocaleString('es-AR')}.`;
+
+        alert(`Pago aprobado. Gracias por tu compra.${suffix}`);
+    } catch (error) {
+        alert(error.message || 'Pago aprobado. Gracias por tu compra.');
+    }
 }
 
 // Initialize
@@ -459,6 +633,11 @@ document.addEventListener('DOMContentLoaded', () => {
     loadCart();
     updateCart();
     handlePaymentStatus();
+
+    const checkoutProfileForm = document.getElementById('checkoutProfileForm');
+    if (checkoutProfileForm) {
+        checkoutProfileForm.addEventListener('submit', submitCheckoutProfile);
+    }
 
     // Setup search
     setupSearch();

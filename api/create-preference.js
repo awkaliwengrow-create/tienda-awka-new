@@ -33,6 +33,7 @@ module.exports = async (req, res) => {
     try {
         const body = await readJsonBody(req);
         const items = Array.isArray(body.items) ? body.items : [];
+        const customer = body.customer && typeof body.customer === 'object' ? body.customer : {};
 
         if (items.length === 0) {
             res.status(400).json({ error: 'Cart is empty' });
@@ -40,6 +41,7 @@ module.exports = async (req, res) => {
         }
 
         const siteUrl = process.env.SITE_URL || `https://${req.headers.host}`;
+        const reference = body.reference || `awka-${Date.now()}`;
         const preferencePayload = {
             items: items.map((item) => ({
                 title: item.title,
@@ -48,13 +50,18 @@ module.exports = async (req, res) => {
                 currency_id: 'ARS'
             })),
             back_urls: {
-                success: `${siteUrl}/shop.html?payment=success`,
-                pending: `${siteUrl}/shop.html?payment=pending`,
-                failure: `${siteUrl}/shop.html?payment=failure`
+                success: `${siteUrl}/shop.html?payment=success&reference=${encodeURIComponent(reference)}`,
+                pending: `${siteUrl}/shop.html?payment=pending&reference=${encodeURIComponent(reference)}`,
+                failure: `${siteUrl}/shop.html?payment=failure&reference=${encodeURIComponent(reference)}`
             },
             auto_return: 'approved',
             statement_descriptor: 'AWKA LIWEN',
-            external_reference: body.reference || `awka-${Date.now()}`
+            external_reference: reference,
+            metadata: {
+                customer_name: customer.name || '',
+                customer_phone: customer.phone || '',
+                awka_total_amount: Number(body.total_amount) || 0
+            }
         };
 
         const mpResponse = await fetch(MERCADO_PAGO_API, {
@@ -79,7 +86,8 @@ module.exports = async (req, res) => {
         res.status(200).json({
             id: data.id,
             init_point: data.init_point,
-            sandbox_init_point: data.sandbox_init_point
+            sandbox_init_point: data.sandbox_init_point,
+            reference
         });
     } catch (error) {
         res.status(500).json({
