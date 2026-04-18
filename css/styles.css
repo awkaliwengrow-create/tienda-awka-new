@@ -2022,6 +2022,14 @@ footer {
     align-items: start;
 }
 
+.club-dashboard-shell-minimal {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(61,40,23,0.08);
+}
+
 .club-dashboard-copy {
     max-width: 560px;
 }
@@ -2044,6 +2052,11 @@ footer {
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 1.5rem;
+}
+
+.club-dashboard-actions-compact {
+    margin-top: 0;
+    justify-content: flex-end;
 }
 
 .club-dashboard-cards,
@@ -2096,6 +2109,112 @@ footer {
 
 .club-quick-panel {
     padding: 0 0 40px;
+}
+
+.club-kpi-panel {
+    padding: 28px 0 44px;
+}
+
+.club-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.club-kpi-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(245,241,232,0.9));
+    border-radius: 22px;
+    border: 1px solid rgba(61,40,23,0.08);
+    padding: 1.2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.club-kpi-card-highlight {
+    background: linear-gradient(145deg, rgba(74,103,65,0.14), rgba(245,241,232,0.92));
+}
+
+.club-kpi-label {
+    display: inline-flex;
+    margin-bottom: 0.65rem;
+    color: var(--earth-green);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.club-kpi-card strong {
+    display: block;
+    color: var(--soil);
+    margin-bottom: 0.35rem;
+}
+
+.club-kpi-card p {
+    color: rgba(61,40,23,0.76);
+    line-height: 1.55;
+}
+
+.club-dashboard-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.club-side-card {
+    position: sticky;
+    top: 110px;
+    background: linear-gradient(180deg, rgba(44,62,41,0.98), rgba(61,40,23,0.96));
+    color: var(--cream);
+    border-radius: 24px;
+    padding: 1.2rem;
+    box-shadow: var(--shadow-md);
+}
+
+.club-side-card h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.club-side-actions {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.club-side-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    border-radius: 18px;
+    border: 1px solid rgba(245,241,232,0.14);
+    background: rgba(245,241,232,0.06);
+    color: var(--cream);
+    text-decoration: none;
+    font-weight: 700;
+    font-family: 'Crimson Pro', serif;
+}
+
+.club-side-link.is-primary {
+    background: linear-gradient(135deg, var(--terracotta), var(--clay));
+    border: none;
+}
+
+.club-side-link[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.club-side-note {
+    margin-top: 1rem;
+    color: rgba(245,241,232,0.76);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.club-profile-box-dashboard {
+    padding: 1.4rem;
 }
 
 .club-quick-grid {
@@ -2550,7 +2669,12 @@ footer {
     .club-preview-grid,
     .club-pillars-grid,
     .club-dashboard-cards,
-    .club-quick-grid {
+    .club-quick-grid,
+    .club-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .club-dashboard-layout {
         grid-template-columns: 1fr;
     }
 
@@ -2681,6 +2805,9 @@ footer {
     .club-profile-header,
     .club-profile-panel-head {
         flex-direction: column;
+    }
+    .club-dashboard-actions-compact {
+        justify-content: flex-start;
     }
     .club-profile-stats {
         grid-template-columns: 1fr 1fr;

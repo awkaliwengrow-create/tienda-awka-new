@@ -45,57 +45,37 @@
     <main>
         <section class="club-dashboard-hero">
             <div class="container">
-                <div class="club-dashboard-shell">
+                <div class="club-dashboard-shell club-dashboard-shell-minimal">
                     <div class="club-dashboard-copy">
                         <div class="club-preview-kicker">Mi Club Awka</div>
-                        <h1>Puntos, giros y beneficios en un solo lugar</h1>
-                        <p>Entrá con tu WhatsApp para ver tu saldo, tus giros disponibles y el historial de premios del club.</p>
-                        <div class="club-dashboard-actions">
-                            <a href="#perfil" class="hero-cta">Ver mi perfil</a>
-                            <a href="shop.html" class="promo-link">Seguir comprando</a>
-                        </div>
+                        <h1>Tu panel de puntos y beneficios</h1>
+                        <p>Consultá tu estado del club, revisá tus giros y seguí tu progreso dentro de Awka.</p>
                     </div>
-                    <div class="club-dashboard-cards">
-                        <article class="club-mini-card">
-                            <span class="club-mini-label">Puntos</span>
-                            <strong>Se acumulan con cada compra</strong>
-                            <p>Esta etapa ya acredita puntos desde compras aprobadas.</p>
-                        </article>
-                        <article class="club-mini-card">
-                            <span class="club-mini-label">Ruleta</span>
-                            <strong>Giros disponibles</strong>
-                            <p>Si tenés giros pendientes, tu perfil los va a mostrar en cuanto ingreses.</p>
-                        </article>
-                        <article class="club-mini-card club-mini-card-soft">
-                            <span class="club-mini-label">Beneficios</span>
-                            <strong>No todos reciben lo mismo</strong>
-                            <p>El club va a premiar mejor a quienes vuelven y construyen fidelidad real.</p>
-                        </article>
+                    <div class="club-dashboard-actions club-dashboard-actions-compact">
+                        <a href="#perfil" class="hero-cta">Ver mi perfil</a>
+                        <a href="shop.html" class="promo-link">Seguir comprando</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="club-quick-panel">
+        <section class="club-kpi-panel">
             <div class="container">
-                <div class="club-quick-grid">
-                    <article class="club-action-card">
-                        <span class="club-action-kicker">Consulta rápida</span>
-                        <h2>Mi perfil</h2>
-                        <p>Revisá tus puntos, tus giros y tu historial reciente.</p>
-                        <a href="#perfil" class="promo-link">Consultar ahora</a>
+                <div class="club-kpi-grid">
+                    <article class="club-kpi-card">
+                        <span class="club-kpi-label">Puntos</span>
+                        <strong>Se acreditan con compras aprobadas</strong>
+                        <p>Tu saldo y tu avance dentro del club se actualizan desde backend.</p>
                     </article>
-                    <article class="club-action-card">
-                        <span class="club-action-kicker">Próximamente</span>
-                        <h2>Ir a la ruleta</h2>
-                        <p>La ruleta va a quedar integrada como acción directa desde este panel.</p>
-                        <span class="club-action-note">Visible cuando el perfil tenga giros pendientes.</span>
+                    <article class="club-kpi-card">
+                        <span class="club-kpi-label">Ruleta</span>
+                        <strong>Mostrará tus giros disponibles</strong>
+                        <p>La acción directa va a vivir acá, visible cuando tengas acceso habilitado.</p>
                     </article>
-                    <article class="club-action-card">
-                        <span class="club-action-kicker">Lógica del club</span>
-                        <h2>Cliente nuevo, recurrente o fiel</h2>
-                        <p>La experiencia va a crecer por niveles de relación con la marca, no igual para todos.</p>
-                        <span class="club-action-note">Esta parte la vamos a desarrollar en la siguiente etapa.</span>
+                    <article class="club-kpi-card club-kpi-card-highlight">
+                        <span class="club-kpi-label">Nivel</span>
+                        <strong>Nuevo, Recurrente o Fiel</strong>
+                        <p>La fidelidad real va a desbloquear más valor, no todos reciben lo mismo.</p>
                     </article>
                 </div>
             </div>
@@ -103,14 +83,23 @@
 
         <section class="club-profile-section" id="perfil">
             <div class="container">
-                <div class="club-profile-shell club-profile-shell-single">
-                    <div class="club-profile-box">
+                <div class="club-dashboard-layout">
+                    <aside class="club-side-card">
+                        <div class="club-preview-kicker">Accesos</div>
+                        <h2>Mi Club</h2>
+                        <div class="club-side-actions">
+                            <a href="#perfil" class="club-side-link is-primary">Consultar perfil</a>
+                            <button type="button" class="club-side-link" disabled>Ir a la ruleta</button>
+                        </div>
+                        <div class="club-side-note">La ruleta se va a habilitar desde este panel cuando existan giros pendientes.</div>
+                    </aside>
+                    <div class="club-profile-box club-profile-box-dashboard">
                         <div class="club-profile-panel-head">
                             <div>
                                 <div class="club-preview-kicker">Perfil</div>
-                                <h2>Consultar mi Club Awka</h2>
+                                <h2>Estado del club</h2>
                             </div>
-                            <p>Ingresá tu WhatsApp para ver tus puntos acumulados, giros disponibles y últimos movimientos.</p>
+                            <p>Ingresá tu WhatsApp para ver puntos, nivel, progreso, giros y actividad reciente.</p>
                         </div>
                         <form id="clubProfileForm" class="club-profile-form">
                             <label for="clubPhone">WhatsApp del cliente</label>
@@ -122,7 +111,7 @@
                         </form>
                         <div id="clubProfileResult" class="club-profile-result">
                             <div class="club-profile-empty">
-                                Tu perfil va a mostrar puntos activos, giros pendientes, últimos premios y actividad reciente.
+                                Acá vas a ver tu panel real del club: puntos, compras aprobadas, nivel actual, progreso y últimos movimientos.
                             </div>
                         </div>
                     </div>
