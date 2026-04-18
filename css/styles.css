@@ -2333,6 +2333,61 @@ footer {
     min-height: 56px;
 }
 
+.club-auth-shell {
+    display: grid;
+    gap: 1rem;
+}
+
+.club-auth-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem 1.05rem;
+    border-radius: 20px;
+    background: rgba(74,103,65,0.08);
+}
+
+.club-auth-summary strong {
+    color: var(--soil);
+    font-size: 1.05rem;
+}
+
+.club-auth-back {
+    border: 1px solid rgba(74,103,65,0.18);
+    background: rgba(255,255,255,0.7);
+    color: var(--earth-dark);
+    min-height: 46px;
+    padding: 0 1rem;
+    border-radius: 999px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.98rem;
+    cursor: pointer;
+}
+
+.club-auth-name-field {
+    margin-bottom: 1rem;
+}
+
+.club-auth-name-field input {
+    width: 100%;
+    min-height: 56px;
+    border-radius: 18px;
+    border: 1px solid rgba(74,103,65,0.18);
+    padding: 0 1rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.78);
+    color: var(--soil);
+}
+
+.club-auth-name-field input:focus {
+    outline: none;
+    border-color: var(--earth-green);
+    box-shadow: 0 0 0 4px rgba(74,103,65,0.12);
+}
+
 .club-profile-feedback {
     margin-top: 0.8rem;
     min-height: 24px;
@@ -2801,10 +2856,12 @@ footer {
     .club-member-stats {
         flex-direction: column;
     }
+    .club-auth-summary,
     .club-profile-form-row,
     .club-profile-header,
     .club-profile-panel-head {
         flex-direction: column;
+        align-items: stretch;
     }
     .club-dashboard-actions-compact {
         justify-content: flex-start;

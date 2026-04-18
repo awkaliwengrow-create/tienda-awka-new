@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Club Awka: el nuevo universo de fidelización de Awka Liwen con puntos, beneficios, ruleta y experiencias para la comunidad.">
+    <meta name="description" content="Club Awka: puntos, beneficios, niveles y acceso privado para la comunidad de Awka Liwen.">
     <meta name="theme-color" content="#2C3E29">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Club Awka - Awka Liwen">
-    <meta property="og:description" content="Descubrí cómo va a crecer el ecosistema Awka con puntos, beneficios y experiencias exclusivas.">
+    <meta property="og:description" content="Accede a tu perfil del club para ver puntos, compras, nivel y giros disponibles.">
     <meta property="og:url" content="https://tienda-awka-new.vercel.app/club.html">
     <meta property="og:image" content="https://tienda-awka-new.vercel.app/img/categorias/fertilizantes.jpg">
     <meta name="twitter:card" content="summary_large_image">
@@ -15,7 +15,7 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="manifest" href="site.webmanifest">
-    <title>Club Awka - Puntos, beneficios y experiencias</title>
+    <title>Club Awka - Mi club</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Crimson+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -29,13 +29,13 @@
                 <nav id="mainNav">
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
-                        <li><a href="shop.html">Catálogo</a></li>
+                        <li><a href="shop.html">Catalogo</a></li>
                         <li><a href="club.html" class="active">Club Awka</a></li>
                         <li><a href="index.html#contacto">Contacto</a></li>
                     </ul>
                 </nav>
-                <a href="shop.html" class="club-header-link">Ir al catálogo</a>
-                <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()">
+                <a href="shop.html" class="club-header-link">Ir al catalogo</a>
+                <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleNav()">
                     <span></span><span></span><span></span>
                 </button>
             </div>
@@ -48,11 +48,11 @@
                 <div class="club-dashboard-shell club-dashboard-shell-minimal">
                     <div class="club-dashboard-copy">
                         <div class="club-preview-kicker">Mi Club Awka</div>
-                        <h1>Tu panel de puntos y beneficios</h1>
-                        <p>Consultá tu estado del club, revisá tus giros y seguí tu progreso dentro de Awka.</p>
+                        <h1>Tu panel privado de puntos y beneficios</h1>
+                        <p>Entra con tu WhatsApp y PIN para ver tu nivel, tus puntos, tus compras aprobadas y tus giros disponibles.</p>
                     </div>
                     <div class="club-dashboard-actions club-dashboard-actions-compact">
-                        <a href="#perfil" class="hero-cta">Ver mi perfil</a>
+                        <a href="#perfil" class="hero-cta">Ingresar</a>
                         <a href="shop.html" class="promo-link">Seguir comprando</a>
                     </div>
                 </div>
@@ -63,19 +63,19 @@
             <div class="container">
                 <div class="club-kpi-grid">
                     <article class="club-kpi-card">
-                        <span class="club-kpi-label">Puntos</span>
-                        <strong>Se acreditan con compras aprobadas</strong>
-                        <p>Tu saldo y tu avance dentro del club se actualizan desde backend.</p>
+                        <span class="club-kpi-label">Acceso</span>
+                        <strong>WhatsApp + PIN de 4 digitos</strong>
+                        <p>Tu perfil deja de ser una consulta publica y pasa a funcionar como acceso real.</p>
                     </article>
                     <article class="club-kpi-card">
                         <span class="club-kpi-label">Ruleta</span>
-                        <strong>Mostrará tus giros disponibles</strong>
-                        <p>La acción directa va a vivir acá, visible cuando tengas acceso habilitado.</p>
+                        <strong>Se activa desde tu panel</strong>
+                        <p>Cuando tengas giros pendientes, este espacio se conecta con la experiencia de juego.</p>
                     </article>
                     <article class="club-kpi-card club-kpi-card-highlight">
                         <span class="club-kpi-label">Nivel</span>
                         <strong>Nuevo, Recurrente o Fiel</strong>
-                        <p>La fidelidad real va a desbloquear más valor, no todos reciben lo mismo.</p>
+                        <p>La fidelidad real se construye con compras aprobadas y beneficios progresivos.</p>
                     </article>
                 </div>
             </div>
@@ -85,33 +85,60 @@
             <div class="container">
                 <div class="club-dashboard-layout">
                     <aside class="club-side-card">
-                        <div class="club-preview-kicker">Accesos</div>
+                        <div class="club-preview-kicker">Acceso</div>
                         <h2>Mi Club</h2>
                         <div class="club-side-actions">
-                            <a href="#perfil" class="club-side-link is-primary">Consultar perfil</a>
-                            <button type="button" class="club-side-link" disabled>Ir a la ruleta</button>
+                            <a href="#perfil" class="club-side-link is-primary">Ingresar</a>
+                            <button type="button" id="clubLogoutButton" class="club-side-link" hidden>Cerrar sesion</button>
                         </div>
-                        <div class="club-side-note">La ruleta se va a habilitar desde este panel cuando existan giros pendientes.</div>
+                        <div class="club-side-note">Desde este panel entras a tu cuenta y despues ves puntos, nivel, historial y ruleta.</div>
                     </aside>
+
                     <div class="club-profile-box club-profile-box-dashboard">
                         <div class="club-profile-panel-head">
                             <div>
                                 <div class="club-preview-kicker">Perfil</div>
                                 <h2>Estado del club</h2>
                             </div>
-                            <p>Ingresá tu WhatsApp para ver puntos, nivel, progreso, giros y actividad reciente.</p>
+                            <p>Primero valida tu acceso. Si todavia no tienes PIN, lo creas aca mismo.</p>
                         </div>
-                        <form id="clubProfileForm" class="club-profile-form">
-                            <label for="clubPhone">WhatsApp del cliente</label>
-                            <div class="club-profile-form-row">
-                                <input id="clubPhone" name="clubPhone" type="tel" inputmode="numeric" placeholder="Ej: 1123456789" autocomplete="off">
-                                <button type="submit" class="hero-cta club-profile-button">Consultar</button>
-                            </div>
-                            <div id="clubFeedback" class="club-profile-feedback">Ingresá tu número para ver tu estado dentro del club.</div>
-                        </form>
+
+                        <div id="clubAuthShell" class="club-auth-shell">
+                            <form id="clubPhoneForm" class="club-profile-form">
+                                <label for="clubPhone">WhatsApp del cliente</label>
+                                <div class="club-profile-form-row">
+                                    <input id="clubPhone" name="clubPhone" type="tel" inputmode="numeric" placeholder="Ej: 1123456789" autocomplete="tel">
+                                    <button type="submit" class="hero-cta club-profile-button">Continuar</button>
+                                </div>
+                                <div id="clubPhoneFeedback" class="club-profile-feedback">Ingresa tu numero para revisar tu acceso al club.</div>
+                            </form>
+
+                            <form id="clubPinForm" class="club-profile-form" hidden>
+                                <div class="club-auth-summary">
+                                    <div>
+                                        <div class="club-member-eyebrow" id="clubAuthMode">Ingreso</div>
+                                        <strong id="clubAuthPhone">-</strong>
+                                    </div>
+                                    <button type="button" id="clubAuthBack" class="club-auth-back">Cambiar numero</button>
+                                </div>
+
+                                <div id="clubAuthNameField" class="club-auth-name-field" hidden>
+                                    <label for="clubName">Nombre</label>
+                                    <input id="clubName" name="clubName" type="text" placeholder="Tu nombre" autocomplete="name">
+                                </div>
+
+                                <label for="clubPin">PIN de 4 digitos</label>
+                                <div class="club-profile-form-row">
+                                    <input id="clubPin" name="clubPin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="0000" autocomplete="one-time-code">
+                                    <button type="submit" class="hero-cta club-profile-button">Entrar</button>
+                                </div>
+                                <div id="clubPinFeedback" class="club-profile-feedback">Usa un PIN de 4 digitos para ingresar o crear tu acceso.</div>
+                            </form>
+                        </div>
+
                         <div id="clubProfileResult" class="club-profile-result">
                             <div class="club-profile-empty">
-                                Acá vas a ver tu panel real del club: puntos, compras aprobadas, nivel actual, progreso y últimos movimientos.
+                                Aca vas a ver tu panel real del club cuando inicies sesion: puntos, compras aprobadas, nivel actual, progreso y ultimos movimientos.
                             </div>
                         </div>
                     </div>
@@ -126,14 +153,14 @@
                 <div class="footer-section footer-brand">
                     <div class="footer-badge">Growshop natural</div>
                     <h3>Awka Liwen</h3>
-                    <p>Awka Club nace como la capa de comunidad del grow: una experiencia pensada para acompañar la compra antes, durante y después.</p>
+                    <p>Club Awka es la capa de comunidad del grow: una experiencia pensada para acompanar la compra antes, durante y despues.</p>
                 </div>
                 <div class="footer-section footer-contact">
                     <h3>Contacto</h3>
                     <ul class="footer-list">
-                        <li>📧 awkaliwengrow@hotmail.com</li>
-                        <li>🕐 Lun a Sáb: 17:30 a 20:30hs</li>
-                        <li>📍 Castelli 97, Buenos Aires</li>
+                        <li>awkaliwengrow@hotmail.com</li>
+                        <li>Lun a Sab: 17:30 a 20:30hs</li>
+                        <li>Castelli 97, Buenos Aires</li>
                     </ul>
                 </div>
                 <div class="footer-section footer-social">
@@ -150,7 +177,7 @@
         </div>
     </footer>
 
-    <a href="https://wa.me/542494009164?text=Hola%20Awka%20Liwen%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Club%20Awka"
+    <a href="https://wa.me/542494009164?text=Hola%20Awka%20Liwen%2C%20quiero%20saber%20mas%20sobre%20Club%20Awka"
        class="contact-float contact-float--whatsapp"
        target="_blank"
        rel="noopener noreferrer"
