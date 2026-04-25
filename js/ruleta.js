@@ -5,7 +5,8 @@ const PRIZES = [
     {
         code: 'miss',
         label: 'Segui participando',
-        emoji: '🎯',
+        mark: 'TRY',
+        badge: 'TRY',
         desc: 'La proxima puede ser tuya. Vuelve con tu siguiente compra.',
         color: '#0f2414',
         winner: false,
@@ -14,7 +15,8 @@ const PRIZES = [
     {
         code: 'discount-5',
         label: '5% OFF',
-        emoji: '✨',
+        mark: '5%',
+        badge: '5%',
         desc: 'Descuento para tu proxima compra segun condiciones del local.',
         color: '#1c4025',
         winner: true,
@@ -24,7 +26,8 @@ const PRIZES = [
     {
         code: 'discount-10',
         label: '10% OFF',
-        emoji: '💸',
+        mark: '10%',
+        badge: '10%',
         desc: 'Un descuento mas fuerte para premiar tu avance.',
         color: '#2a5c30',
         winner: true,
@@ -34,7 +37,8 @@ const PRIZES = [
     {
         code: 'product-raw-classic',
         label: 'Raw Classic',
-        emoji: '📄',
+        mark: 'RAW',
+        badge: 'RAW',
         desc: 'Premio real del catalogo para retirar o coordinar con Awka.',
         color: '#173320',
         winner: true,
@@ -45,7 +49,8 @@ const PRIZES = [
     {
         code: 'product-tips-silver',
         label: 'Tips Silver',
-        emoji: '🧩',
+        mark: 'TIPS',
+        badge: 'TIP',
         desc: 'Premio real del catalogo para sumar al ecosistema Awka.',
         color: '#224d2a',
         winner: true,
@@ -56,7 +61,8 @@ const PRIZES = [
     {
         code: 'product-fumanchu',
         label: 'Fumanchu Blanco',
-        emoji: '🎁',
+        mark: 'FUM',
+        badge: 'FUM',
         desc: 'Premio real del catalogo listo para canjear.',
         color: '#183820',
         winner: true,
@@ -67,7 +73,8 @@ const PRIZES = [
     {
         code: 'product-zeus-pink',
         label: 'Zeus Pink',
-        emoji: '🩷',
+        mark: 'ZEUS',
+        badge: 'ZS',
         desc: 'Premio real del catalogo para clientes del club.',
         color: '#3a2840',
         winner: true,
@@ -78,7 +85,8 @@ const PRIZES = [
     {
         code: 'discount-20',
         label: '20% OFF',
-        emoji: '🔥',
+        mark: '20%',
+        badge: '20%',
         desc: 'Premio mayor de esta primera version de la ruleta.',
         color: '#3a2800',
         winner: true,
@@ -160,7 +168,8 @@ function prizeMetaFromCode(code, fallback = {}) {
         || {
             code: fallback.code || 'unknown',
             label: fallback.label || 'Premio Club Awka',
-            emoji: '🎁',
+            mark: 'AWKA',
+            badge: 'AW',
             desc: fallback.description || 'Tu resultado ya fue guardado dentro del club.',
             winner: true,
             type: fallback.type || 'product',
@@ -169,6 +178,53 @@ function prizeMetaFromCode(code, fallback = {}) {
             discountPercent: fallback.discountPercent || null,
             color: '#2a6030'
         };
+}
+
+function profileChangedAfterSpin(previousProfile, nextProfile) {
+    if (!previousProfile || !nextProfile) {
+        return false;
+    }
+
+    if ((nextProfile.spins?.pending || 0) < (previousProfile.spins?.pending || 0)) {
+        return true;
+    }
+
+    if ((nextProfile.spins?.total || 0) > (previousProfile.spins?.total || 0)) {
+        return true;
+    }
+
+    return (nextProfile.spins?.latestPrize || '') !== (previousProfile.spins?.latestPrize || '');
+}
+
+function buildSpinResultFromProfile(previousProfile, nextProfile) {
+    const prize = nextProfile?.spins?.latestPrize;
+    if (!prize) {
+        return null;
+    }
+
+    const meta = prizeMetaFromCode('', { label: prize });
+    const winner = Boolean(
+        nextProfile?.spins?.latestWinPrize &&
+        nextProfile.spins.latestWinPrize === prize &&
+        nextProfile.spins.latestWinAt === nextProfile.spins.latestPrizeAt
+    );
+
+    return {
+        ok: true,
+        prize,
+        prizeMeta: {
+            code: meta.code,
+            type: meta.type,
+            label: meta.label,
+            description: meta.desc,
+            discountPercent: meta.discountPercent || null,
+            productId: meta.productId || null,
+            productCategory: meta.productCategory || null
+        },
+        winner,
+        remainingSpins: nextProfile.spins.pending || 0,
+        playedAt: nextProfile.spins.latestPrizeAt || new Date().toISOString()
+    };
 }
 
 function renderWheel(rotation) {
@@ -209,8 +265,10 @@ function renderWheel(rotation) {
         ctx.save();
         ctx.translate(centerX, centerY);
         ctx.rotate(start + arcs[index] / 2);
-        ctx.font = '15px serif';
-        ctx.fillText(prize.emoji, radius - 95, 6);
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(240,232,212,0.88)';
+        ctx.font = '700 10px "DM Sans", sans-serif';
+        ctx.fillText(prize.badge, radius - 92, 8);
         ctx.restore();
     });
 
@@ -390,7 +448,7 @@ function launchConfetti(accent) {
 
 function showPrizeModal(spinResult) {
     const prize = prizeMetaFromCode(spinResult.prizeMeta?.code, spinResult.prizeMeta || { label: spinResult.prize });
-    prizeEmoji.textContent = prize.emoji;
+    prizeEmoji.textContent = prize.badge || prize.mark || 'AW';
     prizeEyebrow.textContent = spinResult.winner ? 'Felicitaciones' : 'Gracias por participar';
     prizeName.textContent = prize.label;
     prizeDesc.textContent = spinResult.winner
@@ -456,22 +514,37 @@ async function confirmSpin() {
         return;
     }
 
+    const profileBeforeSpin = currentProfile ? JSON.parse(JSON.stringify(currentProfile)) : null;
     spinning = true;
     setSpinEnabled(false);
     closeOverlay(overlayReady);
     setFeedback('Girando ruleta...', 'success');
 
     let spinResult;
+    let recoveredFromProfile = false;
     try {
         spinResult = await requestSpin(currentSession.token);
     } catch (error) {
-        setFeedback(error.message || 'No pudimos completar el giro.', 'error');
-        spinning = false;
-        setSpinEnabled(Boolean(currentProfile?.spins?.pending));
-        return;
+        try {
+            const refreshedProfile = await fetchProfile(currentSession.token);
+            if (profileChangedAfterSpin(profileBeforeSpin, refreshedProfile)) {
+                renderProfile(refreshedProfile);
+                spinResult = buildSpinResultFromProfile(profileBeforeSpin, refreshedProfile);
+                recoveredFromProfile = true;
+            } else {
+                throw error;
+            }
+        } catch (recoveryError) {
+            setFeedback(error.message || 'No pudimos completar el giro.', 'error');
+            spinning = false;
+            setSpinEnabled(Boolean(currentProfile?.spins?.pending));
+            return;
+        }
     }
 
-    applySpinResultLocally(spinResult);
+    if (!recoveredFromProfile) {
+        applySpinResultLocally(spinResult);
+    }
 
     try {
         await animateToPrize(spinResult);
