@@ -47,8 +47,7 @@ const arcStarts = arcs.reduce((acc, arc, index) => {
 let currentProfile = null;
 let currentSession = null;
 let spinning = false;
-let angle = 0;
-let pendingSpinResult = null;
+let currentRotation = 0;
 
 function loadSession() {
     try {
@@ -240,25 +239,28 @@ function easeOut(time) {
 function animateToPrize(prizeLabelValue) {
     const prizeIndex = Math.max(0, PRIZES.findIndex((prize) => prize.label === prizeLabelValue));
     const targetAngle = -(arcStarts[prizeIndex] + equalArc / 2) + Math.PI * 1.5;
-    const extraSpins = (5 + Math.floor(Math.random() * 5)) * 2 * Math.PI;
-    const totalRotation = extraSpins + (((targetAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI));
+    const targetDegrees = (((targetAngle * 180) / Math.PI) % 360 + 360) % 360;
+    const currentNormalized = ((currentRotation % 360) + 360) % 360;
+    const extraSpins = (5 + Math.floor(Math.random() * 5)) * 360;
+    const delta = extraSpins + ((targetDegrees - currentNormalized + 360) % 360);
     const duration = 4200;
-    const startedAt = performance.now();
-    const initialAngle = angle % (2 * Math.PI);
 
     return new Promise((resolve) => {
-        function frame(now) {
-            const progress = Math.min((now - startedAt) / duration, 1);
-            angle = initialAngle + totalRotation * easeOut(progress);
-            renderWheel(angle);
-            if (progress < 1) {
-                window.requestAnimationFrame(frame);
-            } else {
+        currentRotation += delta;
+        canvas.style.transition = `transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
+        canvas.style.transform = `rotate(${currentRotation}deg)`;
+
+        let settled = false;
+        const finish = () => {
+            if (!settled) {
+                settled = true;
+                canvas.removeEventListener('transitionend', finish);
                 resolve();
             }
-        }
+        };
 
-        window.requestAnimationFrame(frame);
+        canvas.addEventListener('transitionend', finish, { once: true });
+        window.setTimeout(finish, duration + 100);
     });
 }
 
@@ -348,7 +350,6 @@ async function confirmSpin() {
             throw new Error(data.message || 'No pudimos completar el giro.');
         }
 
-        pendingSpinResult = data;
         await animateToPrize(data.prize);
         showPrizeModal(data.prize, data.winner);
         setFeedback(
@@ -379,5 +380,5 @@ document.querySelectorAll('[data-close-overlay]').forEach((button) => {
 window.addEventListener('resize', resizeCanvas);
 
 resizeCanvas();
-renderWheel(angle);
+renderWheel(0);
 loadPlay();
