@@ -280,21 +280,28 @@ function animateToPrize(prizeLabelValue) {
     const duration = 4200;
 
     return new Promise((resolve) => {
-        currentRotation += delta;
-        canvas.style.transition = `transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
+        const nextRotation = currentRotation + delta;
+        canvas.style.willChange = 'transform';
+        canvas.style.transition = 'none';
         canvas.style.transform = `rotate(${currentRotation}deg)`;
+        void canvas.offsetWidth;
 
         let settled = false;
         const finish = () => {
             if (!settled) {
                 settled = true;
                 canvas.removeEventListener('transitionend', finish);
+                currentRotation = nextRotation;
                 resolve();
             }
         };
 
-        canvas.addEventListener('transitionend', finish, { once: true });
-        window.setTimeout(finish, duration + 100);
+        window.requestAnimationFrame(() => {
+            canvas.addEventListener('transitionend', finish, { once: true });
+            canvas.style.transition = `transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
+            canvas.style.transform = `rotate(${nextRotation}deg)`;
+            window.setTimeout(finish, duration + 120);
+        });
     });
 }
 

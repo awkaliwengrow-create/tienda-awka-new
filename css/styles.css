@@ -2842,6 +2842,16 @@ footer {
         grid-template-columns: 1fr;
     }
 
+    .club-side-card {
+        position: static;
+        top: auto;
+        order: 2;
+    }
+
+    .club-profile-box-dashboard {
+        order: 1;
+    }
+
     .club-header-link {
         display: none;
     }
