@@ -213,6 +213,40 @@ function renderProfile(profile) {
     }
 }
 
+function applySpinResultLocally(spinResult) {
+    if (!currentProfile) {
+        return;
+    }
+
+    const nextPending = Math.max(0, Number(spinResult.remainingSpins || 0));
+    const nextWins = currentProfile.spins.wins + (spinResult.winner ? 1 : 0);
+    const nextTotal = currentProfile.spins.total + 1;
+
+    currentProfile = {
+        ...currentProfile,
+        spins: {
+            ...currentProfile.spins,
+            pending: nextPending,
+            total: nextTotal,
+            wins: nextWins,
+            latestPrize: spinResult.prize,
+            latestPrizeAt: spinResult.playedAt,
+            latestWinPrize: spinResult.winner ? spinResult.prize : currentProfile.spins.latestWinPrize,
+            latestWinAt: spinResult.winner ? spinResult.playedAt : currentProfile.spins.latestWinAt
+        },
+        history: [
+            {
+                prize: spinResult.prize,
+                winner: spinResult.winner,
+                createdAt: spinResult.playedAt
+            },
+            ...(currentProfile.history || [])
+        ].slice(0, 5)
+    };
+
+    renderProfile(currentProfile);
+}
+
 function openBlocked(message) {
     blockedMessage.textContent = message;
     openOverlay(overlayBlocked);
@@ -333,6 +367,7 @@ async function confirmSpin() {
     }
 
     spinning = true;
+    let spinCommitted = false;
     setSpinEnabled(false);
     closeOverlay(overlayReady);
     setFeedback('Girando ruleta...', 'success');
@@ -350,6 +385,8 @@ async function confirmSpin() {
             throw new Error(data.message || 'No pudimos completar el giro.');
         }
 
+        spinCommitted = true;
+        applySpinResultLocally(data);
         await animateToPrize(data.prize);
         showPrizeModal(data.prize, data.winner);
         setFeedback(
@@ -357,10 +394,24 @@ async function confirmSpin() {
             data.winner ? 'success' : ''
         );
 
-        const profile = await fetchProfile(currentSession.token);
-        renderProfile(profile);
+        try {
+            const profile = await fetchProfile(currentSession.token);
+            renderProfile(profile);
+        } catch (refreshError) {
+            setFeedback(
+                data.winner
+                    ? `Ganaste ${data.prize}. Tu panel se actualizara al recargar.`
+                    : `Resultado: ${data.prize}. Tu panel se actualizara al recargar.`,
+                data.winner ? 'success' : ''
+            );
+        }
     } catch (error) {
-        setFeedback(error.message || 'No pudimos completar el giro.', 'error');
+        setFeedback(
+            spinCommitted
+                ? 'El giro se registro, pero hubo un problema al refrescar la pantalla.'
+                : (error.message || 'No pudimos completar el giro.'),
+            spinCommitted ? 'success' : 'error'
+        );
         setSpinEnabled(Boolean(currentProfile?.spins?.pending));
     } finally {
         spinning = false;
