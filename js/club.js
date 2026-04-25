@@ -13,6 +13,8 @@ const authNameField = document.getElementById('clubAuthNameField');
 const authBackButton = document.getElementById('clubAuthBack');
 const logoutButton = document.getElementById('clubLogoutButton');
 const playLink = document.getElementById('clubPlayLink');
+const heroCta = document.getElementById('clubHeroCta');
+const sideCta = document.getElementById('clubSideCta');
 const clubResult = document.getElementById('clubProfileResult');
 
 const PRIZE_EMOJIS = {
@@ -79,6 +81,18 @@ function loadSession() {
 
 function clearSession() {
     window.localStorage.removeItem(CLUB_SESSION_STORAGE_KEY);
+}
+
+function syncClubCtas(session = null) {
+    const label = session?.token ? 'Ver mi panel' : 'Entrar a mi panel';
+
+    if (heroCta) {
+        heroCta.textContent = label;
+    }
+
+    if (sideCta) {
+        sideCta.textContent = label;
+    }
 }
 
 function syncPlayLink(profile = null) {
@@ -301,6 +315,7 @@ async function loadProfileFromSession(session) {
         authState.phone = session.phone || profile.phone;
         authState.name = session.name || profile.name;
         logoutButton.hidden = false;
+        syncClubCtas(session);
         syncPlayLink(profile);
         showPinStep();
         setAuthMode('login', profile.phone, profile.name);
@@ -310,6 +325,7 @@ async function loadProfileFromSession(session) {
     } catch (error) {
         clearSession();
         logoutButton.hidden = true;
+        syncClubCtas();
         syncPlayLink();
         showPhoneStep('Tu sesion vencio. Ingresa de nuevo para continuar.', 'error');
         resetProfilePlaceholder();
@@ -430,6 +446,7 @@ function handleBack() {
 function handleLogout() {
     clearSession();
     logoutButton.hidden = true;
+    syncClubCtas();
     syncPlayLink();
     handleBack();
     resetProfilePlaceholder();
@@ -453,6 +470,7 @@ if (logoutButton) {
 }
 
 const existingSession = loadSession();
+syncClubCtas(existingSession);
 if (existingSession?.token) {
     phoneInput.value = existingSession.phone || '';
     loadProfileFromSession(existingSession);
