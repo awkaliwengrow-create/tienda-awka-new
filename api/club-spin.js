@@ -46,6 +46,8 @@ module.exports = async (req, res) => {
         return;
     }
 
+    let committedResult = null;
+
     try {
         const session = verifySessionToken(getBearerToken(req));
         if (!session?.phone) {
@@ -107,19 +109,34 @@ module.exports = async (req, res) => {
             })
         });
 
-        const remainingRows = await supabaseRequest(
-            `giros_habilitados?select=id&telefono=eq.${encodeURIComponent(session.phone)}&estado=eq.pendiente`
-        );
-
-        json(res, 200, {
+        committedResult = {
             ok: true,
             prize: prize.label,
             winner: prize.winner,
             usedSpinId: pendingSpin.id,
-            remainingSpins: remainingRows?.length || 0,
+            remainingSpins: 0,
             playedAt: now
-        });
+        };
+
+        try {
+            const remainingRows = await supabaseRequest(
+                `giros_habilitados?select=id&telefono=eq.${encodeURIComponent(session.phone)}&estado=eq.pendiente`
+            );
+            committedResult.remainingSpins = remainingRows?.length || 0;
+        } catch (remainingError) {
+            committedResult.warning = 'REMAINING_SPINS_REFRESH_FAILED';
+        }
+
+        json(res, 200, committedResult);
     } catch (error) {
+        if (committedResult) {
+            json(res, 200, {
+                ...committedResult,
+                warning: error.code || 'CLUB_SPIN_PARTIAL_SUCCESS'
+            });
+            return;
+        }
+
         json(res, 500, {
             error: error.code || 'CLUB_SPIN_ERROR',
             message: 'No pudimos completar el giro.',
