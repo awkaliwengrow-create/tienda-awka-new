@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Awka Play: gira la ruleta del Club Awka con tus beneficios disponibles.">
-    <meta name="theme-color" content="#2C3E29">
+    <meta name="theme-color" content="#07100a">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Awka Play - Ruleta">
     <meta property="og:description" content="Usa tus giros pendientes dentro del Club Awka.">
@@ -18,10 +18,436 @@
     <title>Awka Play - Ruleta</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Crimson+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        :root {
+            --play-bg: #07100a;
+            --play-surface: #0e1a10;
+            --play-border: #243a27;
+            --play-green: #2a6030;
+            --play-lime: #6dbd3e;
+            --play-gold: #c8993a;
+            --play-gold-2: #e8bf6a;
+            --play-cream: #eee8d4;
+            --play-text: #b8d4a8;
+            --play-muted: #5a7a5a;
+            --play-danger: #c0392b;
+        }
+
+        .awka-play-page {
+            min-height: 100vh;
+            background: var(--play-bg);
+            color: var(--play-text);
+            font-family: 'DM Sans', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .awka-play-page::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% -10%, rgba(30, 77, 34, 0.27), transparent),
+                radial-gradient(ellipse 50% 40% at 10% 110%, rgba(13, 43, 16, 0.27), transparent);
+        }
+
+        .awka-play-page::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.025;
+            background-image:
+                linear-gradient(rgba(109, 189, 62, 0.9) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(109, 189, 62, 0.9) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        .awka-play-main {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7rem 1.25rem 3rem;
+        }
+
+        .awka-play-shell {
+            width: min(1120px, 100%);
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 320px;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .awka-play-stage {
+            display: grid;
+            justify-items: center;
+            gap: 1.5rem;
+        }
+
+        .awka-play-header {
+            text-align: center;
+        }
+
+        .awka-play-back {
+            display: inline-block;
+            color: var(--play-muted);
+            font-size: 0.82rem;
+            text-decoration: none;
+            margin-bottom: 0.85rem;
+            padding: 0.45rem 0.95rem;
+            border: 1px solid var(--play-border);
+            border-radius: 999px;
+            transition: all 0.2s ease;
+        }
+
+        .awka-play-back:hover {
+            border-color: var(--play-lime);
+            color: var(--play-lime);
+        }
+
+        .awka-play-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #1a3020, #0e1a10);
+            border: 1px solid var(--play-border);
+            border-radius: 999px;
+            padding: 0.3rem 1rem;
+            font-size: 0.68rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--play-lime);
+            margin-bottom: 0.75rem;
+        }
+
+        .awka-play-title {
+            margin: 0;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            letter-spacing: 0.06em;
+            line-height: 0.95;
+            background: linear-gradient(160deg, #a8e070 0%, #6dbd3e 45%, #4a9a20 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 30px rgba(109, 189, 62, 0.2));
+        }
+
+        .awka-play-subtitle {
+            margin: 0.35rem 0 0;
+            color: var(--play-muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .awka-wheel-wrap {
+            position: relative;
+        }
+
+        .awka-wheel-outer {
+            position: relative;
+            padding: 12px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #1a3a1a, #2a5a2a, #1e4020, #0e1a10, #1a3a1a);
+            box-shadow:
+                0 0 0 1px #243a27,
+                0 0 50px rgba(42, 96, 32, 0.27),
+                0 0 100px rgba(42, 96, 32, 0.13),
+                inset 0 0 20px rgba(0, 0, 0, 0.33);
+        }
+
+        .awka-pointer-wrap {
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            filter: drop-shadow(0 2px 10px rgba(200, 153, 58, 0.6));
+        }
+
+        .awka-wheel-canvas {
+            display: block;
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 2px #1a3a1a,
+                0 4px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .awka-spin-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #e8cc70, #c8993a, #a07020);
+            border: 3px solid #07100a;
+            color: #07100a;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+            box-shadow:
+                0 4px 24px rgba(200, 153, 58, 0.33),
+                inset 0 1px 0 rgba(255, 255, 255, 0.27);
+            z-index: 10;
+        }
+
+        .awka-spin-center:hover:not(:disabled) {
+            transform: translate(-50%, -50%) scale(1.12);
+            box-shadow:
+                0 8px 36px rgba(200, 153, 58, 0.52),
+                inset 0 1px 0 rgba(255, 255, 255, 0.27);
+        }
+
+        .awka-spin-center:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .awka-play-feedback {
+            min-height: 24px;
+            color: var(--play-muted);
+            font-size: 0.92rem;
+            text-align: center;
+        }
+
+        .awka-play-feedback.is-error {
+            color: #e05050;
+        }
+
+        .awka-play-feedback.is-success {
+            color: var(--play-lime);
+        }
+
+        .awka-play-side {
+            background: linear-gradient(160deg, #112016, #0b1510);
+            border: 1px solid var(--play-border);
+            border-radius: 24px;
+            padding: 1.75rem;
+            box-shadow:
+                0 0 0 1px rgba(30, 58, 32, 0.27),
+                0 24px 80px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(42, 96, 32, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            display: grid;
+            gap: 1rem;
+        }
+
+        .awka-play-side h2,
+        .awka-overlay-title {
+            margin: 0;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 0.06em;
+            background: linear-gradient(135deg, #a8e070, #6dbd3e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .awka-side-eyebrow,
+        .awka-overlay-eyebrow {
+            display: inline-block;
+            background: #1a3020;
+            border: 1px solid var(--play-border);
+            border-radius: 999px;
+            padding: 0.25rem 0.85rem;
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+            color: var(--play-gold-2);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .awka-side-block {
+            border-radius: 18px;
+            padding: 1rem;
+            background: rgba(7, 16, 10, 0.72);
+            border: 1px solid var(--play-border);
+        }
+
+        .awka-side-block strong {
+            display: block;
+            color: var(--play-cream);
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .awka-side-block p,
+        .awka-side-block span {
+            color: var(--play-muted);
+            line-height: 1.6;
+            font-size: 0.88rem;
+        }
+
+        .awka-side-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            min-height: 52px;
+            background: linear-gradient(135deg, #388040, #2a6030);
+            color: var(--play-cream);
+            border: none;
+            border-radius: 14px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(42, 96, 32, 0.27), inset 0 1px 0 rgba(255, 255, 255, 0.13);
+        }
+
+        .awka-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.73);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+            backdrop-filter: blur(10px) saturate(0.7);
+        }
+
+        .awka-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .awka-overlay-card {
+            background: linear-gradient(160deg, #112016, #0b1510);
+            border: 1px solid var(--play-border);
+            border-radius: 24px;
+            padding: 2rem 2.1rem;
+            text-align: center;
+            width: min(360px, 92vw);
+            box-shadow:
+                0 0 0 1px rgba(30, 58, 32, 0.27),
+                0 24px 80px rgba(0, 0, 0, 0.53),
+                0 0 60px rgba(42, 96, 32, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            transform: scale(0.82) translateY(20px);
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .awka-overlay.show .awka-overlay-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .awka-overlay-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #1a3020, #0e1a10);
+            border: 1px solid var(--play-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2.3rem;
+            box-shadow: 0 0 30px rgba(109, 189, 62, 0.13), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .awka-overlay-copy {
+            color: var(--play-text);
+            font-size: 0.88rem;
+            line-height: 1.65;
+            margin: 0.9rem 0 1.25rem;
+        }
+
+        .awka-overlay-actions {
+            display: grid;
+            gap: 0.7rem;
+        }
+
+        .awka-btn {
+            width: 100%;
+            border: none;
+            min-height: 52px;
+            border-radius: 14px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .awka-btn-primary {
+            background: linear-gradient(135deg, #388040, #2a6030);
+            color: var(--play-cream);
+            box-shadow: 0 4px 20px rgba(42, 96, 32, 0.27), inset 0 1px 0 rgba(255, 255, 255, 0.13);
+        }
+
+        .awka-btn-primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, #449050, #338038);
+            transform: translateY(-1px);
+        }
+
+        .awka-btn-secondary {
+            background: transparent;
+            border: 1px solid var(--play-border);
+            color: var(--play-muted);
+        }
+
+        .awka-btn-secondary:hover {
+            border-color: var(--play-lime);
+            color: var(--play-text);
+        }
+
+        .awka-confetti-wrap {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        @keyframes awka-fall {
+            0% {
+                transform: translateY(-10px) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg) scale(0.4);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .awka-play-shell {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .awka-play-main {
+                padding-top: 6.25rem;
+            }
+
+            .awka-overlay-card,
+            .awka-play-side {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
-<body class="club-page">
+<body class="awka-play-page">
     <header>
         <div class="container">
             <div class="header-content">
@@ -42,77 +468,92 @@
         </div>
     </header>
 
-    <main>
-        <section class="club-dashboard-hero">
-            <div class="container">
-                <div class="club-dashboard-shell club-dashboard-shell-minimal">
-                    <div class="club-dashboard-copy">
-                        <div class="club-preview-kicker">Awka Play</div>
-                        <h1>Tu ruleta del club</h1>
-                        <p>Si tienes un giro pendiente, lo usas desde aqui. El resultado se registra en tu historial real del club.</p>
-                    </div>
-                    <div class="club-dashboard-actions club-dashboard-actions-compact">
-                        <a href="club.html" class="hero-cta">Volver al club</a>
+    <main class="awka-play-main">
+        <div class="awka-play-shell">
+            <section class="awka-play-stage">
+                <div class="awka-play-header">
+                    <a href="club.html" class="awka-play-back">&larr; Volver al club</a>
+                    <div class="awka-play-badge">Awka Liwen Growshop</div>
+                    <h1 class="awka-play-title">Ruleta de Premios</h1>
+                    <p class="awka-play-subtitle">Gira y gana tu premio</p>
+                </div>
+
+                <div class="awka-wheel-wrap">
+                    <div class="awka-wheel-outer">
+                        <div class="awka-pointer-wrap">
+                            <svg width="28" height="42" viewBox="0 0 28 42" fill="none" aria-hidden="true">
+                                <path d="M14 42 L0 0 L14 8 L28 0 Z" fill="#c8993a"/>
+                                <path d="M14 42 L0 0 L14 8 Z" fill="#e8bf6a"/>
+                                <circle cx="14" cy="6" r="4" fill="#07100a" stroke="#c8993a" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <canvas id="ruletaCanvas" class="awka-wheel-canvas" width="340" height="340"></canvas>
+                        <button type="button" id="ruletaSpinButton" class="awka-spin-center">GIRAR</button>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section class="club-profile-section">
-            <div class="container">
-                <div class="ruleta-play-shell">
-                    <div class="ruleta-play-stage">
-                        <div class="ruleta-play-wheel-wrap">
-                            <div id="ruletaWheel" class="ruleta-play-wheel">
-                                <div class="ruleta-wheel-center">AWKA</div>
-                            </div>
-                            <div class="ruleta-wheel-pointer"></div>
-                        </div>
-                        <button type="button" id="ruletaSpinButton" class="hero-cta ruleta-spin-button">Girar ahora</button>
-                        <div id="ruletaFeedback" class="club-profile-feedback">Validando tu sesion del club...</div>
-                    </div>
+                <div id="ruletaFeedback" class="awka-play-feedback">Validando tu sesion del club...</div>
+            </section>
 
-                    <aside class="ruleta-play-sidebar">
-                        <div class="club-preview-kicker">Estado</div>
-                        <h2 id="ruletaMemberName">Tu acceso</h2>
-                        <div id="ruletaStatusCard" class="ruleta-status-card">
-                            <strong id="ruletaPendingCount">0 giros</strong>
-                            <span id="ruletaStatusCopy">Necesitas iniciar sesion en Club Awka para usar la ruleta.</span>
-                        </div>
-                        <div id="ruletaResultCard" class="ruleta-result-card">
-                            <div class="club-member-eyebrow">Ultimo resultado</div>
-                            <strong id="ruletaPrizeLabel">Aun sin girar</strong>
-                            <p id="ruletaPrizeCopy">Tu premio o resultado va a aparecer aqui cuando completes el giro.</p>
-                        </div>
-                        <a href="club.html" class="club-side-link">Ver mi perfil</a>
-                    </aside>
+            <aside class="awka-play-side">
+                <div class="awka-side-eyebrow">Estado actual</div>
+                <h2 id="ruletaMemberName">Tu acceso</h2>
+
+                <div class="awka-side-block">
+                    <strong id="ruletaPendingCount">0 giros</strong>
+                    <span id="ruletaStatusCopy">Necesitas iniciar sesion en Club Awka para usar la ruleta.</span>
                 </div>
-            </div>
-        </section>
+
+                <div class="awka-side-block">
+                    <div class="awka-side-eyebrow">Ultimo resultado</div>
+                    <strong id="ruletaPrizeLabel">Aun sin girar</strong>
+                    <p id="ruletaPrizeCopy">Tu premio o resultado va a aparecer aqui cuando completes el giro.</p>
+                </div>
+
+                <a href="club.html" class="awka-side-link">Ver mi perfil</a>
+            </aside>
+        </div>
     </main>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section footer-brand">
-                    <div class="footer-badge">Awka Play</div>
-                    <h3>Ruleta del club</h3>
-                    <p>La experiencia de juego vive conectada al historial del club y se activa solo con giros reales pendientes.</p>
-                </div>
-                <div class="footer-section footer-contact">
-                    <h3>Contacto</h3>
-                    <ul class="footer-list">
-                        <li>awkaliwengrow@hotmail.com</li>
-                        <li>Lun a Sab: 17:30 a 20:30hs</li>
-                        <li>Castelli 97, Buenos Aires</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Awka Liwen Growshop. Todos los derechos reservados.</p>
+    <div id="overlayBlocked" class="awka-overlay">
+        <div class="awka-overlay-card">
+            <div class="awka-overlay-icon">🔒</div>
+            <div class="awka-overlay-eyebrow">Acceso restringido</div>
+            <h2 class="awka-overlay-title">Inhabilitado</h2>
+            <p id="blockedMessage" class="awka-overlay-copy">Este acceso no tiene un giro habilitado en este momento. Vuelve al club o consulta con Awka Liwen.</p>
+            <div class="awka-overlay-actions">
+                <a href="club.html" class="awka-btn awka-btn-secondary">Volver al club</a>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <div id="overlayReady" class="awka-overlay">
+        <div class="awka-overlay-card">
+            <div class="awka-overlay-icon">🎰</div>
+            <div class="awka-overlay-eyebrow">Giro habilitado</div>
+            <h2 id="readyName" class="awka-overlay-title">Listo para girar</h2>
+            <p class="awka-overlay-copy">Tu giro esta habilitado. Cuando confirmes, vamos a consumir un giro real y registrar el resultado en tu historial.</p>
+            <div class="awka-overlay-actions">
+                <button type="button" id="readySpinButton" class="awka-btn awka-btn-primary">Girar ahora</button>
+                <button type="button" class="awka-btn awka-btn-secondary" data-close-overlay="overlayReady">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlayPrize" class="awka-overlay">
+        <div class="awka-overlay-card">
+            <div id="prizeEmoji" class="awka-overlay-icon">🎁</div>
+            <div id="prizeEyebrow" class="awka-overlay-eyebrow">Resultado</div>
+            <h2 id="prizeName" class="awka-overlay-title">Premio</h2>
+            <p id="prizeDesc" class="awka-overlay-copy">Tu resultado se va a mostrar aqui.</p>
+            <div class="awka-overlay-actions">
+                <a id="btnWsp" class="awka-btn awka-btn-primary" href="#" target="_blank" rel="noopener noreferrer">Enviar por WhatsApp</a>
+                <button type="button" class="awka-btn awka-btn-secondary" data-close-overlay="overlayPrize">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confettiWrap" class="awka-confetti-wrap"></div>
 
     <script>
         function toggleNav() {
