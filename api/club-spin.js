@@ -9,13 +9,81 @@ const {
 } = require('./_lib/club');
 
 const PRIZES = [
-    { label: 'Segui participando', winner: false, weight: 34 },
-    { label: 'Sticker Gratis', winner: true, weight: 22 },
-    { label: '5% OFF', winner: true, weight: 18 },
-    { label: 'Semilla Gratis', winner: true, weight: 10 },
-    { label: '10% OFF', winner: true, weight: 8 },
-    { label: 'Humus Gratis', winner: true, weight: 5 },
-    { label: '20% OFF', winner: true, weight: 3 }
+    {
+        code: 'miss',
+        label: 'Segui participando',
+        type: 'miss',
+        winner: false,
+        weight: 34,
+        description: 'La proxima puede ser tuya. Vuelve con tu siguiente compra.'
+    },
+    {
+        code: 'discount-5',
+        label: '5% OFF',
+        type: 'discount',
+        winner: true,
+        weight: 18,
+        description: 'Descuento para tu proxima compra segun condiciones del local.',
+        discountPercent: 5
+    },
+    {
+        code: 'discount-10',
+        label: '10% OFF',
+        type: 'discount',
+        winner: true,
+        weight: 8,
+        description: 'Un descuento mas fuerte para premiar tu avance.',
+        discountPercent: 10
+    },
+    {
+        code: 'product-raw-classic',
+        label: 'Raw Classic',
+        type: 'product',
+        winner: true,
+        weight: 14,
+        description: 'Un papel real del catalogo para retirar o coordinar con el equipo.',
+        productId: 2124,
+        productCategory: 'papeles'
+    },
+    {
+        code: 'product-tips-silver',
+        label: 'Tips Silver',
+        type: 'product',
+        winner: true,
+        weight: 10,
+        description: 'Un premio real del catalogo para sumar al ecosistema Awka.',
+        productId: 4156,
+        productCategory: 'filtros'
+    },
+    {
+        code: 'product-fumanchu',
+        label: 'Fumanchu Blanco',
+        type: 'product',
+        winner: true,
+        weight: 9,
+        description: 'Premio real del catalogo listo para canjear.',
+        productId: 3151,
+        productCategory: 'papeles'
+    },
+    {
+        code: 'product-zeus-pink',
+        label: 'Zeus Pink',
+        type: 'product',
+        winner: true,
+        weight: 4,
+        description: 'Premio real del catalogo para clientes del club.',
+        productId: 143,
+        productCategory: 'papeles'
+    },
+    {
+        code: 'discount-20',
+        label: '20% OFF',
+        type: 'discount',
+        winner: true,
+        weight: 3,
+        description: 'Premio mayor de esta primera version de la ruleta.',
+        discountPercent: 20
+    }
 ];
 
 function pickPrize() {
@@ -112,6 +180,15 @@ module.exports = async (req, res) => {
         committedResult = {
             ok: true,
             prize: prize.label,
+            prizeMeta: {
+                code: prize.code,
+                type: prize.type,
+                label: prize.label,
+                description: prize.description,
+                discountPercent: prize.discountPercent || null,
+                productId: prize.productId || null,
+                productCategory: prize.productCategory || null
+            },
             winner: prize.winner,
             usedSpinId: pendingSpin.id,
             remainingSpins: 0,

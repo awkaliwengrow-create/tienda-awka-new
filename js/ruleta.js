@@ -2,13 +2,89 @@ const CLUB_SESSION_STORAGE_KEY = 'awka-club-session';
 const WHATSAPP_NUMBER = '5492494009164';
 
 const PRIZES = [
-    { label: 'Segui participando', emoji: '🎯', desc: 'La proxima puede ser tuya. Vuelve con tu siguiente compra.', color: '#0f2414', winner: false },
-    { label: 'Sticker Gratis', emoji: '🖼️', desc: 'Llevate un sticker exclusivo de Awka Liwen.', color: '#173320', winner: true },
-    { label: '5% OFF', emoji: '✨', desc: 'Descuento para tu proxima compra segun condiciones del local.', color: '#1c4025', winner: true },
-    { label: 'Semilla Gratis', emoji: '🌱', desc: 'Premio sorpresa para seguir creciendo dentro del club.', color: '#224d2a', winner: true },
-    { label: '10% OFF', emoji: '💸', desc: 'Un descuento mas fuerte para premiar tu avance.', color: '#2a5c30', winner: true },
-    { label: 'Humus Gratis', emoji: '🪱', desc: 'Premio natural para acompañar tu cultivo.', color: '#183820', winner: true },
-    { label: '20% OFF', emoji: '🔥', desc: 'Premio mayor de esta primera version de la ruleta.', color: '#3a2800', winner: true }
+    {
+        code: 'miss',
+        label: 'Segui participando',
+        emoji: '🎯',
+        desc: 'La proxima puede ser tuya. Vuelve con tu siguiente compra.',
+        color: '#0f2414',
+        winner: false,
+        type: 'miss'
+    },
+    {
+        code: 'discount-5',
+        label: '5% OFF',
+        emoji: '✨',
+        desc: 'Descuento para tu proxima compra segun condiciones del local.',
+        color: '#1c4025',
+        winner: true,
+        type: 'discount',
+        discountPercent: 5
+    },
+    {
+        code: 'discount-10',
+        label: '10% OFF',
+        emoji: '💸',
+        desc: 'Un descuento mas fuerte para premiar tu avance.',
+        color: '#2a5c30',
+        winner: true,
+        type: 'discount',
+        discountPercent: 10
+    },
+    {
+        code: 'product-raw-classic',
+        label: 'Raw Classic',
+        emoji: '📄',
+        desc: 'Premio real del catalogo para retirar o coordinar con Awka.',
+        color: '#173320',
+        winner: true,
+        type: 'product',
+        productId: 2124,
+        productCategory: 'papeles'
+    },
+    {
+        code: 'product-tips-silver',
+        label: 'Tips Silver',
+        emoji: '🧩',
+        desc: 'Premio real del catalogo para sumar al ecosistema Awka.',
+        color: '#224d2a',
+        winner: true,
+        type: 'product',
+        productId: 4156,
+        productCategory: 'filtros'
+    },
+    {
+        code: 'product-fumanchu',
+        label: 'Fumanchu Blanco',
+        emoji: '🎁',
+        desc: 'Premio real del catalogo listo para canjear.',
+        color: '#183820',
+        winner: true,
+        type: 'product',
+        productId: 3151,
+        productCategory: 'papeles'
+    },
+    {
+        code: 'product-zeus-pink',
+        label: 'Zeus Pink',
+        emoji: '🩷',
+        desc: 'Premio real del catalogo para clientes del club.',
+        color: '#3a2840',
+        winner: true,
+        type: 'product',
+        productId: 143,
+        productCategory: 'papeles'
+    },
+    {
+        code: 'discount-20',
+        label: '20% OFF',
+        emoji: '🔥',
+        desc: 'Premio mayor de esta primera version de la ruleta.',
+        color: '#3a2800',
+        winner: true,
+        type: 'discount',
+        discountPercent: 20
+    }
 ];
 
 const spinButton = document.getElementById('ruletaSpinButton');
@@ -29,6 +105,7 @@ const prizeEyebrow = document.getElementById('prizeEyebrow');
 const prizeName = document.getElementById('prizeName');
 const prizeDesc = document.getElementById('prizeDesc');
 const btnWsp = document.getElementById('btnWsp');
+const btnPrizeCatalog = document.getElementById('btnPrizeCatalog');
 const confettiWrap = document.getElementById('confettiWrap');
 const canvas = document.getElementById('ruletaCanvas');
 
@@ -64,9 +141,9 @@ function setFeedback(message, variant = '') {
 }
 
 function setSpinEnabled(enabled) {
-    const state = !enabled || spinning;
-    spinButton.disabled = state;
-    readySpinButton.disabled = state;
+    const disabled = !enabled || spinning;
+    spinButton.disabled = disabled;
+    readySpinButton.disabled = disabled;
 }
 
 function openOverlay(element) {
@@ -77,17 +154,21 @@ function closeOverlay(element) {
     element.classList.remove('show');
 }
 
-function closeAllOverlays() {
-    [overlayBlocked, overlayReady, overlayPrize].forEach(closeOverlay);
-}
-
-function prizeMeta(label) {
-    return PRIZES.find((prize) => prize.label === label) || {
-        label,
-        emoji: '🎁',
-        desc: 'Tu resultado ya fue guardado dentro del club.',
-        winner: true
-    };
+function prizeMetaFromCode(code, fallback = {}) {
+    return PRIZES.find((prize) => prize.code === code)
+        || PRIZES.find((prize) => prize.label === fallback.label)
+        || {
+            code: fallback.code || 'unknown',
+            label: fallback.label || 'Premio Club Awka',
+            emoji: '🎁',
+            desc: fallback.description || 'Tu resultado ya fue guardado dentro del club.',
+            winner: true,
+            type: fallback.type || 'product',
+            productId: fallback.productId || null,
+            productCategory: fallback.productCategory || null,
+            discountPercent: fallback.discountPercent || null,
+            color: '#2a6030'
+        };
 }
 
 function renderWheel(rotation) {
@@ -122,16 +203,7 @@ function renderWheel(rotation) {
         ctx.textAlign = 'right';
         ctx.fillStyle = 'rgba(240,232,212,0.95)';
         ctx.font = '600 12px "DM Sans", sans-serif';
-
-        const lines = prize.label.split('\n');
-        const textRadius = radius - 12;
-        if (lines.length === 1) {
-            ctx.fillText(lines[0], textRadius, 5);
-        } else {
-            ctx.fillText(lines[0], textRadius, -5);
-            ctx.fillText(lines[1], textRadius, 10);
-        }
-
+        ctx.fillText(prize.label, radius - 12, 5);
         ctx.restore();
 
         ctx.save();
@@ -205,30 +277,23 @@ function renderProfile(profile) {
     }
 
     if (profile.spins.latestPrize) {
-        const meta = prizeMeta(profile.spins.latestPrize);
         prizeLabel.textContent = profile.spins.latestPrize;
-        prizeCopy.textContent = meta.winner
-            ? `Ultimo premio ganado: ${profile.spins.latestPrize}.`
+        prizeCopy.textContent = profile.spins.latestWinPrize
+            ? `Ultimo premio ganado: ${profile.spins.latestWinPrize}.`
             : 'Tu ultimo intento ya fue registrado en el historial del club.';
     }
 }
 
 function applySpinResultLocally(spinResult) {
-    if (!currentProfile) {
-        return;
-    }
-
-    const nextPending = Math.max(0, Number(spinResult.remainingSpins || 0));
-    const nextWins = currentProfile.spins.wins + (spinResult.winner ? 1 : 0);
-    const nextTotal = currentProfile.spins.total + 1;
+    if (!currentProfile) return;
 
     currentProfile = {
         ...currentProfile,
         spins: {
             ...currentProfile.spins,
-            pending: nextPending,
-            total: nextTotal,
-            wins: nextWins,
+            pending: Math.max(0, Number(spinResult.remainingSpins || 0)),
+            total: currentProfile.spins.total + 1,
+            wins: currentProfile.spins.wins + (spinResult.winner ? 1 : 0),
             latestPrize: spinResult.prize,
             latestPrizeAt: spinResult.playedAt,
             latestWinPrize: spinResult.winner ? spinResult.prize : currentProfile.spins.latestWinPrize,
@@ -266,42 +331,22 @@ function openReady() {
     openOverlay(overlayReady);
 }
 
-function easeOut(time) {
-    return 1 - Math.pow(1 - time, 4);
-}
-
-function animateToPrize(prizeLabelValue) {
-    const prizeIndex = Math.max(0, PRIZES.findIndex((prize) => prize.label === prizeLabelValue));
+function animateToPrize(spinResult) {
+    const prize = prizeMetaFromCode(spinResult.prizeMeta?.code, spinResult.prizeMeta || { label: spinResult.prize });
+    const prizeIndex = Math.max(0, PRIZES.findIndex((item) => item.code === prize.code));
     const targetAngle = -(arcStarts[prizeIndex] + equalArc / 2) + Math.PI * 1.5;
     const targetDegrees = (((targetAngle * 180) / Math.PI) % 360 + 360) % 360;
     const currentNormalized = ((currentRotation % 360) + 360) % 360;
     const extraSpins = (5 + Math.floor(Math.random() * 5)) * 360;
     const delta = extraSpins + ((targetDegrees - currentNormalized + 360) % 360);
-    const duration = 4200;
+    const duration = 2600;
 
     return new Promise((resolve) => {
         const nextRotation = currentRotation + delta;
-        canvas.style.willChange = 'transform';
-        canvas.style.transition = 'none';
-        canvas.style.transform = `rotate(${currentRotation}deg)`;
-        void canvas.offsetWidth;
-
-        let settled = false;
-        const finish = () => {
-            if (!settled) {
-                settled = true;
-                canvas.removeEventListener('transitionend', finish);
-                currentRotation = nextRotation;
-                resolve();
-            }
-        };
-
-        window.requestAnimationFrame(() => {
-            canvas.addEventListener('transitionend', finish, { once: true });
-            canvas.style.transition = `transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
-            canvas.style.transform = `rotate(${nextRotation}deg)`;
-            window.setTimeout(finish, duration + 120);
-        });
+        currentRotation = nextRotation;
+        canvas.style.transition = `transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
+        canvas.style.transform = `rotate(${nextRotation}deg)`;
+        window.setTimeout(resolve, duration + 60);
     });
 }
 
@@ -311,6 +356,14 @@ function buildWhatsappLink(profileName, prize) {
     );
 
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+}
+
+function buildCatalogLink(prize) {
+    if (prize.type !== 'product' || !prize.productCategory) {
+        return 'shop.html';
+    }
+
+    return `shop.html#${prize.productCategory}`;
 }
 
 function launchConfetti(accent) {
@@ -335,20 +388,50 @@ function launchConfetti(accent) {
     });
 }
 
-function showPrizeModal(prizeLabelValue, winner) {
-    const prize = prizeMeta(prizeLabelValue);
+function showPrizeModal(spinResult) {
+    const prize = prizeMetaFromCode(spinResult.prizeMeta?.code, spinResult.prizeMeta || { label: spinResult.prize });
     prizeEmoji.textContent = prize.emoji;
-    prizeEyebrow.textContent = winner ? 'Felicitaciones' : 'Gracias por participar';
+    prizeEyebrow.textContent = spinResult.winner ? 'Felicitaciones' : 'Gracias por participar';
     prizeName.textContent = prize.label;
-    prizeDesc.textContent = winner
+    prizeDesc.textContent = spinResult.winner
         ? `${prize.desc} El resultado ya quedo registrado en tu historial del club.`
         : `${prize.desc} Este intento tambien ya quedo registrado en tu historial del club.`;
     btnWsp.href = buildWhatsappLink(currentProfile?.name || 'Club Awka', prize);
+    btnPrizeCatalog.href = buildCatalogLink(prize);
+    btnPrizeCatalog.hidden = prize.type !== 'product';
     openOverlay(overlayPrize);
 
-    if (winner) {
+    if (spinResult.winner) {
         launchConfetti(prize.color);
     }
+}
+
+async function requestSpin(token) {
+    const response = await fetch('/api/club-spin', {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    let data = {};
+    try {
+        data = await response.json();
+    } catch (error) {
+        data = {};
+    }
+
+    if (!response.ok) {
+        throw new Error(data.message || 'No pudimos completar el giro.');
+    }
+
+    return data;
+}
+
+function refreshProfileSilently(token) {
+    fetchProfile(token)
+        .then(renderProfile)
+        .catch(() => {});
 }
 
 async function loadPlay() {
@@ -374,56 +457,42 @@ async function confirmSpin() {
     }
 
     spinning = true;
-    let spinCommitted = false;
     setSpinEnabled(false);
     closeOverlay(overlayReady);
     setFeedback('Girando ruleta...', 'success');
 
+    let spinResult;
     try {
-        const response = await fetch('/api/club-spin', {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${currentSession.token}`
-            }
-        });
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || 'No pudimos completar el giro.');
-        }
-
-        spinCommitted = true;
-        applySpinResultLocally(data);
-        await animateToPrize(data.prize);
-        showPrizeModal(data.prize, data.winner);
-        setFeedback(
-            data.winner ? `Ganaste ${data.prize}.` : `Resultado: ${data.prize}.`,
-            data.winner ? 'success' : ''
-        );
-
-        try {
-            const profile = await fetchProfile(currentSession.token);
-            renderProfile(profile);
-        } catch (refreshError) {
-            setFeedback(
-                data.winner
-                    ? `Ganaste ${data.prize}. Tu panel se actualizara al recargar.`
-                    : `Resultado: ${data.prize}. Tu panel se actualizara al recargar.`,
-                data.winner ? 'success' : ''
-            );
-        }
+        spinResult = await requestSpin(currentSession.token);
     } catch (error) {
-        setFeedback(
-            spinCommitted
-                ? 'El giro se registro, pero hubo un problema al refrescar la pantalla.'
-                : (error.message || 'No pudimos completar el giro.'),
-            spinCommitted ? 'success' : 'error'
-        );
-        setSpinEnabled(Boolean(currentProfile?.spins?.pending));
-    } finally {
+        setFeedback(error.message || 'No pudimos completar el giro.', 'error');
         spinning = false;
         setSpinEnabled(Boolean(currentProfile?.spins?.pending));
+        return;
     }
+
+    applySpinResultLocally(spinResult);
+
+    try {
+        await animateToPrize(spinResult);
+    } catch (animationError) {
+        console.error('Wheel animation error', animationError);
+    }
+
+    try {
+        showPrizeModal(spinResult);
+    } catch (modalError) {
+        console.error('Prize modal error', modalError);
+    }
+
+    setFeedback(
+        spinResult.winner ? `Ganaste ${spinResult.prize}.` : `Resultado: ${spinResult.prize}.`,
+        spinResult.winner ? 'success' : ''
+    );
+
+    refreshProfileSilently(currentSession.token);
+    spinning = false;
+    setSpinEnabled(Boolean(currentProfile?.spins?.pending));
 }
 
 spinButton.addEventListener('click', openReady);
