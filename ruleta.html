@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Awka Play: gira la ruleta del Club Awka con tus beneficios disponibles.">
+    <meta name="theme-color" content="#2C3E29">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Awka Play - Ruleta">
+    <meta property="og:description" content="Usa tus giros pendientes dentro del Club Awka.">
+    <meta property="og:url" content="https://tienda-awka-new.vercel.app/ruleta.html">
+    <meta property="og:image" content="https://tienda-awka-new.vercel.app/img/categorias/fertilizantes.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://tienda-awka-new.vercel.app/ruleta.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="manifest" href="site.webmanifest">
+    <title>Awka Play - Ruleta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Crimson+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="club-page">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" aria-label="Awka Liwen"><img src="img/awka-logo.png" alt="Awka Liwen"></a>
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="shop.html">Catalogo</a></li>
+                        <li><a href="club.html">Club Awka</a></li>
+                        <li><a href="ruleta.html" class="active">Awka Play</a></li>
+                    </ul>
+                </nav>
+                <a href="club.html" class="club-header-link">Volver al club</a>
+                <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleNav()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="club-dashboard-hero">
+            <div class="container">
+                <div class="club-dashboard-shell club-dashboard-shell-minimal">
+                    <div class="club-dashboard-copy">
+                        <div class="club-preview-kicker">Awka Play</div>
+                        <h1>Tu ruleta del club</h1>
+                        <p>Si tienes un giro pendiente, lo usas desde aqui. El resultado se registra en tu historial real del club.</p>
+                    </div>
+                    <div class="club-dashboard-actions club-dashboard-actions-compact">
+                        <a href="club.html" class="hero-cta">Volver al club</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="club-profile-section">
+            <div class="container">
+                <div class="ruleta-play-shell">
+                    <div class="ruleta-play-stage">
+                        <div class="ruleta-play-wheel-wrap">
+                            <div id="ruletaWheel" class="ruleta-play-wheel">
+                                <div class="ruleta-wheel-center">AWKA</div>
+                            </div>
+                            <div class="ruleta-wheel-pointer"></div>
+                        </div>
+                        <button type="button" id="ruletaSpinButton" class="hero-cta ruleta-spin-button">Girar ahora</button>
+                        <div id="ruletaFeedback" class="club-profile-feedback">Validando tu sesion del club...</div>
+                    </div>
+
+                    <aside class="ruleta-play-sidebar">
+                        <div class="club-preview-kicker">Estado</div>
+                        <h2 id="ruletaMemberName">Tu acceso</h2>
+                        <div id="ruletaStatusCard" class="ruleta-status-card">
+                            <strong id="ruletaPendingCount">0 giros</strong>
+                            <span id="ruletaStatusCopy">Necesitas iniciar sesion en Club Awka para usar la ruleta.</span>
+                        </div>
+                        <div id="ruletaResultCard" class="ruleta-result-card">
+                            <div class="club-member-eyebrow">Ultimo resultado</div>
+                            <strong id="ruletaPrizeLabel">Aun sin girar</strong>
+                            <p id="ruletaPrizeCopy">Tu premio o resultado va a aparecer aqui cuando completes el giro.</p>
+                        </div>
+                        <a href="club.html" class="club-side-link">Ver mi perfil</a>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-brand">
+                    <div class="footer-badge">Awka Play</div>
+                    <h3>Ruleta del club</h3>
+                    <p>La experiencia de juego vive conectada al historial del club y se activa solo con giros reales pendientes.</p>
+                </div>
+                <div class="footer-section footer-contact">
+                    <h3>Contacto</h3>
+                    <ul class="footer-list">
+                        <li>awkaliwengrow@hotmail.com</li>
+                        <li>Lun a Sab: 17:30 a 20:30hs</li>
+                        <li>Castelli 97, Buenos Aires</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Awka Liwen Growshop. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleNav() {
+            const nav = document.getElementById('mainNav');
+            const btn = document.getElementById('hamburger');
+            nav.classList.toggle('open');
+            btn.classList.toggle('open');
+        }
+    </script>
+    <script src="js/ruleta.js"></script>
+</body>
+</html>

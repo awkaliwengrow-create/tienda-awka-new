@@ -12,6 +12,7 @@ const authPhone = document.getElementById('clubAuthPhone');
 const authNameField = document.getElementById('clubAuthNameField');
 const authBackButton = document.getElementById('clubAuthBack');
 const logoutButton = document.getElementById('clubLogoutButton');
+const playLink = document.getElementById('clubPlayLink');
 const clubResult = document.getElementById('clubProfileResult');
 
 const PRIZE_EMOJIS = {
@@ -78,6 +79,21 @@ function loadSession() {
 
 function clearSession() {
     window.localStorage.removeItem(CLUB_SESSION_STORAGE_KEY);
+}
+
+function syncPlayLink(profile = null) {
+    if (!playLink) return;
+
+    if (profile?.spins?.pending > 0) {
+        playLink.hidden = false;
+        playLink.textContent = profile.spins.pending === 1
+            ? 'Ir a la ruleta'
+            : `Ir a la ruleta (${profile.spins.pending})`;
+        return;
+    }
+
+    playLink.hidden = true;
+    playLink.textContent = 'Ir a la ruleta';
 }
 
 function resetProfilePlaceholder() {
@@ -285,6 +301,7 @@ async function loadProfileFromSession(session) {
         authState.phone = session.phone || profile.phone;
         authState.name = session.name || profile.name;
         logoutButton.hidden = false;
+        syncPlayLink(profile);
         showPinStep();
         setAuthMode('login', profile.phone, profile.name);
         pinInput.value = '';
@@ -293,6 +310,7 @@ async function loadProfileFromSession(session) {
     } catch (error) {
         clearSession();
         logoutButton.hidden = true;
+        syncPlayLink();
         showPhoneStep('Tu sesion vencio. Ingresa de nuevo para continuar.', 'error');
         resetProfilePlaceholder();
     }
@@ -412,6 +430,7 @@ function handleBack() {
 function handleLogout() {
     clearSession();
     logoutButton.hidden = true;
+    syncPlayLink();
     handleBack();
     resetProfilePlaceholder();
     setFeedback(phoneFeedback, 'Sesion cerrada. Puedes volver a ingresar cuando quieras.', 'success');

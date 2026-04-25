@@ -2573,6 +2573,115 @@ footer {
     gap: 0.15rem;
 }
 
+.ruleta-play-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) 340px;
+    gap: 1rem;
+    align-items: start;
+}
+
+.ruleta-play-stage,
+.ruleta-play-sidebar {
+    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(232,220,196,0.88));
+    border-radius: 28px;
+    border: 1px solid rgba(61,40,23,0.08);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+}
+
+.ruleta-play-stage {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    min-height: 520px;
+}
+
+.ruleta-play-wheel-wrap {
+    position: relative;
+    width: min(100%, 380px);
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+}
+
+.ruleta-play-wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 14px solid rgba(44,62,41,0.95);
+    background: conic-gradient(
+        #d97a5f 0deg 51deg,
+        #f5d6a1 51deg 102deg,
+        #6e8a5f 102deg 153deg,
+        #d1b882 153deg 204deg,
+        #b35b47 204deg 255deg,
+        #8aa174 255deg 306deg,
+        #efd8bf 306deg 360deg
+    );
+    box-shadow: 0 28px 40px rgba(61,40,23,0.12);
+    transition: transform 4s cubic-bezier(.16,1,.3,1);
+}
+
+.ruleta-wheel-center {
+    position: absolute;
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    background: rgba(44,62,41,0.95);
+    color: var(--cream);
+    display: grid;
+    place-items: center;
+    font-size: 1.2rem;
+    letter-spacing: 0.16em;
+    font-weight: 700;
+    box-shadow: 0 12px 24px rgba(44,62,41,0.25);
+}
+
+.ruleta-wheel-pointer {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-top: 30px solid var(--clay);
+    filter: drop-shadow(0 10px 20px rgba(61,40,23,0.18));
+}
+
+.ruleta-spin-button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.ruleta-play-sidebar {
+    display: grid;
+    gap: 1rem;
+}
+
+.ruleta-status-card,
+.ruleta-result-card {
+    border-radius: 22px;
+    padding: 1rem 1.05rem;
+    background: rgba(245,241,232,0.78);
+    border: 1px solid rgba(74,103,65,0.14);
+}
+
+.ruleta-status-card strong,
+.ruleta-result-card strong {
+    display: block;
+    color: var(--soil);
+    margin-bottom: 0.4rem;
+}
+
+.ruleta-status-card span,
+.ruleta-result-card p {
+    color: rgba(61,40,23,0.75);
+    line-height: 1.6;
+    margin: 0;
+}
+
 .club-profile-history-title {
     margin-bottom: 0.8rem;
     font-weight: 700;
@@ -2871,6 +2980,9 @@ footer {
     }
     .club-profile-stats-5 {
         grid-template-columns: 1fr 1fr;
+    }
+    .ruleta-play-shell {
+        grid-template-columns: 1fr;
     }
     .search-input { font-size: 0.98rem; }
     .filters {
