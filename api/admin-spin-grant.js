@@ -43,13 +43,6 @@ module.exports = async (req, res) => {
             return;
         }
 
-        const payload = Array.from({ length: count }, () => ({
-            nombre: name,
-            telefono: phone,
-            estado: 'pendiente',
-            created_at: new Date().toISOString()
-        }));
-
         await supabaseRequest('clientes?on_conflict=telefono', {
             method: 'POST',
             headers: {
@@ -61,10 +54,19 @@ module.exports = async (req, res) => {
             })
         }).catch(() => null);
 
-        await supabaseRequest('giros_habilitados', {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        });
+        for (let index = 0; index < count; index += 1) {
+            await supabaseRequest('giros_habilitados', {
+                method: 'POST',
+                headers: {
+                    Prefer: 'return=minimal'
+                },
+                body: JSON.stringify({
+                    nombre: name,
+                    telefono: phone,
+                    estado: 'pendiente'
+                })
+            });
+        }
 
         json(res, 200, {
             ok: true,
