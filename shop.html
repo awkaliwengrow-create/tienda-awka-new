@@ -75,6 +75,7 @@
                     <input type="text" id="searchInput" class="search-input" placeholder="Buscar por producto, marca o descripción">
                     <span class="search-icon">🔍</span>
                 </div>
+                <div class="shop-search-help">Buscá por nombre, marca o descripción y combiná con filtros para llegar más rápido.</div>
             </div>
 
             <div class="filters-wrap">
@@ -117,6 +118,14 @@
         </section>
 
         <section class="products">
+            <div class="products-meta">
+                <div class="products-meta-copy">
+                    <span class="products-meta-label">Vista activa</span>
+                    <strong id="productsMetaTitle">Todo el catálogo</strong>
+                    <span id="productsMetaCount">0 productos</span>
+                </div>
+                <button type="button" id="productsMetaReset" class="products-meta-reset" hidden>Limpiar búsqueda</button>
+            </div>
             <div class="products-grid" id="productsGrid"></div>
         </section>
     </div>

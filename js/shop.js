@@ -6,6 +6,16 @@ const WHATSAPP_ORDER_NUMBER = '542494009164';
 const CLUB_POINTS_PER_AMOUNT = 5000;
 let cart = [];
 const validCategories = new Set(['todos', 'fertilizantes', 'plaguicidas', 'herramientas', 'macetas', 'parafernalia', 'papeles', 'filtros']);
+const categoryTitles = {
+    todos: 'Todo el catálogo',
+    fertilizantes: 'Fertilizantes y nutrición',
+    plaguicidas: 'Control y protección',
+    herramientas: 'Herramientas',
+    macetas: 'Macetas y contenedores',
+    parafernalia: 'Parafernalia',
+    papeles: 'Papeles',
+    filtros: 'Filtros y tips'
+};
 
 function escapeHtml(value = '') {
     return String(value)
@@ -158,6 +168,17 @@ function renderProducts(category = 'todos', searchTerm = '') {
         );
     }
 
+    updateProductsMeta(category, searchTerm, filteredProducts.length);
+
+    if (!filteredProducts.length) {
+        grid.innerHTML = `
+            <div class="club-profile-empty">
+                No encontramos productos para esta combinación. Probá otro filtro o limpiá la búsqueda.
+            </div>
+        `;
+        return;
+    }
+
     grid.innerHTML = filteredProducts.map(product => {
         let priceDisplay = '';
         if (product.sizes && product.sizes.length > 0) {
@@ -190,6 +211,27 @@ function renderProducts(category = 'todos', searchTerm = '') {
             </div>
         </div>
     `}).join('');
+}
+
+function updateProductsMeta(category = 'todos', searchTerm = '', count = 0) {
+    const title = document.getElementById('productsMetaTitle');
+    const countLabel = document.getElementById('productsMetaCount');
+    const resetButton = document.getElementById('productsMetaReset');
+    const normalizedSearch = String(searchTerm || '').trim();
+
+    if (title) {
+        title.textContent = normalizedSearch
+            ? `${categoryTitles[category] || 'Resultados'} · “${normalizedSearch}”`
+            : (categoryTitles[category] || 'Todo el catálogo');
+    }
+
+    if (countLabel) {
+        countLabel.textContent = `${count} producto${count === 1 ? '' : 's'}`;
+    }
+
+    if (resetButton) {
+        resetButton.hidden = !normalizedSearch && category === 'todos';
+    }
 }
 
 // Show Product Details Modal
@@ -594,6 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchToggle = document.getElementById('searchToggle');
     const shopToolbar = document.querySelector('.shop-toolbar');
     const searchInput = document.getElementById('searchInput');
+    const resetButton = document.getElementById('productsMetaReset');
 
     if (searchToggle && shopToolbar && window.innerWidth <= 768) {
         shopToolbar.classList.add('is-search-collapsed');
@@ -637,6 +680,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutProfileForm = document.getElementById('checkoutProfileForm');
     if (checkoutProfileForm) {
         checkoutProfileForm.addEventListener('submit', submitCheckoutProfile);
+    }
+
+    if (resetButton) {
+        resetButton.addEventListener('click', () => {
+            const searchInputField = document.getElementById('searchInput');
+            if (searchInputField) {
+                searchInputField.value = '';
+            }
+
+            syncCategoryUI('todos');
+            renderProducts('todos', '');
+            window.history.replaceState(null, '', window.location.pathname);
+        });
     }
 
     // Setup search
