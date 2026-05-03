@@ -26,6 +26,7 @@ const pendingList = document.getElementById('adminPendingList');
 const usedList = document.getElementById('adminUsedList');
 const levelHistoryList = document.getElementById('adminLevelHistoryList');
 const campaignsList = document.getElementById('adminCampaignsList');
+const campaignActivationList = document.getElementById('adminCampaignActivationList');
 
 function setFeedback(element, message, variant = '') {
     if (!element) return;
@@ -190,6 +191,36 @@ function renderCampaigns(items) {
     );
 }
 
+function humanizeTrigger(trigger = '') {
+    const map = {
+        primera_compra: 'Primera compra',
+        subida_nivel: 'Subida de nivel',
+        cadencia_fiel: 'Cadencia Fiel'
+    };
+
+    return map[trigger] || trigger || 'Automatico';
+}
+
+function renderCampaignActivations(items) {
+    campaignActivationList.innerHTML = renderList(
+        items,
+        (item) => `
+            <article class="admin-item">
+                <div class="admin-item-main">
+                    <strong>${item.name} · ${item.campaignId}</strong>
+                    <span>${item.phone}</span>
+                    <span>${item.note || 'Activacion registrada automaticamente.'}</span>
+                </div>
+                <div class="admin-item-side">
+                    <span class="admin-badge is-success">${humanizeTrigger(item.triggerType)}</span>
+                    <span class="admin-item-note">${formatDate(item.createdAt)}</span>
+                </div>
+            </article>
+        `,
+        'Todavia no hay automatizaciones registradas.'
+    );
+}
+
 async function loadDashboard() {
     const data = await adminFetch('/api/admin-dashboard');
 
@@ -207,6 +238,7 @@ async function loadDashboard() {
     renderSpins(usedList, data.usedSpins || [], 'No hay giros usados aun.', true);
     renderLevelHistory(data.levelHistory || []);
     renderCampaigns(data.campaigns || []);
+    renderCampaignActivations(data.campaignActivations || []);
 
     rewardsList.querySelectorAll('[data-reward-deliver]').forEach((button) => {
         button.addEventListener('click', async () => {

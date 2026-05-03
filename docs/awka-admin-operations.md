@@ -183,6 +183,13 @@ Uso recomendado:
 - habilitar mas giros a Recurrente
 - reservar premios o activaciones para Fiel
 
+Ademas, el admin ahora puede revisar `Activaciones recientes` para ver:
+
+- que automatizacion se disparo
+- sobre que cliente
+- en que momento
+- con que motivo operativo
+
 ## Criterio operativo recomendado
 
 ### Cliente nuevo
@@ -246,6 +253,7 @@ En Vercel deben existir:
 - `club_puntos_movimientos`
 - `club_compras`
 - `club_premios_estado`
+- `club_campaign_activations`
 
 ## Estado actual del proyecto
 

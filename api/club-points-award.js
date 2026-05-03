@@ -6,6 +6,33 @@ const LEVEL_BONUS_SPINS = {
     fiel: 2
 };
 const FIEL_RECURRING_SPIN_EVERY = 3;
+const CAMPAIGN_AUTOMATIONS = {
+    nuevoFirstPurchase: 'nuevo-segunda-compra',
+    recurrenteUnlock: 'recurrente-ventana-play',
+    fielUnlock: 'fiel-mesa-exclusiva',
+    fielRecurring: 'fiel-spin-cadencia'
+};
+
+async function recordCampaignActivation({ phone, name, campaignId, triggerType, reference, note }) {
+    try {
+        await supabaseRequest('club_campaign_activations?on_conflict=activation_key', {
+            method: 'POST',
+            body: JSON.stringify({
+                activation_key: `${phone}:${campaignId}:${reference}`,
+                telefono: phone,
+                nombre: name,
+                campaign_id: campaignId,
+                trigger_type: triggerType,
+                reference,
+                note,
+                created_at: new Date().toISOString()
+            })
+        });
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
 
 async function readJsonBody(req) {
     if (req.body && typeof req.body === 'object') {
@@ -192,6 +219,56 @@ module.exports = async (req, res) => {
             }
         }
 
+        const campaignActivations = [];
+
+        if (totalPurchases === 1) {
+            campaignActivations.push({
+                id: CAMPAIGN_AUTOMATIONS.nuevoFirstPurchase,
+                triggerType: 'primera_compra',
+                note: `Primera compra aprobada registrada con referencia ${reference}.`
+            });
+        }
+
+        if (levelUnlockBonusSpins > 0 && unlockedLevelKey === 'recurrente') {
+            campaignActivations.push({
+                id: CAMPAIGN_AUTOMATIONS.recurrenteUnlock,
+                triggerType: 'subida_nivel',
+                note: `Subida automatica a Recurrente con la compra ${reference}.`
+            });
+        }
+
+        if (levelUnlockBonusSpins > 0 && unlockedLevelKey === 'fiel') {
+            campaignActivations.push({
+                id: CAMPAIGN_AUTOMATIONS.fielUnlock,
+                triggerType: 'subida_nivel',
+                note: `Subida automatica a Fiel con la compra ${reference}.`
+            });
+        }
+
+        if (fielRecurringBonusSpins > 0) {
+            campaignActivations.push({
+                id: CAMPAIGN_AUTOMATIONS.fielRecurring,
+                triggerType: 'cadencia_fiel',
+                note: `Cadencia Fiel activada en la compra ${totalPurchases} con referencia ${reference}.`
+            });
+        }
+
+        const recordedCampaigns = [];
+        for (const activation of campaignActivations) {
+            const stored = await recordCampaignActivation({
+                phone,
+                name,
+                campaignId: activation.id,
+                triggerType: activation.triggerType,
+                reference,
+                note: activation.note
+            });
+
+            if (stored) {
+                recordedCampaigns.push(activation.id);
+            }
+        }
+
         json(res, 200, {
             awarded: true,
             duplicate: false,
@@ -202,6 +279,7 @@ module.exports = async (req, res) => {
             bonusSpinsAwarded: bonusSpins,
             levelUnlocked: levelUnlockBonusSpins > 0 ? level.label : null,
             recurringFielBonusTriggered: fielRecurringBonusSpins > 0,
+            campaignActivations: recordedCampaigns,
             message: pointsToAward > 0
                 ? `Se acreditaron ${pointsToAward} punto${pointsToAward === 1 ? '' : 's'}.`
                 : 'Compra registrada sin puntos por monto mínimo.'

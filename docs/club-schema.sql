@@ -82,6 +82,18 @@ create table if not exists public.club_niveles_historial (
     unique (telefono, nivel_nuevo)
 );
 
+create table if not exists public.club_campaign_activations (
+    id bigserial primary key,
+    activation_key text not null unique,
+    telefono text not null,
+    nombre text not null,
+    campaign_id text not null,
+    trigger_type text not null,
+    reference text,
+    note text,
+    created_at timestamptz not null default now()
+);
+
 create index if not exists idx_clientes_telefono on public.clientes (telefono);
 create index if not exists idx_puntos_telefono on public.puntos (telefono);
 create index if not exists idx_giros_telefono_estado on public.giros_habilitados (telefono, estado);
@@ -91,6 +103,8 @@ create index if not exists idx_club_compras_telefono_created on public.club_comp
 create index if not exists idx_club_premios_estado_status_created on public.club_premios_estado (estado, created_at desc);
 create index if not exists idx_club_premios_estado_telefono on public.club_premios_estado (telefono);
 create index if not exists idx_club_niveles_historial_telefono_created on public.club_niveles_historial (telefono, created_at desc);
+create index if not exists idx_club_campaign_activations_telefono_created on public.club_campaign_activations (telefono, created_at desc);
+create index if not exists idx_club_campaign_activations_campaign_created on public.club_campaign_activations (campaign_id, created_at desc);
 
 comment on table public.clientes is 'Base de identidad liviana para Club Awka.';
 comment on table public.puntos is 'Saldo de puntos acumulados y canjeados por cliente.';
@@ -100,3 +114,4 @@ comment on table public.club_puntos_movimientos is 'Auditoria e idempotencia de 
 comment on table public.club_compras is 'Compras aprobadas que permiten calcular nivel y progreso del club.';
 comment on table public.club_premios_estado is 'Trazabilidad operativa de premios ganados y entregados.';
 comment on table public.club_niveles_historial is 'Auditoria de subidas de nivel y desbloqueos del sistema de fidelizacion.';
+comment on table public.club_campaign_activations is 'Registro de campanas y automatizaciones disparadas sobre perfiles del club.';

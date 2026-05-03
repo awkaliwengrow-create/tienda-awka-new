@@ -2913,6 +2913,31 @@ footer {
     margin-top: 1rem;
 }
 
+.club-campaign-activation {
+    margin-bottom: 0.9rem;
+    padding: 0.95rem 1rem;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.72);
+    border: 1px solid rgba(74,103,65,0.12);
+}
+
+.club-campaign-activation strong,
+.club-campaign-activation span,
+.club-campaign-activation small {
+    display: block;
+}
+
+.club-campaign-activation span {
+    margin-top: 0.2rem;
+    color: var(--soil);
+}
+
+.club-campaign-activation small {
+    margin-top: 0.25rem;
+    color: rgba(61,40,23,0.72);
+    line-height: 1.5;
+}
+
 .club-campaigns-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

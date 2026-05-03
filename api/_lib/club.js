@@ -78,6 +78,11 @@ const SEGMENT_CAMPAIGNS = {
         }
     ]
 };
+const CAMPAIGN_TITLES = Object.fromEntries(
+    Object.values(SEGMENT_CAMPAIGNS)
+        .flat()
+        .map((campaign) => [campaign.id, campaign.title])
+);
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 7;
 
 function normalizePhone(phone = '') {
@@ -286,7 +291,7 @@ async function fetchCustomerByPhone(phone) {
     return rows?.[0] || null;
 }
 
-function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchases, levelHistory }) {
+function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchases, levelHistory, campaignHistory }) {
     const normalizedSpins = (spins || []).map((spin) => ({
         prize: spin.premio || 'Sin resultado',
         winner: Boolean(spin.ganador),
@@ -305,6 +310,7 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
         totalPurchases,
         totalSpent
     });
+    const latestCampaignActivation = campaignHistory?.[0] || null;
 
     return {
         exists: Boolean(customer),
@@ -331,7 +337,16 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
             audience: level.label,
             total: campaigns.length,
             featured: campaigns[0] || null,
-            items: campaigns
+            items: campaigns,
+            latestActivation: latestCampaignActivation
+                ? {
+                    id: latestCampaignActivation.campaign_id,
+                    title: CAMPAIGN_TITLES[latestCampaignActivation.campaign_id] || latestCampaignActivation.campaign_id,
+                    trigger: latestCampaignActivation.trigger_type || 'automatico',
+                    createdAt: latestCampaignActivation.created_at || null,
+                    note: latestCampaignActivation.note || ''
+                }
+                : null
         },
         spins: {
             pending: pendingSpins?.length || 0,
@@ -356,13 +371,14 @@ async function fetchClubProfile(phone) {
     }
 
     const encodedPhone = encodeURIComponent(normalizedPhone);
-    const [customerRows, pointsRows, spinRows, pendingRows, purchaseRows, levelHistoryRows] = await Promise.all([
+    const [customerRows, pointsRows, spinRows, pendingRows, purchaseRows, levelHistoryRows, campaignHistoryRows] = await Promise.all([
         supabaseRequest(`clientes?select=nombre,telefono&telefono=eq.${encodedPhone}&limit=1`),
         supabaseRequest(`puntos?select=puntos,puntos_canjeados,ultima_actividad&telefono=eq.${encodedPhone}&limit=1`),
         supabaseRequest(`ruleta_registros?select=premio,ganador,created_at,fecha&telefono=eq.${encodedPhone}&order=created_at.desc.nullslast,fecha.desc.nullslast`),
         supabaseRequest(`giros_habilitados?select=id,estado&telefono=eq.${encodedPhone}&estado=eq.pendiente`),
         supabaseRequest(`club_compras?select=referencia,monto_total,created_at&telefono=eq.${encodedPhone}&estado=eq.aprobada&order=created_at.desc`),
-        supabaseRequest(`club_niveles_historial?select=nivel_anterior,nivel_nuevo,motivo,created_at&telefono=eq.${encodedPhone}&order=created_at.desc&limit=1`).catch(() => [])
+        supabaseRequest(`club_niveles_historial?select=nivel_anterior,nivel_nuevo,motivo,created_at&telefono=eq.${encodedPhone}&order=created_at.desc&limit=1`).catch(() => []),
+        supabaseRequest(`club_campaign_activations?select=campaign_id,trigger_type,note,created_at&telefono=eq.${encodedPhone}&order=created_at.desc&limit=3`).catch(() => [])
     ]);
 
     return buildProfile({
@@ -372,7 +388,8 @@ async function fetchClubProfile(phone) {
         spins: spinRows || [],
         pendingSpins: pendingRows || [],
         purchases: purchaseRows || [],
-        levelHistory: levelHistoryRows || []
+        levelHistory: levelHistoryRows || [],
+        campaignHistory: campaignHistoryRows || []
     });
 }
 
@@ -383,6 +400,7 @@ module.exports = {
     createSessionToken,
     fetchClubProfile,
     fetchCustomerByPhone,
+    CAMPAIGN_TITLES,
     getCampaignCatalog,
     getCampaignsForLevel,
     getBearerToken,

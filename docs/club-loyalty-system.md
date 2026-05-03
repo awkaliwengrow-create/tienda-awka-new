@@ -121,6 +121,20 @@ El sistema ya puede mostrar campañas activas segun el nivel del cliente:
 
 Estas campañas hoy funcionan como capa operativa y comunicacional dentro del panel y del admin.
 
+## Automatizaciones Auditables V1
+La siguiente capa operativa registra cuando una campana se activa de verdad sobre un perfil:
+
+- primera compra de un cliente `Nuevo`
+- subida automatica a `Recurrente`
+- subida automatica a `Fiel`
+- bonus recurrente de `Fiel` cada `3` compras adicionales
+
+Esto permite:
+
+- mostrar la ultima activacion en `Club Awka`
+- auditar activaciones recientes desde `Awka Admin`
+- dejar trazabilidad para futuras campanas temporales o estacionales
+
 ## Modelo De Datos Recomendado Para La Siguiente Etapa
 Para profesionalizar el sistema conviene sumar 2 entidades:
 

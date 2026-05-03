@@ -12,13 +12,14 @@ module.exports = async (req, res) => {
     }
 
     try {
-        const [pendingSpins, usedSpins, pointsRows, levelHistoryRows, purchaseRows, customerRows] = await Promise.all([
+        const [pendingSpins, usedSpins, pointsRows, levelHistoryRows, purchaseRows, customerRows, campaignActivationRows] = await Promise.all([
             supabaseRequest('giros_habilitados?select=id,nombre,telefono,created_at&estado=eq.pendiente&order=created_at.desc&limit=40'),
             supabaseRequest('giros_habilitados?select=id,nombre,telefono,used_at,created_at&estado=eq.usado&order=used_at.desc.nullslast,created_at.desc&limit=20'),
             supabaseRequest('puntos?select=id,nombre,telefono,puntos,puntos_canjeados,ultima_actividad&order=puntos.desc&limit=30'),
             supabaseRequest('club_niveles_historial?select=id,telefono,nivel_anterior,nivel_nuevo,motivo,created_at&order=created_at.desc&limit=20').catch(() => []),
             supabaseRequest('club_compras?select=telefono,estado,monto_total,created_at&estado=eq.aprobada').catch(() => []),
-            supabaseRequest('clientes?select=nombre,telefono').catch(() => [])
+            supabaseRequest('clientes?select=nombre,telefono').catch(() => []),
+            supabaseRequest('club_campaign_activations?select=id,telefono,nombre,campaign_id,trigger_type,reference,note,created_at&order=created_at.desc&limit=20').catch(() => [])
         ]);
 
         let rewardRows = [];
@@ -120,6 +121,16 @@ module.exports = async (req, res) => {
                 from: row.nivel_anterior,
                 to: row.nivel_nuevo,
                 reason: row.motivo || '',
+                createdAt: row.created_at || null
+            })),
+            campaignActivations: (campaignActivationRows || []).map((row) => ({
+                id: row.id,
+                phone: row.telefono,
+                name: row.nombre,
+                campaignId: row.campaign_id,
+                triggerType: row.trigger_type,
+                reference: row.reference || '',
+                note: row.note || '',
                 createdAt: row.created_at || null
             })),
             rewards

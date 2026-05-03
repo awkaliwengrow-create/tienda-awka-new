@@ -276,6 +276,7 @@ function renderBenefits(profile) {
 
 function renderCampaigns(profile) {
     const items = Array.isArray(profile.campaigns?.items) ? profile.campaigns.items : [];
+    const latestActivation = profile.campaigns?.latestActivation || null;
 
     if (!items.length) {
         return '';
@@ -284,6 +285,13 @@ function renderCampaigns(profile) {
     return `
         <div class="club-campaigns-panel">
             <div class="club-profile-history-title">Campanas activas para ${profile.campaigns.audience}</div>
+            ${latestActivation ? `
+                <div class="club-campaign-activation">
+                    <strong>Ultima activacion automatica</strong>
+                    <span>${latestActivation.title}</span>
+                    <small>${latestActivation.note || `Disparada por ${latestActivation.trigger}.`} · ${formatDate(latestActivation.createdAt)}</small>
+                </div>
+            ` : ''}
             <div class="club-campaigns-grid">
                 ${items.map((campaign) => `
                     <article class="club-campaign-card">
