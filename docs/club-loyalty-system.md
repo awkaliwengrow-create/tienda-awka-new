@@ -124,6 +124,12 @@ El sistema ya puede mostrar campanas activas segun el nivel del cliente:
 
 Estas campanas hoy funcionan como capa operativa y comunicacional dentro del panel y del admin.
 
+Ademas, la capa actual ya soporta campanas contextuales:
+
+- `cierre de nivel`: cuando el cliente queda a una compra del siguiente salto
+- `reactivacion suave`: cuando el perfil lleva 30 dias o mas sin actividad reciente
+- `mantenimiento premium`: cuando el cliente Fiel ya consolido su tramo premium y conviene sostener frecuencia
+
 ## Automatizaciones Auditables V1
 La capa operativa registra cuando una campana se activa de verdad sobre un perfil:
 

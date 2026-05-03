@@ -115,6 +115,14 @@ const CAMPAIGN_TITLES = Object.fromEntries(
 );
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 7;
 
+function diffDaysFromNow(value) {
+    if (!value) return null;
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return null;
+    const diffMs = Date.now() - parsed.getTime();
+    return Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+}
+
 function normalizePhone(phone = '') {
     return String(phone).replace(/\D/g, '').slice(-10);
 }
@@ -158,6 +166,32 @@ function getCampaignsForLevel(levelKey, context = {}) {
         }
     }
 
+    if (levelKey === 'nuevo' && context.purchaseCount === 1) {
+        campaigns.push({
+            id: 'nuevo-cierre-recurrente',
+            title: 'Cierre a Recurrente',
+            audience: 'Nuevo',
+            benefit: 'Estas a una compra de salir del tramo inicial del club.',
+            description: 'Tu siguiente compra no solo suma puntos: te mueve a Recurrente y activa un giro bonus automatico.',
+            cta: 'Aprovecha este momento para hacer la segunda compra y destrabar el primer salto fuerte del ecosistema.',
+            automation: 'Se muestra cuando el cliente Nuevo ya tiene 1 compra aprobada.',
+            status: 'activa'
+        });
+    }
+
+    if (context.daysSinceActivity !== null && context.daysSinceActivity >= 30) {
+        campaigns.push({
+            id: `${levelKey}-reactivacion-suave`,
+            title: 'Reactivacion del ritmo',
+            audience: levelKey === 'fiel' ? 'Fiel' : levelKey === 'recurrente' ? 'Recurrente' : 'Nuevo',
+            benefit: 'Tu perfil lleva varios dias sin actividad reciente.',
+            description: 'El sistema detecta una pausa en tu ritmo. Volver a comprar o usar un giro te mantiene dentro de las activaciones vigentes.',
+            cta: `Tu ultima actividad fue hace ${context.daysSinceActivity} dias. Volver a mover el perfil reactiva mejor tus beneficios.`,
+            automation: 'Se muestra automaticamente despues de 30 dias sin actividad registrada.',
+            status: 'activa'
+        });
+    }
+
     if (levelKey === 'recurrente' && typeof context.pendingSpins === 'number') {
         campaigns.push({
             id: 'recurrente-play-activo',
@@ -169,6 +203,19 @@ function getCampaignsForLevel(levelKey, context = {}) {
                 : 'Este nivel entra primero en activaciones operativas del club y suele recibir giros antes que un perfil Nuevo.',
             cta: context.pendingSpins > 0 ? 'Entra a Awka Play para usar tus giros pendientes.' : 'Sosten tu ritmo de compra para acercarte a Fiel.',
             automation: 'Se ajusta automaticamente segun tu disponibilidad de giros.'
+        });
+    }
+
+    if (levelKey === 'recurrente' && context.purchasesToNext === 1) {
+        campaigns.push({
+            id: 'recurrente-cierre-fiel',
+            title: 'Cierre a Fiel',
+            audience: 'Recurrente',
+            benefit: 'Estas a una compra del nivel mas alto del club.',
+            description: 'Tu siguiente compra aprobada te mueve a Fiel, libera 2 giros bonus y abre la capa premium.',
+            cta: 'Mantente activo ahora para no perder la ventana mas valiosa de progresion.',
+            automation: 'Se muestra cuando el cliente Recurrente queda a una compra de Fiel.',
+            status: 'activa'
         });
     }
 
@@ -186,6 +233,18 @@ function getCampaignsForLevel(levelKey, context = {}) {
                     ? 'Acabas de consolidar Fiel. La siguiente capa automatica vuelve a premiar tu continuidad.'
                     : 'Cada nuevo tramo completo de 3 compras aprobadas vuelve a abrir un giro premium.'
             };
+        }
+
+        if (purchasesSinceFiel >= 1) {
+            campaigns.push({
+                id: 'fiel-mantenimiento-premium',
+                title: 'Mantenimiento premium',
+                audience: 'Fiel',
+                benefit: 'Tu perfil ya esta sosteniendo el tramo premium del club.',
+                description: 'El objetivo ahora no es solo sostener puntos, sino mantener frecuencia para seguir entrando primero en activaciones y premios.',
+                cta: `Te faltan ${purchasesToCadence} compra${purchasesToCadence === 1 ? '' : 's'} para volver a disparar un giro de fidelidad.`,
+                automation: 'Se muestra cuando el cliente Fiel ya supero el desbloqueo inicial.'
+            });
         }
     }
 
@@ -352,13 +411,17 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
     const latestSpin = normalizedSpins[0] || null;
     const totalPurchases = purchases?.length || 0;
     const totalSpent = (purchases || []).reduce((sum, purchase) => sum + (Number(purchase.monto_total) || 0), 0);
+    const latestPurchaseAt = purchases?.[0]?.created_at || null;
+    const latestActivityAt = pointsRow?.ultima_actividad || latestPurchaseAt || latestSpin?.createdAt || null;
     const level = calculateLevel(totalPurchases);
     const latestLevelUnlock = levelHistory?.[0] || null;
     const campaigns = getCampaignsForLevel(level.key, {
+        purchaseCount: totalPurchases,
         purchasesToNext: level.purchasesToNext,
         pendingSpins: pendingSpins?.length || 0,
         totalPurchases,
-        totalSpent
+        totalSpent,
+        daysSinceActivity: diffDaysFromNow(latestActivityAt)
     });
     const latestCampaignActivation = campaignHistory?.[0] || null;
 

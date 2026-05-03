@@ -1,6 +1,13 @@
 const { calculateLevel, getCampaignCatalog, json, normalizePhone, supabaseRequest } = require('./_lib/club');
 const { requireAdmin } = require('./_lib/admin');
 
+function diffDaysFromNow(value) {
+    if (!value) return null;
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return null;
+    return Math.max(0, Math.floor((Date.now() - parsed.getTime()) / (1000 * 60 * 60 * 24)));
+}
+
 module.exports = async (req, res) => {
     if (req.method !== 'GET') {
         json(res, 405, { error: 'Method not allowed' });
@@ -75,10 +82,77 @@ module.exports = async (req, res) => {
             recurrente: 0,
             fiel: 0
         };
+        const campaignEligibleCounts = {
+            'nuevo-bienvenida-play': 0,
+            'nuevo-segunda-compra': 0,
+            'nuevo-cierre-recurrente': 0,
+            'nuevo-reactivacion-suave': 0,
+            'recurrente-ventana-play': 0,
+            'recurrente-impulso-fiel': 0,
+            'recurrente-cierre-fiel': 0,
+            'recurrente-reactivacion-suave': 0,
+            'fiel-mesa-exclusiva': 0,
+            'fiel-spin-cadencia': 0,
+            'fiel-prioridad-premium': 0,
+            'fiel-mantenimiento-premium': 0,
+            'fiel-reactivacion-suave': 0
+        };
+        const lastPurchaseByPhone = new Map();
+
+        (purchaseRows || []).forEach((row) => {
+            const phone = normalizePhone(row.telefono);
+            if (!phone) return;
+            const createdAt = row.created_at || null;
+            const existing = lastPurchaseByPhone.get(phone);
+            if (!existing || new Date(createdAt) > new Date(existing)) {
+                lastPurchaseByPhone.set(phone, createdAt);
+            }
+        });
 
         knownPhones.forEach((phone) => {
-            const level = calculateLevel(purchaseCountByPhone.get(phone) || 0);
+            const purchaseCount = purchaseCountByPhone.get(phone) || 0;
+            const level = calculateLevel(purchaseCount);
+            const lastPurchaseAt = lastPurchaseByPhone.get(phone) || null;
+            const daysSincePurchase = diffDaysFromNow(lastPurchaseAt);
             segments[level.key] += 1;
+
+            if (level.key === 'nuevo') {
+                campaignEligibleCounts['nuevo-bienvenida-play'] += 1;
+                if (purchaseCount === 1) {
+                    campaignEligibleCounts['nuevo-segunda-compra'] += 1;
+                    campaignEligibleCounts['nuevo-cierre-recurrente'] += 1;
+                }
+                if (daysSincePurchase !== null && daysSincePurchase >= 30) {
+                    campaignEligibleCounts['nuevo-reactivacion-suave'] += 1;
+                }
+            }
+
+            if (level.key === 'recurrente') {
+                campaignEligibleCounts['recurrente-ventana-play'] += 1;
+                if (purchaseCount === 3) {
+                    campaignEligibleCounts['recurrente-impulso-fiel'] += 1;
+                }
+                if (purchaseCount === 4) {
+                    campaignEligibleCounts['recurrente-cierre-fiel'] += 1;
+                }
+                if (daysSincePurchase !== null && daysSincePurchase >= 30) {
+                    campaignEligibleCounts['recurrente-reactivacion-suave'] += 1;
+                }
+            }
+
+            if (level.key === 'fiel') {
+                campaignEligibleCounts['fiel-mesa-exclusiva'] += 1;
+                campaignEligibleCounts['fiel-spin-cadencia'] += 1;
+                if (purchaseCount === 5) {
+                    campaignEligibleCounts['fiel-prioridad-premium'] += 1;
+                }
+                if (purchaseCount >= 6) {
+                    campaignEligibleCounts['fiel-mantenimiento-premium'] += 1;
+                }
+                if (daysSincePurchase !== null && daysSincePurchase >= 30) {
+                    campaignEligibleCounts['fiel-reactivacion-suave'] += 1;
+                }
+            }
         });
 
         const campaigns = getCampaignCatalog().map((campaign) => ({
@@ -89,6 +163,12 @@ module.exports = async (req, res) => {
             description: campaign.description,
             cta: campaign.cta,
             automation: campaign.automation,
+            eligibilityCount: campaignEligibleCounts[campaign.id] || 0,
+            priority: campaign.id.includes('reactivacion')
+                ? 'reactivacion'
+                : campaign.id.includes('fiel')
+                    ? 'alto_valor'
+                    : 'conversion',
             targetCount: campaign.audience === 'Nuevo'
                 ? segments.nuevo
                 : campaign.audience === 'Recurrente'

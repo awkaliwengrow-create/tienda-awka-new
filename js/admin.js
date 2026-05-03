@@ -183,6 +183,16 @@ function renderLevelHistory(items) {
     );
 }
 
+function humanizeCampaignPriority(priority = '') {
+    const map = {
+        conversion: 'Conversion',
+        alto_valor: 'Alto valor',
+        reactivacion: 'Reactivacion'
+    };
+
+    return map[priority] || 'Campana';
+}
+
 function renderCampaigns(items) {
     campaignsList.innerHTML = renderList(
         items,
@@ -190,11 +200,11 @@ function renderCampaigns(items) {
             <article class="admin-item">
                 <div class="admin-item-main">
                     <strong>${item.title}</strong>
-                    <span>Segmento: ${item.audience} · Alcance actual: ${item.targetCount}</span>
+                    <span>Segmento: ${item.audience} | Alcance actual: ${item.targetCount} | Elegibles hoy: ${item.eligibilityCount || 0}</span>
                     <span>${item.description}</span>
                 </div>
                 <div class="admin-item-side">
-                    <span class="admin-badge is-success">activa</span>
+                    <span class="admin-badge is-success">${humanizeCampaignPriority(item.priority)}</span>
                     <span class="admin-item-note">${item.cta}</span>
                 </div>
             </article>
