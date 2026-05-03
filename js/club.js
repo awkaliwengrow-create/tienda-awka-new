@@ -113,7 +113,7 @@ function syncPlayLink(profile = null) {
 function resetProfilePlaceholder() {
     clubResult.innerHTML = `
         <div class="club-profile-empty">
-            Aca vas a ver tu panel real del club cuando inicies sesion: puntos, compras aprobadas, nivel actual, progreso y ultimos movimientos.
+            Aqui vas a ver tu panel del club: puntos, compras, nivel, giros y actividad reciente.
         </div>
     `;
 }
@@ -164,7 +164,7 @@ function showPhoneStep(message = 'Ingresa tu numero para revisar tu acceso al cl
     phoneForm.hidden = false;
     pinForm.hidden = true;
     setFeedback(phoneFeedback, message, variant);
-    setFeedback(pinFeedback, 'Usa un PIN de 4 digitos para ingresar o crear tu acceso.');
+    setFeedback(pinFeedback, 'Usa un PIN de 4 digitos para entrar o crear tu acceso.');
 }
 
 function showPinStep() {
@@ -205,7 +205,7 @@ function renderSpinSummary(profile) {
 
 function renderHistory(items = []) {
     if (!items.length) {
-        return '<div class="club-profile-empty">Todavia no hay historial de giros cargado para este perfil.</div>';
+        return '<div class="club-profile-empty">Todavia no hay movimientos de ruleta cargados para este perfil.</div>';
     }
 
     return items.map((item) => `
@@ -390,7 +390,7 @@ async function loadProfileFromSession(session) {
         showPinStep();
         setAuthMode('login', profile.phone, profile.name);
         pinInput.value = '';
-        setFeedback(pinFeedback, 'Sesion activa. Tu panel ya esta listo.', 'success');
+        setFeedback(pinFeedback, 'Sesion activa. Tu panel ya esta listo para usar.', 'success');
         renderProfile(profile);
     } catch (error) {
         clearSession();
@@ -462,7 +462,7 @@ async function handlePinSubmit(event) {
         return;
     }
 
-    setFeedback(pinFeedback, 'Validando acceso...');
+        setFeedback(pinFeedback, 'Validando acceso...');
 
     try {
         const response = await fetch('/api/club-auth', {

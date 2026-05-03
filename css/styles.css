@@ -391,6 +391,12 @@ nav a.active::after {
     letter-spacing: 0.01em;
 }
 
+.hero-actions a,
+.club-dashboard-actions a,
+.club-preview-actions a {
+    white-space: nowrap;
+}
+
 .promo-strip {
     margin-top: 1.35rem;
     padding: 0 0 1.3rem;
@@ -557,6 +563,7 @@ nav a.active::after {
     color: var(--moss);
     font-size: 1.04rem;
     line-height: 1.85;
+    text-wrap: balance;
 }
 
 /* ── CATEGORY CARDS ── */
@@ -1008,6 +1015,7 @@ nav a.active::after {
     color: rgba(61,40,23,0.68);
     font-size: 0.92rem;
     line-height: 1.55;
+    max-width: 62ch;
 }
 
 .search-toggle {
@@ -1488,6 +1496,10 @@ nav a.active::after {
 .checkout-profile-feedback {
     color: rgba(61,40,23,0.78);
     line-height: 1.6;
+}
+
+.checkout-profile-help {
+    max-width: 58ch;
 }
 
 .checkout-profile-note {
@@ -2222,6 +2234,7 @@ footer {
     font-size: 1.04rem;
     line-height: 1.7;
     color: rgba(61,40,23,0.76);
+    text-wrap: balance;
 }
 
 .club-dashboard-actions {
@@ -2422,6 +2435,7 @@ footer {
     color: rgba(245,241,232,0.72);
     line-height: 1.7;
     font-size: 0.94rem;
+    max-width: 28ch;
 }
 
 .club-profile-box-dashboard {
@@ -2463,6 +2477,7 @@ footer {
     max-width: 390px;
     color: rgba(61,40,23,0.72);
     line-height: 1.65;
+    text-wrap: pretty;
 }
 
 .club-profile-intro h2 {
@@ -2671,6 +2686,7 @@ footer {
 .admin-card h3 {
     margin: 0;
     color: var(--soil);
+    text-wrap: balance;
 }
 
 .admin-grid {
