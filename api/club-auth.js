@@ -42,11 +42,15 @@ module.exports = async (req, res) => {
         return;
     }
 
+    let phone = '';
+    let pin = '';
+    let name = '';
+
     try {
         const body = await readJsonBody(req);
-        const phone = normalizePhone(body.phone || '');
-        const pin = String(body.pin || '').trim();
-        const name = String(body.name || '').trim();
+        phone = normalizePhone(body.phone || '');
+        pin = String(body.pin || '').trim();
+        name = String(body.name || '').trim();
 
         if (!phone || phone.length < 8) {
             json(res, 400, { error: 'Invalid phone', message: 'Ingresa un WhatsApp valido.' });
@@ -119,6 +123,27 @@ module.exports = async (req, res) => {
             token: createSessionToken(phone)
         });
     } catch (error) {
+        if (phone && pin) {
+            try {
+                const recoveredCustomer = await fetchCustomerByPhone(phone);
+
+                if (recoveredCustomer?.pin && verifyPin(pin, recoveredCustomer.pin)) {
+                    json(res, 200, {
+                        ok: true,
+                        created: false,
+                        activated: false,
+                        recovered: true,
+                        name: recoveredCustomer.nombre || name,
+                        phone,
+                        token: createSessionToken(phone)
+                    });
+                    return;
+                }
+            } catch (recoveryError) {
+                // If recovery also fails, fall through to the regular error payload.
+            }
+        }
+
         json(res, 500, {
             error: error.code || 'CLUB_AUTH_ERROR',
             message: 'No pudimos iniciar tu sesion.',
