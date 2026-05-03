@@ -2013,6 +2013,7 @@ footer {
 
 .club-dashboard-hero {
     padding: 92px 0 48px;
+    position: relative;
 }
 
 .club-dashboard-shell {
@@ -2026,8 +2027,13 @@ footer {
     grid-template-columns: 1fr auto;
     align-items: end;
     gap: 1.25rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(61,40,23,0.08);
+    padding: 1.6rem 1.7rem;
+    border: 1px solid rgba(61,40,23,0.08);
+    border-radius: 28px;
+    background:
+        radial-gradient(circle at top right, rgba(143,185,134,0.18), transparent 28%),
+        linear-gradient(145deg, rgba(255,255,255,0.92), rgba(232,220,196,0.86));
+    box-shadow: 0 20px 44px rgba(44,62,41,0.08);
 }
 
 .club-dashboard-copy {
@@ -2042,9 +2048,9 @@ footer {
 }
 
 .club-dashboard-copy p {
-    font-size: 1.08rem;
-    line-height: 1.8;
-    color: rgba(61,40,23,0.8);
+    font-size: 1.04rem;
+    line-height: 1.7;
+    color: rgba(61,40,23,0.76);
 }
 
 .club-dashboard-actions {
@@ -2057,6 +2063,7 @@ footer {
 .club-dashboard-actions-compact {
     margin-top: 0;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .club-dashboard-cards,
@@ -2119,18 +2126,19 @@ footer {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
+    align-items: stretch;
 }
 
 .club-kpi-card {
-    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(245,241,232,0.9));
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(245,241,232,0.92));
     border-radius: 22px;
-    border: 1px solid rgba(61,40,23,0.08);
-    padding: 1.2rem;
-    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(61,40,23,0.07);
+    padding: 1.25rem;
+    box-shadow: 0 16px 34px rgba(44,62,41,0.08);
 }
 
 .club-kpi-card-highlight {
-    background: linear-gradient(145deg, rgba(74,103,65,0.14), rgba(245,241,232,0.92));
+    background: linear-gradient(145deg, rgba(74,103,65,0.18), rgba(245,241,232,0.92));
 }
 
 .club-kpi-label {
@@ -2164,11 +2172,14 @@ footer {
 .club-side-card {
     position: sticky;
     top: 110px;
-    background: linear-gradient(180deg, rgba(44,62,41,0.98), rgba(61,40,23,0.96));
+    background:
+        radial-gradient(circle at top left, rgba(143,185,134,0.12), transparent 26%),
+        linear-gradient(180deg, rgba(44,62,41,0.98), rgba(61,40,23,0.96));
     color: var(--cream);
-    border-radius: 24px;
-    padding: 1.2rem;
-    box-shadow: var(--shadow-md);
+    border-radius: 28px;
+    padding: 1.35rem;
+    box-shadow: 0 24px 46px rgba(44,62,41,0.18);
+    border: 1px solid rgba(245,241,232,0.08);
 }
 
 .club-side-card h2 {
@@ -2208,13 +2219,16 @@ footer {
 
 .club-side-note {
     margin-top: 1rem;
-    color: rgba(245,241,232,0.76);
-    line-height: 1.6;
-    font-size: 0.95rem;
+    color: rgba(245,241,232,0.72);
+    line-height: 1.7;
+    font-size: 0.94rem;
 }
 
 .club-profile-box-dashboard {
-    padding: 1.4rem;
+    padding: 1.45rem;
+    background:
+        radial-gradient(circle at top right, rgba(143,185,134,0.12), transparent 24%),
+        linear-gradient(180deg, rgba(255,255,255,0.94), rgba(232,220,196,0.9));
 }
 
 .club-quick-grid {
@@ -2246,9 +2260,9 @@ footer {
 }
 
 .club-profile-panel-head p {
-    max-width: 440px;
-    color: rgba(61,40,23,0.78);
-    line-height: 1.7;
+    max-width: 390px;
+    color: rgba(61,40,23,0.72);
+    line-height: 1.65;
 }
 
 .club-profile-intro h2 {
@@ -2425,9 +2439,15 @@ footer {
     margin-top: 1rem;
 }
 
+.admin-page .club-dashboard-shell-minimal {
+    background:
+        radial-gradient(circle at top right, rgba(201,123,77,0.12), transparent 22%),
+        linear-gradient(145deg, rgba(255,255,255,0.94), rgba(232,220,196,0.88));
+}
+
 .admin-shell {
     display: grid;
-    gap: 1rem;
+    gap: 1.15rem;
 }
 
 .admin-login-shell {
@@ -2440,6 +2460,11 @@ footer {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    padding: 1.2rem 1.35rem;
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(232,220,196,0.84));
+    border: 1px solid rgba(61,40,23,0.08);
+    box-shadow: 0 18px 36px rgba(44,62,41,0.08);
 }
 
 .admin-topbar h2,
@@ -2460,6 +2485,9 @@ footer {
 
 .admin-card {
     padding: 1.4rem;
+    background:
+        radial-gradient(circle at top right, rgba(143,185,134,0.1), transparent 22%),
+        linear-gradient(180deg, rgba(255,255,255,0.94), rgba(232,220,196,0.9));
 }
 
 .admin-card-head {
@@ -2488,8 +2516,9 @@ footer {
     gap: 1rem;
     padding: 1rem;
     border-radius: 20px;
-    background: rgba(245,241,232,0.7);
+    background: rgba(255,255,255,0.62);
     border: 1px solid rgba(74,103,65,0.12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
 }
 
 .admin-item-main {
