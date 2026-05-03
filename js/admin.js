@@ -205,9 +205,12 @@ function renderCampaigns(items) {
 
 function humanizeTrigger(trigger = '') {
     const map = {
+        bienvenida_nuevo: 'Bienvenida Nuevo',
         primera_compra: 'Primera compra',
+        impulso_recurrente: 'Impulso Recurrente',
         subida_nivel: 'Subida de nivel',
-        cadencia_fiel: 'Cadencia Fiel'
+        cadencia_fiel: 'Cadencia Fiel',
+        prioridad_fiel: 'Prioridad Fiel'
     };
 
     return map[trigger] || trigger || 'Automatico';

@@ -11,13 +11,15 @@ const LEVEL_BENEFITS = {
         current: [
             'Perfil privado con puntos, compras y giros visibles.',
             'Acceso a activaciones generales del club.',
-            'Posibilidad de giros de bienvenida o acciones puntuales.'
+            '1 giro de bienvenida en tu primera compra aprobada.',
+            'Posibilidad de giros puntuales por campanas operativas.'
         ],
-        nextUnlock: 'Al llegar a Recurrente desbloqueas 1 giro bonus y activaciones mas frecuentes.'
+        nextUnlock: 'Al llegar a Recurrente desbloqueas 1 giro bonus y una ventana de activaciones mas frecuente.'
     },
     recurrente: {
         current: [
             'Giro bonus automatico al alcanzar este nivel.',
+            '1 giro de impulso en la cuarta compra aprobada.',
             'Acceso a activaciones mas frecuentes dentro del club.',
             'Mayor prioridad para giros y dinamicas promocionales.',
             'Seguimiento claro del progreso hacia el nivel Fiel.'
@@ -29,13 +31,23 @@ const LEVEL_BENEFITS = {
             'Dos giros bonus automaticos al alcanzar este nivel.',
             'Acceso a beneficios exclusivos del club.',
             'Prioridad en activaciones especiales y premios destacados.',
-            'Mejor posicion para campañas y ventajas reservadas a clientes fieles.'
+            'Mejor posicion para campanas y ventajas reservadas a clientes fieles.',
+            'Cadencia premium: 1 giro extra cada 3 compras aprobadas despues de llegar a Fiel.'
         ],
         nextUnlock: 'Ya estas en el nivel mas alto de esta etapa del club.'
     }
 };
 const SEGMENT_CAMPAIGNS = {
     nuevo: [
+        {
+            id: 'nuevo-bienvenida-play',
+            title: 'Bienvenida Play',
+            audience: 'Nuevo',
+            benefit: '1 giro de bienvenida en tu primera compra aprobada.',
+            description: 'El primer avance real dentro del club ya abre una experiencia de juego para conectar compra, perfil y premio.',
+            cta: 'Completa tu primera compra aprobada para entrar con un giro a Awka Play.',
+            automation: 'Se dispara automaticamente en la primera compra aprobada.'
+        },
         {
             id: 'nuevo-segunda-compra',
             title: 'Campana segunda compra',
@@ -55,6 +67,15 @@ const SEGMENT_CAMPAIGNS = {
             description: 'Este segmento entra en activaciones mas frecuentes y puede recibir beneficios de play antes que el ingreso general.',
             cta: 'Mantente activo para consolidar tu avance hacia Fiel.',
             automation: 'Se activa automaticamente al llegar a Recurrente.'
+        },
+        {
+            id: 'recurrente-impulso-fiel',
+            title: 'Impulso a Fiel',
+            audience: 'Recurrente',
+            benefit: '1 giro extra en tu cuarta compra aprobada.',
+            description: 'El ultimo tramo antes de Fiel tiene un empuje adicional para no cortar el ritmo de compra.',
+            cta: 'Sosten tu frecuencia: la cuarta compra activa un giro extra y te deja a un paso de Fiel.',
+            automation: 'Se dispara automaticamente en la cuarta compra aprobada.'
         }
     ],
     fiel: [
@@ -62,7 +83,7 @@ const SEGMENT_CAMPAIGNS = {
             id: 'fiel-mesa-exclusiva',
             title: 'Mesa Fiel',
             audience: 'Fiel',
-            benefit: 'Acceso a campañas reservadas y premios mas altos.',
+            benefit: 'Acceso a campanas reservadas y premios mas altos.',
             description: 'Los perfiles Fiel entran primero a beneficios especiales y ocupan la prioridad mas alta del club.',
             cta: 'Sigue comprando para sostener tu ventaja y entrar a activaciones premium.',
             automation: 'Siempre visible para clientes Fiel.'
@@ -75,6 +96,15 @@ const SEGMENT_CAMPAIGNS = {
             description: 'La fidelidad alta ya no solo desbloquea un hito: genera una ventaja repetible.',
             cta: 'Cada nuevo tramo de 3 compras vuelve a activar un giro de fidelidad.',
             automation: 'Se dispara automaticamente en las compras 8, 11, 14 y siguientes.'
+        },
+        {
+            id: 'fiel-prioridad-premium',
+            title: 'Prioridad premium Fiel',
+            audience: 'Fiel',
+            benefit: 'Entrada prioritaria a activaciones premium despues de consolidar el nivel.',
+            description: 'El cliente Fiel no solo mantiene beneficios: pasa a una capa mas prioritaria dentro del ecosistema.',
+            cta: 'Mantente activo para seguir entrando primero en acciones premium y premios especiales.',
+            automation: 'Se registra automaticamente desde la compra 6 como consolidacion del nivel Fiel.'
         }
     ]
 };
@@ -118,11 +148,14 @@ function getCampaignsForLevel(levelKey, context = {}) {
     }));
 
     if (levelKey === 'nuevo' && context.purchasesToNext > 1) {
-        campaigns[0] = {
-            ...campaigns[0],
-            cta: `Te faltan ${context.purchasesToNext} compras para desbloquear Recurrente.`,
-            description: 'Todavia estas construyendo tu primer tramo fuerte dentro del club.'
-        };
+        const secondPurchaseIndex = campaigns.findIndex((campaign) => campaign.id === 'nuevo-segunda-compra');
+        if (secondPurchaseIndex >= 0) {
+            campaigns[secondPurchaseIndex] = {
+                ...campaigns[secondPurchaseIndex],
+                cta: `Te faltan ${context.purchasesToNext} compras para desbloquear Recurrente.`,
+                description: 'Todavia estas construyendo tu primer tramo fuerte dentro del club.'
+            };
+        }
     }
 
     if (levelKey === 'recurrente' && typeof context.pendingSpins === 'number') {
@@ -134,9 +167,26 @@ function getCampaignsForLevel(levelKey, context = {}) {
             description: context.pendingSpins > 0
                 ? 'Tu perfil ya tiene una ventana play activa. Aprovechala antes de perder el ritmo.'
                 : 'Este nivel entra primero en activaciones operativas del club y suele recibir giros antes que un perfil Nuevo.',
-            cta: context.pendingSpins > 0 ? 'Entra a Awka Play para usar tus giros pendientes.' : 'Sostén tu ritmo de compra para acercarte a Fiel.',
+            cta: context.pendingSpins > 0 ? 'Entra a Awka Play para usar tus giros pendientes.' : 'Sosten tu ritmo de compra para acercarte a Fiel.',
             automation: 'Se ajusta automaticamente segun tu disponibilidad de giros.'
         });
+    }
+
+    if (levelKey === 'fiel' && typeof context.totalPurchases === 'number') {
+        const fidelityCampaignIndex = campaigns.findIndex((campaign) => campaign.id === 'fiel-spin-cadencia');
+        const purchasesSinceFiel = Math.max(0, context.totalPurchases - 5);
+        const remainder = purchasesSinceFiel % 3;
+        const purchasesToCadence = remainder === 0 ? 3 : 3 - remainder;
+
+        if (fidelityCampaignIndex >= 0) {
+            campaigns[fidelityCampaignIndex] = {
+                ...campaigns[fidelityCampaignIndex],
+                cta: `Te faltan ${purchasesToCadence} compra${purchasesToCadence === 1 ? '' : 's'} para el proximo giro de fidelidad.`,
+                description: purchasesSinceFiel === 0
+                    ? 'Acabas de consolidar Fiel. La siguiente capa automatica vuelve a premiar tu continuidad.'
+                    : 'Cada nuevo tramo completo de 3 compras aprobadas vuelve a abrir un giro premium.'
+            };
+        }
     }
 
     return campaigns;
@@ -395,12 +445,12 @@ async function fetchClubProfile(phone) {
 
 module.exports = {
     CLUB_ENV_ERROR,
+    CAMPAIGN_TITLES,
     calculateLevel,
     createPinHash,
     createSessionToken,
     fetchClubProfile,
     fetchCustomerByPhone,
-    CAMPAIGN_TITLES,
     getCampaignCatalog,
     getCampaignsForLevel,
     getBearerToken,

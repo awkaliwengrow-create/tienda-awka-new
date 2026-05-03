@@ -155,12 +155,15 @@ Ejemplos de descuentos:
 - 10% OFF
 - 20% OFF
 
-## Beneficios automaticos por nivel
+## Beneficios automaticos por segmento y nivel
 
-El sistema ahora tiene dos desbloqueos automaticos:
+El sistema ahora tiene estas reglas automaticas:
 
+- al completar la `1 compra aprobada`, el cliente recibe `1 giro de bienvenida`
 - al llegar a `Recurrente` con `2 compras aprobadas`, el cliente recibe `1 giro bonus`
+- al completar la `4 compra aprobada`, el cliente recibe `1 giro de impulso a Fiel`
 - al llegar a `Fiel` con `5 compras aprobadas`, el cliente recibe `2 giros bonus`
+- al completar la `6 compra aprobada`, el cliente entra en prioridad premium `Fiel`
 - una vez en `Fiel`, cada `3 compras aprobadas` adicionales recibe `1 giro bonus` de fidelidad
 
 Esto se acredita cuando una compra nueva empuja el cambio de nivel.
@@ -196,18 +199,22 @@ Ademas, el admin ahora puede revisar `Activaciones recientes` para ver:
 
 - acceso al club
 - puntos base
+- giro de bienvenida en la primera compra aprobada
 - beneficios iniciales simples
 
 ### Cliente recurrente
 
 - mas valor por continuidad
 - posibilidad de mas giros o mejores activaciones
+- impulso adicional en la compra 4 para empujar a Fiel
 
 ### Cliente fiel
 
 - beneficios mas fuertes
 - activaciones especiales
 - trato preferencial dentro del club
+- prioridad premium desde la compra 6
+- 1 giro extra cada 3 compras aprobadas adicionales
 
 ## Que hacer si algo no impacta
 
@@ -268,6 +275,6 @@ Eso significa:
 ## Proximo tramo recomendado
 
 1. Pulido visual final del ecosistema.
-2. Reglas mas finas de beneficios por nivel.
+2. Mas campanas y reglas por segmento.
 3. Mejoras del panel admin.
-4. Campanas y activaciones de Fase 3.
+4. Automatizaciones de Fase 3.

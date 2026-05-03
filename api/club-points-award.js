@@ -7,10 +7,13 @@ const LEVEL_BONUS_SPINS = {
 };
 const FIEL_RECURRING_SPIN_EVERY = 3;
 const CAMPAIGN_AUTOMATIONS = {
+    nuevoWelcomeSpin: 'nuevo-bienvenida-play',
     nuevoFirstPurchase: 'nuevo-segunda-compra',
     recurrenteUnlock: 'recurrente-ventana-play',
+    recurrenteBoost: 'recurrente-impulso-fiel',
     fielUnlock: 'fiel-mesa-exclusiva',
-    fielRecurring: 'fiel-spin-cadencia'
+    fielRecurring: 'fiel-spin-cadencia',
+    fielPriority: 'fiel-prioridad-premium'
 };
 
 async function recordCampaignActivation({ phone, name, campaignId, triggerType, reference, note }) {
@@ -182,28 +185,33 @@ module.exports = async (req, res) => {
             : totalPurchases === 5
                 ? 'fiel'
                 : null;
+        const welcomeSpinBonusSpins = totalPurchases === 1 ? 1 : 0;
         const levelUnlockBonusSpins = unlockedLevelKey ? (LEVEL_BONUS_SPINS[unlockedLevelKey] || 0) : 0;
+        const recurrenteBoostBonusSpins = totalPurchases === 4 ? 1 : 0;
         const fielRecurringBonusSpins = level.key === 'fiel' && totalPurchases > 5 && ((totalPurchases - 5) % FIEL_RECURRING_SPIN_EVERY === 0)
             ? 1
             : 0;
-        const bonusSpins = levelUnlockBonusSpins + fielRecurringBonusSpins;
+        const fielPriorityUnlocked = totalPurchases === 6;
+        const bonusSpins = welcomeSpinBonusSpins + levelUnlockBonusSpins + recurrenteBoostBonusSpins + fielRecurringBonusSpins;
 
         if (bonusSpins > 0) {
             const unlockTime = new Date().toISOString();
 
-            try {
-                await supabaseRequest('club_niveles_historial?on_conflict=telefono,nivel_nuevo', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        telefono: phone,
-                        nivel_anterior: calculateLevel(Math.max(0, totalPurchases - 1)).label,
-                        nivel_nuevo: level.label,
-                        motivo: `Desbloqueo automatico al registrar la compra ${reference}`,
-                        created_at: unlockTime
-                    })
-                });
-            } catch (historyError) {
-                // The club can keep awarding the level bonus even if the audit table is not available yet.
+            if (levelUnlockBonusSpins > 0) {
+                try {
+                    await supabaseRequest('club_niveles_historial?on_conflict=telefono,nivel_nuevo', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            telefono: phone,
+                            nivel_anterior: calculateLevel(Math.max(0, totalPurchases - 1)).label,
+                            nivel_nuevo: level.label,
+                            motivo: `Desbloqueo automatico al registrar la compra ${reference}`,
+                            created_at: unlockTime
+                        })
+                    });
+                } catch (historyError) {
+                    // The club can keep awarding the level bonus even if the audit table is not available yet.
+                }
             }
 
             for (let index = 0; index < bonusSpins; index += 1) {
@@ -223,6 +231,11 @@ module.exports = async (req, res) => {
 
         if (totalPurchases === 1) {
             campaignActivations.push({
+                id: CAMPAIGN_AUTOMATIONS.nuevoWelcomeSpin,
+                triggerType: 'bienvenida_nuevo',
+                note: `Giro de bienvenida activado con la primera compra ${reference}.`
+            });
+            campaignActivations.push({
                 id: CAMPAIGN_AUTOMATIONS.nuevoFirstPurchase,
                 triggerType: 'primera_compra',
                 note: `Primera compra aprobada registrada con referencia ${reference}.`
@@ -237,11 +250,27 @@ module.exports = async (req, res) => {
             });
         }
 
+        if (recurrenteBoostBonusSpins > 0) {
+            campaignActivations.push({
+                id: CAMPAIGN_AUTOMATIONS.recurrenteBoost,
+                triggerType: 'impulso_recurrente',
+                note: `Impulso Recurrente activado en la compra ${totalPurchases} con referencia ${reference}.`
+            });
+        }
+
         if (levelUnlockBonusSpins > 0 && unlockedLevelKey === 'fiel') {
             campaignActivations.push({
                 id: CAMPAIGN_AUTOMATIONS.fielUnlock,
                 triggerType: 'subida_nivel',
                 note: `Subida automatica a Fiel con la compra ${reference}.`
+            });
+        }
+
+        if (fielPriorityUnlocked) {
+            campaignActivations.push({
+                id: CAMPAIGN_AUTOMATIONS.fielPriority,
+                triggerType: 'prioridad_fiel',
+                note: `Prioridad premium Fiel consolidada en la compra ${totalPurchases} con referencia ${reference}.`
             });
         }
 
@@ -277,8 +306,15 @@ module.exports = async (req, res) => {
             level: level.label,
             totalPurchases,
             bonusSpinsAwarded: bonusSpins,
+            bonusBreakdown: {
+                welcome: welcomeSpinBonusSpins,
+                levelUnlock: levelUnlockBonusSpins,
+                recurrenteBoost: recurrenteBoostBonusSpins,
+                fielRecurring: fielRecurringBonusSpins
+            },
             levelUnlocked: levelUnlockBonusSpins > 0 ? level.label : null,
             recurringFielBonusTriggered: fielRecurringBonusSpins > 0,
+            fielPriorityUnlocked,
             campaignActivations: recordedCampaigns,
             message: pointsToAward > 0
                 ? `Se acreditaron ${pointsToAward} punto${pointsToAward === 1 ? '' : 's'}.`
