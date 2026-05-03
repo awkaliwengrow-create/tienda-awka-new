@@ -239,6 +239,33 @@ function renderLevel(profile) {
     `;
 }
 
+function renderBenefits(profile) {
+    const benefits = Array.isArray(profile.level.benefits) ? profile.level.benefits : [];
+    const nextUnlock = profile.level.nextUnlock || 'Sigue sumando compras para desbloquear nuevas ventajas.';
+
+    return `
+        <div class="club-benefits-panel">
+            <div class="club-benefits-card">
+                <div class="club-profile-history-title">Beneficios activos de ${profile.level.label}</div>
+                <div class="club-benefits-list">
+                    ${benefits.map((benefit) => `
+                        <article class="club-benefit-item">
+                            <div class="club-benefit-mark">+</div>
+                            <div>
+                                <strong>${benefit}</strong>
+                            </div>
+                        </article>
+                    `).join('')}
+                </div>
+            </div>
+            <div class="club-benefits-card club-benefits-card-next">
+                <div class="club-profile-history-title">Proximo desbloqueo</div>
+                <p>${nextUnlock}</p>
+            </div>
+        </div>
+    `;
+}
+
 function renderProfile(profile) {
     clubResult.innerHTML = `
         <div class="club-profile-card">
@@ -276,6 +303,7 @@ function renderProfile(profile) {
             <div class="club-profile-meta">
                 <span>Ultima actividad: ${formatDate(profile.points.lastActivity)}</span>
             </div>
+            ${renderBenefits(profile)}
             <div class="club-profile-spin-summary">
                 ${renderSpinSummary(profile)}
             </div>

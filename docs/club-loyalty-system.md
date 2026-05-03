@@ -54,18 +54,30 @@ Regla complementaria opcional:
 - puede recibir un beneficio de bienvenida chico
 - acceso a promociones generales
 - puede consultar su perfil y ver progreso
+- beneficios visibles hoy en panel:
+  - perfil privado con puntos, compras y giros
+  - acceso a activaciones generales del club
+  - giros de bienvenida o acciones puntuales
 
 ### Recurrente
 - suma puntos base
 - puede acceder a mas giros o mas frecuencia de activaciones
 - puede recibir promociones segmentadas
 - visualiza progreso hacia `Fiel`
+- beneficios visibles hoy en panel:
+  - activaciones mas frecuentes dentro del club
+  - mayor prioridad para giros y dinamicas promocionales
+  - seguimiento directo del progreso hacia `Fiel`
 
 ### Fiel
 - puede recibir mejores recompensas
 - puede acceder a beneficios exclusivos
 - puede entrar en campañas especiales
 - puede tener prioridad en activaciones, preventas o premios mejorados
+- beneficios visibles hoy en panel:
+  - beneficios exclusivos del club
+  - prioridad en activaciones especiales y premios destacados
+  - mejor posicion para campañas y ventajas reservadas
 
 ## Regla De Puntos V1
 Mantener la regla ya implementada:
@@ -139,6 +151,8 @@ La pantalla debe mostrar solo:
 - giros disponibles
 - ultimo premio
 - progreso al siguiente nivel
+- beneficios activos del nivel actual
+- proximo desbloqueo por subir de nivel
 
 Ejemplos de mensajes:
 - `Nivel actual: Nuevo`

@@ -2689,6 +2689,59 @@ footer {
     margin-top: 1rem;
 }
 
+.club-benefits-panel {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 0.9rem;
+    margin-top: 1rem;
+}
+
+.club-benefits-card {
+    padding: 1rem;
+    border-radius: 22px;
+    background: rgba(245,241,232,0.72);
+    border: 1px solid rgba(74,103,65,0.12);
+}
+
+.club-benefits-card-next {
+    background: linear-gradient(145deg, rgba(74,103,65,0.12), rgba(245,241,232,0.82));
+}
+
+.club-benefits-card-next p {
+    color: rgba(61,40,23,0.78);
+    line-height: 1.7;
+}
+
+.club-benefits-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.club-benefit-item {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 0.7rem;
+    align-items: start;
+}
+
+.club-benefit-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74,103,65,0.12);
+    color: var(--earth-green);
+    font-weight: 700;
+}
+
+.club-benefit-item strong {
+    color: var(--soil);
+    font-size: 0.98rem;
+    line-height: 1.5;
+}
+
 .club-profile-history {
     margin-top: 1.1rem;
 }
@@ -3157,6 +3210,9 @@ footer {
     }
     .club-profile-stats-5 {
         grid-template-columns: 1fr 1fr;
+    }
+    .club-benefits-panel {
+        grid-template-columns: 1fr;
     }
     .ruleta-play-shell {
         grid-template-columns: 1fr;

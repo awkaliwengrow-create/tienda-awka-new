@@ -6,6 +6,32 @@ const LEVELS = [
     { key: 'recurrente', label: 'Recurrente', minPurchases: 2, maxPurchases: 4 },
     { key: 'fiel', label: 'Fiel', minPurchases: 5, maxPurchases: Infinity }
 ];
+const LEVEL_BENEFITS = {
+    nuevo: {
+        current: [
+            'Perfil privado con puntos, compras y giros visibles.',
+            'Acceso a activaciones generales del club.',
+            'Posibilidad de giros de bienvenida o acciones puntuales.'
+        ],
+        nextUnlock: 'Al llegar a Recurrente puedes entrar en activaciones mas frecuentes y beneficios segmentados.'
+    },
+    recurrente: {
+        current: [
+            'Acceso a activaciones mas frecuentes dentro del club.',
+            'Mayor prioridad para giros y dinamicas promocionales.',
+            'Seguimiento claro del progreso hacia el nivel Fiel.'
+        ],
+        nextUnlock: 'Al llegar a Fiel desbloqueas beneficios exclusivos, campañas especiales y premios mejorados.'
+    },
+    fiel: {
+        current: [
+            'Acceso a beneficios exclusivos del club.',
+            'Prioridad en activaciones especiales y premios destacados.',
+            'Mejor posicion para campañas y ventajas reservadas a clientes fieles.'
+        ],
+        nextUnlock: 'Ya estas en el nivel mas alto de esta etapa del club.'
+    }
+};
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 7;
 
 function normalizePhone(phone = '') {
@@ -20,13 +46,16 @@ function json(res, statusCode, payload) {
 function calculateLevel(totalPurchases = 0) {
     const current = LEVELS.find((level) => totalPurchases >= level.minPurchases && totalPurchases <= level.maxPurchases) || LEVELS[0];
     const next = LEVELS.find((level) => level.minPurchases > current.minPurchases) || null;
+    const benefits = LEVEL_BENEFITS[current.key] || LEVEL_BENEFITS.nuevo;
 
     return {
         key: current.key,
         label: current.label,
         purchaseCount: totalPurchases,
         nextLabel: next?.label || null,
-        purchasesToNext: next ? Math.max(0, next.minPurchases - totalPurchases) : 0
+        purchasesToNext: next ? Math.max(0, next.minPurchases - totalPurchases) : 0,
+        benefits: benefits.current,
+        nextUnlock: benefits.nextUnlock
     };
 }
 
