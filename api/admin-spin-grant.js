@@ -58,7 +58,7 @@ module.exports = async (req, res) => {
             await supabaseRequest('giros_habilitados', {
                 method: 'POST',
                 headers: {
-                    Prefer: 'return=minimal'
+                    Prefer: 'return=representation'
                 },
                 body: JSON.stringify({
                     nombre: name,
