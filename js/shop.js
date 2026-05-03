@@ -173,7 +173,7 @@ function renderProducts(category = 'todos', searchTerm = '') {
     if (!filteredProducts.length) {
         grid.innerHTML = `
             <div class="club-profile-empty">
-                No encontramos productos para esta combinación. Probá otro filtro o limpiá la búsqueda.
+                No encontramos productos para esta combinación. Probá otro filtro, otra palabra o limpiá la búsqueda para volver al catálogo completo.
             </div>
         `;
         return;
@@ -335,7 +335,7 @@ function updateCart() {
         cartItems.innerHTML = `
             <div class="empty-cart">
                 <div class="empty-cart-icon">🌱</div>
-                <p>Tu carrito está vacío</p>
+                <p>Tu carrito está vacío por ahora</p>
             </div>
         `;
         cartFooter.style.display = 'none';
@@ -389,7 +389,7 @@ function toggleCart() {
 
 function checkoutWhatsApp() {
     if (cart.length === 0) {
-        alert('Tu carrito esta vacio');
+        alert('Tu carrito está vacío por ahora.');
         return;
     }
 
@@ -400,7 +400,7 @@ function checkoutWhatsApp() {
 // Checkout
 async function checkout() {
     if (cart.length === 0) {
-        alert('Tu carrito esta vacio');
+        alert('Tu carrito está vacío por ahora.');
         return;
     }
 
@@ -463,7 +463,7 @@ async function submitCheckoutProfile(event) {
         return;
     }
 
-    feedback.textContent = 'Preparando tu pago...';
+        feedback.textContent = 'Preparando tu pago y registrando tu compra para Club Awka...';
     feedback.className = 'checkout-profile-feedback';
 
     if (submitButton) {
@@ -512,9 +512,9 @@ async function submitCheckoutProfile(event) {
         if (submitButton) {
             submitButton.disabled = false;
         }
-        feedback.textContent = 'No se pudo iniciar Mercado Pago. Te llevamos a WhatsApp como respaldo.';
+        feedback.textContent = 'No se pudo iniciar Mercado Pago. Te llevamos a WhatsApp para que no pierdas la compra.';
         feedback.className = 'checkout-profile-feedback is-error';
-        alert('No se pudo iniciar Mercado Pago. Te llevamos a WhatsApp como respaldo.');
+        alert('No se pudo iniciar Mercado Pago. Te llevamos a WhatsApp para que no pierdas la compra.');
         checkoutWhatsApp();
     }
 }
@@ -576,9 +576,9 @@ function handlePaymentStatus() {
         cart = [];
         updateCart();
     } else if (paymentStatus === 'pending') {
-        alert('Tu pago quedo pendiente. Te avisaremos cuando se confirme.');
+        alert('Tu pago quedó pendiente. Cuando se confirme, la compra seguirá contando para Club Awka.');
     } else if (paymentStatus === 'failure') {
-        alert('El pago no se completo. Podes intentar de nuevo o pedir por WhatsApp.');
+        alert('El pago no se completó. Podés intentarlo de nuevo o pedir por WhatsApp.');
     }
 
     params.delete('payment');
@@ -622,8 +622,8 @@ async function processApprovedPurchase(referenceFromUrl) {
 
         const awardedPoints = Number(data.points) || 0;
         const suffix = awardedPoints > 0
-            ? ` Sumaste ${awardedPoints} punto${awardedPoints === 1 ? '' : 's'} en Club Awka.`
-            : ` Esta compra queda lista para Club Awka, pero no sumó puntos porque el monto no alcanzó $${CLUB_POINTS_PER_AMOUNT.toLocaleString('es-AR')}.`;
+            ? ` Sumaste ${awardedPoints} punto${awardedPoints === 1 ? '' : 's'} en Club Awka y tu perfil ya quedó actualizado.`
+            : ` Esta compra quedó registrada para Club Awka, pero no sumó puntos porque el monto no alcanzó $${CLUB_POINTS_PER_AMOUNT.toLocaleString('es-AR')}.`;
 
         alert(`Pago aprobado. Gracias por tu compra.${suffix}`);
     } catch (error) {

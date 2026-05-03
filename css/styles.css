@@ -301,11 +301,6 @@ nav a.active::after {
     margin-bottom: 1.25rem;
 }
 
-.hero-trust,
-.hero .container > span {
-    display: none !important;
-}
-
 .hero-cta {
     display: inline-block;
     padding: 1rem 1.85rem;
@@ -1452,9 +1447,18 @@ nav a.active::after {
 }
 
 .checkout-profile-help,
+.checkout-profile-note,
 .checkout-profile-feedback {
     color: rgba(61,40,23,0.78);
     line-height: 1.6;
+}
+
+.checkout-profile-note {
+    padding: 0.8rem 0.9rem;
+    border-radius: 16px;
+    background: rgba(245,241,232,0.72);
+    border: 1px solid rgba(74,103,65,0.1);
+    font-size: 0.94rem;
 }
 
 .checkout-profile-feedback {
