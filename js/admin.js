@@ -11,6 +11,9 @@ const statPending = document.getElementById('adminStatPending');
 const statUsed = document.getElementById('adminStatUsed');
 const statPoints = document.getElementById('adminStatPoints');
 const statRewards = document.getElementById('adminStatRewards');
+const segmentNuevo = document.getElementById('adminSegmentNuevo');
+const segmentRecurrente = document.getElementById('adminSegmentRecurrente');
+const segmentFiel = document.getElementById('adminSegmentFiel');
 
 const spinForm = document.getElementById('adminSpinForm');
 const pointsForm = document.getElementById('adminPointsForm');
@@ -22,6 +25,7 @@ const pointsList = document.getElementById('adminPointsList');
 const pendingList = document.getElementById('adminPendingList');
 const usedList = document.getElementById('adminUsedList');
 const levelHistoryList = document.getElementById('adminLevelHistoryList');
+const campaignsList = document.getElementById('adminCampaignsList');
 
 function setFeedback(element, message, variant = '') {
     if (!element) return;
@@ -166,6 +170,26 @@ function renderLevelHistory(items) {
     );
 }
 
+function renderCampaigns(items) {
+    campaignsList.innerHTML = renderList(
+        items,
+        (item) => `
+            <article class="admin-item">
+                <div class="admin-item-main">
+                    <strong>${item.title}</strong>
+                    <span>Segmento: ${item.audience} · Alcance actual: ${item.targetCount}</span>
+                    <span>${item.description}</span>
+                </div>
+                <div class="admin-item-side">
+                    <span class="admin-badge is-success">activa</span>
+                    <span class="admin-item-note">${item.cta}</span>
+                </div>
+            </article>
+        `,
+        'Todavia no hay campanas segmentadas configuradas.'
+    );
+}
+
 async function loadDashboard() {
     const data = await adminFetch('/api/admin-dashboard');
 
@@ -173,12 +197,16 @@ async function loadDashboard() {
     statUsed.textContent = data.stats.usedSpins;
     statPoints.textContent = data.stats.activePoints;
     statRewards.textContent = data.stats.pendingRewards;
+    segmentNuevo.textContent = data.segments?.nuevo || 0;
+    segmentRecurrente.textContent = data.segments?.recurrente || 0;
+    segmentFiel.textContent = data.segments?.fiel || 0;
 
     renderRewards(data.rewards || []);
     renderTopPoints(data.topPoints || []);
     renderSpins(pendingList, data.pendingSpins || [], 'No hay giros pendientes.');
     renderSpins(usedList, data.usedSpins || [], 'No hay giros usados aun.', true);
     renderLevelHistory(data.levelHistory || []);
+    renderCampaigns(data.campaigns || []);
 
     rewardsList.querySelectorAll('[data-reward-deliver]').forEach((button) => {
         button.addEventListener('click', async () => {

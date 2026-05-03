@@ -34,6 +34,50 @@ const LEVEL_BENEFITS = {
         nextUnlock: 'Ya estas en el nivel mas alto de esta etapa del club.'
     }
 };
+const SEGMENT_CAMPAIGNS = {
+    nuevo: [
+        {
+            id: 'nuevo-segunda-compra',
+            title: 'Campana segunda compra',
+            audience: 'Nuevo',
+            benefit: 'Acerca tu salto a Recurrente.',
+            description: 'Con tu proxima compra quedas a un paso del primer desbloqueo fuerte del club.',
+            cta: 'Suma una compra mas para entrar a Recurrente y recibir 1 giro bonus automatico.',
+            automation: 'Se muestra a perfiles Nuevo con margen corto al siguiente nivel.'
+        }
+    ],
+    recurrente: [
+        {
+            id: 'recurrente-ventana-play',
+            title: 'Ventana Play Recurrente',
+            audience: 'Recurrente',
+            benefit: 'Mas prioridad para dinamicas y giros.',
+            description: 'Este segmento entra en activaciones mas frecuentes y puede recibir beneficios de play antes que el ingreso general.',
+            cta: 'Mantente activo para consolidar tu avance hacia Fiel.',
+            automation: 'Se activa automaticamente al llegar a Recurrente.'
+        }
+    ],
+    fiel: [
+        {
+            id: 'fiel-mesa-exclusiva',
+            title: 'Mesa Fiel',
+            audience: 'Fiel',
+            benefit: 'Acceso a campañas reservadas y premios mas altos.',
+            description: 'Los perfiles Fiel entran primero a beneficios especiales y ocupan la prioridad mas alta del club.',
+            cta: 'Sigue comprando para sostener tu ventaja y entrar a activaciones premium.',
+            automation: 'Siempre visible para clientes Fiel.'
+        },
+        {
+            id: 'fiel-spin-cadencia',
+            title: 'Cadencia Fiel',
+            audience: 'Fiel',
+            benefit: '1 giro extra cada 3 compras aprobadas despues de llegar a Fiel.',
+            description: 'La fidelidad alta ya no solo desbloquea un hito: genera una ventaja repetible.',
+            cta: 'Cada nuevo tramo de 3 compras vuelve a activar un giro de fidelidad.',
+            automation: 'Se dispara automaticamente en las compras 8, 11, 14 y siguientes.'
+        }
+    ]
+};
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 7;
 
 function normalizePhone(phone = '') {
@@ -59,6 +103,42 @@ function calculateLevel(totalPurchases = 0) {
         benefits: benefits.current,
         nextUnlock: benefits.nextUnlock
     };
+}
+
+function getCampaignsForLevel(levelKey, context = {}) {
+    const baseCampaigns = SEGMENT_CAMPAIGNS[levelKey] || [];
+    const campaigns = baseCampaigns.map((campaign) => ({
+        ...campaign,
+        status: 'activa'
+    }));
+
+    if (levelKey === 'nuevo' && context.purchasesToNext > 1) {
+        campaigns[0] = {
+            ...campaigns[0],
+            cta: `Te faltan ${context.purchasesToNext} compras para desbloquear Recurrente.`,
+            description: 'Todavia estas construyendo tu primer tramo fuerte dentro del club.'
+        };
+    }
+
+    if (levelKey === 'recurrente' && typeof context.pendingSpins === 'number') {
+        campaigns.push({
+            id: 'recurrente-play-activo',
+            title: 'Seguimiento de giros',
+            audience: 'Recurrente',
+            benefit: context.pendingSpins > 0 ? 'Ya tienes giros listos para usar.' : 'Tu proximo giro puede venir por compra, admin o activacion.',
+            description: context.pendingSpins > 0
+                ? 'Tu perfil ya tiene una ventana play activa. Aprovechala antes de perder el ritmo.'
+                : 'Este nivel entra primero en activaciones operativas del club y suele recibir giros antes que un perfil Nuevo.',
+            cta: context.pendingSpins > 0 ? 'Entra a Awka Play para usar tus giros pendientes.' : 'Sostén tu ritmo de compra para acercarte a Fiel.',
+            automation: 'Se ajusta automaticamente segun tu disponibilidad de giros.'
+        });
+    }
+
+    return campaigns;
+}
+
+function getCampaignCatalog() {
+    return Object.values(SEGMENT_CAMPAIGNS).flat();
 }
 
 function getClubEnv() {
@@ -219,6 +299,12 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
     const totalSpent = (purchases || []).reduce((sum, purchase) => sum + (Number(purchase.monto_total) || 0), 0);
     const level = calculateLevel(totalPurchases);
     const latestLevelUnlock = levelHistory?.[0] || null;
+    const campaigns = getCampaignsForLevel(level.key, {
+        purchasesToNext: level.purchasesToNext,
+        pendingSpins: pendingSpins?.length || 0,
+        totalPurchases,
+        totalSpent
+    });
 
     return {
         exists: Boolean(customer),
@@ -240,6 +326,12 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
             current: pointsRow?.puntos || 0,
             redeemed: pointsRow?.puntos_canjeados || 0,
             lastActivity: pointsRow?.ultima_actividad || null
+        },
+        campaigns: {
+            audience: level.label,
+            total: campaigns.length,
+            featured: campaigns[0] || null,
+            items: campaigns
         },
         spins: {
             pending: pendingSpins?.length || 0,
@@ -291,6 +383,8 @@ module.exports = {
     createSessionToken,
     fetchClubProfile,
     fetchCustomerByPhone,
+    getCampaignCatalog,
+    getCampaignsForLevel,
     getBearerToken,
     getClubEnv,
     json,

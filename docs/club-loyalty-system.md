@@ -82,6 +82,7 @@ Regla complementaria opcional:
   - beneficios exclusivos del club
   - prioridad en activaciones especiales y premios destacados
   - mejor posicion para campañas y ventajas reservadas
+  - 1 giro extra cada 3 compras aprobadas despues de haber alcanzado Fiel
 
 ## Regla De Puntos V1
 Mantener la regla ya implementada:
@@ -107,8 +108,18 @@ Para cerrar la V1 del sistema:
 
 - cuando el cliente llega a `2 compras aprobadas` y pasa a `Recurrente`, recibe `1 giro bonus`
 - cuando el cliente llega a `5 compras aprobadas` y pasa a `Fiel`, recibe `2 giros bonus`
+- una vez en `Fiel`, cada `3 compras aprobadas` adicionales vuelve a recibir `1 giro bonus`
 
 Este beneficio se acredita de forma automatica cuando una nueva compra aprobada empuja el cambio de nivel.
+
+## Campanas Segmentadas V1
+El sistema ya puede mostrar campañas activas segun el nivel del cliente:
+
+- `Nuevo`: empujar segunda compra y primer desbloqueo
+- `Recurrente`: activaciones mas frecuentes y prioridad play
+- `Fiel`: campañas reservadas y cadencia de giros de fidelidad
+
+Estas campañas hoy funcionan como capa operativa y comunicacional dentro del panel y del admin.
 
 ## Modelo De Datos Recomendado Para La Siguiente Etapa
 Para profesionalizar el sistema conviene sumar 2 entidades:

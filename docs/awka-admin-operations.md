@@ -161,9 +161,27 @@ El sistema ahora tiene dos desbloqueos automaticos:
 
 - al llegar a `Recurrente` con `2 compras aprobadas`, el cliente recibe `1 giro bonus`
 - al llegar a `Fiel` con `5 compras aprobadas`, el cliente recibe `2 giros bonus`
+- una vez en `Fiel`, cada `3 compras aprobadas` adicionales recibe `1 giro bonus` de fidelidad
 
 Esto se acredita cuando una compra nueva empuja el cambio de nivel.
 No hace falta cargarlo manualmente si el flujo de compra registro bien la operacion.
+
+## Campanas segmentadas
+
+El admin ahora puede leer audiencias activas por nivel y ver campañas sugeridas para:
+
+- `Nuevo`
+- `Recurrente`
+- `Fiel`
+
+Uso recomendado:
+
+1. Revisar el bloque de `Campanas segmentadas`.
+2. Ver cuantos perfiles hay hoy en cada audiencia.
+3. Tomar como base las campañas activas para decidir si conviene:
+- empujar segunda compra
+- habilitar mas giros a Recurrente
+- reservar premios o activaciones para Fiel
 
 ## Criterio operativo recomendado
 

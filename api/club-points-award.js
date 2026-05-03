@@ -5,6 +5,7 @@ const LEVEL_BONUS_SPINS = {
     recurrente: 1,
     fiel: 2
 };
+const FIEL_RECURRING_SPIN_EVERY = 3;
 
 async function readJsonBody(req) {
     if (req.body && typeof req.body === 'object') {
@@ -154,7 +155,11 @@ module.exports = async (req, res) => {
             : totalPurchases === 5
                 ? 'fiel'
                 : null;
-        const bonusSpins = unlockedLevelKey ? (LEVEL_BONUS_SPINS[unlockedLevelKey] || 0) : 0;
+        const levelUnlockBonusSpins = unlockedLevelKey ? (LEVEL_BONUS_SPINS[unlockedLevelKey] || 0) : 0;
+        const fielRecurringBonusSpins = level.key === 'fiel' && totalPurchases > 5 && ((totalPurchases - 5) % FIEL_RECURRING_SPIN_EVERY === 0)
+            ? 1
+            : 0;
+        const bonusSpins = levelUnlockBonusSpins + fielRecurringBonusSpins;
 
         if (bonusSpins > 0) {
             const unlockTime = new Date().toISOString();
@@ -195,7 +200,8 @@ module.exports = async (req, res) => {
             level: level.label,
             totalPurchases,
             bonusSpinsAwarded: bonusSpins,
-            levelUnlocked: bonusSpins > 0 ? level.label : null,
+            levelUnlocked: levelUnlockBonusSpins > 0 ? level.label : null,
+            recurringFielBonusTriggered: fielRecurringBonusSpins > 0,
             message: pointsToAward > 0
                 ? `Se acreditaron ${pointsToAward} punto${pointsToAward === 1 ? '' : 's'}.`
                 : 'Compra registrada sin puntos por monto mínimo.'

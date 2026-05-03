@@ -1,4 +1,4 @@
-const { json, normalizePhone, supabaseRequest } = require('./_lib/club');
+const { calculateLevel, getCampaignCatalog, json, normalizePhone, supabaseRequest } = require('./_lib/club');
 const { requireAdmin } = require('./_lib/admin');
 
 module.exports = async (req, res) => {
@@ -12,11 +12,13 @@ module.exports = async (req, res) => {
     }
 
     try {
-        const [pendingSpins, usedSpins, pointsRows, levelHistoryRows] = await Promise.all([
+        const [pendingSpins, usedSpins, pointsRows, levelHistoryRows, purchaseRows, customerRows] = await Promise.all([
             supabaseRequest('giros_habilitados?select=id,nombre,telefono,created_at&estado=eq.pendiente&order=created_at.desc&limit=40'),
             supabaseRequest('giros_habilitados?select=id,nombre,telefono,used_at,created_at&estado=eq.usado&order=used_at.desc.nullslast,created_at.desc&limit=20'),
             supabaseRequest('puntos?select=id,nombre,telefono,puntos,puntos_canjeados,ultima_actividad&order=puntos.desc&limit=30'),
-            supabaseRequest('club_niveles_historial?select=id,telefono,nivel_anterior,nivel_nuevo,motivo,created_at&order=created_at.desc&limit=20').catch(() => [])
+            supabaseRequest('club_niveles_historial?select=id,telefono,nivel_anterior,nivel_nuevo,motivo,created_at&order=created_at.desc&limit=20').catch(() => []),
+            supabaseRequest('club_compras?select=telefono,estado,monto_total,created_at&estado=eq.aprobada').catch(() => []),
+            supabaseRequest('clientes?select=nombre,telefono').catch(() => [])
         ]);
 
         let rewardRows = [];
@@ -55,6 +57,44 @@ module.exports = async (req, res) => {
             };
         });
 
+        const purchaseCountByPhone = new Map();
+        (purchaseRows || []).forEach((row) => {
+            const phone = normalizePhone(row.telefono);
+            if (!phone) return;
+            purchaseCountByPhone.set(phone, (purchaseCountByPhone.get(phone) || 0) + 1);
+        });
+
+        const knownPhones = new Set([
+            ...(customerRows || []).map((row) => normalizePhone(row.telefono)),
+            ...purchaseCountByPhone.keys()
+        ]);
+
+        const segments = {
+            nuevo: 0,
+            recurrente: 0,
+            fiel: 0
+        };
+
+        knownPhones.forEach((phone) => {
+            const level = calculateLevel(purchaseCountByPhone.get(phone) || 0);
+            segments[level.key] += 1;
+        });
+
+        const campaigns = getCampaignCatalog().map((campaign) => ({
+            id: campaign.id,
+            title: campaign.title,
+            audience: campaign.audience,
+            benefit: campaign.benefit,
+            description: campaign.description,
+            cta: campaign.cta,
+            automation: campaign.automation,
+            targetCount: campaign.audience === 'Nuevo'
+                ? segments.nuevo
+                : campaign.audience === 'Recurrente'
+                    ? segments.recurrente
+                    : segments.fiel
+        }));
+
         json(res, 200, {
             stats: {
                 pendingSpins: pendingSpins?.length || 0,
@@ -62,6 +102,8 @@ module.exports = async (req, res) => {
                 activePoints: (pointsRows || []).reduce((sum, row) => sum + (row.puntos || 0), 0),
                 pendingRewards: rewards.filter((reward) => reward.status === 'pendiente').length
             },
+            segments,
+            campaigns,
             pendingSpins: pendingSpins || [],
             usedSpins: usedSpins || [],
             topPoints: (pointsRows || []).map((row) => ({

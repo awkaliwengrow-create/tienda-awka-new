@@ -274,6 +274,31 @@ function renderBenefits(profile) {
     `;
 }
 
+function renderCampaigns(profile) {
+    const items = Array.isArray(profile.campaigns?.items) ? profile.campaigns.items : [];
+
+    if (!items.length) {
+        return '';
+    }
+
+    return `
+        <div class="club-campaigns-panel">
+            <div class="club-profile-history-title">Campanas activas para ${profile.campaigns.audience}</div>
+            <div class="club-campaigns-grid">
+                ${items.map((campaign) => `
+                    <article class="club-campaign-card">
+                        <span class="club-campaign-audience">${campaign.audience}</span>
+                        <strong>${campaign.title}</strong>
+                        <p>${campaign.description}</p>
+                        <div class="club-campaign-benefit">${campaign.benefit}</div>
+                        <small>${campaign.cta}</small>
+                    </article>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
 function renderProfile(profile) {
     clubResult.innerHTML = `
         <div class="club-profile-card">
@@ -312,6 +337,7 @@ function renderProfile(profile) {
                 <span>Ultima actividad: ${formatDate(profile.points.lastActivity)}</span>
             </div>
             ${renderBenefits(profile)}
+            ${renderCampaigns(profile)}
             <div class="club-profile-spin-summary">
                 ${renderSpinSummary(profile)}
             </div>
