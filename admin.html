@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Panel operativo de Awka para giros, puntos y premios del club.">
+    <meta name="theme-color" content="#2C3E29">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Awka Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Crimson+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="club-page">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" aria-label="Awka Liwen"><img src="img/awka-logo.png" alt="Awka Liwen"></a>
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="shop.html">Catalogo</a></li>
+                        <li><a href="club.html">Club Awka</a></li>
+                        <li><a href="admin.html" class="active">Awka Admin</a></li>
+                    </ul>
+                </nav>
+                <a href="club.html" class="club-header-link">Volver al club</a>
+                <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleNav()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="club-dashboard-hero">
+            <div class="container">
+                <div class="club-dashboard-shell club-dashboard-shell-minimal">
+                    <div class="club-dashboard-copy">
+                        <div class="club-preview-kicker">Awka Admin</div>
+                        <h1>Operacion real del ecosistema</h1>
+                        <p>Gestiona giros, ajusta puntos y marca premios como entregados desde un solo panel.</p>
+                    </div>
+                    <div class="club-dashboard-actions club-dashboard-actions-compact">
+                        <a href="#adminApp" class="hero-cta">Abrir panel</a>
+                        <a href="club.html" class="promo-link">Ver club</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="club-profile-section" id="adminApp">
+            <div class="container">
+                <div id="adminLoginShell" class="admin-shell admin-login-shell">
+                    <div class="club-profile-box admin-card">
+                        <div class="club-preview-kicker">Acceso privado</div>
+                        <h2>Entrar al admin</h2>
+                        <form id="adminLoginForm" class="club-profile-form">
+                            <label for="adminPassword">Contrasena</label>
+                            <div class="club-profile-form-row">
+                                <input id="adminPassword" name="adminPassword" type="password" placeholder="Ingresa tu contrasena" autocomplete="current-password">
+                                <button type="submit" class="hero-cta club-profile-button">Ingresar</button>
+                            </div>
+                            <div id="adminLoginFeedback" class="club-profile-feedback">Usa tu acceso interno para abrir el panel operativo.</div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="adminDashboard" class="admin-shell" hidden>
+                    <div class="admin-topbar">
+                        <div>
+                            <div class="club-preview-kicker">Panel operativo</div>
+                            <h2>Awka Admin</h2>
+                        </div>
+                        <button type="button" id="adminLogoutButton" class="club-side-link">Cerrar sesion</button>
+                    </div>
+
+                    <div class="club-kpi-grid admin-kpi-grid" id="adminStatsGrid">
+                        <article class="club-kpi-card">
+                            <span class="club-kpi-label">Giros pendientes</span>
+                            <strong id="adminStatPending">0</strong>
+                            <p>Clientes que todavia pueden girar.</p>
+                        </article>
+                        <article class="club-kpi-card">
+                            <span class="club-kpi-label">Giros usados</span>
+                            <strong id="adminStatUsed">0</strong>
+                            <p>Movimientos ya consumidos por la ruleta.</p>
+                        </article>
+                        <article class="club-kpi-card">
+                            <span class="club-kpi-label">Puntos activos</span>
+                            <strong id="adminStatPoints">0</strong>
+                            <p>Saldo total distribuido en el club.</p>
+                        </article>
+                        <article class="club-kpi-card club-kpi-card-highlight">
+                            <span class="club-kpi-label">Premios pendientes</span>
+                            <strong id="adminStatRewards">0</strong>
+                            <p>Premios ganados que aun no fueron entregados.</p>
+                        </article>
+                    </div>
+
+                    <div class="admin-grid">
+                        <div class="club-profile-box admin-card">
+                            <div class="club-preview-kicker">Giros</div>
+                            <h3>Habilitar giros</h3>
+                            <form id="adminSpinForm" class="club-profile-form">
+                                <label for="adminSpinName">Nombre</label>
+                                <input id="adminSpinName" name="adminSpinName" type="text" placeholder="Cliente Awka">
+                                <label for="adminSpinPhone">WhatsApp</label>
+                                <input id="adminSpinPhone" name="adminSpinPhone" type="tel" inputmode="numeric" placeholder="1123456789">
+                                <label for="adminSpinCount">Cantidad</label>
+                                <input id="adminSpinCount" name="adminSpinCount" type="number" min="1" max="10" value="1">
+                                <button type="submit" class="hero-cta admin-submit">Habilitar giro</button>
+                                <div id="adminSpinFeedback" class="club-profile-feedback"></div>
+                            </form>
+                        </div>
+
+                        <div class="club-profile-box admin-card">
+                            <div class="club-preview-kicker">Puntos</div>
+                            <h3>Ajustar saldo</h3>
+                            <form id="adminPointsForm" class="club-profile-form">
+                                <label for="adminPointsName">Nombre</label>
+                                <input id="adminPointsName" name="adminPointsName" type="text" placeholder="Cliente Awka">
+                                <label for="adminPointsPhone">WhatsApp</label>
+                                <input id="adminPointsPhone" name="adminPointsPhone" type="tel" inputmode="numeric" placeholder="1123456789">
+                                <label for="adminPointsAmount">Ajuste</label>
+                                <input id="adminPointsAmount" name="adminPointsAmount" type="number" placeholder="5 o -3">
+                                <button type="submit" class="hero-cta admin-submit">Aplicar ajuste</button>
+                                <div id="adminPointsFeedback" class="club-profile-feedback"></div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="admin-grid">
+                        <div class="club-profile-box admin-card">
+                            <div class="admin-card-head">
+                                <div>
+                                    <div class="club-preview-kicker">Premios</div>
+                                    <h3>Entrega pendiente</h3>
+                                </div>
+                                <button type="button" id="adminRefreshButton" class="club-side-link">Actualizar</button>
+                            </div>
+                            <div id="adminRewardsList" class="admin-list"></div>
+                        </div>
+
+                        <div class="club-profile-box admin-card">
+                            <div class="club-preview-kicker">Puntos</div>
+                            <h3>Top clientes</h3>
+                            <div id="adminPointsList" class="admin-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="admin-grid">
+                        <div class="club-profile-box admin-card">
+                            <div class="club-preview-kicker">Giros pendientes</div>
+                            <h3>Cola de juego</h3>
+                            <div id="adminPendingList" class="admin-list"></div>
+                        </div>
+
+                        <div class="club-profile-box admin-card">
+                            <div class="club-preview-kicker">Historial usado</div>
+                            <h3>Ultimos movimientos</h3>
+                            <div id="adminUsedList" class="admin-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleNav() {
+            const nav = document.getElementById('mainNav');
+            const btn = document.getElementById('hamburger');
+            nav.classList.toggle('open');
+            btn.classList.toggle('open');
+        }
+    </script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -2323,6 +2323,25 @@ footer {
     color: var(--soil);
 }
 
+.admin-card input {
+    width: 100%;
+    min-height: 52px;
+    border-radius: 16px;
+    border: 1px solid rgba(74,103,65,0.18);
+    padding: 0 1rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.78);
+    color: var(--soil);
+    margin-bottom: 0.9rem;
+}
+
+.admin-card input:focus {
+    outline: none;
+    border-color: var(--earth-green);
+    box-shadow: 0 0 0 4px rgba(74,103,65,0.12);
+}
+
 .club-profile-form-row input:focus {
     outline: none;
     border-color: var(--earth-green);
@@ -2404,6 +2423,125 @@ footer {
 
 .club-profile-result {
     margin-top: 1rem;
+}
+
+.admin-shell {
+    display: grid;
+    gap: 1rem;
+}
+
+.admin-login-shell {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.admin-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.admin-topbar h2,
+.admin-card h3 {
+    margin: 0;
+    color: var(--soil);
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.admin-kpi-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.admin-card {
+    padding: 1.4rem;
+}
+
+.admin-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.admin-submit {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.admin-list {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.admin-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 20px;
+    background: rgba(245,241,232,0.7);
+    border: 1px solid rgba(74,103,65,0.12);
+}
+
+.admin-item-main {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.admin-item-main strong {
+    color: var(--soil);
+}
+
+.admin-item-main span,
+.admin-item-note {
+    color: rgba(61,40,23,0.72);
+    font-size: 0.92rem;
+}
+
+.admin-item-side {
+    display: grid;
+    justify-items: end;
+    gap: 0.5rem;
+}
+
+.admin-badge,
+.admin-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 0 0.85rem;
+    border-radius: 999px;
+    background: rgba(74,103,65,0.1);
+    color: var(--earth-dark);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.admin-badge.is-success {
+    background: rgba(74,103,65,0.16);
+    color: var(--earth-green);
+}
+
+.admin-badge.is-muted {
+    background: rgba(61,40,23,0.08);
+    color: rgba(61,40,23,0.65);
+}
+
+.admin-mini-button {
+    min-height: 40px;
+    padding: 0 0.9rem;
 }
 
 .club-profile-empty {
@@ -2993,6 +3131,19 @@ footer {
     }
     .ruleta-play-shell {
         grid-template-columns: 1fr;
+    }
+    .admin-grid,
+    .admin-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+    .admin-topbar,
+    .admin-card-head,
+    .admin-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .admin-item-side {
+        justify-items: start;
     }
     .search-input { font-size: 0.98rem; }
     .filters {

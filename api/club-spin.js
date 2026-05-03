@@ -165,8 +165,11 @@ module.exports = async (req, res) => {
             }
         );
 
-        await supabaseRequest('ruleta_registros', {
+        const insertedRows = await supabaseRequest('ruleta_registros', {
             method: 'POST',
+            headers: {
+                Prefer: 'return=representation'
+            },
             body: JSON.stringify({
                 nombre: customer.nombre,
                 telefono: session.phone,
@@ -176,6 +179,26 @@ module.exports = async (req, res) => {
                 created_at: now
             })
         });
+
+        const spinRecordId = insertedRows?.[0]?.id || null;
+
+        if (prize.winner && spinRecordId) {
+            await supabaseRequest('club_premios_estado?on_conflict=ruleta_registro_id', {
+                method: 'POST',
+                body: JSON.stringify({
+                    ruleta_registro_id: spinRecordId,
+                    telefono: session.phone,
+                    nombre: customer.nombre,
+                    premio: prize.label,
+                    premio_codigo: prize.code,
+                    premio_tipo: prize.type,
+                    product_id: prize.productId || null,
+                    discount_percent: prize.discountPercent || null,
+                    estado: 'pendiente',
+                    created_at: now
+                })
+            }).catch(() => null);
+        }
 
         committedResult = {
             ok: true,
