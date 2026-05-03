@@ -130,6 +130,14 @@ Ademas, la capa actual ya soporta campanas contextuales:
 - `reactivacion suave`: cuando el perfil lleva 30 dias o mas sin actividad reciente
 - `mantenimiento premium`: cuando el cliente Fiel ya consolido su tramo premium y conviene sostener frecuencia
 
+## Automatizaciones Mas Avanzadas
+Sobre la base anterior, el sistema ya puede ejecutar automatizaciones mas ricas:
+
+- `regreso reactivado`: si un cliente vuelve a comprar despues de `45` dias o mas sin actividad, recibe `1 giro extra`
+- `compra premium Fiel`: si un cliente `Fiel` hace una compra por `20.000` o mas, recibe `1 giro extra`
+
+Ambas reglas quedan auditadas dentro de `club_campaign_activations` y pueden leerse luego en `Club Awka` y `Awka Admin`.
+
 ## Automatizaciones Auditables V1
 La capa operativa registra cuando una campana se activa de verdad sobre un perfil:
 

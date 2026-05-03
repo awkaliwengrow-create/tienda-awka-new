@@ -193,6 +193,11 @@ Ademas, el admin ahora puede revisar `Activaciones recientes` para ver:
 - en que momento
 - con que motivo operativo
 
+Hoy tambien ya existen dos automatizaciones avanzadas para seguir:
+
+- `Regreso Reactivado`: entrega `1 giro` cuando un cliente vuelve despues de `45` dias o mas sin actividad
+- `Compra Premium Fiel`: entrega `1 giro` cuando una compra de un cliente `Fiel` supera los `20.000`
+
 ## Criterio operativo recomendado
 
 ### Cliente nuevo

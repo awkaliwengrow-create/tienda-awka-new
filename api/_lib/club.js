@@ -32,7 +32,8 @@ const LEVEL_BENEFITS = {
             'Acceso a beneficios exclusivos del club.',
             'Prioridad en activaciones especiales y premios destacados.',
             'Mejor posicion para campanas y ventajas reservadas a clientes fieles.',
-            'Cadencia premium: 1 giro extra cada 3 compras aprobadas despues de llegar a Fiel.'
+            'Cadencia premium: 1 giro extra cada 3 compras aprobadas despues de llegar a Fiel.',
+            'Compras premium pueden activar un giro extra dentro del nivel Fiel.'
         ],
         nextUnlock: 'Ya estas en el nivel mas alto de esta etapa del club.'
     }
@@ -105,14 +106,26 @@ const SEGMENT_CAMPAIGNS = {
             description: 'El cliente Fiel no solo mantiene beneficios: pasa a una capa mas prioritaria dentro del ecosistema.',
             cta: 'Mantente activo para seguir entrando primero en acciones premium y premios especiales.',
             automation: 'Se registra automaticamente desde la compra 6 como consolidacion del nivel Fiel.'
+        },
+        {
+            id: 'fiel-compra-premium',
+            title: 'Compra premium Fiel',
+            audience: 'Fiel',
+            benefit: '1 giro extra cuando una compra Fiel supera el umbral premium.',
+            description: 'El tramo mas alto del club tambien reconoce compras de mayor valor con una activacion adicional.',
+            cta: 'Mantener compras de valor alto puede abrir un giro extra ademas de la cadencia de fidelidad.',
+            automation: 'Se dispara automaticamente cuando una compra Fiel supera el umbral premium.'
         }
     ]
 };
-const CAMPAIGN_TITLES = Object.fromEntries(
-    Object.values(SEGMENT_CAMPAIGNS)
-        .flat()
-        .map((campaign) => [campaign.id, campaign.title])
-);
+const CAMPAIGN_TITLES = {
+    ...Object.fromEntries(
+        Object.values(SEGMENT_CAMPAIGNS)
+            .flat()
+            .map((campaign) => [campaign.id, campaign.title])
+    ),
+    'club-reactivacion-regreso': 'Regreso con reactivacion'
+};
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 7;
 
 function diffDaysFromNow(value) {
@@ -186,7 +199,7 @@ function getCampaignsForLevel(levelKey, context = {}) {
             audience: levelKey === 'fiel' ? 'Fiel' : levelKey === 'recurrente' ? 'Recurrente' : 'Nuevo',
             benefit: 'Tu perfil lleva varios dias sin actividad reciente.',
             description: 'El sistema detecta una pausa en tu ritmo. Volver a comprar o usar un giro te mantiene dentro de las activaciones vigentes.',
-            cta: `Tu ultima actividad fue hace ${context.daysSinceActivity} dias. Volver a mover el perfil reactiva mejor tus beneficios.`,
+            cta: `Tu ultima actividad fue hace ${context.daysSinceActivity} dias. Tu proxima compra aprobada puede reactivar el perfil con un giro adicional.`,
             automation: 'Se muestra automaticamente despues de 30 dias sin actividad registrada.',
             status: 'activa'
         });

@@ -1,6 +1,8 @@
 const { calculateLevel, getClubEnv, json, normalizePhone } = require('./_lib/club');
 
 const POINTS_PER_AMOUNT = Number(process.env.AWKA_POINTS_PER_AMOUNT) || 5000;
+const REACTIVATION_SPIN_AFTER_DAYS = Number(process.env.AWKA_REACTIVATION_SPIN_AFTER_DAYS) || 45;
+const FIEL_PREMIUM_PURCHASE_AMOUNT = Number(process.env.AWKA_FIEL_PREMIUM_PURCHASE_AMOUNT) || 20000;
 const LEVEL_BONUS_SPINS = {
     recurrente: 1,
     fiel: 2
@@ -13,8 +15,17 @@ const CAMPAIGN_AUTOMATIONS = {
     recurrenteBoost: 'recurrente-impulso-fiel',
     fielUnlock: 'fiel-mesa-exclusiva',
     fielRecurring: 'fiel-spin-cadencia',
-    fielPriority: 'fiel-prioridad-premium'
+    fielPriority: 'fiel-prioridad-premium',
+    reactivationReturn: 'club-reactivacion-regreso',
+    fielPremiumPurchase: 'fiel-compra-premium'
 };
+
+function diffDaysFromNow(value) {
+    if (!value) return null;
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return null;
+    return Math.max(0, Math.floor((Date.now() - parsed.getTime()) / (1000 * 60 * 60 * 24)));
+}
 
 async function recordCampaignActivation({ phone, name, campaignId, triggerType, reference, note }) {
     try {
@@ -132,11 +143,12 @@ module.exports = async (req, res) => {
         }).catch(() => null);
 
         const currentPointsRows = await supabaseRequest(
-            `puntos?select=id,puntos,puntos_canjeados&telefono=eq.${encodeURIComponent(phone)}&limit=1`
+            `puntos?select=id,puntos,puntos_canjeados,ultima_actividad&telefono=eq.${encodeURIComponent(phone)}&limit=1`
         );
 
         const currentPoints = currentPointsRows?.[0]?.puntos || 0;
         const redeemedPoints = currentPointsRows?.[0]?.puntos_canjeados || 0;
+        const previousActivityAt = currentPointsRows?.[0]?.ultima_actividad || null;
 
         await supabaseRequest('puntos?on_conflict=telefono', {
             method: 'POST',
@@ -180,6 +192,7 @@ module.exports = async (req, res) => {
         );
         const totalPurchases = approvedPurchases?.length || 0;
         const level = calculateLevel(totalPurchases);
+        const previousActivityDays = diffDaysFromNow(previousActivityAt);
         const unlockedLevelKey = totalPurchases === 2
             ? 'recurrente'
             : totalPurchases === 5
@@ -188,11 +201,22 @@ module.exports = async (req, res) => {
         const welcomeSpinBonusSpins = totalPurchases === 1 ? 1 : 0;
         const levelUnlockBonusSpins = unlockedLevelKey ? (LEVEL_BONUS_SPINS[unlockedLevelKey] || 0) : 0;
         const recurrenteBoostBonusSpins = totalPurchases === 4 ? 1 : 0;
+        const reactivationBonusSpins = totalPurchases > 1 && previousActivityDays !== null && previousActivityDays >= REACTIVATION_SPIN_AFTER_DAYS
+            ? 1
+            : 0;
+        const fielPremiumPurchaseBonusSpins = level.key === 'fiel' && totalAmount >= FIEL_PREMIUM_PURCHASE_AMOUNT
+            ? 1
+            : 0;
         const fielRecurringBonusSpins = level.key === 'fiel' && totalPurchases > 5 && ((totalPurchases - 5) % FIEL_RECURRING_SPIN_EVERY === 0)
             ? 1
             : 0;
         const fielPriorityUnlocked = totalPurchases === 6;
-        const bonusSpins = welcomeSpinBonusSpins + levelUnlockBonusSpins + recurrenteBoostBonusSpins + fielRecurringBonusSpins;
+        const bonusSpins = welcomeSpinBonusSpins
+            + levelUnlockBonusSpins
+            + recurrenteBoostBonusSpins
+            + reactivationBonusSpins
+            + fielPremiumPurchaseBonusSpins
+            + fielRecurringBonusSpins;
 
         if (bonusSpins > 0) {
             const unlockTime = new Date().toISOString();
@@ -274,6 +298,22 @@ module.exports = async (req, res) => {
             });
         }
 
+        if (reactivationBonusSpins > 0) {
+            campaignActivations.push({
+                id: CAMPAIGN_AUTOMATIONS.reactivationReturn,
+                triggerType: 'reactivacion_regreso',
+                note: `Regreso con reactivacion automatica despues de ${previousActivityDays} dias sin actividad.`
+            });
+        }
+
+        if (fielPremiumPurchaseBonusSpins > 0) {
+            campaignActivations.push({
+                id: CAMPAIGN_AUTOMATIONS.fielPremiumPurchase,
+                triggerType: 'compra_premium_fiel',
+                note: `Compra premium Fiel activada con ${reference} por $${Number(totalAmount).toLocaleString('es-AR')}.`
+            });
+        }
+
         if (fielRecurringBonusSpins > 0) {
             campaignActivations.push({
                 id: CAMPAIGN_AUTOMATIONS.fielRecurring,
@@ -310,6 +350,8 @@ module.exports = async (req, res) => {
                 welcome: welcomeSpinBonusSpins,
                 levelUnlock: levelUnlockBonusSpins,
                 recurrenteBoost: recurrenteBoostBonusSpins,
+                reactivation: reactivationBonusSpins,
+                fielPremiumPurchase: fielPremiumPurchaseBonusSpins,
                 fielRecurring: fielRecurringBonusSpins
             },
             levelUnlocked: levelUnlockBonusSpins > 0 ? level.label : null,

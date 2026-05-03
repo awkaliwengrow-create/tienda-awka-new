@@ -220,7 +220,9 @@ function humanizeTrigger(trigger = '') {
         impulso_recurrente: 'Impulso Recurrente',
         subida_nivel: 'Subida de nivel',
         cadencia_fiel: 'Cadencia Fiel',
-        prioridad_fiel: 'Prioridad Fiel'
+        prioridad_fiel: 'Prioridad Fiel',
+        reactivacion_regreso: 'Regreso Reactivado',
+        compra_premium_fiel: 'Compra Premium Fiel'
     };
 
     return map[trigger] || trigger || 'Automatico';

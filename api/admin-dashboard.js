@@ -94,6 +94,7 @@ module.exports = async (req, res) => {
             'fiel-mesa-exclusiva': 0,
             'fiel-spin-cadencia': 0,
             'fiel-prioridad-premium': 0,
+            'fiel-compra-premium': 0,
             'fiel-mantenimiento-premium': 0,
             'fiel-reactivacion-suave': 0
         };
@@ -146,6 +147,7 @@ module.exports = async (req, res) => {
                 if (purchaseCount === 5) {
                     campaignEligibleCounts['fiel-prioridad-premium'] += 1;
                 }
+                campaignEligibleCounts['fiel-compra-premium'] += 1;
                 if (purchaseCount >= 6) {
                     campaignEligibleCounts['fiel-mantenimiento-premium'] += 1;
                 }
