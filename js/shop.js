@@ -7,9 +7,9 @@ const CLUB_POINTS_PER_AMOUNT = 5000;
 let cart = [];
 const validCategories = new Set(['todos', 'fertilizantes', 'plaguicidas', 'herramientas', 'macetas', 'parafernalia', 'papeles', 'filtros']);
 const categoryTitles = {
-    todos: 'Todo el catálogo',
-    fertilizantes: 'Fertilizantes y nutrición',
-    plaguicidas: 'Control y protección',
+    todos: 'Todo el catalogo',
+    fertilizantes: 'Fertilizantes y nutricion',
+    plaguicidas: 'Control y proteccion',
     herramientas: 'Herramientas',
     macetas: 'Macetas y contenedores',
     parafernalia: 'Parafernalia',
@@ -173,7 +173,7 @@ function renderProducts(category = 'todos', searchTerm = '') {
     if (!filteredProducts.length) {
         grid.innerHTML = `
             <div class="club-profile-empty">
-                No encontramos productos para esta combinación. Probá otro filtro, otra palabra o limpiá la búsqueda para volver al catálogo completo.
+                No encontramos productos para esta combinacion. Prueba otro filtro, otra palabra o limpia la busqueda para volver al catalogo completo.
             </div>
         `;
         return;
@@ -187,7 +187,7 @@ function renderProducts(category = 'todos', searchTerm = '') {
                                <div class="product-size">${product.sizes[0].size}</div>`;
             } else {
                 priceDisplay = `<div class="product-price">Desde $${Math.min(...product.sizes.map(s => s.price)).toLocaleString()}</div>
-                               <div class="product-size">${product.sizes.length} tamaños</div>`;
+                               <div class="product-size">${product.sizes.length} tamanos</div>`;
             }
         }
 
@@ -221,8 +221,8 @@ function updateProductsMeta(category = 'todos', searchTerm = '', count = 0) {
 
     if (title) {
         title.textContent = normalizedSearch
-            ? `${categoryTitles[category] || 'Resultados'} · “${normalizedSearch}”`
-            : (categoryTitles[category] || 'Todo el catálogo');
+            ? `${categoryTitles[category] || 'Resultados'} · "${normalizedSearch}"`
+            : (categoryTitles[category] || 'Todo el catalogo');
     }
 
     if (countLabel) {
@@ -335,7 +335,7 @@ function updateCart() {
         cartItems.innerHTML = `
             <div class="empty-cart">
                 <div class="empty-cart-icon">🌱</div>
-                <p>Tu carrito está vacío por ahora</p>
+                <p>Tu carrito esta vacio por ahora</p>
             </div>
         `;
         cartFooter.style.display = 'none';
@@ -389,7 +389,7 @@ function toggleCart() {
 
 function checkoutWhatsApp() {
     if (cart.length === 0) {
-        alert('Tu carrito está vacío por ahora.');
+        alert('Tu carrito esta vacio por ahora.');
         return;
     }
 
@@ -400,7 +400,7 @@ function checkoutWhatsApp() {
 // Checkout
 async function checkout() {
     if (cart.length === 0) {
-        alert('Tu carrito está vacío por ahora.');
+        alert('Tu carrito esta vacio por ahora.');
         return;
     }
 
@@ -452,18 +452,18 @@ async function submitCheckoutProfile(event) {
     };
 
     if (!customer.name) {
-        feedback.textContent = 'Ingresá tu nombre para acreditar puntos.';
+        feedback.textContent = 'Ingresa tu nombre para acreditar puntos.';
         feedback.className = 'checkout-profile-feedback is-error';
         return;
     }
 
     if (customer.phone.length < 8) {
-        feedback.textContent = 'Ingresá un WhatsApp válido para acreditar puntos.';
+        feedback.textContent = 'Ingresa un WhatsApp valido para acreditar puntos.';
         feedback.className = 'checkout-profile-feedback is-error';
         return;
     }
 
-        feedback.textContent = 'Preparando tu pago y registrando tu compra para Club Awka...';
+        feedback.textContent = 'Preparando tu pago y dejando tu compra lista para Club Awka...';
     feedback.className = 'checkout-profile-feedback';
 
     if (submitButton) {
@@ -576,9 +576,9 @@ function handlePaymentStatus() {
         cart = [];
         updateCart();
     } else if (paymentStatus === 'pending') {
-        alert('Tu pago quedó pendiente. Cuando se confirme, la compra seguirá contando para Club Awka.');
+        alert('Tu pago quedo pendiente. Cuando se confirme, la compra seguira contando para Club Awka.');
     } else if (paymentStatus === 'failure') {
-        alert('El pago no se completó. Podés intentarlo de nuevo o pedir por WhatsApp.');
+        alert('El pago no se completo. Puedes intentarlo de nuevo o pedir por WhatsApp.');
     }
 
     params.delete('payment');
@@ -622,8 +622,8 @@ async function processApprovedPurchase(referenceFromUrl) {
 
         const awardedPoints = Number(data.points) || 0;
         const suffix = awardedPoints > 0
-            ? ` Sumaste ${awardedPoints} punto${awardedPoints === 1 ? '' : 's'} en Club Awka y tu perfil ya quedó actualizado.`
-            : ` Esta compra quedó registrada para Club Awka, pero no sumó puntos porque el monto no alcanzó $${CLUB_POINTS_PER_AMOUNT.toLocaleString('es-AR')}.`;
+            ? ` Sumaste ${awardedPoints} punto${awardedPoints === 1 ? '' : 's'} en Club Awka y tu perfil ya quedo actualizado.`
+            : ` Esta compra quedo registrada para Club Awka, pero no sumo puntos porque el monto no alcanzo $${CLUB_POINTS_PER_AMOUNT.toLocaleString('es-AR')}.`;
 
         alert(`Pago aprobado. Gracias por tu compra.${suffix}`);
     } catch (error) {
@@ -703,4 +703,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 window.addEventListener('hashchange', applyCategoryFromHash);
-
