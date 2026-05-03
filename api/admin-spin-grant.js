@@ -52,6 +52,9 @@ module.exports = async (req, res) => {
 
         await supabaseRequest('clientes?on_conflict=telefono', {
             method: 'POST',
+            headers: {
+                Prefer: 'return=representation,resolution=merge-duplicates'
+            },
             body: JSON.stringify({
                 nombre: name,
                 telefono: phone
