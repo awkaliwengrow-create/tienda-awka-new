@@ -96,12 +96,60 @@ module.exports = async (req, res) => {
                     : segments.fiel
         }));
 
+        const totalCustomers = knownPhones.size;
+        const purchasingCustomers = [...purchaseCountByPhone.keys()].length;
+        const totalRevenue = (purchaseRows || []).reduce((sum, row) => sum + (Number(row.monto_total) || 0), 0);
+        const averageTicket = purchaseRows?.length ? totalRevenue / purchaseRows.length : 0;
+        const repeatCustomers = [...purchaseCountByPhone.values()].filter((count) => count >= 2).length;
+        const spinUsageRate = (pendingSpins?.length || 0) + (usedSpins?.length || 0) > 0
+            ? ((usedSpins?.length || 0) / ((pendingSpins?.length || 0) + (usedSpins?.length || 0))) * 100
+            : 0;
+        const rewardDeliveryRate = rewards.length
+            ? (rewards.filter((reward) => reward.status === 'entregado').length / rewards.length) * 100
+            : 0;
+
+        const topCampaignEntry = Object.entries(
+            (campaignActivationRows || []).reduce((acc, row) => {
+                acc[row.campaign_id] = (acc[row.campaign_id] || 0) + 1;
+                return acc;
+            }, {})
+        ).sort((a, b) => b[1] - a[1])[0];
+
+        const topPrizeEntry = Object.entries(
+            rewards.reduce((acc, reward) => {
+                acc[reward.prize] = (acc[reward.prize] || 0) + 1;
+                return acc;
+            }, {})
+        ).sort((a, b) => b[1] - a[1])[0];
+
         json(res, 200, {
             stats: {
                 pendingSpins: pendingSpins?.length || 0,
                 usedSpins: usedSpins?.length || 0,
                 activePoints: (pointsRows || []).reduce((sum, row) => sum + (row.puntos || 0), 0),
                 pendingRewards: rewards.filter((reward) => reward.status === 'pendiente').length
+            },
+            metrics: {
+                totalCustomers,
+                purchasingCustomers,
+                repeatCustomers,
+                totalPurchases: purchaseRows?.length || 0,
+                totalRevenue,
+                averageTicket,
+                spinUsageRate,
+                rewardDeliveryRate,
+                topCampaign: topCampaignEntry
+                    ? {
+                        id: topCampaignEntry[0],
+                        activations: topCampaignEntry[1]
+                    }
+                    : null,
+                topPrize: topPrizeEntry
+                    ? {
+                        prize: topPrizeEntry[0],
+                        count: topPrizeEntry[1]
+                    }
+                    : null
             },
             segments,
             campaigns,

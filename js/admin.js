@@ -14,6 +14,14 @@ const statRewards = document.getElementById('adminStatRewards');
 const segmentNuevo = document.getElementById('adminSegmentNuevo');
 const segmentRecurrente = document.getElementById('adminSegmentRecurrente');
 const segmentFiel = document.getElementById('adminSegmentFiel');
+const metricCustomers = document.getElementById('adminMetricCustomers');
+const metricRepeat = document.getElementById('adminMetricRepeat');
+const metricTicket = document.getElementById('adminMetricTicket');
+const metricRevenue = document.getElementById('adminMetricRevenue');
+const metricSpinUsage = document.getElementById('adminMetricSpinUsage');
+const metricRewardRate = document.getElementById('adminMetricRewardRate');
+const metricTopCampaign = document.getElementById('adminMetricTopCampaign');
+const metricTopPrize = document.getElementById('adminMetricTopPrize');
 
 const spinForm = document.getElementById('adminSpinForm');
 const pointsForm = document.getElementById('adminPointsForm');
@@ -51,6 +59,10 @@ function formatDate(value) {
         hour: '2-digit',
         minute: '2-digit'
     });
+}
+
+function formatMoney(value = 0) {
+    return `$${Number(value || 0).toLocaleString('es-AR')}`;
 }
 
 function saveSession(token) {
@@ -231,6 +243,18 @@ async function loadDashboard() {
     segmentNuevo.textContent = data.segments?.nuevo || 0;
     segmentRecurrente.textContent = data.segments?.recurrente || 0;
     segmentFiel.textContent = data.segments?.fiel || 0;
+    metricCustomers.textContent = `${data.metrics?.purchasingCustomers || 0}/${data.metrics?.totalCustomers || 0}`;
+    metricRepeat.textContent = `${data.metrics?.repeatCustomers || 0} recurrentes`;
+    metricTicket.textContent = formatMoney(data.metrics?.averageTicket || 0);
+    metricRevenue.textContent = `${formatMoney(data.metrics?.totalRevenue || 0)} facturados`;
+    metricSpinUsage.textContent = `${Math.round(data.metrics?.spinUsageRate || 0)}%`;
+    metricRewardRate.textContent = `${Math.round(data.metrics?.rewardDeliveryRate || 0)}%`;
+    metricTopCampaign.textContent = data.metrics?.topCampaign
+        ? `${data.metrics.topCampaign.id} · ${data.metrics.topCampaign.activations} activaciones`
+        : 'Todavia sin datos';
+    metricTopPrize.textContent = data.metrics?.topPrize
+        ? `${data.metrics.topPrize.prize} · ${data.metrics.topPrize.count} registro(s)`
+        : 'Todavia sin datos';
 
     renderRewards(data.rewards || []);
     renderTopPoints(data.topPoints || []);

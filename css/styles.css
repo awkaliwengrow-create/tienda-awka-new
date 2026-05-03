@@ -2695,6 +2695,49 @@ footer {
     gap: 1rem;
 }
 
+.admin-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.9rem;
+}
+
+.admin-metric-card {
+    padding: 1rem 1.05rem;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.72);
+    border: 1px solid rgba(74,103,65,0.12);
+}
+
+.admin-metric-card span,
+.admin-metric-card strong,
+.admin-metric-card small {
+    display: block;
+}
+
+.admin-metric-card span {
+    color: rgba(61,40,23,0.68);
+    font-size: 0.84rem;
+    margin-bottom: 0.4rem;
+}
+
+.admin-metric-card strong {
+    color: var(--soil);
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.admin-metric-card small {
+    color: rgba(61,40,23,0.72);
+    line-height: 1.5;
+}
+
+.admin-metric-insights {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-top: 1rem;
+}
+
 .admin-kpi-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -3579,7 +3622,9 @@ footer {
         grid-template-columns: 1fr;
     }
     .admin-grid,
-    .admin-kpi-grid {
+    .admin-kpi-grid,
+    .admin-metrics-grid,
+    .admin-metric-insights {
         grid-template-columns: 1fr;
     }
     .admin-topbar,
