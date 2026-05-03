@@ -13,18 +13,20 @@ const LEVEL_BENEFITS = {
             'Acceso a activaciones generales del club.',
             'Posibilidad de giros de bienvenida o acciones puntuales.'
         ],
-        nextUnlock: 'Al llegar a Recurrente puedes entrar en activaciones mas frecuentes y beneficios segmentados.'
+        nextUnlock: 'Al llegar a Recurrente desbloqueas 1 giro bonus y activaciones mas frecuentes.'
     },
     recurrente: {
         current: [
+            'Giro bonus automatico al alcanzar este nivel.',
             'Acceso a activaciones mas frecuentes dentro del club.',
             'Mayor prioridad para giros y dinamicas promocionales.',
             'Seguimiento claro del progreso hacia el nivel Fiel.'
         ],
-        nextUnlock: 'Al llegar a Fiel desbloqueas beneficios exclusivos, campañas especiales y premios mejorados.'
+        nextUnlock: 'Al llegar a Fiel desbloqueas 2 giros bonus, beneficios exclusivos y premios mejorados.'
     },
     fiel: {
         current: [
+            'Dos giros bonus automaticos al alcanzar este nivel.',
             'Acceso a beneficios exclusivos del club.',
             'Prioridad en activaciones especiales y premios destacados.',
             'Mejor posicion para campañas y ventajas reservadas a clientes fieles.'

@@ -72,6 +72,16 @@ create table if not exists public.club_premios_estado (
     created_at timestamptz not null default now()
 );
 
+create table if not exists public.club_niveles_historial (
+    id bigserial primary key,
+    telefono text not null,
+    nivel_anterior text not null,
+    nivel_nuevo text not null,
+    motivo text,
+    created_at timestamptz not null default now(),
+    unique (telefono, nivel_nuevo)
+);
+
 create index if not exists idx_clientes_telefono on public.clientes (telefono);
 create index if not exists idx_puntos_telefono on public.puntos (telefono);
 create index if not exists idx_giros_telefono_estado on public.giros_habilitados (telefono, estado);
@@ -80,6 +90,7 @@ create index if not exists idx_movimientos_telefono_created on public.club_punto
 create index if not exists idx_club_compras_telefono_created on public.club_compras (telefono, created_at desc);
 create index if not exists idx_club_premios_estado_status_created on public.club_premios_estado (estado, created_at desc);
 create index if not exists idx_club_premios_estado_telefono on public.club_premios_estado (telefono);
+create index if not exists idx_club_niveles_historial_telefono_created on public.club_niveles_historial (telefono, created_at desc);
 
 comment on table public.clientes is 'Base de identidad liviana para Club Awka.';
 comment on table public.puntos is 'Saldo de puntos acumulados y canjeados por cliente.';
@@ -88,3 +99,4 @@ comment on table public.ruleta_registros is 'Historial auditable de resultados d
 comment on table public.club_puntos_movimientos is 'Auditoria e idempotencia de puntos acreditados por compras.';
 comment on table public.club_compras is 'Compras aprobadas que permiten calcular nivel y progreso del club.';
 comment on table public.club_premios_estado is 'Trazabilidad operativa de premios ganados y entregados.';
+comment on table public.club_niveles_historial is 'Auditoria de subidas de nivel y desbloqueos del sistema de fidelizacion.';

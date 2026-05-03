@@ -1,6 +1,10 @@
-const { getClubEnv, json, normalizePhone } = require('./_lib/club');
+const { calculateLevel, getClubEnv, json, normalizePhone } = require('./_lib/club');
 
 const POINTS_PER_AMOUNT = Number(process.env.AWKA_POINTS_PER_AMOUNT) || 5000;
+const LEVEL_BONUS_SPINS = {
+    recurrente: 1,
+    fiel: 2
+};
 
 async function readJsonBody(req) {
     if (req.body && typeof req.body === 'object') {
@@ -140,11 +144,58 @@ module.exports = async (req, res) => {
             })
         });
 
+        const approvedPurchases = await supabaseRequest(
+            `club_compras?select=id,created_at&telefono=eq.${encodeURIComponent(phone)}&estado=eq.aprobada&order=created_at.asc`
+        );
+        const totalPurchases = approvedPurchases?.length || 0;
+        const level = calculateLevel(totalPurchases);
+        const unlockedLevelKey = totalPurchases === 2
+            ? 'recurrente'
+            : totalPurchases === 5
+                ? 'fiel'
+                : null;
+        const bonusSpins = unlockedLevelKey ? (LEVEL_BONUS_SPINS[unlockedLevelKey] || 0) : 0;
+
+        if (bonusSpins > 0) {
+            const unlockTime = new Date().toISOString();
+
+            try {
+                await supabaseRequest('club_niveles_historial?on_conflict=telefono,nivel_nuevo', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        telefono: phone,
+                        nivel_anterior: calculateLevel(Math.max(0, totalPurchases - 1)).label,
+                        nivel_nuevo: level.label,
+                        motivo: `Desbloqueo automatico al registrar la compra ${reference}`,
+                        created_at: unlockTime
+                    })
+                });
+            } catch (historyError) {
+                // The club can keep awarding the level bonus even if the audit table is not available yet.
+            }
+
+            for (let index = 0; index < bonusSpins; index += 1) {
+                await supabaseRequest('giros_habilitados', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        nombre: name,
+                        telefono: phone,
+                        estado: 'pendiente',
+                        created_at: unlockTime
+                    })
+                });
+            }
+        }
+
         json(res, 200, {
             awarded: true,
             duplicate: false,
             points: pointsToAward,
             amount: totalAmount,
+            level: level.label,
+            totalPurchases,
+            bonusSpinsAwarded: bonusSpins,
+            levelUnlocked: bonusSpins > 0 ? level.label : null,
             message: pointsToAward > 0
                 ? `Se acreditaron ${pointsToAward} punto${pointsToAward === 1 ? '' : 's'}.`
                 : 'Compra registrada sin puntos por monto mínimo.'

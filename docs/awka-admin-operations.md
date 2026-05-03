@@ -155,6 +155,16 @@ Ejemplos de descuentos:
 - 10% OFF
 - 20% OFF
 
+## Beneficios automaticos por nivel
+
+El sistema ahora tiene dos desbloqueos automaticos:
+
+- al llegar a `Recurrente` con `2 compras aprobadas`, el cliente recibe `1 giro bonus`
+- al llegar a `Fiel` con `5 compras aprobadas`, el cliente recibe `2 giros bonus`
+
+Esto se acredita cuando una compra nueva empuja el cambio de nivel.
+No hace falta cargarlo manualmente si el flujo de compra registro bien la operacion.
+
 ## Criterio operativo recomendado
 
 ### Cliente nuevo

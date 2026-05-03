@@ -58,6 +58,8 @@ Regla complementaria opcional:
   - perfil privado con puntos, compras y giros
   - acceso a activaciones generales del club
   - giros de bienvenida o acciones puntuales
+- desbloqueo automatico al subir:
+  - al llegar a `Recurrente` recibe `1 giro bonus`
 
 ### Recurrente
 - suma puntos base
@@ -68,6 +70,8 @@ Regla complementaria opcional:
   - activaciones mas frecuentes dentro del club
   - mayor prioridad para giros y dinamicas promocionales
   - seguimiento directo del progreso hacia `Fiel`
+- desbloqueo automatico al subir:
+  - al llegar a `Fiel` recibe `2 giros bonus`
 
 ### Fiel
 - puede recibir mejores recompensas
@@ -97,6 +101,14 @@ Regla inicial recomendada:
 - `Fiel`: mejor acceso a activaciones o premios mas atractivos
 
 La mejora de probabilidades o de pool de premios debe hacerse mas adelante, cuando el sistema ya este estable.
+
+## Beneficio Automatico Por Subida De Nivel
+Para cerrar la V1 del sistema:
+
+- cuando el cliente llega a `2 compras aprobadas` y pasa a `Recurrente`, recibe `1 giro bonus`
+- cuando el cliente llega a `5 compras aprobadas` y pasa a `Fiel`, recibe `2 giros bonus`
+
+Este beneficio se acredita de forma automatica cuando una nueva compra aprobada empuja el cambio de nivel.
 
 ## Modelo De Datos Recomendado Para La Siguiente Etapa
 Para profesionalizar el sistema conviene sumar 2 entidades:
