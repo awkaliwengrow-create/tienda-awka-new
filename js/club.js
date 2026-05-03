@@ -242,6 +242,7 @@ function renderLevel(profile) {
 function renderBenefits(profile) {
     const benefits = Array.isArray(profile.level.benefits) ? profile.level.benefits : [];
     const nextUnlock = profile.level.nextUnlock || 'Sigue sumando compras para desbloquear nuevas ventajas.';
+    const latestUnlock = profile.level.latestUnlock;
 
     return `
         <div class="club-benefits-panel">
@@ -261,6 +262,13 @@ function renderBenefits(profile) {
             <div class="club-benefits-card club-benefits-card-next">
                 <div class="club-profile-history-title">Proximo desbloqueo</div>
                 <p>${nextUnlock}</p>
+                ${latestUnlock ? `
+                    <div class="club-benefits-unlock">
+                        <strong>Ultimo desbloqueo</strong>
+                        <span>${latestUnlock.from} -> ${latestUnlock.to}</span>
+                        <small>${formatDate(latestUnlock.createdAt)}</small>
+                    </div>
+                ` : ''}
             </div>
         </div>
     `;

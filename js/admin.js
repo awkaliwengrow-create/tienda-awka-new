@@ -21,6 +21,7 @@ const rewardsList = document.getElementById('adminRewardsList');
 const pointsList = document.getElementById('adminPointsList');
 const pendingList = document.getElementById('adminPendingList');
 const usedList = document.getElementById('adminUsedList');
+const levelHistoryList = document.getElementById('adminLevelHistoryList');
 
 function setFeedback(element, message, variant = '') {
     if (!element) return;
@@ -145,6 +146,26 @@ function renderSpins(target, items, emptyMessage, isUsed = false) {
     );
 }
 
+function renderLevelHistory(items) {
+    levelHistoryList.innerHTML = renderList(
+        items,
+        (item) => `
+            <article class="admin-item">
+                <div class="admin-item-main">
+                    <strong>${item.from} -> ${item.to}</strong>
+                    <span>${item.phone}</span>
+                    <span>${item.reason || 'Subida registrada automaticamente.'}</span>
+                </div>
+                <div class="admin-item-side">
+                    <span class="admin-badge is-success">nivel</span>
+                    <span class="admin-item-note">${formatDate(item.createdAt)}</span>
+                </div>
+            </article>
+        `,
+        'Todavia no hay subidas de nivel registradas.'
+    );
+}
+
 async function loadDashboard() {
     const data = await adminFetch('/api/admin-dashboard');
 
@@ -157,6 +178,7 @@ async function loadDashboard() {
     renderTopPoints(data.topPoints || []);
     renderSpins(pendingList, data.pendingSpins || [], 'No hay giros pendientes.');
     renderSpins(usedList, data.usedSpins || [], 'No hay giros usados aun.', true);
+    renderLevelHistory(data.levelHistory || []);
 
     rewardsList.querySelectorAll('[data-reward-deliver]').forEach((button) => {
         button.addEventListener('click', async () => {

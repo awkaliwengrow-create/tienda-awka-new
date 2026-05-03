@@ -206,7 +206,7 @@ async function fetchCustomerByPhone(phone) {
     return rows?.[0] || null;
 }
 
-function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchases }) {
+function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchases, levelHistory }) {
     const normalizedSpins = (spins || []).map((spin) => ({
         prize: spin.premio || 'Sin resultado',
         winner: Boolean(spin.ganador),
@@ -218,6 +218,7 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
     const totalPurchases = purchases?.length || 0;
     const totalSpent = (purchases || []).reduce((sum, purchase) => sum + (Number(purchase.monto_total) || 0), 0);
     const level = calculateLevel(totalPurchases);
+    const latestLevelUnlock = levelHistory?.[0] || null;
 
     return {
         exists: Boolean(customer),
@@ -225,7 +226,15 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
         name: customer?.nombre || 'Invitado Awka',
         level: {
             ...level,
-            totalSpent
+            totalSpent,
+            latestUnlock: latestLevelUnlock
+                ? {
+                    from: latestLevelUnlock.nivel_anterior,
+                    to: latestLevelUnlock.nivel_nuevo,
+                    reason: latestLevelUnlock.motivo || '',
+                    createdAt: latestLevelUnlock.created_at || null
+                }
+                : null
         },
         points: {
             current: pointsRow?.puntos || 0,
@@ -255,12 +264,13 @@ async function fetchClubProfile(phone) {
     }
 
     const encodedPhone = encodeURIComponent(normalizedPhone);
-    const [customerRows, pointsRows, spinRows, pendingRows, purchaseRows] = await Promise.all([
+    const [customerRows, pointsRows, spinRows, pendingRows, purchaseRows, levelHistoryRows] = await Promise.all([
         supabaseRequest(`clientes?select=nombre,telefono&telefono=eq.${encodedPhone}&limit=1`),
         supabaseRequest(`puntos?select=puntos,puntos_canjeados,ultima_actividad&telefono=eq.${encodedPhone}&limit=1`),
         supabaseRequest(`ruleta_registros?select=premio,ganador,created_at,fecha&telefono=eq.${encodedPhone}&order=created_at.desc.nullslast,fecha.desc.nullslast`),
         supabaseRequest(`giros_habilitados?select=id,estado&telefono=eq.${encodedPhone}&estado=eq.pendiente`),
-        supabaseRequest(`club_compras?select=referencia,monto_total,created_at&telefono=eq.${encodedPhone}&estado=eq.aprobada&order=created_at.desc`)
+        supabaseRequest(`club_compras?select=referencia,monto_total,created_at&telefono=eq.${encodedPhone}&estado=eq.aprobada&order=created_at.desc`),
+        supabaseRequest(`club_niveles_historial?select=nivel_anterior,nivel_nuevo,motivo,created_at&telefono=eq.${encodedPhone}&order=created_at.desc&limit=1`).catch(() => [])
     ]);
 
     return buildProfile({
@@ -269,7 +279,8 @@ async function fetchClubProfile(phone) {
         pointsRow: pointsRows?.[0] || null,
         spins: spinRows || [],
         pendingSpins: pendingRows || [],
-        purchases: purchaseRows || []
+        purchases: purchaseRows || [],
+        levelHistory: levelHistoryRows || []
     });
 }
 
