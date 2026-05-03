@@ -252,8 +252,8 @@ nav a.active::after {
 
 .hero-shell {
     display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.95fr);
-    gap: 1.5rem;
+    grid-template-columns: minmax(0, 0.85fr) minmax(420px, 1.05fr);
+    gap: 1rem;
     align-items: center;
 }
 
@@ -265,12 +265,12 @@ nav a.active::after {
     display: grid;
     justify-items: end;
     align-self: center;
-    gap: 0.35rem;
+    min-height: 100%;
 }
 
 .hero-visual-frame {
     position: relative;
-    width: min(100%, 640px);
+    width: min(100%, 760px);
     padding: 0;
     background: none;
     border: none;
@@ -280,39 +280,13 @@ nav a.active::after {
 
 .hero-character {
     display: block;
-    width: 118%;
+    width: 132%;
     max-width: none;
-    max-height: 760px;
+    max-height: 860px;
     object-fit: contain;
     object-position: center bottom;
-    transform: translateX(7%) translateY(1%);
-    filter: drop-shadow(0 30px 54px rgba(9,14,10,0.28));
-}
-
-.hero-visual-note {
-    width: min(100%, 300px);
-    margin-right: 1.5rem;
-    padding: 0.95rem 1rem;
-    border-radius: 20px;
-    background: rgba(23,34,23,0.62);
-    border: 1px solid rgba(245,241,232,0.1);
-    box-shadow: 0 16px 32px rgba(9,14,10,0.2);
-    backdrop-filter: blur(10px);
-}
-
-.hero-visual-note strong,
-.hero-visual-note span {
-    display: block;
-}
-
-.hero-visual-note strong {
-    margin-bottom: 0.35rem;
-    color: var(--cream);
-}
-
-.hero-visual-note span {
-    color: rgba(245,241,232,0.78);
-    line-height: 1.55;
+    transform: translateX(12%) translateY(2%);
+    filter: drop-shadow(0 36px 60px rgba(9,14,10,0.3));
 }
 
 .hero-eyebrow {
@@ -3462,17 +3436,12 @@ footer {
         justify-items: center;
     }
     .hero-visual-frame {
-        width: min(100%, 460px);
-    }
-    .hero-visual-note {
-        width: 100%;
-        max-width: 360px;
-        margin-right: 0;
+        width: min(100%, 520px);
     }
     .hero-character {
-        width: 108%;
-        transform: translateX(0);
-        max-height: 520px;
+        width: 118%;
+        transform: translateX(2%);
+        max-height: 560px;
     }
     .hero-actions { flex-direction: column; align-items: flex-start; }
     .hero h1 { font-size: clamp(2.8rem, 10vw, 4rem); }
@@ -3509,11 +3478,12 @@ footer {
         padding-bottom: 2.85rem;
     }
     .hero-visual-frame {
-        width: min(100%, 340px);
+        width: min(100%, 380px);
     }
     .hero-character {
-        width: 104%;
-        max-height: 420px;
+        width: 112%;
+        max-height: 460px;
+        transform: translateX(0);
     }
     .hero h1 {
         font-size: 2.55rem;
