@@ -247,20 +247,18 @@ function renderBenefits(profile) {
     return `
         <div class="club-benefits-panel">
             <div class="club-benefits-card">
-                <div class="club-profile-history-title">Beneficios activos de ${profile.level.label}</div>
+                <div class="club-profile-history-title">Beneficios activos</div>
                 <div class="club-benefits-list">
                     ${benefits.map((benefit) => `
                         <article class="club-benefit-item">
-                            <div class="club-benefit-mark">+</div>
-                            <div>
-                                <strong>${benefit}</strong>
-                            </div>
+                            <div class="club-benefit-mark"></div>
+                            <strong>${benefit}</strong>
                         </article>
                     `).join('')}
                 </div>
             </div>
             <div class="club-benefits-card club-benefits-card-next">
-                <div class="club-profile-history-title">Proximo desbloqueo</div>
+                <div class="club-profile-history-title">Sigue asi</div>
                 <p>${nextUnlock}</p>
                 ${latestUnlock ? `
                     <div class="club-benefits-unlock">
@@ -284,10 +282,10 @@ function renderCampaigns(profile) {
 
     return `
         <div class="club-campaigns-panel">
-            <div class="club-profile-history-title">Campanas activas para ${profile.campaigns.audience}</div>
+            <div class="club-profile-history-title">Campanas activas</div>
             ${latestActivation ? `
                 <div class="club-campaign-activation">
-                    <strong>Ultima activacion automatica</strong>
+                    <strong>Ultima activacion</strong>
                     <span>${latestActivation.title}</span>
                     <small>${latestActivation.note || `Disparada por ${latestActivation.trigger}.`} · ${formatDate(latestActivation.createdAt)}</small>
                 </div>
@@ -297,7 +295,6 @@ function renderCampaigns(profile) {
                     <article class="club-campaign-card">
                         <span class="club-campaign-audience">${campaign.audience}</span>
                         <strong>${campaign.title}</strong>
-                        <p>${campaign.description}</p>
                         <div class="club-campaign-benefit">${campaign.benefit}</div>
                         <small>${campaign.cta}</small>
                     </article>
@@ -314,7 +311,7 @@ function renderProfile(profile) {
                 <div>
                     <div class="club-member-eyebrow">Sesion activa</div>
                     <h3>${profile.name}</h3>
-                    <p>Este perfil ya esta conectado al sistema del club y puede crecer sobre puntos, beneficios y giros.</p>
+                    <p>Tu avance del club en un solo lugar.</p>
                 </div>
                 <div class="club-profile-phone">${profile.phone}</div>
             </div>
