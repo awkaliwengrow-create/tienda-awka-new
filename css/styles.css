@@ -1831,57 +1831,58 @@ footer {
 .club-cta-card {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 0.9rem;
     align-items: center;
     background:
-        radial-gradient(circle at 18% 18%, rgba(201,123,77,0.16), transparent 18%),
-        radial-gradient(circle at 88% 82%, rgba(143,185,134,0.12), transparent 22%),
+        radial-gradient(circle at 18% 18%, rgba(201,123,77,0.12), transparent 18%),
+        radial-gradient(circle at 88% 82%, rgba(143,185,134,0.1), transparent 22%),
         linear-gradient(145deg, rgba(61,40,23,0.98), rgba(44,62,41,0.95));
     color: var(--cream);
-    border-radius: 32px;
-    padding: 2.5rem;
-    border: 1px solid rgba(245,241,232,0.08);
+    border-radius: 30px;
+    padding: 2rem 2.15rem;
+    border: 1px solid rgba(245,241,232,0.07);
 }
 
 .club-preview-copy h2,
 .club-benefits-copy h2,
 .club-cta-card h2,
 .club-hero-copy h1 {
-    font-size: clamp(2.4rem, 5vw, 4.1rem);
-    line-height: 1.04;
-    margin-bottom: 1rem;
+    font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+    line-height: 1.06;
+    margin-bottom: 0.7rem;
     color: var(--cream);
+    max-width: 12ch;
 }
 
 .club-preview-copy p,
 .club-benefits-copy p,
 .club-cta-card p,
 .club-hero-copy p {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: rgba(245,241,232,0.82);
+    font-size: 1rem;
+    line-height: 1.55;
+    color: rgba(245,241,232,0.8);
+    max-width: 34rem;
 }
 
 .club-preview-kicker {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.45rem 0.95rem;
+    gap: 0.35rem;
+    padding: 0;
     border-radius: var(--radius-pill);
-    background: rgba(245,241,232,0.08);
-    border: 1px solid rgba(245,241,232,0.14);
     color: var(--leaf);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
+    opacity: 0.85;
 }
 
 .club-preview-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 1.35rem;
+    margin-top: 0.9rem;
 }
 
 .club-preview-card,
@@ -3615,14 +3616,18 @@ footer {
     .club-member-card,
     .club-profile-box,
     .club-profile-card {
-        padding: 1.35rem;
+        padding: 1.2rem;
         border-radius: 24px;
     }
     .club-preview-copy h2,
     .club-benefits-copy h2,
     .club-cta-card h2,
     .club-hero-copy h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
+        max-width: none;
+    }
+    .club-preview-copy p {
+        font-size: 0.98rem;
     }
     .club-preview-actions {
         flex-direction: column;
