@@ -57,25 +57,19 @@
 
         <section class="club-profile-section" id="perfil">
             <div class="container">
-                <div class="club-dashboard-layout">
-                    <aside class="club-side-card">
-                        <div class="club-preview-kicker">Panel</div>
-                        <h2>Mi Club</h2>
-                        <div class="club-side-actions">
-                            <a href="#perfil" id="clubSideCta" class="club-side-link is-primary">Entrar a mi panel</a>
-                            <a href="ruleta.html" id="clubPlayLink" class="club-side-link" hidden>Ir a la ruleta</a>
-                            <button type="button" id="clubLogoutButton" class="club-side-link" hidden>Cerrar sesion</button>
-                        </div>
-                        <div class="club-side-note">Acceso, ruleta y salida.</div>
-                    </aside>
-
-                    <div class="club-profile-box club-profile-box-dashboard">
-                        <div class="club-profile-panel-head">
+                <div class="club-dashboard-layout club-dashboard-layout-single">
+                    <div class="club-profile-box club-profile-box-dashboard club-profile-box-dashboard-merged">
+                        <div class="club-profile-panel-head club-profile-panel-head-merged">
                             <div>
                                 <div class="club-preview-kicker">Perfil</div>
                                 <h2>Estado del club</h2>
+                                <p>Entra o crea tu PIN.</p>
                             </div>
-                            <p>Entra o crea tu PIN.</p>
+                            <div class="club-panel-actions">
+                                <a href="#perfil" id="clubSideCta" class="club-side-link is-primary">Entrar a mi panel</a>
+                                <a href="ruleta.html" id="clubPlayLink" class="club-side-link" hidden>Ir a la ruleta</a>
+                                <button type="button" id="clubLogoutButton" class="club-side-link" hidden>Cerrar sesion</button>
+                            </div>
                         </div>
 
                         <div id="clubAuthShell" class="club-auth-shell">
