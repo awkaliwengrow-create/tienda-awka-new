@@ -3449,18 +3449,18 @@ footer {
         min-height: auto;
     }
     .hero .container {
-        padding-top: 3.6rem;
-        padding-bottom: 1.8rem;
+        padding-top: 3rem;
+        padding-bottom: 1.1rem;
     }
     .hero-shell {
         grid-template-columns: 1fr;
         gap: 0;
-        min-height: 520px;
+        min-height: 450px;
         align-items: end;
     }
     .hero-copy {
         max-width: 100%;
-        padding: 0.4rem 0 1.25rem;
+        padding: 0.2rem 0 0.8rem;
     }
     .hero-visual {
         position: absolute;
@@ -3486,13 +3486,13 @@ footer {
     .hero-actions { flex-direction: column; align-items: flex-start; }
     .hero h1 {
         font-size: clamp(2.4rem, 9vw, 3.5rem);
-        margin-bottom: 0.9rem;
+        margin-bottom: 0.7rem;
     }
     .hero p {
         max-width: 30ch;
-        margin-bottom: 1.4rem;
-        font-size: 1.02rem;
-        line-height: 1.55;
+        margin-bottom: 1rem;
+        font-size: 0.98rem;
+        line-height: 1.5;
     }
     .hero-cta {
         width: min(100%, 300px);
@@ -3524,14 +3524,14 @@ footer {
     .container { padding: 0 1rem; }
     .logo img { width: auto; height: 54px; max-width: 200px; }
     .hero .container {
-        padding-top: 3rem;
-        padding-bottom: 1.35rem;
+        padding-top: 2.5rem;
+        padding-bottom: 0.85rem;
     }
     .hero-shell {
-        min-height: 540px;
+        min-height: 410px;
     }
     .hero-copy {
-        padding-bottom: 1rem;
+        padding-bottom: 0.65rem;
     }
     .hero-visual-frame {
         width: min(100%, 320px);
@@ -3543,13 +3543,13 @@ footer {
         opacity: 0.26;
     }
     .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.05rem;
     }
     .hero p {
         max-width: 28ch;
-        margin-bottom: 1.1rem;
-        font-size: 0.94rem;
-        line-height: 1.5;
+        margin-bottom: 0.85rem;
+        font-size: 0.91rem;
+        line-height: 1.45;
     }
     .hero-actions {
         gap: 0.75rem;
