@@ -2211,10 +2211,10 @@ footer {
 }
 
 .club-dashboard-shell-minimal {
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: 1rem;
-    padding: 1.35rem 1.45rem;
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 0.6rem;
+    padding: 1.2rem 1.3rem;
     border: 1px solid rgba(61,40,23,0.08);
     border-radius: 24px;
     background:
@@ -2225,7 +2225,7 @@ footer {
 }
 
 .club-dashboard-copy {
-    max-width: 480px;
+    max-width: 420px;
 }
 
 .club-dashboard-copy h1 {
@@ -2240,20 +2240,7 @@ footer {
     line-height: 1.55;
     color: rgba(61,40,23,0.76);
     text-wrap: balance;
-    max-width: 34ch;
-}
-
-.club-dashboard-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.club-dashboard-actions-compact {
-    margin-top: 0;
-    justify-content: flex-end;
-    align-items: center;
+    max-width: 30ch;
 }
 
 .club-dashboard-cards,
@@ -2308,52 +2295,6 @@ footer {
     padding: 0 0 40px;
 }
 
-.club-kpi-panel {
-    padding: 12px 0 30px;
-}
-
-.club-kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-    align-items: stretch;
-}
-
-.club-kpi-strip {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.5rem;
-}
-
-.club-kpi-strip-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.6rem;
-    padding: 0.8rem 0.95rem;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.48);
-    border: 1px solid rgba(61,40,23,0.06);
-    box-shadow: none;
-}
-
-.club-kpi-strip-item span {
-    display: inline-flex;
-    margin-bottom: 0;
-    color: var(--earth-green);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.64rem;
-    font-weight: 700;
-}
-
-.club-kpi-strip-item strong {
-    color: var(--soil);
-    font-size: 0.9rem;
-    line-height: 1.25;
-    text-align: right;
-}
-
 .club-kpi-card {
     background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(245,241,232,0.92));
     border-radius: 22px;
@@ -2390,7 +2331,7 @@ footer {
 .club-dashboard-layout {
     display: grid;
     grid-template-columns: 280px minmax(0, 1fr);
-    gap: 1rem;
+    gap: 1.15rem;
     align-items: start;
 }
 
@@ -2451,10 +2392,11 @@ footer {
 }
 
 .club-profile-box-dashboard {
-    padding: 1.1rem;
+    padding: 1.2rem;
     background:
         radial-gradient(circle at top right, rgba(143,185,134,0.12), transparent 24%),
         linear-gradient(180deg, rgba(255,255,255,0.94), rgba(232,220,196,0.9));
+    box-shadow: 0 18px 32px rgba(44,62,41,0.08);
 }
 
 .club-quick-grid {
