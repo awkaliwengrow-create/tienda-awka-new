@@ -289,23 +289,6 @@ nav a.active::after {
     filter: drop-shadow(0 36px 60px rgba(9,14,10,0.3));
 }
 
-.hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
-    border-radius: var(--radius-pill);
-    background: rgba(245, 241, 232, 0.1);
-    border: 1px solid rgba(245, 241, 232, 0.2);
-    box-shadow: 0 12px 26px rgba(0,0,0,0.12);
-    font-size: 0.9rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s ease forwards;
-}
-
 .hero h1 {
     font-size: clamp(2.9rem, 6.2vw, 5.7rem);
     font-weight: 700;
@@ -369,26 +352,6 @@ nav a.active::after {
 .hero-link-secondary:hover {
     color: var(--white);
     border-color: rgba(245,241,232,0.5);
-}
-
-.hero-trust {
-    display: flex;
-    justify-content: flex-start;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s ease 0.55s forwards;
-}
-
-.hero-trust span {
-    padding: 0.4rem 0.85rem;
-    border-radius: var(--radius-pill);
-    background: rgba(245, 241, 232, 0.07);
-    border: 1px solid rgba(245, 241, 232, 0.1);
-    color: rgba(245,241,232,0.8);
-    font-size: 0.82rem;
-    letter-spacing: 0.01em;
 }
 
 .hero-actions a,
@@ -3491,22 +3454,21 @@ footer {
         gap: 1.5rem;
     }
     .hero-visual {
-        order: -1;
+        order: 2;
         justify-items: center;
     }
     .hero-visual-frame {
-        width: min(100%, 520px);
+        width: min(100%, 460px);
     }
     .hero-character {
-        width: 118%;
-        transform: translateX(2%);
-        max-height: 560px;
+        width: 108%;
+        transform: translateX(0);
+        max-height: 420px;
     }
     .hero-actions { flex-direction: column; align-items: flex-start; }
     .hero h1 { font-size: clamp(2.8rem, 10vw, 4rem); }
     .hero p { max-width: 34ch; }
     .hero-cta { width: min(100%, 320px); padding: 0.95rem 1.4rem; }
-    .hero-trust { gap: 0.6rem; }
     .promo-strip { margin-top: 0.9rem; }
     .promo-carousel { grid-template-columns: 1fr; }
     .promo-nav { display: none; }
@@ -3537,11 +3499,11 @@ footer {
         padding-bottom: 2.85rem;
     }
     .hero-visual-frame {
-        width: min(100%, 380px);
+        width: min(100%, 340px);
     }
     .hero-character {
-        width: 112%;
-        max-height: 460px;
+        width: 104%;
+        max-height: 320px;
         transform: translateX(0);
     }
     .hero h1 {
@@ -3550,10 +3512,7 @@ footer {
     .hero p {
         font-size: 0.98rem;
     }
-    .hero-actions,
-    .hero-trust {
-        justify-content: flex-start;
-    }
+    .hero-actions { justify-content: flex-start; }
     .promo-strip { margin-top: 0.75rem; }
     .promo-slide h2 { font-size: 1.75rem; }
     .promo-slide { min-height: 266px; }
