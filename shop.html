@@ -253,6 +253,23 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="purchaseStatusModal" onclick="closePurchaseStatusModal(event)">
+        <div class="modal-content checkout-modal-content purchase-status-modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closePurchaseStatusModal()" aria-label="Cerrar">×</button>
+            <div class="modal-product-header checkout-modal-header purchase-status-header">
+                <div class="club-preview-kicker" id="purchaseStatusKicker">Compra</div>
+                <div class="modal-product-name" id="purchaseStatusTitle">Estado de tu compra</div>
+                <div class="modal-product-brand" id="purchaseStatusCopy">Aca vas a ver el estado final del pago.</div>
+            </div>
+            <div class="purchase-status-summary" id="purchaseStatusSummary"></div>
+            <div class="purchase-status-note" id="purchaseStatusNote"></div>
+            <div class="purchase-status-actions">
+                <a href="club.html" id="purchaseStatusClubLink" class="checkout-btn purchase-status-link">Ver mi Club Awka</a>
+                <a href="#" id="purchaseStatusWhatsApp" class="checkout-btn checkout-btn-secondary purchase-status-link" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
     <script src="js/products.js"></script>
     <script src="js/shop.js"></script>
     <script>

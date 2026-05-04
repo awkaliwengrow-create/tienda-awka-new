@@ -133,6 +133,60 @@ function buildOrderReference(phone) {
     return `awka-${Date.now()}-${normalizePhone(phone)}`;
 }
 
+function formatCurrency(amount) {
+    return `$${Number(amount || 0).toLocaleString('es-AR')}`;
+}
+
+function buildSupportWhatsAppUrl(reference, phone) {
+    const detail = reference ? ` con la referencia ${reference}` : '';
+    const message = `Hola Awka Liwen, necesito ayuda con mi compra${detail}.${phone ? ` Mi WhatsApp es ${phone}.` : ''}`;
+    return `https://wa.me/${WHATSAPP_ORDER_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+function closePurchaseStatusModal(event) {
+    if (!event || event.target.id === 'purchaseStatusModal') {
+        const modal = document.getElementById('purchaseStatusModal');
+        if (modal) {
+            modal.classList.remove('active');
+        }
+    }
+}
+
+function showPurchaseStatusModal(config) {
+    const modal = document.getElementById('purchaseStatusModal');
+    const kicker = document.getElementById('purchaseStatusKicker');
+    const title = document.getElementById('purchaseStatusTitle');
+    const copy = document.getElementById('purchaseStatusCopy');
+    const summary = document.getElementById('purchaseStatusSummary');
+    const note = document.getElementById('purchaseStatusNote');
+    const clubLink = document.getElementById('purchaseStatusClubLink');
+    const whatsappLink = document.getElementById('purchaseStatusWhatsApp');
+
+    if (!modal || !kicker || !title || !copy || !summary || !note || !clubLink || !whatsappLink) {
+        return;
+    }
+
+    kicker.textContent = config.kicker || 'Compra';
+    title.textContent = config.title || 'Estado de tu compra';
+    copy.textContent = config.copy || '';
+    note.textContent = config.note || '';
+
+    summary.innerHTML = (config.summary || [])
+        .map((item) => `
+            <div class="purchase-status-item">
+                <span>${item.label}</span>
+                <strong>${item.value}</strong>
+            </div>
+        `)
+        .join('');
+
+    clubLink.hidden = !config.showClubLink;
+    whatsappLink.href = config.whatsAppUrl || buildSupportWhatsAppUrl(config.reference, config.phone);
+    whatsappLink.textContent = config.whatsAppLabel || 'Hablar por WhatsApp';
+
+    modal.classList.add('active');
+}
+
 function formatCartMessage() {
     const lines = [
         'Hola Awka Liwen, quiero finalizar esta compra:',
@@ -568,6 +622,7 @@ function handlePaymentStatus() {
     const params = new URLSearchParams(window.location.search);
     const paymentStatus = params.get('payment');
     const reference = params.get('reference');
+    const pendingPurchase = loadPendingPurchase();
 
     if (!paymentStatus) return;
 
@@ -576,9 +631,36 @@ function handlePaymentStatus() {
         cart = [];
         updateCart();
     } else if (paymentStatus === 'pending') {
-        alert('Tu pago quedo pendiente. Cuando se confirme, la compra seguira contando para Club Awka.');
+        showPurchaseStatusModal({
+            kicker: 'Pago pendiente',
+            title: 'Tu compra quedo en revision',
+            copy: 'Mercado Pago todavia no confirmo el cobro. Cuando avance, la compra seguira contando para Club Awka.',
+            note: 'Si necesitas ayuda, escribe por WhatsApp y comparte la referencia para que podamos ubicar tu operacion mas rapido.',
+            summary: [
+                { label: 'Estado', value: 'Pendiente' },
+                { label: 'Referencia', value: pendingPurchase?.reference || reference || 'Sin referencia visible' },
+                { label: 'Monto', value: formatCurrency(pendingPurchase?.totalAmount || 0) }
+            ],
+            reference: pendingPurchase?.reference || reference,
+            phone: pendingPurchase?.phone,
+            whatsAppLabel: 'Consultar por WhatsApp',
+            showClubLink: false
+        });
     } else if (paymentStatus === 'failure') {
-        alert('El pago no se completo. Puedes intentarlo de nuevo o pedir por WhatsApp.');
+        showPurchaseStatusModal({
+            kicker: 'Pago no completado',
+            title: 'La compra no se cerro',
+            copy: 'El pago no se completo. Puedes intentarlo otra vez o pedir ayuda directa por WhatsApp.',
+            note: 'Si quieres retomar la compra, puedes volver al catalogo o escribirnos para resolverlo contigo.',
+            summary: [
+                { label: 'Estado', value: 'No aprobado' },
+                { label: 'Referencia', value: pendingPurchase?.reference || reference || 'Sin referencia visible' }
+            ],
+            reference: pendingPurchase?.reference || reference,
+            phone: pendingPurchase?.phone,
+            whatsAppLabel: 'Retomar por WhatsApp',
+            showClubLink: false
+        });
     }
 
     params.delete('payment');
@@ -590,12 +672,34 @@ async function processApprovedPurchase(referenceFromUrl) {
     const pendingPurchase = loadPendingPurchase();
 
     if (!pendingPurchase) {
-        alert('Pago aprobado. Gracias por tu compra.');
+        showPurchaseStatusModal({
+            kicker: 'Pago aprobado',
+            title: 'Compra confirmada',
+            copy: 'Gracias por tu compra. El pago quedo aprobado.',
+            note: 'Si necesitas soporte, escribe por WhatsApp y menciona esta compra.',
+            summary: [
+                { label: 'Estado', value: 'Aprobado' }
+            ],
+            reference: referenceFromUrl,
+            showClubLink: true
+        });
         return;
     }
 
     if (referenceFromUrl && pendingPurchase.reference !== referenceFromUrl) {
-        alert('Pago aprobado. Gracias por tu compra.');
+        showPurchaseStatusModal({
+            kicker: 'Pago aprobado',
+            title: 'Compra confirmada',
+            copy: 'Gracias por tu compra. El pago quedo aprobado.',
+            note: 'Si necesitas soporte, escribe por WhatsApp y menciona esta compra.',
+            summary: [
+                { label: 'Estado', value: 'Aprobado' },
+                { label: 'Referencia', value: referenceFromUrl }
+            ],
+            reference: referenceFromUrl,
+            phone: pendingPurchase.phone,
+            showClubLink: true
+        });
         return;
     }
 
@@ -621,13 +725,40 @@ async function processApprovedPurchase(referenceFromUrl) {
         }
 
         const awardedPoints = Number(data.points) || 0;
-        const suffix = awardedPoints > 0
-            ? ` Sumaste ${awardedPoints} punto${awardedPoints === 1 ? '' : 's'} en Club Awka y tu perfil ya quedo actualizado.`
-            : ` Esta compra quedo registrada para Club Awka, pero no sumo puntos porque el monto no alcanzo $${CLUB_POINTS_PER_AMOUNT.toLocaleString('es-AR')}.`;
+        const pointsCopy = awardedPoints > 0
+            ? `Sumaste ${awardedPoints} punto${awardedPoints === 1 ? '' : 's'} y tu perfil ya se actualizo.`
+            : `La compra quedo registrada, pero no sumo puntos porque no alcanzo ${formatCurrency(CLUB_POINTS_PER_AMOUNT)}.`;
 
-        alert(`Pago aprobado. Gracias por tu compra.${suffix}`);
+        showPurchaseStatusModal({
+            kicker: 'Pago aprobado',
+            title: 'Compra confirmada',
+            copy: 'Tu pago ya se acredito correctamente.',
+            note: `${pointsCopy} Si necesitas soporte, comparte esta referencia por WhatsApp.`,
+            summary: [
+                { label: 'Referencia', value: pendingPurchase.reference },
+                { label: 'Monto', value: formatCurrency(pendingPurchase.totalAmount) },
+                { label: 'Club Awka', value: awardedPoints > 0 ? `+${awardedPoints} punto${awardedPoints === 1 ? '' : 's'}` : 'Sin puntos en esta compra' }
+            ],
+            reference: pendingPurchase.reference,
+            phone: pendingPurchase.phone,
+            showClubLink: true
+        });
     } catch (error) {
-        alert(error.message || 'Pago aprobado. Gracias por tu compra.');
+        showPurchaseStatusModal({
+            kicker: 'Pago aprobado',
+            title: 'Compra confirmada',
+            copy: 'El pago quedo aprobado, pero hubo un problema al actualizar el club.',
+            note: 'Tu compra esta hecha. Si quieres que revisemos puntos o seguimiento, escribe por WhatsApp y comparte esta referencia.',
+            summary: [
+                { label: 'Referencia', value: pendingPurchase.reference },
+                { label: 'Monto', value: formatCurrency(pendingPurchase.totalAmount) },
+                { label: 'Estado', value: 'Pago aprobado' }
+            ],
+            reference: pendingPurchase.reference,
+            phone: pendingPurchase.phone,
+            whatsAppLabel: 'Revisar por WhatsApp',
+            showClubLink: true
+        });
     }
 }
 

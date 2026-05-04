@@ -1515,6 +1515,70 @@ nav a.active::after {
     color: #a03f2f;
 }
 
+.purchase-status-modal {
+    max-width: 580px;
+}
+
+.purchase-status-header {
+    margin-bottom: 1.2rem;
+}
+
+.purchase-status-summary {
+    display: grid;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.purchase-status-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 16px;
+    background: rgba(245,241,232,0.76);
+    border: 1px solid rgba(74,103,65,0.1);
+}
+
+.purchase-status-item span,
+.purchase-status-item strong {
+    display: block;
+}
+
+.purchase-status-item span {
+    color: rgba(61,40,23,0.66);
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.purchase-status-item strong {
+    color: var(--soil);
+    font-size: 1rem;
+    text-align: right;
+}
+
+.purchase-status-note {
+    padding: 0.95rem 1rem;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.66);
+    border: 1px solid rgba(74,103,65,0.08);
+    color: rgba(61,40,23,0.8);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.purchase-status-actions {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.purchase-status-link {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .modal-close {
     position: absolute;
     top: 1rem;
