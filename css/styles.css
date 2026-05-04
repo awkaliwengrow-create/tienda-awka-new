@@ -533,7 +533,7 @@ nav a.active::after {
 .section-title {
     text-align: center;
     font-size: clamp(2.1rem, 4vw, 3rem);
-    margin-bottom: 52px;
+    margin-bottom: 44px;
     font-weight: 700;
     color: var(--earth-dark);
     position: relative;
@@ -552,11 +552,11 @@ nav a.active::after {
 
 .section-lead {
     max-width: 760px;
-    margin: -26px auto 48px;
+    margin: -18px auto 40px;
     text-align: center;
-    color: var(--moss);
+    color: rgba(61,40,23,0.72);
     font-size: 1.04rem;
-    line-height: 1.85;
+    line-height: 1.72;
     text-wrap: balance;
 }
 
@@ -1148,7 +1148,7 @@ nav a.active::after {
 }
 
 .info-card {
-    padding: 2rem 1.5rem 1.75rem;
+    padding: 1.65rem 1.3rem 1.45rem;
     border-radius: 28px;
     text-align: center;
     background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
@@ -2670,9 +2670,10 @@ footer {
 }
 
 .club-profile-feedback {
-    margin-top: 0.8rem;
-    min-height: 24px;
-    color: rgba(61,40,23,0.8);
+    margin-top: 0.7rem;
+    min-height: 22px;
+    color: rgba(61,40,23,0.76);
+    font-size: 0.94rem;
 }
 
 .club-profile-feedback.is-error {
@@ -2896,12 +2897,12 @@ footer {
 }
 
 .club-profile-empty {
-    padding: 1.25rem;
+    padding: 1.05rem 1.1rem;
     border-radius: 20px;
     background: rgba(245,241,232,0.74);
     border: 1px dashed rgba(74,103,65,0.24);
     color: rgba(61,40,23,0.78);
-    line-height: 1.7;
+    line-height: 1.55;
 }
 
 .club-profile-card {
@@ -3348,10 +3349,10 @@ footer {
 }
 
 .club-profile-history-title {
-    margin-bottom: 0.65rem;
+    margin-bottom: 0.55rem;
     font-weight: 700;
     color: var(--soil);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .club-history-item {
