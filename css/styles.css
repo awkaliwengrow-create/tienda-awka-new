@@ -351,6 +351,14 @@ nav a.active::after {
     box-shadow: 0 18px 36px rgba(28,43,25,0.3);
 }
 
+.hero-cta:focus-visible,
+.checkout-btn:focus-visible,
+.club-side-link:focus-visible,
+.cta-secondary:focus-visible {
+    outline: 2px solid rgba(107,149,89,0.65);
+    outline-offset: 3px;
+}
+
 .hero-link-secondary {
     color: rgba(245,241,232,0.9);
     border-bottom: 1px solid rgba(245,241,232,0.22);
@@ -2406,6 +2414,7 @@ footer {
 
 .club-side-link-secondary {
     background: rgba(245,241,232,0.1);
+    border-color: rgba(61,40,23,0.12);
 }
 
 .club-side-link[disabled] {
@@ -2496,6 +2505,11 @@ footer {
     background: linear-gradient(135deg, var(--terracotta), var(--clay));
     border: none;
     box-shadow: 0 14px 28px rgba(201,123,77,0.22);
+}
+
+.club-panel-actions .club-side-link.club-side-link-secondary {
+    background: linear-gradient(145deg, rgba(74,103,65,0.1), rgba(245,241,232,0.9));
+    color: var(--soil);
 }
 
 .club-profile-intro h2 {
@@ -2597,6 +2611,7 @@ footer {
 
 .club-profile-button {
     min-height: 56px;
+    min-width: 168px;
 }
 
 .club-auth-shell {
