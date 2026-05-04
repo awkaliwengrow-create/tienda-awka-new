@@ -241,15 +241,16 @@ function renderLevel(profile) {
 
 function renderBenefits(profile) {
     const benefits = Array.isArray(profile.level.benefits) ? profile.level.benefits : [];
+    const featuredBenefits = benefits.slice(0, 3);
     const nextUnlock = profile.level.nextUnlock || 'Sigue sumando compras para desbloquear nuevas ventajas.';
     const latestUnlock = profile.level.latestUnlock;
 
     return `
         <div class="club-benefits-panel">
-            <div class="club-benefits-card">
-                <div class="club-profile-history-title">Beneficios activos</div>
+            <div class="club-benefits-card club-benefits-card-main">
+                <div class="club-profile-history-title">Beneficios de tu nivel</div>
                 <div class="club-benefits-list">
-                    ${benefits.map((benefit) => `
+                    ${featuredBenefits.map((benefit) => `
                         <article class="club-benefit-item">
                             <div class="club-benefit-mark"></div>
                             <strong>${benefit}</strong>
@@ -258,7 +259,7 @@ function renderBenefits(profile) {
                 </div>
             </div>
             <div class="club-benefits-card club-benefits-card-next">
-                <div class="club-profile-history-title">Sigue asi</div>
+                <div class="club-profile-history-title">Proximo paso</div>
                 <p>${nextUnlock}</p>
                 ${latestUnlock ? `
                     <div class="club-benefits-unlock">
@@ -280,9 +281,11 @@ function renderCampaigns(profile) {
         return '';
     }
 
+    const [featuredCampaign, ...secondaryCampaigns] = items;
+
     return `
         <div class="club-campaigns-panel">
-            <div class="club-profile-history-title">Campanas activas</div>
+            <div class="club-profile-history-title">Campana activa</div>
             ${latestActivation ? `
                 <div class="club-campaign-activation">
                     <strong>Ultima activacion</strong>
@@ -290,16 +293,25 @@ function renderCampaigns(profile) {
                     <small>${latestActivation.note || `Disparada por ${latestActivation.trigger}.`} · ${formatDate(latestActivation.createdAt)}</small>
                 </div>
             ` : ''}
-            <div class="club-campaigns-grid">
-                ${items.map((campaign) => `
-                    <article class="club-campaign-card">
-                        <span class="club-campaign-audience">${campaign.audience}</span>
-                        <strong>${campaign.title}</strong>
-                        <div class="club-campaign-benefit">${campaign.benefit}</div>
-                        <small>${campaign.cta}</small>
-                    </article>
-                `).join('')}
-            </div>
+            <article class="club-campaign-card club-campaign-card-featured">
+                <span class="club-campaign-audience">${featuredCampaign.audience}</span>
+                <strong>${featuredCampaign.title}</strong>
+                <div class="club-campaign-benefit">${featuredCampaign.benefit}</div>
+                <small>${featuredCampaign.cta}</small>
+            </article>
+            ${secondaryCampaigns.length ? `
+                <div class="club-campaign-secondary">
+                    <span class="club-campaign-secondary-label">Tambien activo</span>
+                    <div class="club-campaign-secondary-list">
+                        ${secondaryCampaigns.map((campaign) => `
+                            <article class="club-campaign-chip">
+                                <strong>${campaign.title}</strong>
+                                <span>${campaign.benefit}</span>
+                            </article>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : ''}
         </div>
     `;
 }
