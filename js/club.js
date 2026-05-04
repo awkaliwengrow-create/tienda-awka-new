@@ -316,29 +316,23 @@ function renderProfile(profile) {
                 <div class="club-profile-phone">${profile.phone}</div>
             </div>
             ${renderLevel(profile)}
-            <div class="club-profile-stats club-profile-stats-5">
+            <div class="club-profile-stats">
                 <div class="club-profile-stat">
                     <strong>${profile.points.current}</strong>
-                    <span>Puntos activos</span>
-                </div>
-                <div class="club-profile-stat">
-                    <strong>${profile.points.redeemed}</strong>
-                    <span>Canjeados</span>
+                    <span>Puntos</span>
                 </div>
                 <div class="club-profile-stat">
                     <strong>${profile.spins.pending}</strong>
-                    <span>Giros pendientes</span>
-                </div>
-                <div class="club-profile-stat">
-                    <strong>${profile.spins.wins}/${profile.spins.total}</strong>
-                    <span>Premios / giros</span>
+                    <span>Giros</span>
                 </div>
                 <div class="club-profile-stat">
                     <strong>${profile.level.label}</strong>
-                    <span>Nivel actual</span>
+                    <span>Nivel</span>
                 </div>
             </div>
             <div class="club-profile-meta">
+                <span>Canjeados: ${profile.points.redeemed}</span>
+                <span>Premios: ${profile.spins.wins}/${profile.spins.total}</span>
                 <span>Ultima actividad: ${formatDate(profile.points.lastActivity)}</span>
             </div>
             ${renderBenefits(profile)}

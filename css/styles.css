@@ -2859,7 +2859,7 @@ footer {
     justify-content: space-between;
     gap: 1rem;
     align-items: start;
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.95rem;
 }
 
 .club-profile-header h3 {
@@ -2870,7 +2870,7 @@ footer {
 
 .club-profile-header p {
     color: rgba(61,40,23,0.8);
-    line-height: 1.65;
+    line-height: 1.5;
 }
 
 .club-profile-phone {
@@ -2884,12 +2884,8 @@ footer {
 
 .club-profile-stats {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.8rem;
-}
-
-.club-profile-stats-5 {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
 }
 
 .club-level-banner {
@@ -2937,14 +2933,15 @@ footer {
 
 .club-profile-stat {
     display: grid;
-    gap: 0.3rem;
-    padding: 1rem;
-    border-radius: 20px;
-    background: rgba(245,241,232,0.7);
+    gap: 0.2rem;
+    padding: 0.9rem 0.95rem;
+    border-radius: 16px;
+    background: rgba(245,241,232,0.56);
+    border: 1px solid rgba(74,103,65,0.08);
 }
 
 .club-profile-stat strong {
-    font-size: 1.6rem;
+    font-size: 1.45rem;
     color: var(--soil);
 }
 
@@ -2954,7 +2951,22 @@ footer {
 }
 
 .club-profile-meta {
-    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.88rem;
+    line-height: 1.35;
+}
+
+.club-profile-meta span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.54);
+    border: 1px solid rgba(61,40,23,0.06);
 }
 
 .club-benefits-panel {
