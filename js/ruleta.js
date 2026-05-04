@@ -325,11 +325,11 @@ function renderProfile(profile) {
     pendingCount.textContent = formatPending(profile);
 
     if (profile.spins.pending > 0) {
-        statusCopy.textContent = 'Tu acceso ya puede usar la ruleta. El giro se consume cuando confirmas.';
-        setFeedback('Tu sesion esta lista. Presiona GIRAR para continuar.', 'success');
+        statusCopy.textContent = 'Tu giro esta listo para usar.';
+        setFeedback('Tu sesion esta lista. Presiona GIRAR.', 'success');
         setSpinEnabled(true);
     } else {
-        statusCopy.textContent = 'Ahora mismo no tienes giros pendientes. Sigue comprando o espera una nueva habilitacion.';
+        statusCopy.textContent = 'Ahora mismo no tienes giros pendientes.';
         setFeedback('No tienes giros pendientes en este momento.', 'error');
         setSpinEnabled(false);
     }
@@ -452,8 +452,8 @@ function showPrizeModal(spinResult) {
     prizeEyebrow.textContent = spinResult.winner ? 'Felicitaciones' : 'Gracias por participar';
     prizeName.textContent = prize.label;
     prizeDesc.textContent = spinResult.winner
-        ? `${prize.desc} El resultado ya quedo registrado en tu historial del club.`
-        : `${prize.desc} Este intento tambien ya quedo registrado en tu historial del club.`;
+        ? `${prize.desc} Ya quedo guardado en tu historial.`
+        : `${prize.desc} Este intento tambien quedo guardado.`;
     btnWsp.href = buildWhatsappLink(currentProfile?.name || 'Club Awka', prize);
     btnPrizeCatalog.href = buildCatalogLink(prize);
     btnPrizeCatalog.hidden = prize.type !== 'product';
@@ -518,7 +518,7 @@ async function confirmSpin() {
     spinning = true;
     setSpinEnabled(false);
     closeOverlay(overlayReady);
-    setFeedback('Girando ruleta...', 'success');
+    setFeedback('Girando...', 'success');
 
     let spinResult;
     let recoveredFromProfile = false;
