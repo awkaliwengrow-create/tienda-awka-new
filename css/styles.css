@@ -3464,7 +3464,7 @@ footer {
     }
     .hero-visual {
         position: absolute;
-        inset: auto -7.5rem -0.5rem auto;
+        inset: auto -2.5rem -0.35rem auto;
         width: 100%;
         display: flex;
         justify-content: flex-end;
@@ -3473,12 +3473,12 @@ footer {
         z-index: 1;
     }
     .hero-visual-frame {
-        width: min(100%, 520px);
+        width: min(100%, 430px);
         overflow: visible;
     }
     .hero-character {
-        width: 182%;
-        max-height: 520px;
+        width: 152%;
+        max-height: 420px;
         transform: translateX(0);
         opacity: 0.28;
         filter: drop-shadow(0 18px 30px rgba(9,14,10,0.12));
@@ -3534,11 +3534,11 @@ footer {
         padding-bottom: 1rem;
     }
     .hero-visual-frame {
-        width: min(100%, 430px);
+        width: min(100%, 320px);
     }
     .hero-character {
-        width: 188%;
-        max-height: 380px;
+        width: 148%;
+        max-height: 260px;
         transform: translateX(0);
         opacity: 0.26;
     }
