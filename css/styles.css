@@ -3277,6 +3277,138 @@ footer {
     line-height: 1.4;
 }
 
+.club-rewards-panel {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 0.95rem;
+}
+
+.club-rewards-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.95rem 1rem;
+    border-radius: 18px;
+    background: rgba(245,241,232,0.58);
+    border: 1px solid rgba(74,103,65,0.08);
+}
+
+.club-rewards-head p {
+    color: rgba(61,40,23,0.76);
+    line-height: 1.5;
+    margin-top: 0.2rem;
+}
+
+.club-rewards-points {
+    display: grid;
+    justify-items: end;
+    gap: 0.1rem;
+    text-align: right;
+}
+
+.club-rewards-points strong {
+    color: var(--soil);
+    font-size: 1.75rem;
+    line-height: 1;
+}
+
+.club-rewards-points span {
+    color: rgba(61,40,23,0.68);
+    font-size: 0.86rem;
+}
+
+.club-rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.club-reward-card {
+    display: grid;
+    gap: 0.7rem;
+    padding: 0.95rem;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(74,103,65,0.08);
+}
+
+.club-reward-card.is-available {
+    border-color: rgba(74,103,65,0.18);
+    box-shadow: 0 14px 28px rgba(44,62,41,0.06);
+}
+
+.club-reward-image-wrap {
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(232,220,196,0.72));
+    aspect-ratio: 1 / 1;
+}
+
+.club-reward-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.club-reward-copy {
+    display: grid;
+    gap: 0.12rem;
+}
+
+.club-reward-copy strong {
+    color: var(--soil);
+    line-height: 1.25;
+}
+
+.club-reward-copy span,
+.club-reward-meta small {
+    color: rgba(61,40,23,0.68);
+}
+
+.club-reward-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+}
+
+.club-reward-points {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 0.65rem;
+    border-radius: 999px;
+    background: rgba(74,103,65,0.1);
+    color: var(--earth-green);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.club-reward-actions {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.club-side-link.club-side-link-disabled {
+    background: rgba(255,255,255,0.42);
+    border-color: rgba(61,40,23,0.08);
+    color: rgba(61,40,23,0.5);
+    box-shadow: none;
+}
+
+.club-reward-link {
+    color: var(--earth-green);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.92rem;
+}
+
+.club-reward-link:hover {
+    color: var(--soil);
+}
+
 .club-benefit-item {
     display: grid;
     grid-template-columns: 14px minmax(0, 1fr);
@@ -3856,11 +3988,25 @@ footer {
     .club-profile-stats {
         grid-template-columns: 1fr 1fr;
     }
+    .club-rewards-head {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .club-rewards-points {
+        justify-items: start;
+        text-align: left;
+    }
+    .club-rewards-grid {
+        grid-template-columns: 1fr;
+    }
     .club-profile-stats-5 {
         grid-template-columns: 1fr 1fr;
     }
     .club-benefits-panel {
         grid-template-columns: 1fr;
+    }
+    .club-rewards-grid {
+        grid-template-columns: 1fr 1fr;
     }
     .club-campaign-secondary-list,
     .admin-segments-row {

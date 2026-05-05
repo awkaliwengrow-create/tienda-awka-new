@@ -1,4 +1,14 @@
 const CLUB_SESSION_STORAGE_KEY = 'awka-club-session';
+const CLUB_POINTS_EARNING_VALUE = 5000;
+const CLUB_SUPPORT_WHATSAPP = '5492494009164';
+const CLUB_REWARD_CATALOG = [
+    { productId: 9, size: '45ml', pointsCost: 3, label: 'Biocann 45ml' },
+    { productId: 2, size: '45ml', pointsCost: 4, label: 'Tree Mix F 45ml' },
+    { productId: 3, size: '45ml', pointsCost: 4, label: 'Tree Mix Candy 45ml' },
+    { productId: 1, size: '45ml', pointsCost: 4, label: 'Tree Mix N 45ml' },
+    { productId: 4, size: '45ml', pointsCost: 5, label: 'Tree Mix Pro 45ml' },
+    { productId: 5, size: '45ml', pointsCost: 6, label: 'Tree Mix Mico 45ml' }
+];
 
 const phoneForm = document.getElementById('clubPhoneForm');
 const pinForm = document.getElementById('clubPinForm');
@@ -56,6 +66,58 @@ function formatDate(value) {
         hour: '2-digit',
         minute: '2-digit'
     });
+}
+
+function escapeHtml(value = '') {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function findProductById(productId) {
+    if (!Array.isArray(window.products)) {
+        return null;
+    }
+
+    return window.products.find((item) => Number(item.id) === Number(productId)) || null;
+}
+
+function resolveRewardCatalog() {
+    return CLUB_REWARD_CATALOG.map((reward) => {
+        const product = findProductById(reward.productId);
+        if (!product) return null;
+
+        const sizeMatch = Array.isArray(product.sizes)
+            ? product.sizes.find((size) => size.size === reward.size)
+            : null;
+
+        return {
+            ...reward,
+            product,
+            sizeLabel: reward.size,
+            productName: reward.label || product.name,
+            brand: product.brand,
+            image: product.image || '',
+            category: product.category,
+            price: sizeMatch?.price || product.sizes?.[0]?.price || 0
+        };
+    }).filter(Boolean);
+}
+
+function buildRewardLink(reward) {
+    const category = reward.category || 'todos';
+    return `shop.html#${category}`;
+}
+
+function buildRewardWhatsappLink(profile, reward) {
+    const message = encodeURIComponent(
+        `Hola! Soy ${profile.name}. Quiero canjear ${reward.pointsCost} puntos por ${reward.productName}${reward.sizeLabel ? ` (${reward.sizeLabel})` : ''}.`
+    );
+
+    return `https://wa.me/${CLUB_SUPPORT_WHATSAPP}?text=${message}`;
 }
 
 function prizeEmoji(prize) {
@@ -332,6 +394,62 @@ function renderCampaigns(profile) {
     `;
 }
 
+function renderRewardsCatalog(profile) {
+    const rewards = resolveRewardCatalog();
+    if (!rewards.length) {
+        return '';
+    }
+
+    const currentPoints = Number(profile.points?.current || 0);
+
+    return `
+        <section class="club-rewards-panel" aria-label="Canje de puntos">
+            <div class="club-rewards-head">
+                <div>
+                    <div class="club-profile-history-title">Canjea tus puntos</div>
+                    <p>1 punto se suma cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.</p>
+                </div>
+                <div class="club-rewards-points">
+                    <strong>${currentPoints}</strong>
+                    <span>puntos disponibles</span>
+                </div>
+            </div>
+            <div class="club-rewards-grid">
+                ${rewards.map((reward) => {
+                    const missingPoints = Math.max(0, reward.pointsCost - currentPoints);
+                    const isAvailable = missingPoints === 0;
+                    const priceLabel = reward.price
+                        ? `$${Number(reward.price).toLocaleString('es-AR')}`
+                        : 'Catalogo oficial';
+
+                    return `
+                        <article class="club-reward-card${isAvailable ? ' is-available' : ''}">
+                            <div class="club-reward-image-wrap">
+                                <img src="${escapeHtml(reward.image)}" alt="${escapeHtml(reward.productName)}" class="club-reward-image" loading="lazy">
+                            </div>
+                            <div class="club-reward-copy">
+                                <strong>${escapeHtml(reward.productName)}</strong>
+                                <span>${escapeHtml(reward.brand)}${reward.sizeLabel ? ` · ${escapeHtml(reward.sizeLabel)}` : ''}</span>
+                            </div>
+                            <div class="club-reward-meta">
+                                <span class="club-reward-points">${reward.pointsCost} pts</span>
+                                <small>${priceLabel}</small>
+                            </div>
+                            <div class="club-reward-actions">
+                                ${isAvailable
+                                    ? `<a href="${buildRewardWhatsappLink(profile, reward)}" target="_blank" rel="noopener noreferrer" class="club-side-link club-side-link-secondary">Pedir canje</a>`
+                                    : `<button type="button" class="club-side-link club-side-link-disabled" disabled>Te faltan ${missingPoints}</button>`
+                                }
+                                <a href="${buildRewardLink(reward)}" class="club-reward-link">Ver producto</a>
+                            </div>
+                        </article>
+                    `;
+                }).join('')}
+            </div>
+        </section>
+    `;
+}
+
 function renderProfile(profile) {
     clubResult.innerHTML = `
         <div class="club-profile-card">
@@ -363,6 +481,7 @@ function renderProfile(profile) {
                 <span>Premios: ${profile.spins.wins}/${profile.spins.total}</span>
                 <span>Ultima actividad: ${formatDate(profile.points.lastActivity)}</span>
             </div>
+            ${renderRewardsCatalog(profile)}
             ${renderBenefits(profile)}
             ${renderCampaigns(profile)}
             <div class="club-profile-spin-summary">
