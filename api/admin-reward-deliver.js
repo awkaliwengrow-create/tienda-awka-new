@@ -32,17 +32,35 @@ module.exports = async (req, res) => {
     try {
         const body = await readJsonBody(req);
         const rewardId = Number(body.rewardId) || 0;
+        const redemptionId = Number(body.redemptionId) || 0;
         const note = String(body.note || '').trim();
 
-        if (!rewardId) {
+        if (!rewardId && !redemptionId) {
             json(res, 400, {
                 error: 'Invalid payload',
-                message: 'Falta el premio a actualizar.'
+                message: 'Falta el premio o canje a actualizar.'
             });
             return;
         }
 
-        await supabaseRequest(`club_premios_estado?id=eq.${rewardId}`, {
+        if (rewardId) {
+            await supabaseRequest(`club_premios_estado?id=eq.${rewardId}`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    estado: 'entregado',
+                    delivery_note: note || null,
+                    delivered_at: new Date().toISOString()
+                })
+            });
+
+            json(res, 200, {
+                ok: true,
+                message: 'Premio marcado como entregado.'
+            });
+            return;
+        }
+
+        await supabaseRequest(`club_reward_redemptions?id=eq.${redemptionId}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 estado: 'entregado',
@@ -53,12 +71,12 @@ module.exports = async (req, res) => {
 
         json(res, 200, {
             ok: true,
-            message: 'Premio marcado como entregado.'
+            message: 'Canje marcado como entregado.'
         });
     } catch (error) {
         json(res, 500, {
             error: error.code || 'ADMIN_REWARD_DELIVER_ERROR',
-            message: 'No pudimos actualizar el premio.',
+            message: 'No pudimos actualizar el premio o canje.',
             detail: error.detail || null
         });
     }

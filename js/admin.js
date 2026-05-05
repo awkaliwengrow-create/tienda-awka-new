@@ -327,7 +327,7 @@ async function loadDashboard() {
         button.addEventListener('click', async () => {
             button.disabled = true;
             try {
-                await adminFetch('/api/admin-reward-redemption-deliver', {
+                await adminFetch('/api/admin-reward-deliver', {
                     method: 'POST',
                     body: JSON.stringify({
                         redemptionId: Number(button.dataset.redemptionDeliver),
