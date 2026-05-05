@@ -19,14 +19,15 @@ module.exports = async (req, res) => {
     }
 
     try {
-        const [pendingSpins, usedSpins, pointsRows, levelHistoryRows, purchaseRows, customerRows, campaignActivationRows] = await Promise.all([
+        const [pendingSpins, usedSpins, pointsRows, levelHistoryRows, purchaseRows, customerRows, campaignActivationRows, rewardRedemptionRows] = await Promise.all([
             supabaseRequest('giros_habilitados?select=id,nombre,telefono,created_at&estado=eq.pendiente&order=created_at.desc&limit=40'),
             supabaseRequest('giros_habilitados?select=id,nombre,telefono,used_at,created_at&estado=eq.usado&order=used_at.desc.nullslast,created_at.desc&limit=20'),
             supabaseRequest('puntos?select=id,nombre,telefono,puntos,puntos_canjeados,ultima_actividad&order=puntos.desc&limit=30'),
             supabaseRequest('club_niveles_historial?select=id,telefono,nivel_anterior,nivel_nuevo,motivo,created_at&order=created_at.desc&limit=20').catch(() => []),
             supabaseRequest('club_compras?select=telefono,estado,monto_total,created_at&estado=eq.aprobada').catch(() => []),
             supabaseRequest('clientes?select=nombre,telefono').catch(() => []),
-            supabaseRequest('club_campaign_activations?select=id,telefono,nombre,campaign_id,trigger_type,reference,note,created_at&order=created_at.desc&limit=20').catch(() => [])
+            supabaseRequest('club_campaign_activations?select=id,telefono,nombre,campaign_id,trigger_type,reference,note,created_at&order=created_at.desc&limit=20').catch(() => []),
+            supabaseRequest('club_reward_redemptions?select=id,telefono,nombre,product_name,size_label,points_cost,estado,request_note,delivery_note,created_at,delivered_at&order=created_at.desc&limit=40').catch(() => [])
         ]);
 
         let rewardRows = [];
@@ -64,6 +65,19 @@ module.exports = async (req, res) => {
                 createdAt: reward.created_at || relatedSpin?.created_at || null
             };
         });
+        const redemptions = (rewardRedemptionRows || []).map((item) => ({
+            id: item.id,
+            name: item.nombre,
+            phone: item.telefono,
+            productName: item.product_name,
+            sizeLabel: item.size_label,
+            pointsCost: item.points_cost,
+            status: item.estado,
+            requestNote: item.request_note || '',
+            deliveryNote: item.delivery_note || '',
+            createdAt: item.created_at || null,
+            deliveredAt: item.delivered_at || null
+        }));
 
         const purchaseCountByPhone = new Map();
         (purchaseRows || []).forEach((row) => {
@@ -263,7 +277,8 @@ module.exports = async (req, res) => {
                 note: row.note || '',
                 createdAt: row.created_at || null
             })),
-            rewards
+            rewards,
+            rewardRedemptions: redemptions
         });
     } catch (error) {
         json(res, 500, {

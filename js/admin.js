@@ -29,6 +29,7 @@ const spinFeedback = document.getElementById('adminSpinFeedback');
 const pointsFeedback = document.getElementById('adminPointsFeedback');
 
 const rewardsList = document.getElementById('adminRewardsList');
+const rewardRedemptionsList = document.getElementById('adminRewardRedemptionsList');
 const pointsList = document.getElementById('adminPointsList');
 const pendingList = document.getElementById('adminPendingList');
 const usedList = document.getElementById('adminUsedList');
@@ -121,6 +122,29 @@ function renderRewards(items) {
             </article>
         `,
         'No hay premios registrados todavia.'
+    );
+}
+
+function renderRewardRedemptions(items) {
+    rewardRedemptionsList.innerHTML = renderList(
+        items,
+        (item) => `
+            <article class="admin-item admin-item-reward">
+                <div class="admin-item-main">
+                    <strong>${item.productName}${item.sizeLabel ? ` · ${item.sizeLabel}` : ''}</strong>
+                    <span>${item.name} · ${item.phone}</span>
+                    <span>${item.pointsCost} puntos · ${formatDate(item.createdAt)}</span>
+                </div>
+                <div class="admin-item-side">
+                    <span class="admin-badge${item.status === 'entregado' ? ' is-success' : ''}">${item.status}</span>
+                    ${item.status === 'pendiente'
+                        ? `<button class="club-side-link admin-mini-button" data-redemption-deliver="${item.id}">Marcar entregado</button>`
+                        : `<span class="admin-item-note">${item.deliveryNote || item.requestNote || 'Entregado'}</span>`
+                    }
+                </div>
+            </article>
+        `,
+        'Todavia no hay canjes registrados.'
     );
 }
 
@@ -272,6 +296,7 @@ async function loadDashboard() {
         : 'Todavia sin datos';
 
     renderRewards(data.rewards || []);
+    renderRewardRedemptions(data.rewardRedemptions || []);
     renderTopPoints(data.topPoints || []);
     renderSpins(pendingList, data.pendingSpins || [], 'No hay giros pendientes.');
     renderSpins(usedList, data.usedSpins || [], 'No hay giros usados aun.', true);
@@ -294,6 +319,25 @@ async function loadDashboard() {
             } catch (error) {
                 button.disabled = false;
                 alert(error.message || 'No pudimos marcar el premio como entregado.');
+            }
+        });
+    });
+
+    rewardRedemptionsList.querySelectorAll('[data-redemption-deliver]').forEach((button) => {
+        button.addEventListener('click', async () => {
+            button.disabled = true;
+            try {
+                await adminFetch('/api/admin-reward-redemption-deliver', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        redemptionId: Number(button.dataset.redemptionDeliver),
+                        note: 'Canje entregado desde admin'
+                    })
+                });
+                await loadDashboard();
+            } catch (error) {
+                button.disabled = false;
+                alert(error.message || 'No pudimos marcar el canje como entregado.');
             }
         });
     });

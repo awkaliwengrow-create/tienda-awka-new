@@ -94,6 +94,23 @@ create table if not exists public.club_campaign_activations (
     created_at timestamptz not null default now()
 );
 
+create table if not exists public.club_reward_redemptions (
+    id bigserial primary key,
+    referencia text not null unique,
+    telefono text not null,
+    nombre text not null,
+    product_id bigint not null,
+    reward_key text not null,
+    product_name text not null,
+    size_label text,
+    points_cost integer not null,
+    estado text not null default 'pendiente' check (estado in ('pendiente', 'entregado', 'cancelado')),
+    request_note text,
+    delivery_note text,
+    delivered_at timestamptz,
+    created_at timestamptz not null default now()
+);
+
 create index if not exists idx_clientes_telefono on public.clientes (telefono);
 create index if not exists idx_puntos_telefono on public.puntos (telefono);
 create index if not exists idx_giros_telefono_estado on public.giros_habilitados (telefono, estado);
@@ -105,6 +122,8 @@ create index if not exists idx_club_premios_estado_telefono on public.club_premi
 create index if not exists idx_club_niveles_historial_telefono_created on public.club_niveles_historial (telefono, created_at desc);
 create index if not exists idx_club_campaign_activations_telefono_created on public.club_campaign_activations (telefono, created_at desc);
 create index if not exists idx_club_campaign_activations_campaign_created on public.club_campaign_activations (campaign_id, created_at desc);
+create index if not exists idx_club_reward_redemptions_telefono_created on public.club_reward_redemptions (telefono, created_at desc);
+create index if not exists idx_club_reward_redemptions_status_created on public.club_reward_redemptions (estado, created_at desc);
 
 comment on table public.clientes is 'Base de identidad liviana para Club Awka.';
 comment on table public.puntos is 'Saldo de puntos acumulados y canjeados por cliente.';
@@ -115,3 +134,4 @@ comment on table public.club_compras is 'Compras aprobadas que permiten calcular
 comment on table public.club_premios_estado is 'Trazabilidad operativa de premios ganados y entregados.';
 comment on table public.club_niveles_historial is 'Auditoria de subidas de nivel y desbloqueos del sistema de fidelizacion.';
 comment on table public.club_campaign_activations is 'Registro de campanas y automatizaciones disparadas sobre perfiles del club.';
+comment on table public.club_reward_redemptions is 'Canjes de puntos solicitados desde Club Awka y gestionados desde admin.';

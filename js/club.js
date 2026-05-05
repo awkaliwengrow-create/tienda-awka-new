@@ -120,6 +120,33 @@ function buildRewardWhatsappLink(profile, reward) {
     return `https://wa.me/${CLUB_SUPPORT_WHATSAPP}?text=${message}`;
 }
 
+function renderRedemptions(profile) {
+    const items = Array.isArray(profile.redemptions?.items) ? profile.redemptions.items : [];
+    if (!items.length) {
+        return '';
+    }
+
+    return `
+        <div class="club-reward-history">
+            <div class="club-profile-history-title">Canjes recientes</div>
+            <div class="club-reward-history-list">
+                ${items.map((item) => `
+                    <article class="club-history-item">
+                        <div class="club-history-main">
+                            <div class="club-history-icon">★</div>
+                            <div>
+                                <strong>${escapeHtml(item.productName)}${item.sizeLabel ? ` · ${escapeHtml(item.sizeLabel)}` : ''}</strong>
+                                <span>${item.pointsCost} puntos · ${formatDate(item.createdAt)}</span>
+                            </div>
+                        </div>
+                        <span class="club-history-badge${item.status === 'entregado' ? ' is-win' : ''}">${item.status}</span>
+                    </article>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
 function prizeEmoji(prize) {
     return PRIZE_EMOJIS[prize] || '🎁';
 }
@@ -437,7 +464,7 @@ function renderRewardsCatalog(profile) {
                             </div>
                             <div class="club-reward-actions">
                                 ${isAvailable
-                                    ? `<a href="${buildRewardWhatsappLink(profile, reward)}" target="_blank" rel="noopener noreferrer" class="club-side-link club-side-link-secondary">Pedir canje</a>`
+                                    ? `<button type="button" class="club-side-link club-side-link-secondary club-reward-redeem-button" data-reward-key="${escapeHtml(reward.key)}">Canjear ahora</button>`
                                     : `<button type="button" class="club-side-link club-side-link-disabled" disabled>Te faltan ${missingPoints}</button>`
                                 }
                                 <a href="${buildRewardLink(reward)}" class="club-reward-link">Ver producto</a>
@@ -446,6 +473,7 @@ function renderRewardsCatalog(profile) {
                     `;
                 }).join('')}
             </div>
+            <div id="clubRewardsFeedback" class="club-profile-feedback" hidden></div>
         </section>
     `;
 }
@@ -482,6 +510,7 @@ function renderProfile(profile) {
                 <span>Ultima actividad: ${formatDate(profile.points.lastActivity)}</span>
             </div>
             ${renderRewardsCatalog(profile)}
+            ${renderRedemptions(profile)}
             ${renderBenefits(profile)}
             ${renderCampaigns(profile)}
             <div class="club-profile-spin-summary">
@@ -493,6 +522,58 @@ function renderProfile(profile) {
             </div>
         </div>
     `;
+
+    const rewardsFeedback = document.getElementById('clubRewardsFeedback');
+    clubResult.querySelectorAll('.club-reward-redeem-button').forEach((button) => {
+        button.addEventListener('click', async () => {
+            const rewardKey = String(button.dataset.rewardKey || '').trim();
+            if (!rewardKey || !authState.token) return;
+
+            button.disabled = true;
+            if (rewardsFeedback) {
+                rewardsFeedback.hidden = false;
+                setFeedback(rewardsFeedback, 'Registrando canje...');
+            }
+
+            try {
+                const response = await fetch('/api/club-reward-redeem', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${authState.token}`
+                    },
+                    body: JSON.stringify({ rewardKey })
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.message || 'No pudimos registrar el canje.');
+                }
+
+                if (rewardsFeedback) {
+                    setFeedback(rewardsFeedback, 'Actualizando tu panel...', 'success');
+                }
+
+                await loadProfileFromSession({
+                    token: authState.token,
+                    phone: authState.phone,
+                    name: authState.name
+                });
+
+                const refreshedFeedback = document.getElementById('clubRewardsFeedback');
+                if (refreshedFeedback) {
+                    refreshedFeedback.hidden = false;
+                    setFeedback(refreshedFeedback, `${data.message} Ya quedo en revision desde Awka Admin.`, 'success');
+                }
+            } catch (error) {
+                button.disabled = false;
+                if (rewardsFeedback) {
+                    rewardsFeedback.hidden = false;
+                    setFeedback(rewardsFeedback, error.message || 'No pudimos registrar el canje.', 'error');
+                }
+            }
+        });
+    });
 }
 
 async function fetchProfile(token) {

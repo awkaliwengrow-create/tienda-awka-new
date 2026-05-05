@@ -126,6 +126,14 @@ const CAMPAIGN_TITLES = {
     ),
     'club-reactivacion-regreso': 'Regreso con reactivacion'
 };
+const REWARD_CATALOG = [
+    { key: '9:45ml', productId: 9, sizeLabel: '45ml', pointsCost: 3, productName: 'Biocann 45ml' },
+    { key: '2:45ml', productId: 2, sizeLabel: '45ml', pointsCost: 4, productName: 'Tree Mix F 45ml' },
+    { key: '3:45ml', productId: 3, sizeLabel: '45ml', pointsCost: 4, productName: 'Tree Mix Candy 45ml' },
+    { key: '1:45ml', productId: 1, sizeLabel: '45ml', pointsCost: 4, productName: 'Tree Mix N 45ml' },
+    { key: '4:45ml', productId: 4, sizeLabel: '45ml', pointsCost: 5, productName: 'Tree Mix Pro 45ml' },
+    { key: '5:45ml', productId: 5, sizeLabel: '45ml', pointsCost: 6, productName: 'Tree Mix Mico 45ml' }
+];
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 7;
 
 function diffDaysFromNow(value) {
@@ -266,6 +274,10 @@ function getCampaignsForLevel(levelKey, context = {}) {
 
 function getCampaignCatalog() {
     return Object.values(SEGMENT_CAMPAIGNS).flat();
+}
+
+function getRewardCatalog() {
+    return REWARD_CATALOG;
 }
 
 function getClubEnv() {
@@ -413,7 +425,7 @@ async function fetchCustomerByPhone(phone) {
     return rows?.[0] || null;
 }
 
-function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchases, levelHistory, campaignHistory }) {
+function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchases, levelHistory, campaignHistory, redemptions }) {
     const normalizedSpins = (spins || []).map((spin) => ({
         prize: spin.premio || 'Sin resultado',
         winner: Boolean(spin.ganador),
@@ -483,6 +495,19 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
             latestWinPrize: latestWin?.prize || null,
             latestWinAt: latestWin?.createdAt || null
         },
+        redemptions: {
+            total: redemptions?.length || 0,
+            items: (redemptions || []).slice(0, 4).map((item) => ({
+                id: item.id,
+                productId: item.product_id,
+                productName: item.product_name,
+                sizeLabel: item.size_label,
+                pointsCost: item.points_cost,
+                status: item.estado,
+                createdAt: item.created_at || null,
+                deliveredAt: item.delivered_at || null
+            }))
+        },
         history
     };
 }
@@ -497,14 +522,15 @@ async function fetchClubProfile(phone) {
     }
 
     const encodedPhone = encodeURIComponent(normalizedPhone);
-    const [customerRows, pointsRows, spinRows, pendingRows, purchaseRows, levelHistoryRows, campaignHistoryRows] = await Promise.all([
+    const [customerRows, pointsRows, spinRows, pendingRows, purchaseRows, levelHistoryRows, campaignHistoryRows, redemptionRows] = await Promise.all([
         supabaseRequest(`clientes?select=nombre,telefono&telefono=eq.${encodedPhone}&limit=1`),
         supabaseRequest(`puntos?select=puntos,puntos_canjeados,ultima_actividad&telefono=eq.${encodedPhone}&limit=1`),
         supabaseRequest(`ruleta_registros?select=premio,ganador,created_at,fecha&telefono=eq.${encodedPhone}&order=created_at.desc.nullslast,fecha.desc.nullslast`),
         supabaseRequest(`giros_habilitados?select=id,estado&telefono=eq.${encodedPhone}&estado=eq.pendiente`),
         supabaseRequest(`club_compras?select=referencia,monto_total,created_at&telefono=eq.${encodedPhone}&estado=eq.aprobada&order=created_at.desc`),
         supabaseRequest(`club_niveles_historial?select=nivel_anterior,nivel_nuevo,motivo,created_at&telefono=eq.${encodedPhone}&order=created_at.desc&limit=1`).catch(() => []),
-        supabaseRequest(`club_campaign_activations?select=campaign_id,trigger_type,note,created_at&telefono=eq.${encodedPhone}&order=created_at.desc&limit=3`).catch(() => [])
+        supabaseRequest(`club_campaign_activations?select=campaign_id,trigger_type,note,created_at&telefono=eq.${encodedPhone}&order=created_at.desc&limit=3`).catch(() => []),
+        supabaseRequest(`club_reward_redemptions?select=id,product_id,product_name,size_label,points_cost,estado,created_at,delivered_at&telefono=eq.${encodedPhone}&order=created_at.desc&limit=8`).catch(() => [])
     ]);
 
     return buildProfile({
@@ -515,7 +541,8 @@ async function fetchClubProfile(phone) {
         pendingSpins: pendingRows || [],
         purchases: purchaseRows || [],
         levelHistory: levelHistoryRows || [],
-        campaignHistory: campaignHistoryRows || []
+        campaignHistory: campaignHistoryRows || [],
+        redemptions: redemptionRows || []
     });
 }
 
@@ -529,6 +556,7 @@ module.exports = {
     fetchCustomerByPhone,
     getCampaignCatalog,
     getCampaignsForLevel,
+    getRewardCatalog,
     getBearerToken,
     getClubEnv,
     json,
