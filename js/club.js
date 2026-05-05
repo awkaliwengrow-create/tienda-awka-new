@@ -200,15 +200,6 @@ function syncAuthStage(visible) {
 
 function syncPlayLink(profile = null) {
     if (!playLink) return;
-
-    if (profile?.spins?.pending > 0) {
-        playLink.hidden = false;
-        playLink.textContent = profile.spins.pending === 1
-            ? 'Ir a la ruleta'
-            : `Ir a la ruleta (${profile.spins.pending})`;
-        return;
-    }
-
     playLink.hidden = true;
     playLink.textContent = 'Ir a la ruleta';
 }
@@ -344,37 +335,110 @@ function renderLevel(profile) {
     `;
 }
 
+function getNextGoal(profile) {
+    if (profile.level.nextLabel && profile.level.purchasesToNext > 0) {
+        return `${profile.level.purchasesToNext} compra${profile.level.purchasesToNext === 1 ? '' : 's'} para ${profile.level.nextLabel}`;
+    }
+
+    return 'Nivel mas alto activo';
+}
+
+function getFirstAvailableReward(profile) {
+    const currentPoints = Number(profile.points?.current || 0);
+    return resolveRewardCatalog().find((reward) => reward.pointsCost <= currentPoints) || null;
+}
+
+function getPrimaryAction(profile) {
+    if (profile.spins.pending > 0) {
+        return {
+            href: 'ruleta.html',
+            label: 'Girar ahora',
+            note: profile.spins.pending === 1
+                ? 'Tienes 1 giro listo para usar.'
+                : `Tienes ${profile.spins.pending} giros listos para usar.`
+        };
+    }
+
+    const availableReward = getFirstAvailableReward(profile);
+    if (availableReward) {
+        return {
+            href: '#clubRewardsPanel',
+            label: 'Canjear recompensa',
+            note: `Ya puedes canjear ${availableReward.productName}${availableReward.sizeLabel ? ` (${availableReward.sizeLabel})` : ''}.`
+        };
+    }
+
+    return {
+        href: '#clubWaysToGrow',
+        label: 'Ver como ganar giros',
+        note: 'Suma compras, sube de nivel y activa nuevas ventajas.'
+    };
+}
+
+function renderActionSummary(profile) {
+    return `
+        <section class="club-summary-panel" aria-label="Resumen accionable">
+            <div class="club-summary-grid">
+                <article class="club-summary-item">
+                    <span class="club-summary-label">Puntos disponibles</span>
+                    <strong>${profile.points.current}</strong>
+                    <small>${profile.points.redeemed} canjeados</small>
+                </article>
+                <article class="club-summary-item">
+                    <span class="club-summary-label">Nivel actual</span>
+                    <strong>${profile.level.label}</strong>
+                    <small>${profile.level.purchaseCount} compra${profile.level.purchaseCount === 1 ? '' : 's'}</small>
+                </article>
+                <article class="club-summary-item">
+                    <span class="club-summary-label">Giros disponibles</span>
+                    <strong>${profile.spins.pending}</strong>
+                    <small>${profile.spins.wins}/${profile.spins.total} premios / giros</small>
+                </article>
+                <article class="club-summary-item">
+                    <span class="club-summary-label">Proxima meta</span>
+                    <strong>${getNextGoal(profile)}</strong>
+                    <small>$${Number(profile.level.totalSpent || 0).toLocaleString('es-AR')} acumulados</small>
+                </article>
+            </div>
+        </section>
+    `;
+}
+
+function renderPrimaryAction(profile) {
+    const action = getPrimaryAction(profile);
+
+    return `
+        <section class="club-primary-action-panel" aria-label="Accion principal">
+            <div class="club-primary-action-copy">
+                <div class="club-profile-history-title">Que puedes hacer ahora</div>
+                <p>${action.note}</p>
+            </div>
+            <a href="${action.href}" class="hero-cta club-primary-action-link">${action.label}</a>
+        </section>
+    `;
+}
+
 function renderBenefits(profile) {
     const benefits = Array.isArray(profile.level.benefits) ? profile.level.benefits : [];
     const featuredBenefits = benefits.slice(0, 3);
     const nextUnlock = profile.level.nextUnlock || 'Sigue sumando compras para desbloquear nuevas ventajas.';
-    const latestUnlock = profile.level.latestUnlock;
 
     return `
-        <div class="club-benefits-panel">
-            <div class="club-benefits-card club-benefits-card-main">
-                <div class="club-profile-history-title">Beneficios de tu nivel</div>
-                <div class="club-benefits-list">
-                    ${featuredBenefits.map((benefit) => `
-                        <article class="club-benefit-item">
-                            <div class="club-benefit-mark"></div>
-                            <strong>${benefit}</strong>
-                        </article>
-                    `).join('')}
-                </div>
+        <section class="club-benefits-panel" id="clubWaysToGrow">
+            <div class="club-section-heading">
+                <div class="club-profile-history-title">Beneficios activos</div>
+                <span>${profile.level.label}</span>
             </div>
-            <div class="club-benefits-card club-benefits-card-next">
-                <div class="club-profile-history-title">Proximo paso</div>
-                <p>${nextUnlock}</p>
-                ${latestUnlock ? `
-                    <div class="club-benefits-unlock">
-                        <strong>Ultimo desbloqueo</strong>
-                        <span>${latestUnlock.from} -> ${latestUnlock.to}</span>
-                        <small>${formatDate(latestUnlock.createdAt)}</small>
-                    </div>
-                ` : ''}
+            <div class="club-benefits-list">
+                ${featuredBenefits.map((benefit) => `
+                    <article class="club-benefit-item">
+                        <div class="club-benefit-mark"></div>
+                        <strong>${benefit}</strong>
+                    </article>
+                `).join('')}
             </div>
-        </div>
+            <p class="club-benefits-footnote">${nextUnlock}</p>
+        </section>
     `;
 }
 
@@ -478,6 +542,132 @@ function renderRewardsCatalog(profile) {
     `;
 }
 
+function renderRewardsPanel(profile) {
+    return renderRewardsCatalog(profile)
+        .replace('<section class="club-rewards-panel" aria-label="Canje de puntos">', '<section class="club-rewards-panel" id="clubRewardsPanel" aria-label="Canje de puntos">')
+        .replace(`1 punto se suma cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.`, `1 punto cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Elige productos seleccionados.`);
+}
+
+function renderCampaignsPanel(profile) {
+    const items = Array.isArray(profile.campaigns?.items) ? profile.campaigns.items : [];
+    const latestActivation = profile.campaigns?.latestActivation || null;
+
+    if (!items.length) {
+        return '';
+    }
+
+    const [featuredCampaign, ...secondaryCampaigns] = items;
+
+    return `
+        <section class="club-campaigns-panel">
+            <div class="club-section-heading">
+                <div class="club-profile-history-title">Campanas activas</div>
+                <span>${items.length} activa${items.length === 1 ? '' : 's'}</span>
+            </div>
+            ${latestActivation ? `
+                <div class="club-campaign-activation">
+                    <strong>Ultima activacion</strong>
+                    <span>${latestActivation.title}</span>
+                    <small>${formatDate(latestActivation.createdAt)}</small>
+                </div>
+            ` : ''}
+            <article class="club-campaign-card club-campaign-card-featured">
+                <span class="club-campaign-audience">${featuredCampaign.audience}</span>
+                <strong>${featuredCampaign.title}</strong>
+                <div class="club-campaign-benefit">${featuredCampaign.benefit}</div>
+                <small>${featuredCampaign.cta}</small>
+            </article>
+            ${secondaryCampaigns.length ? `
+                <div class="club-campaign-secondary">
+                    <span class="club-campaign-secondary-label">Tambien activo</span>
+                    <div class="club-campaign-secondary-list">
+                        ${secondaryCampaigns.map((campaign) => `
+                            <article class="club-campaign-chip">
+                                <strong>${campaign.title}</strong>
+                                <span>${campaign.benefit}</span>
+                            </article>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : ''}
+        </section>
+    `;
+}
+
+function buildActivityFeed(profile) {
+    const spinItems = (profile.history || []).map((item) => ({
+        title: item.prize,
+        meta: formatDate(item.createdAt),
+        badge: item.winner ? 'Premio' : 'Intento',
+        badgeClass: item.winner ? ' is-win' : '',
+        icon: prizeEmoji(item.prize),
+        sortTime: item.createdAt ? new Date(item.createdAt).getTime() : 0
+    }));
+
+    const redemptionItems = (profile.redemptions?.items || []).map((item) => ({
+        title: `${item.productName}${item.sizeLabel ? ` · ${item.sizeLabel}` : ''}`,
+        meta: `${item.pointsCost} puntos · ${formatDate(item.createdAt)}`,
+        badge: item.status,
+        badgeClass: item.status === 'entregado' ? ' is-win' : '',
+        icon: '★',
+        sortTime: item.createdAt ? new Date(item.createdAt).getTime() : 0
+    }));
+
+    return [...spinItems, ...redemptionItems]
+        .sort((a, b) => b.sortTime - a.sortTime)
+        .slice(0, 4);
+}
+
+function renderHistorySection(profile) {
+    const latestPrize = profile.spins.latestPrize || 'Sin resultado';
+    const latestWinPrize = profile.spins.latestWinPrize || 'Sin premio';
+    const latestRedemption = profile.redemptions?.items?.[0] || null;
+    const activityFeed = buildActivityFeed(profile);
+
+    return `
+        <section class="club-profile-history">
+            <div class="club-section-heading">
+                <div class="club-profile-history-title">Historial</div>
+                <span>Ultimos movimientos</span>
+            </div>
+            <div class="club-history-glance">
+                <article class="club-history-glance-item">
+                    <span class="club-summary-label">Ultimo giro</span>
+                    <strong>${latestPrize}</strong>
+                    <small>${profile.spins.latestPrizeAt ? formatDate(profile.spins.latestPrizeAt) : 'Todavia sin giros'}</small>
+                </article>
+                <article class="club-history-glance-item">
+                    <span class="club-summary-label">Ultimo premio</span>
+                    <strong>${latestWinPrize}</strong>
+                    <small>${profile.spins.latestWinAt ? formatDate(profile.spins.latestWinAt) : 'Todavia sin premios'}</small>
+                </article>
+                <article class="club-history-glance-item">
+                    <span class="club-summary-label">${latestRedemption ? 'Ultimo canje' : 'Ultima actividad'}</span>
+                    <strong>${latestRedemption ? latestRedemption.productName : 'Club Awka activo'}</strong>
+                    <small>${latestRedemption ? formatDate(latestRedemption.createdAt) : formatDate(profile.points.lastActivity)}</small>
+                </article>
+            </div>
+            <div class="club-history-feed">
+                ${activityFeed.length
+                    ? activityFeed.map((item) => `
+                        <article class="club-history-item">
+                            <div class="club-history-main">
+                                <div class="club-history-icon">${item.icon}</div>
+                                <div>
+                                    <strong>${item.title}</strong>
+                                    <span>${item.meta}</span>
+                                </div>
+                            </div>
+                            <span class="club-history-badge${item.badgeClass}">${item.badge}</span>
+                        </article>
+                    `).join('')
+                    : '<div class="club-profile-empty">Todavia no hay movimientos registrados en tu panel.</div>'
+                }
+            </div>
+        </section>
+    `;
+}
+
 function renderProfile(profile) {
     clubResult.innerHTML = `
         <div class="club-profile-card">
@@ -489,37 +679,12 @@ function renderProfile(profile) {
                 </div>
                 <div class="club-profile-phone">${profile.phone}</div>
             </div>
-            ${renderLevel(profile)}
-            <div class="club-profile-stats">
-                <div class="club-profile-stat">
-                    <strong>${profile.points.current}</strong>
-                    <span>Puntos</span>
-                </div>
-                <div class="club-profile-stat">
-                    <strong>${profile.spins.pending}</strong>
-                    <span>Giros</span>
-                </div>
-                <div class="club-profile-stat">
-                    <strong>${profile.level.label}</strong>
-                    <span>Nivel</span>
-                </div>
-            </div>
-            <div class="club-profile-meta">
-                <span>Canjeados: ${profile.points.redeemed}</span>
-                <span>Premios: ${profile.spins.wins}/${profile.spins.total}</span>
-                <span>Ultima actividad: ${formatDate(profile.points.lastActivity)}</span>
-            </div>
-            ${renderRewardsCatalog(profile)}
-            ${renderRedemptions(profile)}
+            ${renderActionSummary(profile)}
+            ${renderPrimaryAction(profile)}
             ${renderBenefits(profile)}
-            ${renderCampaigns(profile)}
-            <div class="club-profile-spin-summary">
-                ${renderSpinSummary(profile)}
-            </div>
-            <div class="club-profile-history">
-                <div class="club-profile-history-title">Historial reciente</div>
-                ${renderHistory(profile.history)}
-            </div>
+            ${renderCampaignsPanel(profile)}
+            ${renderRewardsPanel(profile)}
+            ${renderHistorySection(profile)}
         </div>
     `;
 

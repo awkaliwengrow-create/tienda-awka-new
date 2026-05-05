@@ -35,7 +35,7 @@
                     </ul>
                 </nav>
                 <button class="cart-button" onclick="toggleCart()" aria-label="Abrir carrito">
-                    🛒 Carrito
+                    Carrito
                     <span class="cart-count" id="cartCount">0</span>
                 </button>
                 <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleNav()">
@@ -50,9 +50,9 @@
             <div class="hero-shell">
                 <div class="hero-copy">
                     <h1>Todo para tu cultivo, en un solo lugar</h1>
-                    <p>Productos seleccionados, compra simple y beneficios reales en Club Awka cada vez que volves.</p>
+                    <p>Productos seleccionados, compra simple y atencion real para resolver tu cultivo mas rapido.</p>
                     <div class="hero-actions">
-                        <a href="shop.html" class="hero-cta">Explorar catalogo</a>
+                        <a href="shop.html" class="hero-cta">Ver catalogo</a>
                     </div>
                 </div>
                 <div class="hero-visual" aria-hidden="true">
@@ -64,46 +64,10 @@
         </div>
     </section>
 
-    <section class="promo-strip" aria-label="Promociones destacadas">
-        <div class="container">
-            <div class="promo-carousel" data-promo-carousel>
-                <button class="promo-nav promo-nav-prev" type="button" aria-label="Promo anterior" data-promo-prev>‹</button>
-                <div class="promo-viewport">
-                    <div class="promo-track" data-promo-track>
-                        <article class="promo-slide is-active promo-slide-offer">
-                            <div class="promo-kicker">Promocion semanal</div>
-                            <h2>Todos los jueves 15% OFF</h2>
-                            <p>Aprovecha descuentos especiales en productos seleccionados del grow.</p>
-                            <a href="shop.html" class="promo-link">Ver productos</a>
-                        </article>
-                        <article class="promo-slide">
-                            <div class="promo-kicker">Combo recomendado</div>
-                            <h2>La Pacha + Golden Collection</h2>
-                            <p>Sustrato artesanal y genetica de calidad para arrancar con una base solida.</p>
-                            <a href="shop.html" class="promo-link">Ver combo</a>
-                        </article>
-                        <article class="promo-slide">
-                            <div class="promo-kicker">Combo cultivo</div>
-                            <h2>Tree Mix + semilla</h2>
-                            <p>Potencia vegetacion y micorrizas con una propuesta simple para resolver tu cultivo.</p>
-                            <a href="shop.html" class="promo-link">Explorar productos</a>
-                        </article>
-                    </div>
-                </div>
-                <button class="promo-nav promo-nav-next" type="button" aria-label="Promo siguiente" data-promo-next>›</button>
-            </div>
-            <div class="promo-dots" data-promo-dots>
-                <button class="promo-dot is-active" type="button" aria-label="Ir a promo 1"></button>
-                <button class="promo-dot" type="button" aria-label="Ir a promo 2"></button>
-                <button class="promo-dot" type="button" aria-label="Ir a promo 3"></button>
-            </div>
-        </div>
-    </section>
-
     <section class="categories-section" id="categorias">
         <div class="container">
-            <h2 class="section-title">Categorias Destacadas</h2>
-            <p class="section-lead">Elegi rapido la linea de productos que necesitas y entra directo al sector del catalogo.</p>
+            <h2 class="section-title">Categorias principales</h2>
+            <p class="section-lead">Elegi una categoria y entra directo a productos.</p>
             <div class="categories-grid">
                 <a href="shop.html#fertilizantes" class="category-card">
                     <div class="category-image">
@@ -112,6 +76,20 @@
                     <div class="category-info">
                         <div class="category-name">Fertilizantes</div>
                         <div class="category-description">Nutricion, estimuladores y lineas para crecimiento y floracion.</div>
+                    </div>
+                </a>
+
+                <a href="shop.html#plaguicidas" class="category-card">
+                    <div class="category-image">
+                        <div class="image-fallback">
+                            <div class="image-fallback-badge">CP</div>
+                            <div class="image-fallback-brand">Control</div>
+                            <div class="image-fallback-name">Plagas y proteccion</div>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <div class="category-name">Control y plagas</div>
+                        <div class="category-description">Preventivos, insecticidas y apoyo para cuidar cada etapa.</div>
                     </div>
                 </a>
 
@@ -125,6 +103,20 @@
                     </div>
                 </a>
 
+                <a href="shop.html#macetas" class="category-card">
+                    <div class="category-image">
+                        <div class="image-fallback">
+                            <div class="image-fallback-badge">MC</div>
+                            <div class="image-fallback-brand">Cultivo</div>
+                            <div class="image-fallback-name">Macetas y contenedores</div>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <div class="category-name">Macetas</div>
+                        <div class="category-description">Opciones practicas para armar o renovar tu espacio.</div>
+                    </div>
+                </a>
+
                 <a href="shop.html#parafernalia" class="category-card">
                     <div class="category-image">
                         <img src="img/categorias/parafernalia.jpg" alt="Parafernalia" loading="lazy">
@@ -134,79 +126,47 @@
                         <div class="category-description">Papeles, picadores, pipas y accesorios de marcas reconocidas.</div>
                     </div>
                 </a>
+
+                <a href="shop.html#papeles" class="category-card">
+                    <div class="category-image">
+                        <div class="image-fallback">
+                            <div class="image-fallback-badge">PP</div>
+                            <div class="image-fallback-brand">Consumo</div>
+                            <div class="image-fallback-name">Papeles y filtros</div>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <div class="category-name">Papeles y filtros</div>
+                        <div class="category-description">Reposicion rapida para seguir comprando sin vueltas.</div>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
 
     <section class="featured-section">
         <div class="container">
-            <h2 class="section-title">Productos Destacados</h2>
-            <p class="section-lead">Una seleccion de productos elegidos para que encuentres rapido lo mas buscado del grow.</p>
-            <div class="categories-grid featured-categories-grid">
-                <a href="shop.html#fertilizantes" class="category-card">
-                    <div class="category-image">
-                        <img src="img/productos/treemix-pro-destacada.png" alt="Tree Mix Pro" loading="lazy">
-                    </div>
-                    <div class="category-info">
-                        <div class="category-name">Tree Mix Pro</div>
-                        <div class="category-description">Micorrizas y nutricion para potenciar el desarrollo del cultivo.</div>
-                    </div>
-                </a>
-                <a href="shop.html#parafernalia" class="category-card">
-                    <div class="category-image">
-                        <img src="img/productos/pipa-destacada.png" alt="Pipa de madera" loading="lazy">
-                    </div>
-                    <div class="category-info">
-                        <div class="category-name">Pipa de madera</div>
-                        <div class="category-description">Una pieza clasica de parafernalia para sumar al kit esencial.</div>
-                    </div>
-                </a>
-                <a href="shop.html#herramientas" class="category-card">
-                    <div class="category-image">
-                        <img src="img/productos/lupa-destacada.png" alt="Lupa" loading="lazy">
-                    </div>
-                    <div class="category-info">
-                        <div class="category-name">Lupa</div>
-                        <div class="category-description">Ideal para revisar detalles y acompanar mejor cada etapa.</div>
-                    </div>
-                </a>
+            <div class="section-heading-row">
+                <div>
+                    <h2 class="section-title section-title-left">Productos destacados</h2>
+                    <p class="section-lead section-lead-left">Una seleccion rapida para empezar a comprar.</p>
+                </div>
+                <a href="shop.html" class="promo-link featured-section-link">Ver catalogo</a>
             </div>
+            <div class="products-grid" id="featuredProducts"></div>
         </div>
     </section>
 
     <section class="club-preview-section" id="club-awka">
         <div class="container">
-            <div class="club-preview-shell">
+            <div class="club-preview-shell club-preview-shell-secondary">
                 <div class="club-preview-copy">
                     <div class="club-preview-kicker">Club Awka</div>
                     <h2>Tu compra tambien suma dentro del club</h2>
-                    <p>Puntos, nivel y giros en un solo panel.</p>
+                    <p>Puntos, nivel y giros en un panel simple.</p>
                     <div class="club-preview-actions">
-                        <a href="club.html" class="hero-cta">Entrar al club</a>
-                        <a href="shop.html" class="promo-link cta-secondary">Ver catalogo</a>
+                        <a href="club.html" class="promo-link cta-secondary">Conocer Club Awka</a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="info-section" id="contacto">
-        <div class="container">
-            <div class="info-grid">
-                <div class="info-card">
-                    <div class="info-icon">🚚</div>
-                    <h3 class="info-title">Envios</h3>
-                    <p class="info-text">Coordinamos entregas simples y seguras.</p>
-                </div>
-                <div class="info-card">
-                    <div class="info-icon">🏪</div>
-                    <h3 class="info-title">Retiro</h3>
-                    <p class="info-text">Castelli 97 · Lun a Sab de 17:30 a 20:30 hs.</p>
-                </div>
-                <div class="info-card">
-                    <div class="info-icon">💳</div>
-                    <h3 class="info-title">Pagos</h3>
-                    <p class="info-text">Efectivo, transferencia y opciones digitales.</p>
                 </div>
             </div>
         </div>
@@ -223,9 +183,9 @@
                 <div class="footer-section footer-contact">
                     <h3>Contacto</h3>
                     <ul class="footer-list">
-                        <li>📧 awkaliwengrow@hotmail.com</li>
-                        <li>🕐 Lun a Sab: 17:30 a 20:30hs</li>
-                        <li>📍 Castelli 97, Buenos Aires</li>
+                        <li>awkaliwengrow@hotmail.com</li>
+                        <li>Lun a Sab: 17:30 a 20:30hs</li>
+                        <li>Castelli 97, Buenos Aires</li>
                     </ul>
                 </div>
                 <div class="footer-section footer-social">
@@ -289,7 +249,7 @@
             const featuredGrid = document.getElementById('featuredProducts');
             if (!featuredGrid) return;
 
-            const featured = products.filter(p => p.featured).slice(0, 8);
+            const featured = products.filter((p) => p.featured).slice(0, 8);
             const list = featured.length > 0
                 ? featured
                 : products.sort(() => 0.5 - Math.random()).slice(0, 8);
@@ -304,7 +264,7 @@
                     priceDisplay = `<div class="product-price">$${product.sizes[0].price.toLocaleString()}</div>
                                     <div class="product-size">${product.sizes[0].size}</div>`;
                 } else {
-                    priceDisplay = `<div class="product-price">Desde $${Math.min(...product.sizes.map(s => s.price)).toLocaleString()}</div>
+                    priceDisplay = `<div class="product-price">Desde $${Math.min(...product.sizes.map((s) => s.price)).toLocaleString()}</div>
                                     <div class="product-size">${product.sizes.length} tamanos</div>`;
                 }
             }
@@ -314,11 +274,9 @@
                 : '';
 
             const imageContent = renderProductImage(product);
-
             const btnAction = product.sizes && product.sizes.length > 1
                 ? `showProductDetails(${product.id})`
                 : `addToCart(${product.id}, 0)`;
-
             const btnLabel = product.sizes && product.sizes.length > 1
                 ? 'Ver opciones'
                 : 'Agregar';
@@ -338,52 +296,6 @@
                 </div>
             </div>`;
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const carousel = document.querySelector('[data-promo-carousel]');
-            if (!carousel) return;
-
-            const slides = Array.from(carousel.querySelectorAll('.promo-slide'));
-            const dots = Array.from(document.querySelectorAll('.promo-dot'));
-            const prev = carousel.querySelector('[data-promo-prev]');
-            const next = carousel.querySelector('[data-promo-next]');
-            let current = 0;
-            let autoplay;
-
-            function render(index) {
-                current = (index + slides.length) % slides.length;
-                slides.forEach((slide, slideIndex) => slide.classList.toggle('is-active', slideIndex === current));
-                dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === current));
-            }
-
-            function restartAutoplay() {
-                clearInterval(autoplay);
-                autoplay = setInterval(() => render(current + 1), 5000);
-            }
-
-            prev.addEventListener('click', () => {
-                render(current - 1);
-                restartAutoplay();
-            });
-
-            next.addEventListener('click', () => {
-                render(current + 1);
-                restartAutoplay();
-            });
-
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    render(index);
-                    restartAutoplay();
-                });
-            });
-
-            carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
-            carousel.addEventListener('mouseleave', restartAutoplay);
-
-            render(0);
-            restartAutoplay();
-        });
     </script>
 </body>
 </html>
