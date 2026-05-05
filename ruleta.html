@@ -92,6 +92,8 @@
 
         .awka-play-header {
             text-align: center;
+            display: grid;
+            gap: 0.45rem;
         }
 
         .awka-play-back {
@@ -138,11 +140,10 @@
         }
 
         .awka-play-subtitle {
-            margin: 0.3rem 0 0;
+            margin: 0;
             color: var(--play-muted);
-            font-size: 0.76rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.01em;
         }
 
         .awka-wheel-wrap {
@@ -231,14 +232,14 @@
             background: linear-gradient(160deg, #112016, #0b1510);
             border: 1px solid var(--play-border);
             border-radius: 22px;
-            padding: 1.15rem;
+            padding: 1rem;
             box-shadow:
                 0 0 0 1px rgba(30, 58, 32, 0.27),
                 0 24px 80px rgba(0, 0, 0, 0.4),
                 0 0 60px rgba(42, 96, 32, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.04);
             display: grid;
-            gap: 0.8rem;
+            gap: 0.65rem;
         }
 
         .awka-play-side h2,
@@ -269,9 +270,18 @@
 
         .awka-side-block {
             border-radius: 16px;
-            padding: 0.85rem 0.9rem;
+            padding: 0.8rem 0.85rem;
             background: rgba(7, 16, 10, 0.56);
             border: 1px solid var(--play-border);
+        }
+
+        .awka-side-label {
+            display: inline-flex;
+            margin-bottom: 0.35rem;
+            color: var(--play-gold-2);
+            font-size: 0.66rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
 
         .awka-side-block strong {
@@ -304,6 +314,11 @@
             font-weight: 600;
             text-decoration: none;
             box-shadow: 0 4px 20px rgba(42, 96, 32, 0.27), inset 0 1px 0 rgba(255, 255, 255, 0.13);
+        }
+
+        .awka-side-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 26px rgba(42, 96, 32, 0.33), inset 0 1px 0 rgba(255, 255, 255, 0.13);
         }
 
         .awka-overlay {
@@ -433,6 +448,10 @@
             .awka-play-shell {
                 grid-template-columns: 1fr;
             }
+
+            .awka-play-side {
+                order: -1;
+            }
         }
 
         @media (max-width: 520px) {
@@ -472,10 +491,9 @@
         <div class="awka-play-shell">
             <section class="awka-play-stage">
                 <div class="awka-play-header">
-                    <a href="club.html" class="awka-play-back">&larr; Volver al club</a>
                     <div class="awka-play-badge">Awka Play</div>
-                    <h1 class="awka-play-title">Tu giro del club</h1>
-                    <p class="awka-play-subtitle">Premios reales y descuentos</p>
+                    <h1 class="awka-play-title">Gira tu beneficio</h1>
+                    <p class="awka-play-subtitle">Un giro. Un resultado. Todo queda en tu panel.</p>
                 </div>
 
                 <div class="awka-wheel-wrap">
@@ -496,18 +514,18 @@
             </section>
 
             <aside class="awka-play-side">
-                <div class="awka-side-eyebrow">Tu estado</div>
+                <div class="awka-side-eyebrow">Club Awka</div>
                 <h2 id="ruletaMemberName">Tu giro</h2>
 
                 <div class="awka-side-block">
                     <strong id="ruletaPendingCount">0 giros</strong>
-                    <span id="ruletaStatusCopy">Necesitas iniciar sesion en Club Awka.</span>
+                    <span id="ruletaStatusCopy">Inicia sesion para usar tu giro.</span>
                 </div>
 
                 <div class="awka-side-block">
-                    <div class="awka-side-eyebrow">Resultado</div>
+                    <div class="awka-side-label">Ultimo resultado</div>
                     <strong id="ruletaPrizeLabel">Aun sin girar</strong>
-                    <p id="ruletaPrizeCopy">Tu premio va a aparecer aqui.</p>
+                    <p id="ruletaPrizeCopy">Tu resultado aparece aca apenas gires.</p>
                 </div>
 
                 <a href="club.html" class="awka-side-link">Ver mi perfil</a>
@@ -520,7 +538,7 @@
             <div class="awka-overlay-icon">LOCK</div>
             <div class="awka-overlay-eyebrow">Acceso restringido</div>
             <h2 class="awka-overlay-title">Inhabilitado</h2>
-            <p id="blockedMessage" class="awka-overlay-copy">Este acceso no tiene un giro habilitado en este momento. Vuelve al club o consulta con Awka Liwen.</p>
+            <p id="blockedMessage" class="awka-overlay-copy">Ahora mismo este acceso no tiene giros disponibles.</p>
             <div class="awka-overlay-actions">
                 <a href="club.html" class="awka-btn awka-btn-secondary">Volver al club</a>
             </div>
@@ -531,8 +549,8 @@
         <div class="awka-overlay-card">
             <div class="awka-overlay-icon">PLAY</div>
             <div class="awka-overlay-eyebrow">Giro habilitado</div>
-            <h2 id="readyName" class="awka-overlay-title">Listo para girar</h2>
-            <p class="awka-overlay-copy">Tu giro esta habilitado. Cuando confirmes, vamos a consumir un giro real y registrar el resultado en tu historial.</p>
+            <h2 id="readyName" class="awka-overlay-title">Confirmar giro</h2>
+            <p class="awka-overlay-copy">Si continuas, consumimos un giro real y guardamos el resultado en tu historial.</p>
             <div class="awka-overlay-actions">
                 <button type="button" id="readySpinButton" class="awka-btn awka-btn-primary">Girar ahora</button>
                 <button type="button" class="awka-btn awka-btn-secondary" data-close-overlay="overlayReady">Cancelar</button>
@@ -547,7 +565,7 @@
             <h2 id="prizeName" class="awka-overlay-title">Premio</h2>
             <p id="prizeDesc" class="awka-overlay-copy">Tu resultado se va a mostrar aqui.</p>
             <div class="awka-overlay-actions">
-                <a id="btnPrizeCatalog" class="awka-btn awka-btn-secondary" href="shop.html">Ver premio en catalogo</a>
+                <a id="btnPrizeCatalog" class="awka-btn awka-btn-secondary" href="shop.html">Ver en catalogo</a>
                 <a id="btnWsp" class="awka-btn awka-btn-primary" href="#" target="_blank" rel="noopener noreferrer">Enviar por WhatsApp</a>
                 <button type="button" class="awka-btn awka-btn-secondary" data-close-overlay="overlayPrize">Cerrar</button>
             </div>

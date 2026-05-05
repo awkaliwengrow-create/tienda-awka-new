@@ -325,20 +325,20 @@ function renderProfile(profile) {
     pendingCount.textContent = formatPending(profile);
 
     if (profile.spins.pending > 0) {
-        statusCopy.textContent = 'Tu giro esta listo para usar.';
+        statusCopy.textContent = 'Tu giro ya esta listo.';
         setFeedback('Tu sesion esta lista. Presiona GIRAR.', 'success');
         setSpinEnabled(true);
     } else {
-        statusCopy.textContent = 'Ahora mismo no tienes giros pendientes.';
-        setFeedback('No tienes giros pendientes en este momento.', 'error');
+        statusCopy.textContent = 'Sin giros por ahora.';
+        setFeedback('No tienes giros pendientes.', 'error');
         setSpinEnabled(false);
     }
 
     if (profile.spins.latestPrize) {
         prizeLabel.textContent = profile.spins.latestPrize;
         prizeCopy.textContent = profile.spins.latestWinPrize
-            ? `Ultimo premio ganado: ${profile.spins.latestWinPrize}.`
-            : 'Tu ultimo intento ya fue registrado en el historial del club.';
+            ? `Ultimo premio: ${profile.spins.latestWinPrize}.`
+            : 'Tu ultimo giro ya quedo guardado.';
     }
 }
 
