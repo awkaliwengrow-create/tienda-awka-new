@@ -2618,7 +2618,7 @@ footer {
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: 0.65rem;
-    min-width: 260px;
+    min-width: 170px;
 }
 
 .club-panel-actions .club-side-link {
@@ -3153,8 +3153,34 @@ footer {
     line-height: 1.5;
 }
 
+.club-primary-action-buttons {
+    display: grid;
+    gap: 0.6rem;
+}
+
 .club-primary-action-link {
     width: 100%;
+}
+
+.club-primary-secondary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--earth-green);
+    background: rgba(255,255,255,0.56);
+    border: 1px solid rgba(74,103,65,0.12);
+    font-weight: 700;
+}
+
+.club-primary-secondary-link:hover {
+    color: var(--soil);
+    border-color: rgba(74,103,65,0.22);
+    background: rgba(255,255,255,0.82);
 }
 
 .club-section-heading {
@@ -3263,25 +3289,26 @@ footer {
 .club-benefits-panel {
     padding: 0.95rem 1rem;
     border-radius: 18px;
-    background: rgba(245,241,232,0.52);
+    background: rgba(245,241,232,0.42);
     border: 1px solid rgba(74,103,65,0.08);
 }
 
 .club-benefits-list {
     display: grid;
-    gap: 0.5rem;
+    gap: 0.42rem;
 }
 
 .club-benefits-footnote {
-    margin-top: 0.7rem;
-    color: rgba(61,40,23,0.72);
-    line-height: 1.5;
+    margin-top: 0.6rem;
+    color: rgba(61,40,23,0.62);
+    line-height: 1.45;
+    font-size: 0.9rem;
 }
 
 .club-campaigns-panel {
     padding: 0.95rem 1rem;
     border-radius: 18px;
-    background: rgba(245,241,232,0.34);
+    background: rgba(245,241,232,0.22);
     border: 1px solid rgba(74,103,65,0.08);
 }
 
@@ -3311,9 +3338,9 @@ footer {
 }
 
 .club-campaign-card {
-    padding: 0.88rem 0.95rem;
+    padding: 0.8rem 0.9rem;
     border-radius: 18px;
-    background: rgba(255,255,255,0.44);
+    background: rgba(255,255,255,0.34);
     border: 1px solid rgba(74,103,65,0.08);
 }
 
@@ -3349,9 +3376,9 @@ footer {
 
 .club-campaign-card small {
     display: block;
-    color: rgba(61,40,23,0.72);
-    line-height: 1.45;
-    font-size: 0.9rem;
+    color: rgba(61,40,23,0.62);
+    line-height: 1.4;
+    font-size: 0.86rem;
 }
 
 .club-campaign-card-featured {
@@ -3379,7 +3406,7 @@ footer {
 .club-campaign-chip {
     padding: 0.72rem 0.82rem;
     border-radius: 15px;
-    background: rgba(255,255,255,0.34);
+    background: rgba(255,255,255,0.26);
     border: 1px solid rgba(74,103,65,0.08);
 }
 
@@ -3399,6 +3426,10 @@ footer {
 .club-rewards-panel {
     display: grid;
     gap: 0.9rem;
+    padding: 1rem 1.05rem;
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(74,103,65,0.08), rgba(245,241,232,0.74));
+    border: 1px solid rgba(74,103,65,0.1);
 }
 
 .club-rewards-head {
@@ -3406,10 +3437,10 @@ footer {
     align-items: end;
     justify-content: space-between;
     gap: 1rem;
-    padding: 0.95rem 1rem;
-    border-radius: 18px;
-    background: rgba(245,241,232,0.58);
-    border: 1px solid rgba(74,103,65,0.08);
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    border: 0;
 }
 
 .club-rewards-head p {
@@ -3445,9 +3476,9 @@ footer {
 .club-reward-card {
     display: grid;
     gap: 0.7rem;
-    padding: 0.95rem;
+    padding: 0.88rem;
     border-radius: 18px;
-    background: rgba(255,255,255,0.62);
+    background: rgba(255,255,255,0.56);
     border: 1px solid rgba(74,103,65,0.08);
 }
 

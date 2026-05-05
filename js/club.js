@@ -375,6 +375,19 @@ function getPrimaryAction(profile) {
     };
 }
 
+function getSecondaryAction(profile) {
+    const availableReward = getFirstAvailableReward(profile);
+
+    if (profile.spins.pending > 0 && availableReward) {
+        return {
+            href: '#clubRewardsPanel',
+            label: 'Canjear recompensa'
+        };
+    }
+
+    return null;
+}
+
 function renderActionSummary(profile) {
     return `
         <section class="club-summary-panel" aria-label="Resumen accionable">
@@ -406,14 +419,18 @@ function renderActionSummary(profile) {
 
 function renderPrimaryAction(profile) {
     const action = getPrimaryAction(profile);
+    const secondaryAction = getSecondaryAction(profile);
 
     return `
         <section class="club-primary-action-panel" aria-label="Accion principal">
             <div class="club-primary-action-copy">
-                <div class="club-profile-history-title">Que puedes hacer ahora</div>
+                <div class="club-profile-history-title">Accion principal</div>
                 <p>${action.note}</p>
             </div>
-            <a href="${action.href}" class="hero-cta club-primary-action-link">${action.label}</a>
+            <div class="club-primary-action-buttons">
+                <a href="${action.href}" class="hero-cta club-primary-action-link">${action.label}</a>
+                ${secondaryAction ? `<a href="${secondaryAction.href}" class="club-primary-secondary-link">${secondaryAction.label}</a>` : ''}
+            </div>
         </section>
     `;
 }
@@ -426,7 +443,7 @@ function renderBenefits(profile) {
     return `
         <section class="club-benefits-panel" id="clubWaysToGrow">
             <div class="club-section-heading">
-                <div class="club-profile-history-title">Beneficios activos</div>
+                <div class="club-profile-history-title">Beneficios de tu nivel</div>
                 <span>${profile.level.label}</span>
             </div>
             <div class="club-benefits-list">
@@ -543,9 +560,18 @@ function renderRewardsCatalog(profile) {
 }
 
 function renderRewardsPanel(profile) {
+    const rewards = resolveRewardCatalog();
+    const currentPoints = Number(profile.points?.current || 0);
+    const availableCount = rewards.filter((reward) => reward.pointsCost <= currentPoints).length;
+    const heading = availableCount > 0 ? 'Canje disponible' : 'Canjea tus puntos';
+    const intro = availableCount > 0
+        ? `${availableCount} recompensa${availableCount === 1 ? '' : 's'} lista${availableCount === 1 ? '' : 's'} para pedir.`
+        : `1 punto cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Elige productos seleccionados.`;
+
     return renderRewardsCatalog(profile)
         .replace('<section class="club-rewards-panel" aria-label="Canje de puntos">', '<section class="club-rewards-panel" id="clubRewardsPanel" aria-label="Canje de puntos">')
-        .replace(`1 punto se suma cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.`, `1 punto cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Elige productos seleccionados.`);
+        .replace('<div class="club-profile-history-title">Canjea tus puntos</div>', `<div class="club-profile-history-title">${heading}</div>`)
+        .replace(`1 punto se suma cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.`, intro);
 }
 
 function renderCampaignsPanel(profile) {
@@ -669,6 +695,10 @@ function renderHistorySection(profile) {
 }
 
 function renderProfile(profile) {
+    if (playLink) {
+        playLink.hidden = true;
+    }
+
     clubResult.innerHTML = `
         <div class="club-profile-card">
             <div class="club-profile-header">
@@ -681,9 +711,9 @@ function renderProfile(profile) {
             </div>
             ${renderActionSummary(profile)}
             ${renderPrimaryAction(profile)}
+            ${renderRewardsPanel(profile)}
             ${renderBenefits(profile)}
             ${renderCampaignsPanel(profile)}
-            ${renderRewardsPanel(profile)}
             ${renderHistorySection(profile)}
         </div>
     `;
