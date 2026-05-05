@@ -16,6 +16,8 @@ const playLink = document.getElementById('clubPlayLink');
 const heroCta = document.getElementById('clubHeroCta');
 const sideCta = document.getElementById('clubSideCta');
 const clubResult = document.getElementById('clubProfileResult');
+const memberPanel = document.getElementById('clubMemberPanel');
+const authStage = document.querySelector('.club-auth-stage');
 
 const PRIZE_EMOJIS = {
     'Sin resultado': '🎯',
@@ -95,6 +97,18 @@ function syncClubCtas(session = null) {
     }
 }
 
+function syncMemberPanel(visible) {
+    if (memberPanel) {
+        memberPanel.hidden = !visible;
+    }
+}
+
+function syncAuthStage(visible) {
+    if (authStage) {
+        authStage.hidden = !visible;
+    }
+}
+
 function syncPlayLink(profile = null) {
     if (!playLink) return;
 
@@ -111,6 +125,8 @@ function syncPlayLink(profile = null) {
 }
 
 function resetProfilePlaceholder() {
+    syncAuthStage(true);
+    syncMemberPanel(false);
     clubResult.innerHTML = `
         <div class="club-profile-empty">
             Aqui vas a ver tu panel del club: puntos, compras, nivel, giros y actividad reciente.
@@ -388,6 +404,8 @@ async function loadProfileFromSession(session) {
         authState.phone = session.phone || profile.phone;
         authState.name = session.name || profile.name;
         logoutButton.hidden = false;
+        syncAuthStage(false);
+        syncMemberPanel(true);
         syncClubCtas(session);
         syncPlayLink(profile);
         showPinStep();
@@ -398,6 +416,8 @@ async function loadProfileFromSession(session) {
     } catch (error) {
         clearSession();
         logoutButton.hidden = true;
+        syncAuthStage(true);
+        syncMemberPanel(false);
         syncClubCtas();
         syncPlayLink();
         showPhoneStep('Tu sesion vencio. Ingresa de nuevo para continuar.', 'error');
@@ -491,6 +511,8 @@ async function handlePinSubmit(event) {
         phoneInput.value = data.phone;
         pinInput.value = '';
         logoutButton.hidden = false;
+        syncAuthStage(false);
+        syncMemberPanel(true);
 
         const successMessage = data.created
             ? 'Acceso creado correctamente.'
@@ -519,6 +541,8 @@ function handleBack() {
 function handleLogout() {
     clearSession();
     logoutButton.hidden = true;
+    syncAuthStage(true);
+    syncMemberPanel(false);
     syncClubCtas();
     syncPlayLink();
     handleBack();
