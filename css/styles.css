@@ -3111,6 +3111,53 @@ footer {
     gap: 0.7rem;
 }
 
+.club-summary-hero-card {
+    display: grid;
+    gap: 0.18rem;
+    padding: 1.2rem 1.25rem;
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(245,241,232,0.82), rgba(255,255,255,0.72));
+    border: 1px solid rgba(74,103,65,0.1);
+}
+
+.club-summary-hero-card > strong {
+    color: var(--soil);
+    font-size: clamp(2.3rem, 4vw, 3.3rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.club-summary-hero-card > small {
+    color: rgba(61,40,23,0.6);
+    line-height: 1.4;
+}
+
+.club-summary-subline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.8rem;
+    margin-top: 0.55rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgba(74,103,65,0.08);
+}
+
+.club-summary-subline span {
+    color: rgba(61,40,23,0.62);
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.club-summary-subline strong {
+    color: var(--earth-green);
+    font-size: 1.05rem;
+}
+
+.club-summary-subline small {
+    color: rgba(61,40,23,0.58);
+    font-size: 0.84rem;
+}
+
 .club-summary-item {
     display: grid;
     gap: 0.18rem;

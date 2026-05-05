@@ -391,28 +391,16 @@ function getSecondaryAction(profile) {
 function renderActionSummary(profile) {
     return `
         <section class="club-summary-panel" aria-label="Resumen accionable">
-            <div class="club-summary-grid">
-                <article class="club-summary-item">
-                    <span class="club-summary-label">Puntos disponibles</span>
-                    <strong>${profile.points.current}</strong>
-                    <small>${profile.points.redeemed} canjeados</small>
-                </article>
-                <article class="club-summary-item">
-                    <span class="club-summary-label">Nivel actual</span>
-                    <strong>${profile.level.label}</strong>
-                    <small>${profile.level.purchaseCount} compra${profile.level.purchaseCount === 1 ? '' : 's'}</small>
-                </article>
-                <article class="club-summary-item">
-                    <span class="club-summary-label">Giros disponibles</span>
+            <article class="club-summary-hero-card">
+                <span class="club-summary-label">Puntos acumulados</span>
+                <strong>${profile.points.current}</strong>
+                <small>${profile.points.redeemed} canjeados</small>
+                <div class="club-summary-subline">
+                    <span>Giros disponibles</span>
                     <strong>${profile.spins.pending}</strong>
                     <small>${profile.spins.wins}/${profile.spins.total} premios / giros</small>
-                </article>
-                <article class="club-summary-item">
-                    <span class="club-summary-label">Proxima meta</span>
-                    <strong>${getNextGoal(profile)}</strong>
-                    <small>$${Number(profile.level.totalSpent || 0).toLocaleString('es-AR')} acumulados</small>
-                </article>
-            </div>
+                </div>
+            </article>
         </section>
     `;
 }
