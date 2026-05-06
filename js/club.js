@@ -109,10 +109,6 @@ function buildRewardLink(reward) {
     return `shop.html#${category}`;
 }
 
-function buildRewardWhatsappLink() {
-    return '';
-}
-
 function renderRedemptions(profile) {
     const items = Array.isArray(profile.redemptions?.items) ? profile.redemptions.items : [];
     if (!items.length) {

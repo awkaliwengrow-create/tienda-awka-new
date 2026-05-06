@@ -3297,12 +3297,14 @@ footer {
 }
 
 .club-primary-action-buttons {
-    display: grid;
+    display: flex;
+    justify-content: center;
     gap: 0.6rem;
 }
 
 .club-primary-action-link {
-    width: 100%;
+    width: min(100%, 820px);
+    margin-inline: auto;
 }
 
 .club-primary-secondary-link {
