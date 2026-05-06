@@ -65,11 +65,15 @@ function escapeHtml(value = '') {
 }
 
 function findProductById(productId) {
-    if (!Array.isArray(window.products)) {
+    const productList = Array.isArray(window.products)
+        ? window.products
+        : (typeof products !== 'undefined' && Array.isArray(products) ? products : null);
+
+    if (!productList) {
         return null;
     }
 
-    return window.products.find((item) => Number(item.id) === Number(productId)) || null;
+    return productList.find((item) => Number(item.id) === Number(productId)) || null;
 }
 
 function getPointsEarningValue(profile) {
