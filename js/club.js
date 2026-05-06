@@ -1,14 +1,4 @@
 const CLUB_SESSION_STORAGE_KEY = 'awka-club-session';
-const CLUB_POINTS_EARNING_VALUE = 5000;
-const CLUB_SUPPORT_WHATSAPP = '5492494009164';
-const CLUB_REWARD_CATALOG = [
-    { productId: 9, size: '45ml', pointsCost: 3, label: 'Biocann 45ml' },
-    { productId: 2, size: '45ml', pointsCost: 4, label: 'Tree Mix F 45ml' },
-    { productId: 3, size: '45ml', pointsCost: 4, label: 'Tree Mix Candy 45ml' },
-    { productId: 1, size: '45ml', pointsCost: 4, label: 'Tree Mix N 45ml' },
-    { productId: 4, size: '45ml', pointsCost: 5, label: 'Tree Mix Pro 45ml' },
-    { productId: 5, size: '45ml', pointsCost: 6, label: 'Tree Mix Mico 45ml' }
-];
 
 const phoneForm = document.getElementById('clubPhoneForm');
 const pinForm = document.getElementById('clubPinForm');
@@ -22,9 +12,6 @@ const authPhone = document.getElementById('clubAuthPhone');
 const authNameField = document.getElementById('clubAuthNameField');
 const authBackButton = document.getElementById('clubAuthBack');
 const logoutButton = document.getElementById('clubLogoutButton');
-const playLink = document.getElementById('clubPlayLink');
-const heroCta = document.getElementById('clubHeroCta');
-const sideCta = document.getElementById('clubSideCta');
 const clubResult = document.getElementById('clubProfileResult');
 const memberPanel = document.getElementById('clubMemberPanel');
 const authStage = document.querySelector('.club-auth-stage');
@@ -85,20 +72,26 @@ function findProductById(productId) {
     return window.products.find((item) => Number(item.id) === Number(productId)) || null;
 }
 
-function resolveRewardCatalog() {
-    return CLUB_REWARD_CATALOG.map((reward) => {
+function getPointsEarningValue(profile) {
+    return Number(profile?.rewardPolicy?.earningValue || 5000);
+}
+
+function resolveRewardCatalog(profile) {
+    const rewardCatalog = Array.isArray(profile?.rewardCatalog) ? profile.rewardCatalog : [];
+
+    return rewardCatalog.map((reward) => {
         const product = findProductById(reward.productId);
         if (!product) return null;
 
         const sizeMatch = Array.isArray(product.sizes)
-            ? product.sizes.find((size) => size.size === reward.size)
+            ? product.sizes.find((size) => size.size === reward.sizeLabel)
             : null;
 
         return {
             ...reward,
             product,
-            sizeLabel: reward.size,
-            productName: reward.label || product.name,
+            sizeLabel: reward.sizeLabel,
+            productName: reward.productName || product.name,
             brand: product.brand,
             image: product.image || '',
             category: product.category,
@@ -112,12 +105,8 @@ function buildRewardLink(reward) {
     return `shop.html#${category}`;
 }
 
-function buildRewardWhatsappLink(profile, reward) {
-    const message = encodeURIComponent(
-        `Hola! Soy ${profile.name}. Quiero canjear ${reward.pointsCost} puntos por ${reward.productName}${reward.sizeLabel ? ` (${reward.sizeLabel})` : ''}.`
-    );
-
-    return `https://wa.me/${CLUB_SUPPORT_WHATSAPP}?text=${message}`;
+function buildRewardWhatsappLink() {
+    return '';
 }
 
 function renderRedemptions(profile) {
@@ -174,18 +163,6 @@ function clearSession() {
     window.localStorage.removeItem(CLUB_SESSION_STORAGE_KEY);
 }
 
-function syncClubCtas(session = null) {
-    const label = session?.token ? 'Ver mi panel' : 'Entrar a mi panel';
-
-    if (heroCta) {
-        heroCta.textContent = label;
-    }
-
-    if (sideCta) {
-        sideCta.textContent = label;
-    }
-}
-
 function syncMemberPanel(visible) {
     if (memberPanel) {
         memberPanel.hidden = !visible;
@@ -196,12 +173,6 @@ function syncAuthStage(visible) {
     if (authStage) {
         authStage.hidden = !visible;
     }
-}
-
-function syncPlayLink(profile = null) {
-    if (!playLink) return;
-    playLink.hidden = true;
-    playLink.textContent = 'Ir a la ruleta';
 }
 
 function resetProfilePlaceholder() {
@@ -268,73 +239,6 @@ function showPinStep() {
     pinForm.hidden = false;
 }
 
-function renderSpinSummary(profile) {
-    if (!profile.spins.total) {
-        return `
-            <div class="club-spin-highlight is-empty">
-                <strong>Todavia no giro la ruleta</strong>
-                <span>Cuando tenga su primer giro registrado, aca vamos a mostrar el ultimo resultado y el ultimo premio ganado.</span>
-            </div>
-        `;
-    }
-
-    const latestPrize = profile.spins.latestPrize || 'Sin resultado';
-    const latestWinPrize = profile.spins.latestWinPrize || 'Todavia sin premio';
-
-    return `
-        <div class="club-spin-highlight">
-            <div class="club-spin-highlight-icon">${prizeEmoji(latestPrize)}</div>
-            <div class="club-spin-highlight-copy">
-                <strong>Ultimo giro: ${latestPrize}</strong>
-                <span>${formatDate(profile.spins.latestPrizeAt)}</span>
-            </div>
-        </div>
-        <div class="club-spin-highlight">
-            <div class="club-spin-highlight-icon">${prizeEmoji(latestWinPrize)}</div>
-            <div class="club-spin-highlight-copy">
-                <strong>Ultimo premio ganado: ${latestWinPrize}</strong>
-                <span>${profile.spins.latestWinAt ? formatDate(profile.spins.latestWinAt) : 'Aun no registra premios ganados'}</span>
-            </div>
-        </div>
-    `;
-}
-
-function renderHistory(items = []) {
-    if (!items.length) {
-        return '<div class="club-profile-empty">Todavia no hay movimientos de ruleta cargados para este perfil.</div>';
-    }
-
-    return items.map((item) => `
-        <article class="club-history-item">
-            <div class="club-history-main">
-                <div class="club-history-icon">${prizeEmoji(item.prize)}</div>
-                <div>
-                    <strong>${item.prize}</strong>
-                    <span>${formatDate(item.createdAt)}</span>
-                </div>
-            </div>
-            <span class="club-history-badge${item.winner ? ' is-win' : ''}">${item.winner ? 'Premio' : 'Intento'}</span>
-        </article>
-    `).join('');
-}
-
-function renderLevel(profile) {
-    const nextStep = profile.level.nextLabel
-        ? `Te faltan ${profile.level.purchasesToNext} compra${profile.level.purchasesToNext === 1 ? '' : 's'} para pasar a ${profile.level.nextLabel}.`
-        : 'Ya estas en el nivel mas alto de esta primera version del club.';
-
-    return `
-        <div class="club-level-banner">
-            <div class="club-level-badge">${profile.level.label}</div>
-            <div class="club-level-copy">
-                <strong>${profile.level.purchaseCount} compra${profile.level.purchaseCount === 1 ? '' : 's'} aprobada${profile.level.purchaseCount === 1 ? '' : 's'}</strong>
-                <span>${nextStep}</span>
-            </div>
-            <div class="club-level-total">$${Number(profile.level.totalSpent || 0).toLocaleString('es-AR')}</div>
-        </div>
-    `;
-}
-
 function getNextGoal(profile) {
     if (profile.level.nextLabel && profile.level.purchasesToNext > 0) {
         return `${profile.level.purchasesToNext} compra${profile.level.purchasesToNext === 1 ? '' : 's'} para ${profile.level.nextLabel}`;
@@ -345,7 +249,7 @@ function getNextGoal(profile) {
 
 function getFirstAvailableReward(profile) {
     const currentPoints = Number(profile.points?.current || 0);
-    return resolveRewardCatalog().find((reward) => reward.pointsCost <= currentPoints) || null;
+    return resolveRewardCatalog(profile).find((reward) => reward.pointsCost <= currentPoints) || null;
 }
 
 function getPrimaryAction(profile) {
@@ -548,19 +452,20 @@ function renderCampaignsPanel(profile) {
 }
 
 function renderRewardsCatalog(profile) {
-    const rewards = resolveRewardCatalog();
+    const rewards = resolveRewardCatalog(profile);
     if (!rewards.length) {
         return '';
     }
 
     const currentPoints = Number(profile.points?.current || 0);
+    const earningValue = getPointsEarningValue(profile);
 
     return `
         <section class="club-rewards-panel" aria-label="Canje de puntos">
             <div class="club-rewards-head">
                 <div>
                     <div class="club-profile-history-title">Canjea tus puntos</div>
-                    <p>1 punto se suma cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.</p>
+                    <p>1 punto se suma cada $${earningValue.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.</p>
                 </div>
                 <div class="club-rewards-points">
                     <strong>${currentPoints}</strong>
@@ -605,18 +510,19 @@ function renderRewardsCatalog(profile) {
 }
 
 function renderRewardsPanel(profile) {
-    const rewards = resolveRewardCatalog();
+    const rewards = resolveRewardCatalog(profile);
     const currentPoints = Number(profile.points?.current || 0);
     const availableCount = rewards.filter((reward) => reward.pointsCost <= currentPoints).length;
     const heading = availableCount > 0 ? 'Canje disponible' : 'Canjea tus puntos';
+    const earningValue = getPointsEarningValue(profile);
     const intro = availableCount > 0
         ? `${availableCount} recompensa${availableCount === 1 ? '' : 's'} lista${availableCount === 1 ? '' : 's'} para pedir.`
-        : `1 punto cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Elige productos seleccionados.`;
+        : `1 punto cada $${earningValue.toLocaleString('es-AR')} de compra. Elige productos seleccionados.`;
 
     return renderRewardsCatalog(profile)
         .replace('<section class="club-rewards-panel" aria-label="Canje de puntos">', '<section class="club-rewards-panel" id="clubRewardsPanel" aria-label="Canje de puntos">')
         .replace('<div class="club-profile-history-title">Canjea tus puntos</div>', `<div class="club-profile-history-title">${heading}</div>`)
-        .replace(`1 punto se suma cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.`, intro);
+        .replace(`1 punto se suma cada $${earningValue.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.`, intro);
 }
 
 
@@ -695,10 +601,6 @@ function renderHistorySection(profile) {
 }
 
 function renderProfile(profile) {
-    if (playLink) {
-        playLink.hidden = true;
-    }
-
     clubResult.innerHTML = `
         <div class="club-profile-card">
             <div class="club-profile-header">
@@ -801,8 +703,6 @@ async function loadProfileFromSession(session) {
         logoutButton.hidden = false;
         syncAuthStage(false);
         syncMemberPanel(true);
-        syncClubCtas(session);
-        syncPlayLink(profile);
         showPinStep();
         setAuthMode('login', profile.phone, profile.name);
         pinInput.value = '';
@@ -813,8 +713,6 @@ async function loadProfileFromSession(session) {
         logoutButton.hidden = true;
         syncAuthStage(true);
         syncMemberPanel(false);
-        syncClubCtas();
-        syncPlayLink();
         showPhoneStep('Tu sesion vencio. Ingresa de nuevo para continuar.', 'error');
         resetProfilePlaceholder();
     }
@@ -938,8 +836,6 @@ function handleLogout() {
     logoutButton.hidden = true;
     syncAuthStage(true);
     syncMemberPanel(false);
-    syncClubCtas();
-    syncPlayLink();
     handleBack();
     resetProfilePlaceholder();
     setFeedback(phoneFeedback, 'Sesion cerrada. Puedes volver a ingresar cuando quieras.', 'success');
@@ -962,7 +858,6 @@ if (logoutButton) {
 }
 
 const existingSession = loadSession();
-syncClubCtas(existingSession);
 if (existingSession?.token) {
     phoneInput.value = existingSession.phone || '';
     loadProfileFromSession(existingSession);

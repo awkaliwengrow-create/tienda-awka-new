@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 
 const CLUB_ENV_ERROR = 'AWKA_CLUB_NOT_CONFIGURED';
+const POINTS_PER_AMOUNT = Number(process.env.AWKA_POINTS_PER_AMOUNT) || 5000;
 const LEVELS = [
     { key: 'nuevo', label: 'Nuevo', minPurchases: 0, maxPurchases: 1 },
     { key: 'recurrente', label: 'Recurrente', minPurchases: 2, maxPurchases: 4 },
@@ -471,6 +472,16 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
             redeemed: pointsRow?.puntos_canjeados || 0,
             lastActivity: pointsRow?.ultima_actividad || null
         },
+        rewardPolicy: {
+            earningValue: POINTS_PER_AMOUNT
+        },
+        rewardCatalog: getRewardCatalog().map((reward) => ({
+            key: reward.key,
+            productId: reward.productId,
+            productName: reward.productName,
+            sizeLabel: reward.sizeLabel,
+            pointsCost: reward.pointsCost
+        })),
         campaigns: {
             audience: level.label,
             total: campaigns.length,
