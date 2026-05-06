@@ -2191,14 +2191,10 @@ footer {
         var(--cream);
 }
 
-.club-page .header-content {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-}
-
-.club-page nav {
-    justify-self: center;
+.club-header-spacer {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
 }
 
 .club-header-link {
@@ -4118,7 +4114,8 @@ footer {
         max-width: none;
     }
 
-    .club-header-link {
+    .club-header-link,
+    .club-header-spacer {
         display: none;
     }
 
