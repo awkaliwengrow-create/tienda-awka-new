@@ -109,6 +109,7 @@ function buildRewardLink(reward) {
     return `shop.html#${category}`;
 }
 
+/*
 function renderRedemptions(profile) {
     const items = Array.isArray(profile.redemptions?.items) ? profile.redemptions.items : [];
     if (!items.length) {
@@ -136,6 +137,7 @@ function renderRedemptions(profile) {
     `;
 }
 
+*/
 function prizeEmoji(prize) {
     return PRIZE_EMOJIS[prize] || '🎁';
 }
