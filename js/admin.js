@@ -136,10 +136,15 @@ function renderRewardRedemptions(items) {
                     <span>${item.pointsCost} puntos · ${formatDate(item.createdAt)}</span>
                 </div>
                 <div class="admin-item-side">
-                    <span class="admin-badge${item.status === 'entregado' ? ' is-success' : ''}">${item.status}</span>
+                    <span class="admin-badge${item.status === 'entregado' ? ' is-success' : item.status === 'cancelado' ? ' is-muted' : ''}">${item.status}</span>
                     ${item.status === 'pendiente'
-                        ? `<button class="club-side-link admin-mini-button" data-redemption-deliver="${item.id}">Marcar entregado</button>`
-                        : `<span class="admin-item-note">${item.deliveryNote || item.requestNote || 'Entregado'}</span>`
+                        ? `
+                            <div class="admin-inline-actions">
+                                <button class="club-side-link admin-mini-button" data-redemption-deliver="${item.id}">Marcar entregado</button>
+                                <button class="club-side-link admin-mini-button is-muted" data-redemption-cancel="${item.id}">Cancelar</button>
+                            </div>
+                        `
+                        : `<span class="admin-item-note">${item.deliveryNote || item.requestNote || (item.status === 'cancelado' ? 'Cancelado' : 'Entregado')}</span>`
                     }
                 </div>
             </article>
@@ -331,6 +336,7 @@ async function loadDashboard() {
                     method: 'POST',
                     body: JSON.stringify({
                         redemptionId: Number(button.dataset.redemptionDeliver),
+                        status: 'entregado',
                         note: 'Canje entregado desde admin'
                     })
                 });
@@ -338,6 +344,26 @@ async function loadDashboard() {
             } catch (error) {
                 button.disabled = false;
                 alert(error.message || 'No pudimos marcar el canje como entregado.');
+            }
+        });
+    });
+
+    rewardRedemptionsList.querySelectorAll('[data-redemption-cancel]').forEach((button) => {
+        button.addEventListener('click', async () => {
+            button.disabled = true;
+            try {
+                await adminFetch('/api/admin-reward-deliver', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        redemptionId: Number(button.dataset.redemptionCancel),
+                        status: 'cancelado',
+                        note: 'Canje cancelado desde admin con devolucion de puntos'
+                    })
+                });
+                await loadDashboard();
+            } catch (error) {
+                button.disabled = false;
+                alert(error.message || 'No pudimos cancelar el canje.');
             }
         });
     });

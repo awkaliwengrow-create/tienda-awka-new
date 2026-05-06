@@ -200,9 +200,16 @@ module.exports = async (req, res) => {
         const spinUsageRate = (pendingSpins?.length || 0) + (usedSpins?.length || 0) > 0
             ? ((usedSpins?.length || 0) / ((pendingSpins?.length || 0) + (usedSpins?.length || 0))) * 100
             : 0;
-        const rewardDeliveryRate = rewards.length
-            ? (rewards.filter((reward) => reward.status === 'entregado').length / rewards.length) * 100
+        const totalDeliverables = rewards.length + redemptions.length;
+        const deliveredCount =
+            rewards.filter((reward) => reward.status === 'entregado').length
+            + redemptions.filter((redemption) => redemption.status === 'entregado').length;
+        const rewardDeliveryRate = totalDeliverables
+            ? (deliveredCount / totalDeliverables) * 100
             : 0;
+        const pendingDeliverables =
+            rewards.filter((reward) => reward.status === 'pendiente').length
+            + redemptions.filter((redemption) => redemption.status === 'pendiente').length;
 
         const topCampaignEntry = Object.entries(
             (campaignActivationRows || []).reduce((acc, row) => {
@@ -223,7 +230,7 @@ module.exports = async (req, res) => {
                 pendingSpins: pendingSpins?.length || 0,
                 usedSpins: usedSpins?.length || 0,
                 activePoints: (pointsRows || []).reduce((sum, row) => sum + (row.puntos || 0), 0),
-                pendingRewards: rewards.filter((reward) => reward.status === 'pendiente').length
+                pendingRewards: pendingDeliverables
             },
             metrics: {
                 totalCustomers,

@@ -3056,6 +3056,13 @@ footer {
     gap: 0.5rem;
 }
 
+.admin-inline-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    justify-content: flex-end;
+}
+
 .admin-badge,
 .admin-pill {
     display: inline-flex;
@@ -3085,6 +3092,13 @@ footer {
 .admin-mini-button {
     min-height: 40px;
     padding: 0 0.9rem;
+}
+
+.admin-mini-button.is-muted {
+    background: rgba(245,241,232,0.72);
+    border-color: rgba(61,40,23,0.08);
+    color: rgba(61,40,23,0.72);
+    box-shadow: none;
 }
 
 .club-profile-empty {
@@ -4457,6 +4471,9 @@ footer {
     }
     .admin-item-side {
         justify-items: start;
+    }
+    .admin-inline-actions {
+        justify-content: flex-start;
     }
     .search-input { font-size: 0.98rem; }
     .filters {
