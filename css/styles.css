@@ -3368,6 +3368,78 @@ footer {
     gap: 0.42rem;
 }
 
+.club-disclosure-list {
+    display: grid;
+    gap: 0.55rem;
+}
+
+.club-disclosure-item {
+    border-radius: 16px;
+    background: rgba(255,255,255,0.48);
+    border: 1px solid rgba(74,103,65,0.08);
+    overflow: hidden;
+}
+
+.club-disclosure-item[open] {
+    background: rgba(255,255,255,0.68);
+    border-color: rgba(74,103,65,0.14);
+}
+
+.club-disclosure-summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.95rem 1rem;
+    cursor: pointer;
+}
+
+.club-disclosure-summary::-webkit-details-marker {
+    display: none;
+}
+
+.club-disclosure-main {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-width: 0;
+}
+
+.club-disclosure-main > div {
+    display: grid;
+    gap: 0.12rem;
+}
+
+.club-disclosure-toggle {
+    color: rgba(61,40,23,0.56);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.club-disclosure-item[open] .club-disclosure-toggle {
+    color: var(--earth-green);
+}
+
+.club-disclosure-caption {
+    color: rgba(61,40,23,0.62);
+    font-size: 0.88rem;
+    line-height: 1.35;
+}
+
+.club-disclosure-body {
+    padding: 0 1rem 1rem 2.35rem;
+}
+
+.club-disclosure-body p {
+    color: rgba(61,40,23,0.74);
+    line-height: 1.5;
+    font-size: 0.92rem;
+}
+
 .club-benefits-footnote {
     margin-top: 0.6rem;
     color: rgba(61,40,23,0.62);
@@ -3412,6 +3484,20 @@ footer {
     border-radius: 18px;
     background: rgba(255,255,255,0.34);
     border: 1px solid rgba(74,103,65,0.08);
+}
+
+.club-campaign-stack {
+    display: grid;
+    gap: 0.55rem;
+}
+
+.club-campaign-disclosure .club-disclosure-summary {
+    padding: 0.9rem 1rem;
+}
+
+.club-campaign-disclosure.is-featured {
+    background: linear-gradient(145deg, rgba(255,255,255,0.72), rgba(245,241,232,0.78));
+    border-color: rgba(74,103,65,0.12);
 }
 
 .club-campaign-card strong {

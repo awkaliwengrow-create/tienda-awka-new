@@ -425,6 +425,36 @@ function renderPrimaryAction(profile) {
     `;
 }
 
+function splitBenefitCopy(benefit) {
+    const normalized = String(benefit || '').trim();
+
+    if (/Giro bonus automatico/i.test(normalized)) {
+        return {
+            title: 'Giro bonus por nivel',
+            detail: normalized
+        };
+    }
+
+    if (/impulso en la cuarta compra/i.test(normalized)) {
+        return {
+            title: 'Impulso en cuarta compra',
+            detail: normalized
+        };
+    }
+
+    if (/activaciones mas frecuentes/i.test(normalized)) {
+        return {
+            title: 'Activaciones mas frecuentes',
+            detail: normalized
+        };
+    }
+
+    return {
+        title: normalized,
+        detail: 'Beneficio activo dentro de tu nivel actual.'
+    };
+}
+
 function renderBenefits(profile) {
     const benefits = Array.isArray(profile.level.benefits) ? profile.level.benefits : [];
     const featuredBenefits = benefits.slice(0, 3);
@@ -436,20 +466,57 @@ function renderBenefits(profile) {
                 <div class="club-profile-history-title">Beneficios de tu nivel</div>
                 <span>${profile.level.label}</span>
             </div>
-            <div class="club-benefits-list">
-                ${featuredBenefits.map((benefit) => `
-                    <article class="club-benefit-item">
-                        <div class="club-benefit-mark"></div>
-                        <strong>${benefit}</strong>
-                    </article>
-                `).join('')}
+            <div class="club-benefits-list club-disclosure-list">
+                ${featuredBenefits.map((benefit) => {
+                    const item = splitBenefitCopy(benefit);
+                    return `
+                    <details class="club-disclosure-item">
+                        <summary class="club-disclosure-summary">
+                            <div class="club-disclosure-main">
+                                <span class="club-benefit-mark"></span>
+                                <strong>${item.title}</strong>
+                            </div>
+                            <span class="club-disclosure-toggle">Ver</span>
+                        </summary>
+                        <div class="club-disclosure-body">
+                            <p>${item.detail}</p>
+                        </div>
+                    </details>
+                    `;
+                }).join('')}
             </div>
-            <p class="club-benefits-footnote">${nextUnlock}</p>
+            <p class="club-benefits-footnote">
+                <strong>Proximo desbloqueo:</strong> ${nextUnlock}
+            </p>
         </section>
     `;
 }
 
-function renderCampaigns(profile) {
+function buildCampaignDetail(campaign) {
+    return campaign.cta || campaign.benefit || 'Campana activa dentro de tu nivel actual.';
+}
+
+function renderCampaignDisclosure(campaign, featured = false) {
+    return `
+        <details class="club-disclosure-item club-campaign-disclosure${featured ? ' is-featured' : ''}"${featured ? ' open' : ''}>
+            <summary class="club-disclosure-summary">
+                <div class="club-disclosure-main">
+                    <span class="club-campaign-audience">${campaign.audience}</span>
+                    <div>
+                        <strong>${campaign.title}</strong>
+                        <span class="club-disclosure-caption">${campaign.benefit}</span>
+                    </div>
+                </div>
+                <span class="club-disclosure-toggle">Ver</span>
+            </summary>
+            <div class="club-disclosure-body">
+                <p>${buildCampaignDetail(campaign)}</p>
+            </div>
+        </details>
+    `;
+}
+
+function renderCampaignsPanel(profile) {
     const items = Array.isArray(profile.campaigns?.items) ? profile.campaigns.items : [];
     const latestActivation = profile.campaigns?.latestActivation || null;
 
@@ -460,35 +527,23 @@ function renderCampaigns(profile) {
     const [featuredCampaign, ...secondaryCampaigns] = items;
 
     return `
-        <div class="club-campaigns-panel">
-            <div class="club-profile-history-title">Campana activa</div>
+        <section class="club-campaigns-panel">
+            <div class="club-section-heading">
+                <div class="club-profile-history-title">Campanas activas</div>
+                <span>${items.length} activa${items.length === 1 ? '' : 's'}</span>
+            </div>
             ${latestActivation ? `
                 <div class="club-campaign-activation">
                     <strong>Ultima activacion</strong>
                     <span>${latestActivation.title}</span>
-                    <small>${latestActivation.note || `Disparada por ${latestActivation.trigger}.`} · ${formatDate(latestActivation.createdAt)}</small>
+                    <small>${formatDate(latestActivation.createdAt)}</small>
                 </div>
             ` : ''}
-            <article class="club-campaign-card club-campaign-card-featured">
-                <span class="club-campaign-audience">${featuredCampaign.audience}</span>
-                <strong>${featuredCampaign.title}</strong>
-                <div class="club-campaign-benefit">${featuredCampaign.benefit}</div>
-                <small>${featuredCampaign.cta}</small>
-            </article>
-            ${secondaryCampaigns.length ? `
-                <div class="club-campaign-secondary">
-                    <span class="club-campaign-secondary-label">Tambien activo</span>
-                    <div class="club-campaign-secondary-list">
-                        ${secondaryCampaigns.map((campaign) => `
-                            <article class="club-campaign-chip">
-                                <strong>${campaign.title}</strong>
-                                <span>${campaign.benefit}</span>
-                            </article>
-                        `).join('')}
-                    </div>
-                </div>
-            ` : ''}
-        </div>
+            <div class="club-campaign-stack club-disclosure-list">
+                ${renderCampaignDisclosure(featuredCampaign, true)}
+                ${secondaryCampaigns.map((campaign) => renderCampaignDisclosure(campaign)).join('')}
+            </div>
+        </section>
     `;
 }
 
@@ -564,51 +619,6 @@ function renderRewardsPanel(profile) {
         .replace(`1 punto se suma cada $${CLUB_POINTS_EARNING_VALUE.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.`, intro);
 }
 
-function renderCampaignsPanel(profile) {
-    const items = Array.isArray(profile.campaigns?.items) ? profile.campaigns.items : [];
-    const latestActivation = profile.campaigns?.latestActivation || null;
-
-    if (!items.length) {
-        return '';
-    }
-
-    const [featuredCampaign, ...secondaryCampaigns] = items;
-
-    return `
-        <section class="club-campaigns-panel">
-            <div class="club-section-heading">
-                <div class="club-profile-history-title">Campanas activas</div>
-                <span>${items.length} activa${items.length === 1 ? '' : 's'}</span>
-            </div>
-            ${latestActivation ? `
-                <div class="club-campaign-activation">
-                    <strong>Ultima activacion</strong>
-                    <span>${latestActivation.title}</span>
-                    <small>${formatDate(latestActivation.createdAt)}</small>
-                </div>
-            ` : ''}
-            <article class="club-campaign-card club-campaign-card-featured">
-                <span class="club-campaign-audience">${featuredCampaign.audience}</span>
-                <strong>${featuredCampaign.title}</strong>
-                <div class="club-campaign-benefit">${featuredCampaign.benefit}</div>
-                <small>${featuredCampaign.cta}</small>
-            </article>
-            ${secondaryCampaigns.length ? `
-                <div class="club-campaign-secondary">
-                    <span class="club-campaign-secondary-label">Tambien activo</span>
-                    <div class="club-campaign-secondary-list">
-                        ${secondaryCampaigns.map((campaign) => `
-                            <article class="club-campaign-chip">
-                                <strong>${campaign.title}</strong>
-                                <span>${campaign.benefit}</span>
-                            </article>
-                        `).join('')}
-                    </div>
-                </div>
-            ` : ''}
-        </section>
-    `;
-}
 
 function buildActivityFeed(profile) {
     const spinItems = (profile.history || []).map((item) => ({
