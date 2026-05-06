@@ -297,12 +297,20 @@ function getSecondaryAction(profile) {
 }
 
 function renderActionSummary(profile) {
+    const availableReward = getFirstAvailableReward(profile);
+
     return `
         <section class="club-summary-panel" aria-label="Resumen accionable">
             <article class="club-summary-hero-card">
                 <span class="club-summary-label">Puntos acumulados</span>
                 <strong>${profile.points.current}</strong>
                 <small>${profile.points.redeemed} canjeados</small>
+                ${availableReward ? `
+                    <div class="club-summary-actions">
+                        <a href="#clubRewardsPanel" class="club-summary-cta">Canjear recompensa</a>
+                        <span class="club-summary-note">${availableReward.productName}${availableReward.sizeLabel ? ` (${availableReward.sizeLabel})` : ''} disponible para canje.</span>
+                    </div>
+                ` : ''}
             </article>
         </section>
     `;
@@ -310,7 +318,6 @@ function renderActionSummary(profile) {
 
 function renderPrimaryAction(profile) {
     const action = getPrimaryAction(profile);
-    const secondaryAction = getSecondaryAction(profile);
     const spinsLabel = profile.spins.pending === 1 ? '1 giro disponible' : `${profile.spins.pending} giros disponibles`;
     const spinsMeta = `${profile.spins.wins}/${profile.spins.total} premios / giros`;
 
@@ -327,7 +334,6 @@ function renderPrimaryAction(profile) {
             </div>
             <div class="club-primary-action-buttons">
                 <a href="${action.href}" class="hero-cta club-primary-action-link">${action.label}</a>
-                ${secondaryAction ? `<a href="${secondaryAction.href}" class="club-primary-secondary-link">${secondaryAction.label}</a>` : ''}
             </div>
         </section>
     `;
@@ -499,7 +505,7 @@ function renderRewardsCatalog(profile) {
                             </div>
                             <div class="club-reward-actions">
                                 ${isAvailable
-                                    ? `<button type="button" class="club-side-link club-side-link-secondary club-reward-redeem-button" data-reward-key="${escapeHtml(reward.key)}">Canjear ahora</button>`
+                                    ? `<button type="button" class="club-reward-cta club-reward-redeem-button" data-reward-key="${escapeHtml(reward.key)}">Canjear ahora</button>`
                                     : `<button type="button" class="club-side-link club-side-link-disabled" disabled>Te faltan ${missingPoints}</button>`
                                 }
                                 <a href="${buildRewardLink(reward)}" class="club-reward-link">Ver producto</a>

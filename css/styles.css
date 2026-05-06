@@ -3167,6 +3167,33 @@ footer {
     font-size: 0.9rem;
 }
 
+.club-summary-actions {
+    display: grid;
+    justify-items: center;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+}
+
+.club-summary-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 1.2rem;
+    border-radius: 999px;
+    background: linear-gradient(145deg, rgba(74,103,65,0.96), rgba(96,146,83,0.92));
+    color: var(--cream);
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 14px 30px rgba(44,62,41,0.14);
+}
+
+.club-summary-note {
+    color: rgba(61,40,23,0.68);
+    font-size: 0.88rem;
+    line-height: 1.35;
+}
+
 .club-summary-subline {
     display: flex;
     flex-wrap: wrap;
@@ -3726,6 +3753,28 @@ footer {
 .club-reward-actions {
     display: grid;
     gap: 0.5rem;
+}
+
+.club-reward-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    width: 100%;
+    padding: 0 1rem;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(145deg, rgba(74,103,65,0.96), rgba(96,146,83,0.92));
+    color: var(--cream);
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 12px 24px rgba(44,62,41,0.12);
+}
+
+.club-reward-cta:hover {
+    transform: translateY(-1px);
 }
 
 .club-side-link.club-side-link-disabled {
