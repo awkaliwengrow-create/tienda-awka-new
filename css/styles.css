@@ -2191,6 +2191,16 @@ footer {
         var(--cream);
 }
 
+.club-page .header-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+}
+
+.club-page nav {
+    justify-self: center;
+}
+
 .club-header-link {
     display: inline-flex;
     align-items: center;
