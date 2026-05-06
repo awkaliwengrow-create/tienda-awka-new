@@ -2363,6 +2363,7 @@ footer {
 .club-dashboard-shell-minimal {
     grid-template-columns: 1fr;
     align-items: start;
+    justify-items: center;
     gap: 0.6rem;
     padding: 1.2rem 1.3rem;
     border: 1px solid rgba(61,40,23,0.08);
@@ -2383,6 +2384,17 @@ footer {
     line-height: 1.04;
     margin-bottom: 0.55rem;
     color: var(--earth-dark);
+}
+
+.club-dashboard-shell-minimal .club-dashboard-copy {
+    max-width: 46rem;
+    text-align: center;
+}
+
+.club-dashboard-shell-minimal .club-dashboard-copy h1 {
+    font-size: clamp(2.9rem, 7vw, 5rem);
+    line-height: 0.95;
+    margin-bottom: 0;
 }
 
 .club-dashboard-copy p {
