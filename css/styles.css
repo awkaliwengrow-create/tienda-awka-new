@@ -3113,16 +3113,18 @@ footer {
 
 .club-summary-hero-card {
     display: grid;
-    gap: 0.18rem;
-    padding: 1.2rem 1.25rem;
+    gap: 0.24rem;
+    padding: 1.5rem 1.25rem;
     border-radius: 18px;
     background: linear-gradient(145deg, rgba(245,241,232,0.82), rgba(255,255,255,0.72));
     border: 1px solid rgba(74,103,65,0.1);
+    justify-items: center;
+    text-align: center;
 }
 
 .club-summary-hero-card > strong {
     color: var(--soil);
-    font-size: clamp(2.3rem, 4vw, 3.3rem);
+    font-size: clamp(3.1rem, 6vw, 4.8rem);
     line-height: 1;
     letter-spacing: -0.03em;
 }
@@ -3130,6 +3132,7 @@ footer {
 .club-summary-hero-card > small {
     color: rgba(61,40,23,0.6);
     line-height: 1.4;
+    font-size: 0.9rem;
 }
 
 .club-summary-subline {
@@ -3189,7 +3192,7 @@ footer {
 .club-primary-action-panel {
     display: grid;
     gap: 0.8rem;
-    padding: 1rem 1.05rem;
+    padding: 1.1rem 1.1rem;
     border-radius: 20px;
     background: linear-gradient(145deg, rgba(74,103,65,0.14), rgba(245,241,232,0.82));
     border: 1px solid rgba(74,103,65,0.1);
@@ -3198,6 +3201,26 @@ footer {
 .club-primary-action-copy p {
     color: rgba(61,40,23,0.78);
     line-height: 1.5;
+}
+
+.club-primary-action-kpi {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 0.18rem;
+    padding: 0.25rem 0 0.15rem;
+}
+
+.club-primary-action-kpi strong {
+    color: var(--earth-green);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+}
+
+.club-primary-action-kpi small {
+    color: rgba(61,40,23,0.62);
+    font-size: 0.88rem;
 }
 
 .club-primary-action-buttons {

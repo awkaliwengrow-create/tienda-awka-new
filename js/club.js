@@ -395,11 +395,6 @@ function renderActionSummary(profile) {
                 <span class="club-summary-label">Puntos acumulados</span>
                 <strong>${profile.points.current}</strong>
                 <small>${profile.points.redeemed} canjeados</small>
-                <div class="club-summary-subline">
-                    <span>Giros disponibles</span>
-                    <strong>${profile.spins.pending}</strong>
-                    <small>${profile.spins.wins}/${profile.spins.total} premios / giros</small>
-                </div>
             </article>
         </section>
     `;
@@ -408,12 +403,19 @@ function renderActionSummary(profile) {
 function renderPrimaryAction(profile) {
     const action = getPrimaryAction(profile);
     const secondaryAction = getSecondaryAction(profile);
+    const spinsLabel = profile.spins.pending === 1 ? '1 giro disponible' : `${profile.spins.pending} giros disponibles`;
+    const spinsMeta = `${profile.spins.wins}/${profile.spins.total} premios / giros`;
 
     return `
         <section class="club-primary-action-panel" aria-label="Accion principal">
             <div class="club-primary-action-copy">
                 <div class="club-profile-history-title">Accion principal</div>
                 <p>${action.note}</p>
+            </div>
+            <div class="club-primary-action-kpi">
+                <span class="club-summary-label">Giros disponibles</span>
+                <strong>${spinsLabel}</strong>
+                <small>${spinsMeta}</small>
             </div>
             <div class="club-primary-action-buttons">
                 <a href="${action.href}" class="hero-cta club-primary-action-link">${action.label}</a>
