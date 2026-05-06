@@ -1,4 +1,4 @@
-const { json, supabaseRequest } = require('./_lib/club');
+const { json, savePointsLedger, supabaseRequest } = require('./_lib/club');
 const { requireAdmin } = require('./_lib/admin');
 
 async function readJsonBody(req) {
@@ -104,15 +104,12 @@ module.exports = async (req, res) => {
                 const redeemedPoints = Number(pointsRow.puntos_canjeados || 0);
                 const pointsCost = Number(redemption.points_cost || 0);
 
-                await supabaseRequest('puntos?on_conflict=telefono', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        telefono: redemption.telefono,
-                        nombre: pointsRow.nombre || redemption.nombre || 'Cliente Awka',
-                        puntos: currentPoints + pointsCost,
-                        puntos_canjeados: Math.max(0, redeemedPoints - pointsCost),
-                        ultima_actividad: new Date().toISOString()
-                    })
+                await savePointsLedger({
+                    phone: redemption.telefono,
+                    name: pointsRow.nombre || redemption.nombre || 'Cliente Awka',
+                    points: currentPoints + pointsCost,
+                    redeemedPoints: Math.max(0, redeemedPoints - pointsCost),
+                    lastActivity: new Date().toISOString()
                 });
             }
         }

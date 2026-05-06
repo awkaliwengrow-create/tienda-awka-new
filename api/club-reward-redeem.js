@@ -6,6 +6,7 @@ const {
     getClubEnv,
     json,
     normalizePhone,
+    savePointsLedger,
     supabaseRequest,
     verifySessionToken
 } = require('./_lib/club');
@@ -84,19 +85,19 @@ module.exports = async (req, res) => {
 
         const redemptionReference = `reward:${phone}:${reward.key}:${crypto.randomUUID()}`;
 
-        await supabaseRequest('puntos?on_conflict=telefono', {
-            method: 'POST',
-            body: JSON.stringify({
-                telefono: phone,
-                nombre: name,
-                puntos: currentPoints - reward.pointsCost,
-                puntos_canjeados: redeemedPoints + reward.pointsCost,
-                ultima_actividad: new Date().toISOString()
-            })
+        await savePointsLedger({
+            phone,
+            name,
+            points: currentPoints - reward.pointsCost,
+            redeemedPoints: redeemedPoints + reward.pointsCost,
+            lastActivity: new Date().toISOString()
         });
 
         const rows = await supabaseRequest('club_reward_redemptions', {
             method: 'POST',
+            headers: {
+                Prefer: 'return=representation'
+            },
             body: JSON.stringify({
                 referencia: redemptionReference,
                 telefono: phone,

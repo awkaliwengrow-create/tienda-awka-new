@@ -331,6 +331,41 @@ async function supabaseRequest(path, options = {}) {
     return response.json();
 }
 
+async function savePointsLedger({ phone, name, points, redeemedPoints, lastActivity }) {
+    const normalizedPhone = normalizePhone(phone);
+    const encodedPhone = encodeURIComponent(normalizedPhone);
+    const payload = {
+        telefono: normalizedPhone,
+        nombre: name || 'Cliente Awka',
+        puntos: Number(points || 0),
+        puntos_canjeados: Number(redeemedPoints || 0),
+        ultima_actividad: lastActivity || new Date().toISOString()
+    };
+
+    const existingRows = await supabaseRequest(
+        `puntos?select=id&telefono=eq.${encodedPhone}&limit=1`
+    );
+
+    if (existingRows?.[0]?.id) {
+        await supabaseRequest(`puntos?telefono=eq.${encodedPhone}`, {
+            method: 'PATCH',
+            headers: {
+                Prefer: 'return=representation'
+            },
+            body: JSON.stringify(payload)
+        });
+        return;
+    }
+
+    await supabaseRequest('puntos', {
+        method: 'POST',
+        headers: {
+            Prefer: 'return=representation'
+        },
+        body: JSON.stringify(payload)
+    });
+}
+
 function createPinHash(pin) {
     const salt = crypto.randomBytes(16).toString('hex');
     const derived = crypto.pbkdf2Sync(pin, salt, 100000, 32, 'sha256').toString('hex');
@@ -572,6 +607,7 @@ module.exports = {
     getClubEnv,
     json,
     normalizePhone,
+    savePointsLedger,
     supabaseRequest,
     verifyPin,
     verifySessionToken
