@@ -990,14 +990,19 @@ nav a.active::after {
 .shop-hero-centered .shop-hero-copy {
     text-align: center;
     justify-items: center;
+    gap: 0.9rem;
 }
 
 .shop-hero-centered .shop-hero-copy h1 {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
 }
 
 .shop-hero-centered .search-section {
     width: min(100%, 620px);
+}
+
+.shop-hero-centered .search-bar {
+    margin-inline: auto;
 }
 
 .shop-hero-panel {
@@ -2912,7 +2917,7 @@ footer {
 }
 
 .shop-toolbar-filters {
-    padding-top: 0.85rem;
+    padding-top: 0.75rem;
 }
 
 .admin-grid-priority {
