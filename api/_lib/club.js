@@ -1,4 +1,6 @@
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 
 const CLUB_ENV_ERROR = 'AWKA_CLUB_NOT_CONFIGURED';
 const POINTS_PER_AMOUNT = Number(process.env.AWKA_POINTS_PER_AMOUNT) || 5000;
@@ -135,6 +137,7 @@ const REWARD_CATALOG = [
     { key: '4:45ml', productId: 4, sizeLabel: '45ml', pointsCost: 5, productName: 'Tree Mix Pro 45ml' },
     { key: '5:45ml', productId: 5, sizeLabel: '45ml', pointsCost: 6, productName: 'Tree Mix Mico 45ml' }
 ];
+const GENERATED_REWARD_CATALOG_PATH = path.join(__dirname, 'reward-catalog.generated.json');
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 7;
 
 function diffDaysFromNow(value) {
@@ -278,6 +281,18 @@ function getCampaignCatalog() {
 }
 
 function getRewardCatalog() {
+    try {
+        if (fs.existsSync(GENERATED_REWARD_CATALOG_PATH)) {
+            const raw = fs.readFileSync(GENERATED_REWARD_CATALOG_PATH, 'utf8');
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length) {
+                return parsed;
+            }
+        }
+    } catch (error) {
+        // Fallback silencioso al catalogo interno.
+    }
+
     return REWARD_CATALOG;
 }
 

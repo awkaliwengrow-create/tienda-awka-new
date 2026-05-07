@@ -1,0 +1,14 @@
+{
+  "catalog": {
+    "source": "https://docs.google.com/spreadsheets/d/TU_SHEET_ID/export?format=csv&gid=WEB_CATALOGO_GID"
+  },
+  "rewards": {
+    "source": "https://docs.google.com/spreadsheets/d/TU_SHEET_ID/export?format=csv&gid=WEB_CANJES_GID"
+  },
+  "outputs": {
+    "catalogSnapshot": "tmp/web-catalog.snapshot.json",
+    "rewardsSnapshot": "tmp/web-rewards.snapshot.json",
+    "productsPreviewScript": "tmp/products.from-sheet.js",
+    "rewardCatalogJson": "api/_lib/reward-catalog.generated.json"
+  }
+}

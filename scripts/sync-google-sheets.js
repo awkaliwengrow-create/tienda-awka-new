@@ -1,0 +1,266 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const https = require('https');
+const http = require('http');
+
+const ROOT = path.resolve(__dirname, '..');
+
+function parseArgs(argv) {
+  const args = {
+    config: path.join(__dirname, 'google-sheets-sync.config.json'),
+    writeProducts: false,
+    writeRewards: false
+  };
+
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+    if (arg === '--config' && argv[i + 1]) {
+      args.config = path.resolve(process.cwd(), argv[i + 1]);
+      i += 1;
+    } else if (arg === '--write-products') {
+      args.writeProducts = true;
+    } else if (arg === '--write-rewards') {
+      args.writeRewards = true;
+    }
+  }
+
+  return args;
+}
+
+function readConfig(configPath) {
+  if (!fs.existsSync(configPath)) {
+    throw new Error(`No encontramos el archivo de config: ${configPath}`);
+  }
+  return JSON.parse(fs.readFileSync(configPath, 'utf8'));
+}
+
+function fetchText(source) {
+  if (/^https?:\/\//i.test(source)) {
+    return new Promise((resolve, reject) => {
+      const lib = source.startsWith('https://') ? https : http;
+      lib.get(source, (res) => {
+        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+          fetchText(res.headers.location).then(resolve).catch(reject);
+          return;
+        }
+        if (res.statusCode !== 200) {
+          reject(new Error(`No pudimos leer ${source} (${res.statusCode})`));
+          return;
+        }
+        const chunks = [];
+        res.on('data', (chunk) => chunks.push(chunk));
+        res.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+      }).on('error', reject);
+    });
+  }
+
+  return Promise.resolve(fs.readFileSync(path.resolve(ROOT, source), 'utf8'));
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let value = '';
+  let row = [];
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const next = text[i + 1];
+
+    if (char === '"') {
+      if (inQuotes && next === '"') {
+        value += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === ',' && !inQuotes) {
+      row.push(value);
+      value = '';
+    } else if ((char === '\n' || char === '\r') && !inQuotes) {
+      if (char === '\r' && next === '\n') i += 1;
+      row.push(value);
+      value = '';
+      if (row.some((cell) => String(cell).trim() !== '')) {
+        rows.push(row);
+      }
+      row = [];
+    } else {
+      value += char;
+    }
+  }
+
+  if (value.length || row.length) {
+    row.push(value);
+    if (row.some((cell) => String(cell).trim() !== '')) {
+      rows.push(row);
+    }
+  }
+
+  return rows;
+}
+
+function normalizeHeader(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^A-Za-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .toUpperCase();
+}
+
+function yes(value) {
+  return ['SI', 'SÍ', 'TRUE', '1', 'YES'].includes(String(value || '').trim().toUpperCase());
+}
+
+function num(value, fallback = 0) {
+  const normalized = String(value || '')
+    .replace(/\./g, '')
+    .replace(',', '.')
+    .replace(/[^0-9.-]/g, '');
+  const parsed = Number(normalized);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function slugify(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function rowsToObjects(rows) {
+  if (!rows.length) return [];
+  const headers = rows[0].map(normalizeHeader);
+  return rows.slice(1).map((row) => {
+    const item = {};
+    headers.forEach((header, index) => {
+      item[header] = row[index] ?? '';
+    });
+    return item;
+  });
+}
+
+function buildProducts(objects) {
+  const groups = new Map();
+
+  objects
+    .filter((row) => yes(row.ACTIVO) && yes(row.MOSTRAR_WEB))
+    .forEach((row) => {
+      const productId = num(row.PRODUCT_ID_WEB, 0) || num(row.ID, 0);
+      const key = String(productId || row.SKU || `${row.MARCA}:${row.NOMBRE}`).trim();
+      if (!key) return;
+
+      const current = groups.get(key) || {
+        id: productId || groups.size + 1,
+        name: String(row.NOMBRE || '').trim(),
+        category: String(row.CATEGORIA_WEB || 'sin-definir').trim().toLowerCase(),
+        brand: String(row.MARCA || '').trim(),
+        image: String(row.IMAGEN || '').trim(),
+        sizes: [],
+        description: String(row.DESCRIPCION_CORTA || '').trim(),
+        featured: yes(row.DESTACADO),
+        offer: yes(row.OFERTA),
+        order: num(row.ORDEN, 9999)
+      };
+
+      current.featured = current.featured || yes(row.DESTACADO);
+      current.offer = current.offer || yes(row.OFERTA);
+      current.order = Math.min(current.order, num(row.ORDEN, current.order));
+
+      const sizeLabel = String(row.SIZE_LABEL || row.TAMANO || row.PRESENTACION || '').trim();
+      const price = num(row.PRECIO, 0);
+      if (sizeLabel && price > 0) {
+        current.sizes.push({ size: sizeLabel, price });
+      }
+
+      groups.set(key, current);
+    });
+
+  return Array.from(groups.values())
+    .map((item) => ({
+      ...item,
+      sizes: item.sizes.sort((a, b) => a.price - b.price)
+    }))
+    .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name, 'es'));
+}
+
+function buildRewards(objects) {
+  return objects
+    .filter((row) => yes(row.ACTIVO))
+    .map((row, index) => ({
+      key: String(row.REWARD_KEY || `${row.PRODUCT_ID_WEB}:${row.SIZE_LABEL}`).trim() || `reward-${index + 1}`,
+      productId: num(row.PRODUCT_ID_WEB, 0),
+      sizeLabel: String(row.SIZE_LABEL || '').trim(),
+      pointsCost: num(row.PUNTOS_CANJE, 0),
+      productName: String(row.NOMBRE || '').trim()
+    }))
+    .filter((item) => item.productId > 0 && item.pointsCost > 0 && item.productName);
+}
+
+function ensureDir(filePath) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+}
+
+function writeJson(filePath, data) {
+  ensureDir(filePath);
+  fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+}
+
+function buildProductsScript(products) {
+  return `// Archivo generado desde Google Sheets. No editar a mano.\nconst products = ${JSON.stringify(products, null, 2)};\n\nfunction getCategoryName(category) {\n    const names = {\n        'fertilizantes': 'Fertilizantes/Nutrientes',\n        'plaguicidas': 'Plaguicidas/Insecticidas',\n        'herramientas': 'Herramientas',\n        'macetas': 'Macetas',\n        'parafernalia': 'Parafernalia',\n        'papeles': 'Papeles',\n        'filtros': 'Filtros',\n        'sin-definir': 'Sin Definir'\n    };\n    return names[category] || category;\n}\n\nfunction getFeaturedProducts() {\n    return products.filter(p => p.featured === true);\n}\n\nfunction getOfferProducts() {\n    return products.filter(p => p.offer === true);\n}\n\nfunction getProductsByCategory(category) {\n    return products.filter(p => p.category === category);\n}\n\nfunction getProductById(id) {\n    return products.find(p => p.id === id);\n}\n`;
+}
+
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+  const config = readConfig(args.config);
+
+  const catalogText = await fetchText(config.catalog.source);
+  const rewardsText = await fetchText(config.rewards.source);
+
+  const catalogObjects = rowsToObjects(parseCsv(catalogText));
+  const rewardObjects = rowsToObjects(parseCsv(rewardsText));
+
+  const products = buildProducts(catalogObjects);
+  const rewards = buildRewards(rewardObjects);
+
+  const outputs = config.outputs || {};
+  const catalogSnapshotPath = path.resolve(ROOT, outputs.catalogSnapshot || 'tmp/web-catalog.snapshot.json');
+  const rewardsSnapshotPath = path.resolve(ROOT, outputs.rewardsSnapshot || 'tmp/web-rewards.snapshot.json');
+  const productsPreviewPath = path.resolve(ROOT, outputs.productsPreviewScript || 'tmp/products.from-sheet.js');
+  const rewardCatalogPath = path.resolve(ROOT, outputs.rewardCatalogJson || 'api/_lib/reward-catalog.generated.json');
+
+  writeJson(catalogSnapshotPath, products);
+  writeJson(rewardsSnapshotPath, rewards);
+  ensureDir(productsPreviewPath);
+  fs.writeFileSync(productsPreviewPath, buildProductsScript(products), 'utf8');
+
+  if (args.writeProducts) {
+    fs.writeFileSync(path.join(ROOT, 'js', 'products.js'), buildProductsScript(products), 'utf8');
+  }
+
+  if (args.writeRewards) {
+    writeJson(rewardCatalogPath, rewards);
+  }
+
+  console.log(`Productos listos: ${products.length}`);
+  console.log(`Recompensas listas: ${rewards.length}`);
+  console.log(`Snapshot catalogo: ${catalogSnapshotPath}`);
+  console.log(`Snapshot recompensas: ${rewardsSnapshotPath}`);
+  console.log(`Preview products.js: ${productsPreviewPath}`);
+  if (args.writeProducts) {
+    console.log('products.js fue actualizado desde Google Sheets.');
+  }
+  if (args.writeRewards) {
+    console.log(`reward-catalog.generated.json fue actualizado: ${rewardCatalogPath}`);
+  }
+}
+
+main().catch((error) => {
+  console.error(error.message || error);
+  process.exit(1);
+});
