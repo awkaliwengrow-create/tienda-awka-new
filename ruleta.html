@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=20260506-2">
     <style>
         :root {
             --play-bg: #07100a;
@@ -174,6 +174,8 @@
         .awka-wheel-canvas {
             display: block;
             border-radius: 50%;
+            width: min(100%, 340px);
+            height: auto;
             box-shadow:
                 0 0 0 2px #1a3a1a,
                 0 4px 32px rgba(0, 0, 0, 0.4);
@@ -447,21 +449,59 @@
         @media (max-width: 900px) {
             .awka-play-shell {
                 grid-template-columns: 1fr;
+                gap: 1.15rem;
             }
 
             .awka-play-side {
-                order: -1;
+                order: 1;
+            }
+
+            .awka-play-stage {
+                gap: 1rem;
+            }
+
+            .awka-wheel-wrap,
+            .awka-wheel-outer {
+                width: min(84vw, 364px);
             }
         }
 
         @media (max-width: 520px) {
             .awka-play-main {
-                padding-top: 6.25rem;
+                padding: 6.1rem 0.9rem 2rem;
             }
 
             .awka-overlay-card,
             .awka-play-side {
-                padding: 1.5rem;
+                padding: 1.2rem;
+            }
+
+            .awka-play-shell {
+                gap: 0.95rem;
+            }
+
+            .awka-play-title {
+                font-size: clamp(2.45rem, 14vw, 3.4rem);
+            }
+
+            .awka-play-subtitle {
+                font-size: 0.84rem;
+            }
+
+            .awka-wheel-wrap,
+            .awka-wheel-outer {
+                width: min(88vw, 330px);
+            }
+
+            .awka-spin-center {
+                width: 64px;
+                height: 64px;
+                font-size: 0.92rem;
+            }
+
+            .awka-side-link,
+            .awka-btn {
+                min-height: 46px;
             }
         }
     </style>
@@ -582,6 +622,6 @@
             btn.classList.toggle('open');
         }
     </script>
-    <script src="js/ruleta.js"></script>
+    <script src="js/ruleta.js?v=20260506-2"></script>
 </body>
 </html>
