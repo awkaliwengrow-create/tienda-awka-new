@@ -378,28 +378,24 @@ function renderBenefits(profile) {
                 <div class="club-profile-history-title">Beneficios de tu nivel</div>
                 <span>${profile.level.label}</span>
             </div>
-            <div class="club-benefits-list club-disclosure-list">
+            <div class="club-benefits-summary">
                 ${featuredBenefits.map((benefit) => {
                     const item = splitBenefitCopy(benefit);
                     return `
-                    <details class="club-disclosure-item">
-                        <summary class="club-disclosure-summary">
-                            <div class="club-disclosure-main">
-                                <span class="club-benefit-mark"></span>
-                                <strong>${item.title}</strong>
-                            </div>
-                            <span class="club-disclosure-toggle">Ver</span>
-                        </summary>
-                        <div class="club-disclosure-body">
+                    <article class="club-benefit-summary-card">
+                        <span class="club-benefit-mark"></span>
+                        <div class="club-benefit-summary-copy">
+                            <strong>${item.title}</strong>
                             <p>${item.detail}</p>
                         </div>
-                    </details>
+                    </article>
                     `;
                 }).join('')}
             </div>
-            <p class="club-benefits-footnote">
-                <strong>Proximo desbloqueo:</strong> ${nextUnlock}
-            </p>
+            <div class="club-benefits-footnote">
+                <strong>Proximo desbloqueo</strong>
+                <span>${nextUnlock}</span>
+            </div>
         </section>
     `;
 }
@@ -410,21 +406,13 @@ function buildCampaignDetail(campaign) {
 
 function renderCampaignDisclosure(campaign, featured = false) {
     return `
-        <details class="club-disclosure-item club-campaign-disclosure${featured ? ' is-featured' : ''}"${featured ? ' open' : ''}>
-            <summary class="club-disclosure-summary">
-                <div class="club-disclosure-main">
-                    <span class="club-campaign-audience">${campaign.audience}</span>
-                    <div>
-                        <strong>${campaign.title}</strong>
-                        <span class="club-disclosure-caption">${campaign.benefit}</span>
-                    </div>
-                </div>
-                <span class="club-disclosure-toggle">Ver</span>
-            </summary>
-            <div class="club-disclosure-body">
-                <p>${buildCampaignDetail(campaign)}</p>
+        <article class="club-campaign-compact${featured ? ' is-featured' : ''}">
+            <span class="club-campaign-audience">${campaign.audience}</span>
+            <div class="club-campaign-compact-copy">
+                <strong>${campaign.title}</strong>
+                <p>${featured ? buildCampaignDetail(campaign) : campaign.benefit}</p>
             </div>
-        </details>
+        </article>
     `;
 }
 
@@ -444,17 +432,21 @@ function renderCampaignsPanel(profile) {
                 <div class="club-profile-history-title">Campanas activas</div>
                 <span>${items.length} activa${items.length === 1 ? '' : 's'}</span>
             </div>
-            ${latestActivation ? `
-                <div class="club-campaign-activation">
-                    <strong>Ultima activacion</strong>
-                    <span>${latestActivation.title}</span>
-                    <small>${formatDate(latestActivation.createdAt)}</small>
-                </div>
-            ` : ''}
-            <div class="club-campaign-stack club-disclosure-list">
+            <div class="club-campaign-featured-wrap">
                 ${renderCampaignDisclosure(featuredCampaign, true)}
+                ${latestActivation ? `
+                    <div class="club-campaign-activation">
+                        <strong>Ultima activacion</strong>
+                        <span>${latestActivation.title}</span>
+                        <small>${formatDate(latestActivation.createdAt)}</small>
+                    </div>
+                ` : ''}
+            </div>
+            ${secondaryCampaigns.length ? `
+            <div class="club-campaign-secondary-list">
                 ${secondaryCampaigns.map((campaign) => renderCampaignDisclosure(campaign)).join('')}
             </div>
+            ` : ''}
         </section>
     `;
 }
