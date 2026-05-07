@@ -43,8 +43,8 @@
                         <form id="adminLoginForm" class="club-profile-form">
                             <label for="adminPassword">Contrasena</label>
                             <div class="club-profile-form-row">
-                                <input id="adminPassword" name="adminPassword" type="password" placeholder="Ingresa tu contrasena" autocomplete="current-password">
-                                <button type="submit" class="hero-cta club-profile-button">Ingresar</button>
+                                <input id="adminPassword" name="adminPassword" type="password" placeholder="Contrasena" autocomplete="current-password">
+                                <button type="submit" class="hero-cta club-profile-button">Entrar</button>
                             </div>
                             <div id="adminLoginFeedback" class="club-profile-feedback">Acceso interno.</div>
                         </form>
@@ -52,16 +52,16 @@
                 </div>
 
                 <div id="adminDashboard" class="admin-shell" hidden>
-                    <div class="admin-topbar">
-                        <div>
-                            <div class="club-preview-kicker">Awka Admin</div>
-                            <h2>Panel operativo</h2>
-                            <p>Lo importante del club, primero.</p>
-                        </div>
-                        <div class="admin-topbar-actions">
-                            <button type="button" id="adminRefreshButton" class="club-side-link admin-topbar-button">Actualizar</button>
-                            <button type="button" id="adminLogoutButton" class="club-side-link admin-topbar-button">Cerrar sesion</button>
-                        </div>
+                        <div class="admin-topbar">
+                            <div>
+                                <div class="club-preview-kicker">Awka Admin</div>
+                                <h2>Panel operativo</h2>
+                                <p>Acciones, pendientes y control diario.</p>
+                            </div>
+                            <div class="admin-topbar-actions">
+                                <button type="button" id="adminRefreshButton" class="club-side-link admin-topbar-button">Actualizar</button>
+                                <button type="button" id="adminLogoutButton" class="club-side-link admin-topbar-button">Cerrar sesion</button>
+                            </div>
                     </div>
 
                     <div class="club-kpi-grid admin-kpi-grid" id="adminStatsGrid">
@@ -74,7 +74,7 @@
                             <strong id="adminStatUsed">0</strong>
                         </article>
                         <article class="club-kpi-card">
-                            <span class="club-kpi-label">Puntos activos</span>
+                            <span class="club-kpi-label">Puntos</span>
                             <strong id="adminStatPoints">0</strong>
                         </article>
                         <article class="club-kpi-card club-kpi-card-highlight">
@@ -83,11 +83,67 @@
                         </article>
                     </div>
 
+                    <div class="admin-grid admin-grid-actions">
+                        <div class="club-profile-box admin-card admin-card-priority">
+                            <div class="club-preview-kicker">Giros</div>
+                            <h3>Sumar giros</h3>
+                            <form id="adminSpinForm" class="club-profile-form">
+                                <label for="adminSpinName">Nombre</label>
+                                <input id="adminSpinName" name="adminSpinName" type="text" placeholder="Cliente Awka">
+                                <label for="adminSpinPhone">WhatsApp</label>
+                                <input id="adminSpinPhone" name="adminSpinPhone" type="tel" inputmode="numeric" placeholder="1123456789">
+                                <label for="adminSpinCount">Cantidad</label>
+                                <input id="adminSpinCount" name="adminSpinCount" type="number" min="1" max="10" value="1">
+                                <button type="submit" class="hero-cta admin-submit">Habilitar giro</button>
+                                <div id="adminSpinFeedback" class="club-profile-feedback"></div>
+                            </form>
+                        </div>
+
+                        <div class="club-profile-box admin-card admin-card-priority">
+                            <div class="club-preview-kicker">Puntos</div>
+                            <h3>Ajustar puntos</h3>
+                            <form id="adminPointsForm" class="club-profile-form">
+                                <label for="adminPointsName">Nombre</label>
+                                <input id="adminPointsName" name="adminPointsName" type="text" placeholder="Cliente Awka">
+                                <label for="adminPointsPhone">WhatsApp</label>
+                                <input id="adminPointsPhone" name="adminPointsPhone" type="tel" inputmode="numeric" placeholder="1123456789">
+                                <label for="adminPointsAmount">Ajuste</label>
+                                <input id="adminPointsAmount" name="adminPointsAmount" type="number" placeholder="5 o -3">
+                                <button type="submit" class="hero-cta admin-submit">Aplicar ajuste</button>
+                                <div id="adminPointsFeedback" class="club-profile-feedback"></div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="admin-grid admin-grid-queue">
+                        <div class="club-profile-box admin-card admin-card-priority">
+                            <div class="club-preview-kicker">Canjes</div>
+                            <h3>Canjes por resolver</h3>
+                            <div id="adminRewardRedemptionsList" class="admin-list"></div>
+                        </div>
+
+                        <div class="club-profile-box admin-card admin-card-priority">
+                            <div class="admin-card-head">
+                                <div>
+                                    <div class="club-preview-kicker">Premios</div>
+                                    <h3>Entregas pendientes</h3>
+                                </div>
+                            </div>
+                            <div id="adminRewardsList" class="admin-list"></div>
+                        </div>
+
+                        <div class="club-profile-box admin-card admin-card-priority">
+                            <div class="club-preview-kicker">Giros pendientes</div>
+                            <h3>Cola de juego</h3>
+                            <div id="adminPendingList" class="admin-list"></div>
+                        </div>
+                    </div>
+
                     <div class="club-profile-box admin-card admin-card-summary">
                         <div class="admin-card-head">
                             <div>
                                 <div class="club-preview-kicker">Resumen</div>
-                                <h3>Lectura rapida</h3>
+                                <h3>Resumen</h3>
                             </div>
                         </div>
                         <div class="admin-metrics-grid">
@@ -116,13 +172,13 @@
                             <article class="admin-item">
                                 <div class="admin-item-main">
                                     <strong>Campana con mas activaciones</strong>
-                                    <span id="adminMetricTopCampaign">Todavia sin datos</span>
+                                    <span id="adminMetricTopCampaign">Sin datos</span>
                                 </div>
                             </article>
                             <article class="admin-item">
                                 <div class="admin-item-main">
                                     <strong>Premio mas frecuente</strong>
-                                    <span id="adminMetricTopPrize">Todavia sin datos</span>
+                                    <span id="adminMetricTopPrize">Sin datos</span>
                                 </div>
                             </article>
                         </div>
@@ -132,7 +188,7 @@
                         <div class="admin-card-head">
                             <div>
                                 <div class="club-preview-kicker">Segmentos</div>
-                                <h3>Audiencias y campanas</h3>
+                                <h3>Segmentos y campanas</h3>
                             </div>
                         </div>
                         <div class="admin-segments-row">
@@ -152,63 +208,7 @@
                         <div id="adminCampaignsList" class="admin-list"></div>
                     </div>
 
-                    <div class="admin-grid admin-grid-priority">
-                        <div class="club-profile-box admin-card admin-card-priority">
-                            <div class="club-preview-kicker">Giros</div>
-                            <h3>Accion: sumar giros</h3>
-                            <form id="adminSpinForm" class="club-profile-form">
-                                <label for="adminSpinName">Nombre</label>
-                                <input id="adminSpinName" name="adminSpinName" type="text" placeholder="Cliente Awka">
-                                <label for="adminSpinPhone">WhatsApp</label>
-                                <input id="adminSpinPhone" name="adminSpinPhone" type="tel" inputmode="numeric" placeholder="1123456789">
-                                <label for="adminSpinCount">Cantidad</label>
-                                <input id="adminSpinCount" name="adminSpinCount" type="number" min="1" max="10" value="1">
-                                <button type="submit" class="hero-cta admin-submit">Habilitar giro</button>
-                                <div id="adminSpinFeedback" class="club-profile-feedback"></div>
-                            </form>
-                        </div>
-
-                        <div class="club-profile-box admin-card admin-card-priority">
-                            <div class="club-preview-kicker">Puntos</div>
-                            <h3>Accion: ajustar puntos</h3>
-                            <form id="adminPointsForm" class="club-profile-form">
-                                <label for="adminPointsName">Nombre</label>
-                                <input id="adminPointsName" name="adminPointsName" type="text" placeholder="Cliente Awka">
-                                <label for="adminPointsPhone">WhatsApp</label>
-                                <input id="adminPointsPhone" name="adminPointsPhone" type="tel" inputmode="numeric" placeholder="1123456789">
-                                <label for="adminPointsAmount">Ajuste</label>
-                                <input id="adminPointsAmount" name="adminPointsAmount" type="number" placeholder="5 o -3">
-                                <button type="submit" class="hero-cta admin-submit">Aplicar ajuste</button>
-                                <div id="adminPointsFeedback" class="club-profile-feedback"></div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="admin-grid admin-grid-priority">
-                        <div class="club-profile-box admin-card admin-card-priority">
-                            <div class="club-preview-kicker">Canjes</div>
-                            <h3>Canjes por resolver</h3>
-                            <div id="adminRewardRedemptionsList" class="admin-list"></div>
-                        </div>
-
-                        <div class="club-profile-box admin-card admin-card-priority">
-                            <div class="admin-card-head">
-                                <div>
-                                    <div class="club-preview-kicker">Premios</div>
-                                    <h3>Entregas pendientes</h3>
-                                </div>
-                            </div>
-                            <div id="adminRewardsList" class="admin-list"></div>
-                        </div>
-
-                        <div class="club-profile-box admin-card admin-card-priority">
-                            <div class="club-preview-kicker">Giros pendientes</div>
-                            <h3>Cola de juego</h3>
-                            <div id="adminPendingList" class="admin-list"></div>
-                        </div>
-                    </div>
-
-                    <div class="admin-grid">
+                    <div class="admin-grid admin-grid-secondary">
                         <div class="club-profile-box admin-card">
                             <div class="club-preview-kicker">Puntos</div>
                             <h3>Top clientes</h3>

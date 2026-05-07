@@ -121,7 +121,7 @@ function renderRewards(items) {
                 </div>
             </article>
         `,
-        'No hay premios registrados todavia.'
+        'No hay premios registrados.'
     );
 }
 
@@ -149,7 +149,7 @@ function renderRewardRedemptions(items) {
                 </div>
             </article>
         `,
-        'Todavia no hay canjes registrados.'
+        'No hay canjes registrados.'
     );
 }
 
@@ -164,7 +164,7 @@ function renderTopPoints(items) {
                     <span>Ultima actividad: ${formatDate(item.lastActivity)}</span>
                 </div>
                 <div class="admin-item-side">
-                    <span class="admin-pill">Activos ${item.points}</span>
+                    <span class="admin-pill">${item.points} activos</span>
                     <span class="admin-item-note">Canjeados ${item.redeemed}</span>
                 </div>
             </article>
@@ -208,7 +208,7 @@ function renderLevelHistory(items) {
                 </div>
             </article>
         `,
-        'Todavia no hay subidas de nivel registradas.'
+        'No hay subidas de nivel registradas.'
     );
 }
 
@@ -238,7 +238,7 @@ function renderCampaigns(items) {
                 </div>
             </article>
         `,
-        'Todavia no hay campanas segmentadas configuradas.'
+        'No hay campanas segmentadas activas.'
     );
 }
 
@@ -273,7 +273,7 @@ function renderCampaignActivations(items) {
                 </div>
             </article>
         `,
-        'Todavia no hay automatizaciones registradas.'
+        'No hay automatizaciones registradas.'
     );
 }
 
@@ -295,10 +295,10 @@ async function loadDashboard() {
     metricRewardRate.textContent = `${Math.round(data.metrics?.rewardDeliveryRate || 0)}%`;
     metricTopCampaign.textContent = data.metrics?.topCampaign
         ? `${data.metrics.topCampaign.id} · ${data.metrics.topCampaign.activations} activaciones`
-        : 'Todavia sin datos';
+        : 'Sin datos';
     metricTopPrize.textContent = data.metrics?.topPrize
         ? `${data.metrics.topPrize.prize} · ${data.metrics.topPrize.count} registro(s)`
-        : 'Todavia sin datos';
+        : 'Sin datos';
 
     renderRewards(data.rewards || []);
     renderRewardRedemptions(data.rewardRedemptions || []);

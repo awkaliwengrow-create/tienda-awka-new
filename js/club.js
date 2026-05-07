@@ -182,7 +182,7 @@ function resetProfilePlaceholder() {
     syncMemberPanel(false);
     clubResult.innerHTML = `
         <div class="club-profile-empty">
-            Aqui vas a ver tu panel del club: puntos, compras, nivel, giros y actividad reciente.
+            Aqui vas a ver puntos, giros, canjes e historial.
         </div>
     `;
 }
@@ -197,7 +197,7 @@ function setAuthMode(mode, phone, name = '') {
         login: {
             label: 'Ingreso',
             button: 'Entrar',
-            message: 'Ingresa tu PIN para entrar a tu club.',
+            message: 'Ingresa tu PIN para entrar.',
             showName: false
         },
         activate: {
@@ -229,7 +229,7 @@ function setAuthMode(mode, phone, name = '') {
     }
 }
 
-function showPhoneStep(message = 'Ingresa tu numero para revisar tu acceso al club.', variant = '') {
+function showPhoneStep(message = 'Ingresa tu numero para continuar.', variant = '') {
     phoneForm.hidden = false;
     pinForm.hidden = true;
     setFeedback(phoneFeedback, message, variant);
@@ -322,7 +322,7 @@ function renderPrimaryAction(profile) {
     return `
         <section class="club-primary-action-panel" aria-label="Accion principal">
             <div class="club-primary-action-copy">
-                <div class="club-profile-history-title">Accion principal</div>
+                <div class="club-profile-history-title">Haz esto ahora</div>
                 <p>${action.note}</p>
             </div>
             <div class="club-primary-action-kpi">
@@ -566,12 +566,12 @@ function renderHistorySection(profile) {
                 <article class="club-history-glance-item">
                     <span class="club-summary-label">Ultimo giro</span>
                     <strong>${latestPrize}</strong>
-                    <small>${profile.spins.latestPrizeAt ? formatDate(profile.spins.latestPrizeAt) : 'Todavia sin giros'}</small>
+                    <small>${profile.spins.latestPrizeAt ? formatDate(profile.spins.latestPrizeAt) : 'Sin giros todavia'}</small>
                 </article>
                 <article class="club-history-glance-item">
                     <span class="club-summary-label">Ultimo premio</span>
                     <strong>${latestWinPrize}</strong>
-                    <small>${profile.spins.latestWinAt ? formatDate(profile.spins.latestWinAt) : 'Todavia sin premios'}</small>
+                    <small>${profile.spins.latestWinAt ? formatDate(profile.spins.latestWinAt) : 'Sin premios todavia'}</small>
                 </article>
                 <article class="club-history-glance-item">
                     <span class="club-summary-label">${latestRedemption ? 'Ultimo canje' : 'Ultima actividad'}</span>
@@ -593,7 +593,7 @@ function renderHistorySection(profile) {
                             <span class="club-history-badge${item.badgeClass}">${item.badge}</span>
                         </article>
                     `).join('')
-                    : '<div class="club-profile-empty">Todavia no hay movimientos registrados en tu panel.</div>'
+                    : '<div class="club-profile-empty">Todavia no hay movimientos en tu panel.</div>'
                 }
             </div>
         </section>
@@ -607,7 +607,7 @@ function renderProfile(profile) {
                 <div>
                     <div class="club-member-eyebrow">Sesion activa</div>
                     <h3>${profile.name}</h3>
-                    <p>Tu avance del club en un solo lugar.</p>
+                    <p>Tu estado del club en un solo lugar.</p>
                 </div>
                 <div class="club-profile-phone">${profile.phone}</div>
             </div>
