@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Crimson+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=20260506-3">
 </head>
 <body>
     <header>
@@ -34,9 +34,8 @@
                         <li><a href="index.html#contacto">Contacto</a></li>
                     </ul>
                 </nav>
-                <button class="search-toggle" id="searchToggle" aria-label="Abrir buscador">🔍</button>
                 <button class="cart-button" onclick="toggleCart()" aria-label="Abrir carrito">
-                    🛒 Carrito
+                    Carrito
                     <span class="cart-count" id="cartCount">0</span>
                 </button>
                 <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleNav()">
@@ -47,22 +46,19 @@
     </header>
 
     <div class="container shop-page-wrapper">
-        <section class="shop-hero shop-hero-minimal">
+        <section class="shop-hero shop-hero-minimal shop-hero-centered">
             <div class="shop-hero-copy">
-                <div class="shop-kicker">Catalogo Awka Liwen</div>
                 <h1>Catalogo completo</h1>
-                <p>Explora productos, elige rapido y cierra tu compra sin rodeos.</p>
+                <div class="search-section">
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Buscar por producto, marca o descripcion">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="shop-toolbar">
-            <div class="search-section">
-                <div class="search-bar">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar por producto, marca o descripcion">
-                    <span class="search-icon">🔍</span>
-                </div>
-            </div>
-
+        <section class="shop-toolbar shop-toolbar-filters">
             <div class="filters-wrap">
                 <div class="filters" id="filters">
                     <button class="filter-btn active" data-category="todos">
@@ -147,9 +143,9 @@
                 <div class="footer-section footer-contact">
                     <h3>Contacto</h3>
                     <ul class="footer-list">
-                        <li>📧 awkaliwengrow@hotmail.com</li>
-                        <li>🕐 Lun a Sab: 17:30 a 20:30hs</li>
-                        <li>📍 Castelli 97, Buenos Aires</li>
+                        <li>awkaliwengrow@hotmail.com</li>
+                        <li>Lun a Sab: 17:30 a 20:30hs</li>
+                        <li>Castelli 97, Buenos Aires</li>
                     </ul>
                 </div>
                 <div class="footer-section footer-social">
@@ -243,8 +239,8 @@
         </div>
     </div>
 
-    <script src="js/products.js"></script>
-    <script src="js/shop.js"></script>
+    <script src="js/products.js?v=20260506-3"></script>
+    <script src="js/shop.js?v=20260506-3"></script>
     <script>
         function toggleNav() {
             const nav = document.getElementById('mainNav');
