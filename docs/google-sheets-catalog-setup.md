@@ -24,6 +24,13 @@ Usa el mismo archivo y separa asi:
 
 Deja aqui tu operacion completa.
 
+Si la fuente viene de una hoja como `Lista Prod` de tu archivo `LISTA_PRODUCTOS mayo2026.xlsx`, esta bien mantenerla asi.
+
+Nota importante:
+- esa version trae portada y resumen arriba
+- los encabezados reales del inventario arrancan en la fila `5`
+- el puente `scripts/sync-google-sheets.js` ya fue ajustado para detectar automaticamente esa fila de encabezados
+
 Columnas sugeridas:
 - `SKU`
 - `LINEA`
@@ -373,3 +380,5 @@ Este puente no rompe el sitio actual.
 
 - si no lo usas, todo sigue igual
 - si lo usas, empiezas a mover precios y canjes desde Google Sheets
+- usa primero snapshots y pruebas chicas
+- no reemplaces `js/products.js` publicado hasta que `WEB_CATALOGO` tenga una base mas completa que una prueba inicial

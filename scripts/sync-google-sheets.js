@@ -111,6 +111,16 @@ function normalizeHeader(value) {
     .toUpperCase();
 }
 
+function findHeaderRowIndex(rows, requiredHeaders) {
+  for (let index = 0; index < rows.length; index += 1) {
+    const headers = rows[index].map(normalizeHeader);
+    if (requiredHeaders.every((header) => headers.includes(header))) {
+      return index;
+    }
+  }
+  return -1;
+}
+
 function yes(value) {
   return ['SI', 'SÍ', 'TRUE', '1', 'YES'].includes(String(value || '').trim().toUpperCase());
 }
@@ -135,8 +145,12 @@ function slugify(value) {
 
 function rowsToObjects(rows) {
   if (!rows.length) return [];
-  const headers = rows[0].map(normalizeHeader);
-  return rows.slice(1).map((row) => {
+  const requiredHeaders = ['PRODUCTO', 'P_EFECTIVO'];
+  const headerRowIndex = findHeaderRowIndex(rows, requiredHeaders);
+  const safeHeaderRowIndex = headerRowIndex >= 0 ? headerRowIndex : 0;
+  const headers = rows[safeHeaderRowIndex].map(normalizeHeader);
+
+  return rows.slice(safeHeaderRowIndex + 1).map((row) => {
     const item = {};
     headers.forEach((header, index) => {
       item[header] = row[index] ?? '';

@@ -22,3 +22,7 @@ desktop.ini
 # Build artifacts
 dist/
 build/
+tmp/
+
+# Google Sheets local sync
+scripts/google-sheets-sync.config.json
