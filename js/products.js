@@ -5,16 +5,18 @@ const products = [
     "name": "A Trapa",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-a-trap.jpg",
     "sizes": [
       {
         "size": "30cc",
         "price": 11009
       }
     ],
-    "description": "",
+    "description": "Atrapa insectos",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -22,16 +24,18 @@ const products = [
     "name": "Aba",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-aba.jpg",
     "sizes": [
       {
         "size": "30cc",
         "price": 13723
       }
     ],
-    "description": "",
+    "description": "Control específico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -39,16 +43,18 @@ const products = [
     "name": "Acrecio",
     "category": "plaguicidas",
     "brand": "Eco Mambo",
-    "image": "",
+    "image": "img/productos/eco-mambo-acrecio.jpg",
     "sizes": [
       {
         "size": "200gr",
         "price": 12000
       }
     ],
-    "description": "",
+    "description": "Elimina colonias",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -56,16 +62,18 @@ const products = [
     "name": "Algafishum Nodosum",
     "category": "fertilizantes",
     "brand": "Mantra",
-    "image": "",
+    "image": "img/productos/mantra-algafishum.jpg",
     "sizes": [
       {
         "size": "200ml",
-        "price": 15200
+        "price": 13600
       }
     ],
-    "description": "",
+    "description": "Extracto de algas",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -73,7 +81,7 @@ const products = [
     "name": "Amazonia",
     "category": "fertilizantes",
     "brand": "Namaste",
-    "image": "",
+    "image": "img/productos/namaste-amazonia.jpg",
     "sizes": [
       {
         "size": "150gr",
@@ -84,9 +92,11 @@ const products = [
         "price": 28000
       }
     ],
-    "description": "",
+    "description": "Fertilizante orgánico completo",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -94,16 +104,18 @@ const products = [
     "name": "Arañuela",
     "category": "plaguicidas",
     "brand": "Eco Mambo",
-    "image": "",
+    "image": "img/productos/eco-mambo-arañuela.jpg",
     "sizes": [
       {
         "size": "30ml",
         "price": 2340
       }
     ],
-    "description": "",
+    "description": "Anti araña roja",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -111,7 +123,7 @@ const products = [
     "name": "B+R",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-b+r.jpg",
     "sizes": [
       {
         "size": "100gr",
@@ -122,9 +134,11 @@ const products = [
         "price": 13068
       }
     ],
-    "description": "",
+    "description": "Bichos bolita y roedores",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -132,16 +146,18 @@ const products = [
     "name": "Base A",
     "category": "fertilizantes",
     "brand": "Kawsay",
-    "image": "",
+    "image": "img/productos/kawsay-base-a.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 17500
       }
     ],
-    "description": "",
+    "description": "Base mineral parte A",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -149,16 +165,18 @@ const products = [
     "name": "Base B",
     "category": "fertilizantes",
     "brand": "Kawsay",
-    "image": "",
+    "image": "img/productos/kawsay-base-b.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 17500
       }
     ],
-    "description": "",
+    "description": "Base mineral parte B",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -166,16 +184,18 @@ const products = [
     "name": "Big One",
     "category": "fertilizantes",
     "brand": "Top Crop",
-    "image": "",
+    "image": "img/productos/topcrop-big-one.jpg",
     "sizes": [
       {
         "size": "100ml",
         "price": 13500
       }
     ],
-    "description": "",
+    "description": "Potenciador PK",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -183,16 +203,18 @@ const products = [
     "name": "Bio Protect",
     "category": "fertilizantes",
     "brand": "Namaste",
-    "image": "",
+    "image": "img/productos/namaste-bio-protect.jpg",
     "sizes": [
       {
         "size": "100ml",
         "price": 10000
       }
     ],
-    "description": "",
+    "description": "Protector biológico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -200,7 +222,7 @@ const products = [
     "name": "Biocann",
     "category": "fertilizantes",
     "brand": "Tree Mix",
-    "image": "",
+    "image": "img/productos/treemix-biocann.jpg",
     "sizes": [
       {
         "size": "45ml",
@@ -215,9 +237,11 @@ const products = [
         "price": 36900
       }
     ],
-    "description": "",
+    "description": "Estimulador biológico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -225,16 +249,18 @@ const products = [
     "name": "Bloom",
     "category": "fertilizantes",
     "brand": "Kawsay",
-    "image": "",
+    "image": "img/productos/kawsay-bloom.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 17500
       }
     ],
-    "description": "",
+    "description": "Nutriente para floración",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -242,16 +268,18 @@ const products = [
     "name": "Bolita",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-bolita.jpg",
     "sizes": [
       {
         "size": "100gr",
         "price": 10200
       }
     ],
-    "description": "",
+    "description": "Cebo granulado",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -259,16 +287,18 @@ const products = [
     "name": "Bong",
     "category": "parafernalia",
     "brand": "Pipas",
-    "image": "",
+    "image": "img/productos/bong.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 8500
       }
     ],
-    "description": "",
+    "description": "Bong de vidrio",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -276,16 +306,18 @@ const products = [
     "name": "Buffer pH 4.01",
     "category": "herramientas",
     "brand": "New Haze",
-    "image": "",
+    "image": "img/productos/buffer.jpg",
     "sizes": [
       {
         "size": "50ml",
         "price": 5500
       }
     ],
-    "description": "",
+    "description": "Solución calibración pH 4.01",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -293,16 +325,18 @@ const products = [
     "name": "Buffer pH 6.86",
     "category": "herramientas",
     "brand": "New Haze",
-    "image": "",
+    "image": "img/productos/buffer.jpg",
     "sizes": [
       {
         "size": "50ml",
         "price": 5500
       }
     ],
-    "description": "",
+    "description": "Solución calibración pH 6.86",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -310,16 +344,18 @@ const products = [
     "name": "Buffer pH 9.18",
     "category": "herramientas",
     "brand": "New Haze",
-    "image": "",
+    "image": "img/productos/buffer.jpg",
     "sizes": [
       {
         "size": "50ml",
         "price": 5500
       }
     ],
-    "description": "",
+    "description": "Solución calibración pH 9.18",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -327,16 +363,18 @@ const products = [
     "name": "Cactus y Suculentas",
     "category": "plaguicidas",
     "brand": "Eco Mambo",
-    "image": "",
+    "image": "img/productos/eco-mambo-cactus-suculentas.jpg",
     "sizes": [
       {
         "size": "100ml",
         "price": 2340
       }
     ],
-    "description": "",
+    "description": "Especial cactáceas",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -344,16 +382,18 @@ const products = [
     "name": "Celulosa",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-celulosa.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2500
       }
     ],
-    "description": "",
+    "description": "Papel celulosa",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -361,16 +401,18 @@ const products = [
     "name": "Celulosa 420",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-420.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 6000
       }
     ],
-    "description": "",
+    "description": "Papel celulosa tamaño regular",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -378,16 +420,18 @@ const products = [
     "name": "Celulosa king",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-king-celulosa.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3200
       }
     ],
-    "description": "",
+    "description": "Papel celulosa tamaño king",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -395,16 +439,18 @@ const products = [
     "name": "Cerrito",
     "category": "parafernalia",
     "brand": "Tabaco",
-    "image": "",
+    "image": "img/productos/cerrito.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 6800
       }
     ],
-    "description": "",
+    "description": "Tabaco Cerrito",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -412,7 +458,7 @@ const products = [
     "name": "Checkpoint",
     "category": "herramientas",
     "brand": "Artículos de Cultivo",
-    "image": "",
+    "image": "img/productos/checkpoint.jpg",
     "sizes": [
       {
         "size": "15gr",
@@ -423,9 +469,11 @@ const products = [
         "price": 5800
       }
     ],
-    "description": "",
+    "description": "Conservador de humedad",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -433,16 +481,18 @@ const products = [
     "name": "Clonaste",
     "category": "fertilizantes",
     "brand": "Namaste",
-    "image": "",
+    "image": "img/productos/namaste-clonaste.jpg",
     "sizes": [
       {
         "size": "30cc",
         "price": 12000
       }
     ],
-    "description": "",
+    "description": "Enraizante para clones",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -450,16 +500,18 @@ const products = [
     "name": "Combo pH",
     "category": "fertilizantes",
     "brand": "Kawsay",
-    "image": "",
+    "image": "img/productos/kawsay-ph.jpg",
     "sizes": [
       {
         "size": "30ml",
         "price": 17820
       }
     ],
-    "description": "",
+    "description": "Combo regulador de pH",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -467,16 +519,18 @@ const products = [
     "name": "Confi",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-confi.jpg",
     "sizes": [
       {
         "size": "30cc",
         "price": 15307
       }
     ],
-    "description": "",
+    "description": "Confidor natural",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -484,16 +538,18 @@ const products = [
     "name": "Control Plaga Suelo",
     "category": "plaguicidas",
     "brand": "Eco Mambo",
-    "image": "",
+    "image": "img/productos/control-plaga-suelo.jpg",
     "sizes": [
       {
         "size": "100ml",
         "price": 3456
       }
     ],
-    "description": "",
+    "description": "Protección radicular",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -501,16 +557,18 @@ const products = [
     "name": "cooler",
     "category": "herramientas",
     "brand": "cooler",
-    "image": "",
+    "image": "img/productos/cooler.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 31000
       }
     ],
-    "description": "",
+    "description": "Cooler",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -518,16 +576,18 @@ const products = [
     "name": "Diatomea Green Leaf",
     "category": "plaguicidas",
     "brand": "Green Leaf",
-    "image": "",
+    "image": "img/productos/green-leaf-diatomea.jpg",
     "sizes": [
       {
         "size": "250gr",
         "price": 4200
       }
     ],
-    "description": "",
+    "description": "Tierra de diatomeas",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -535,7 +595,7 @@ const products = [
     "name": "Diatomea La Pota",
     "category": "plaguicidas",
     "brand": "La Pota",
-    "image": "",
+    "image": "img/productos/la-pota-diatomea.jpg",
     "sizes": [
       {
         "size": "150gr",
@@ -546,9 +606,11 @@ const products = [
         "price": 7400
       }
     ],
-    "description": "",
+    "description": "Tierra de diatomeas",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -556,16 +618,18 @@ const products = [
     "name": "Dynamite 2.0",
     "category": "fertilizantes",
     "brand": "Mantra",
-    "image": "",
+    "image": "img/productos/mantra-dynamite.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 13600
       }
     ],
-    "description": "",
+    "description": "Potenciador de floración",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -573,16 +637,18 @@ const products = [
     "name": "Dynamite 2.0 Orgánico",
     "category": "fertilizantes",
     "brand": "Mantra",
-    "image": "",
+    "image": "img/productos/mantra-dynamite-organic.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 13600
       }
     ],
-    "description": "",
+    "description": "Potenciador orgánico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -590,16 +656,18 @@ const products = [
     "name": "Filtito",
     "category": "parafernalia",
     "brand": "Filtros",
-    "image": "",
+    "image": "img/productos/filtito.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1200
       }
     ],
-    "description": "",
+    "description": "Filtros pequeños",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -607,16 +675,18 @@ const products = [
     "name": "Filtro Vidrio",
     "category": "parafernalia",
     "brand": "Filtros",
-    "image": "",
+    "image": "img/productos/filtro-vidrio.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Boquilla de vidrio reutilizable",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -624,16 +694,18 @@ const products = [
     "name": "Filtros Cónicos",
     "category": "parafernalia",
     "brand": "Filtros",
-    "image": "",
+    "image": "img/productos/filtros-conicos.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Filtros pre-armados cónicos",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -641,16 +713,18 @@ const products = [
     "name": "Fixa MZN",
     "category": "plaguicidas",
     "brand": "Eco Mambo",
-    "image": "",
+    "image": "img/productos/eco-mambo-fixa.jpg",
     "sizes": [
       {
         "size": "30ml",
         "price": 8700
       }
     ],
-    "description": "",
+    "description": "Hongo entomopatógeno",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -658,16 +732,18 @@ const products = [
     "name": "Flor de Auto",
     "category": "fertilizantes",
     "brand": "Mantra",
-    "image": "",
+    "image": "img/productos/mantra-flor-de-auto.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 10800
       }
     ],
-    "description": "",
+    "description": "Especial autoflorecientes",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -675,7 +751,7 @@ const products = [
     "name": "Flora Booster",
     "category": "fertilizantes",
     "brand": "Namaste",
-    "image": "",
+    "image": "img/productos/namaste-flora-booster.jpg",
     "sizes": [
       {
         "size": "100ml",
@@ -686,9 +762,11 @@ const products = [
         "price": 15896
       }
     ],
-    "description": "",
+    "description": "Potenciador de flores",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -696,16 +774,18 @@ const products = [
     "name": "Foli",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-foli.jpg",
     "sizes": [
       {
         "size": "30cc",
         "price": 19759
       }
     ],
-    "description": "",
+    "description": "Foliar protector",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -713,16 +793,18 @@ const products = [
     "name": "Fumanchu Blanco",
     "category": "papeles",
     "brand": "Fumanchu",
-    "image": "",
+    "image": "img/productos/fumanchu.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 800
       }
     ],
-    "description": "",
+    "description": "Papel blanco regular",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -730,16 +812,18 @@ const products = [
     "name": "Fumanchu Blanco KS",
     "category": "papeles",
     "brand": "Fumanchu",
-    "image": "",
+    "image": "img/productos/fumanchu-ks.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1000
       }
     ],
-    "description": "",
+    "description": "Papel blanco King Size",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -747,16 +831,18 @@ const products = [
     "name": "Fumanchu Celulosa",
     "category": "papeles",
     "brand": "Fumanchu",
-    "image": "",
+    "image": "img/productos/fumanchu-celulosa.jpg",
     "sizes": [
       {
         "size": "X200",
         "price": 1200
       }
     ],
-    "description": "",
+    "description": "Pack celulosa",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -764,16 +850,18 @@ const products = [
     "name": "Fumanchu Celulosa X200",
     "category": "papeles",
     "brand": "Fumanchu",
-    "image": "",
+    "image": "img/productos/fumanchu-celulosa-200.jpg",
     "sizes": [
       {
         "size": "X200",
         "price": 2800
       }
     ],
-    "description": "",
+    "description": "Pack celulosa x200 hojas",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -781,16 +869,18 @@ const products = [
     "name": "Fumanchu Sabor Chocolate",
     "category": "papeles",
     "brand": "Fumanchu",
-    "image": "",
+    "image": "img/productos/fumanchu-chocolate.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Papel saborizado chocolate",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -798,16 +888,18 @@ const products = [
     "name": "Fumanchu Sabor Grape",
     "category": "papeles",
     "brand": "Fumanchu",
-    "image": "",
+    "image": "img/productos/fumanchu-grape.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Papel saborizado grape",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -815,16 +907,18 @@ const products = [
     "name": "Fumanchu Sabor Manzana",
     "category": "papeles",
     "brand": "Fumanchu",
-    "image": "",
+    "image": "img/productos/fumanchu-manzana.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Papel saborizado manzana",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -832,16 +926,18 @@ const products = [
     "name": "Fumanchu Sabor Naranja",
     "category": "papeles",
     "brand": "Fumanchu",
-    "image": "",
+    "image": "img/productos/fumanchu-naranja.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Papel saborizado naranja",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -849,16 +945,18 @@ const products = [
     "name": "Fumanchu Sabor Vainilla",
     "category": "papeles",
     "brand": "Fumanchu",
-    "image": "",
+    "image": "img/productos/fumanchu-vainilla.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Papel celulosa vainilla",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -866,16 +964,18 @@ const products = [
     "name": "Fumanchu Sin Blanquear",
     "category": "papeles",
     "brand": "Fumanchu",
-    "image": "",
+    "image": "img/productos/fumanchu-unbleached.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 800
       }
     ],
-    "description": "",
+    "description": "Papel sin blanquear regular",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -883,7 +983,7 @@ const products = [
     "name": "Giber Blanco",
     "category": "herramientas",
     "brand": "Giber",
-    "image": "",
+    "image": "img/productos/giber-1l.jpg",
     "sizes": [
       {
         "size": "1/2lt",
@@ -894,9 +994,11 @@ const products = [
         "price": 7500
       }
     ],
-    "description": "",
+    "description": "Pulverizador manual blanco",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -904,16 +1006,18 @@ const products = [
     "name": "Glacoxan",
     "category": "plaguicidas",
     "brand": "Glacoxan",
-    "image": "",
+    "image": "img/productos/glacoxan.jpg",
     "sizes": [
       {
         "size": "100ml",
         "price": 3800
       }
     ],
-    "description": "",
+    "description": "Fijador y adherente",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -921,16 +1025,18 @@ const products = [
     "name": "Grillo",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-grillo.jpg",
     "sizes": [
       {
         "size": "200gr",
         "price": 17100
       }
     ],
-    "description": "",
+    "description": "Cebo para grillos",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -938,16 +1044,18 @@ const products = [
     "name": "Hervicida G",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-g.jpg",
     "sizes": [
       {
         "size": "100cc",
         "price": 11000
       }
     ],
-    "description": "",
+    "description": "Herbicida selectivo",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -955,16 +1063,18 @@ const products = [
     "name": "Hormiga Cortadora Cebo",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/eco-mambo-cebo.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2800
       }
     ],
-    "description": "",
+    "description": "Cebo especial cortadoras",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -972,16 +1082,18 @@ const products = [
     "name": "Hormiguicida",
     "category": "plaguicidas",
     "brand": "Hortal",
-    "image": "",
+    "image": "img/productos/hortal-talquera.jpg",
     "sizes": [
       {
         "size": "500ml",
         "price": 3800
       }
     ],
-    "description": "",
+    "description": "Potente hormiguicida",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -989,16 +1101,18 @@ const products = [
     "name": "hormiguicida liquido",
     "category": "plaguicidas",
     "brand": "Hortal",
-    "image": "",
+    "image": "img/productos/hortal-liquido.jpg",
     "sizes": [
       {
         "size": "100ml",
         "price": 16200
       }
     ],
-    "description": "",
+    "description": "Bioestimulante",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1006,16 +1120,18 @@ const products = [
     "name": "Humus Lombriz Californiana",
     "category": "plaguicidas",
     "brand": "Eco Mambo",
-    "image": "",
+    "image": "img/productos/eco-mambo-humus-lombriz.jpg",
     "sizes": [
       {
         "size": "250ml",
         "price": 6500
       }
     ],
-    "description": "",
+    "description": "Humus líquido",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1023,16 +1139,18 @@ const products = [
     "name": "Integra Boost 55%",
     "category": "herramientas",
     "brand": "Artículos de Cultivo",
-    "image": "",
+    "image": "img/productos/integra-boost-55.jpg",
     "sizes": [
       {
         "size": "4g",
         "price": 6200
       }
     ],
-    "description": "",
+    "description": "Control humedad 55%",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1040,16 +1158,18 @@ const products = [
     "name": "Integra Boost 62%",
     "category": "herramientas",
     "brand": "Artículos de Cultivo",
-    "image": "",
+    "image": "img/productos/integra-boost-62.jpg",
     "sizes": [
       {
         "size": "8g",
         "price": 8000
       }
     ],
-    "description": "",
+    "description": "Control humedad 62%",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1057,16 +1177,18 @@ const products = [
     "name": "Jabón para Electrodos",
     "category": "herramientas",
     "brand": "New Haze",
-    "image": "",
+    "image": "img/productos/jabon.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 6000
       }
     ],
-    "description": "",
+    "description": "Limpiador para electrodos",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1074,7 +1196,7 @@ const products = [
     "name": "jabon potasico canela y neem La Pota",
     "category": "plaguicidas",
     "brand": "La Pota",
-    "image": "",
+    "image": "img/productos/la-pota-jabon-potasico-neem-y-canela.jpg",
     "sizes": [
       {
         "size": "500gr",
@@ -1085,9 +1207,11 @@ const products = [
         "price": 6600
       }
     ],
-    "description": "",
+    "description": "Jabón potásico canela y neem",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1095,7 +1219,7 @@ const products = [
     "name": "jabon potasico La Pota",
     "category": "plaguicidas",
     "brand": "La Pota",
-    "image": "",
+    "image": "img/productos/jabon-potasico-la-pota.jpg",
     "sizes": [
       {
         "size": "100gr",
@@ -1106,9 +1230,11 @@ const products = [
         "price": 4370
       }
     ],
-    "description": "",
+    "description": "Jabón potásico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1116,7 +1242,7 @@ const products = [
     "name": "Jabón Potásico Neem Canela",
     "category": "plaguicidas",
     "brand": "Eco Mambo",
-    "image": "",
+    "image": "img/productos/eco-mambo-jabon.jpg",
     "sizes": [
       {
         "size": "100ml",
@@ -1131,9 +1257,11 @@ const products = [
         "price": 26741
       }
     ],
-    "description": "",
+    "description": "Limpieza y protección",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1141,7 +1269,7 @@ const products = [
     "name": "Kaput",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-kaput.jpg",
     "sizes": [
       {
         "size": "60ml",
@@ -1152,9 +1280,11 @@ const products = [
         "price": 5353
       }
     ],
-    "description": "",
+    "description": "Exterminador rápido",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1162,7 +1292,7 @@ const products = [
     "name": "Kill Mix",
     "category": "fertilizantes",
     "brand": "Tree Mix",
-    "image": "",
+    "image": "img/productos/treemix-kill.jpg",
     "sizes": [
       {
         "size": "45ml",
@@ -1173,9 +1303,11 @@ const products = [
         "price": 21000
       }
     ],
-    "description": "",
+    "description": "Control preventivo",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1183,16 +1315,18 @@ const products = [
     "name": "Leche de Hueso",
     "category": "fertilizantes",
     "brand": "Mantra",
-    "image": "",
+    "image": "img/productos/mantra-leche-de-hueso.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 10800
       }
     ],
-    "description": "",
+    "description": "Fósforo y calcio",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1200,16 +1334,18 @@ const products = [
     "name": "LRC Hemp Wrap Blueberry",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-blue-berry.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3200
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo sabor blueberry",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1217,16 +1353,18 @@ const products = [
     "name": "LRC Hemp Wrap Bubblegum",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-bubble.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3200
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo sabor chicle",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1234,16 +1372,18 @@ const products = [
     "name": "LRC Hemp Wrap Chocolate",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-chocolate.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3200
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo sabor chocolate",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1251,16 +1391,18 @@ const products = [
     "name": "LRC Hemp Wrap Gelato",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-gelato.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3500
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo sabor gelato",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1268,16 +1410,18 @@ const products = [
     "name": "LRC Hemp Wrap Gorilla Glue",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-gorilla-gl.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3500
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo Gorilla Glue",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1285,16 +1429,18 @@ const products = [
     "name": "LRC Hemp Wrap kksh",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-kksh.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3500
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo sabor kksh",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1302,16 +1448,18 @@ const products = [
     "name": "LRC Hemp Wrap Mango",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-mango.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3200
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo sabor mango",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1319,16 +1467,18 @@ const products = [
     "name": "LRC Hemp Wrap Natural",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-natural.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3200
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo natural",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1336,16 +1486,18 @@ const products = [
     "name": "LRC Hemp Wrap Strawberry",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-strawberry.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3200
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo sabor frutilla",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1353,16 +1505,18 @@ const products = [
     "name": "LRC Hemp Wrap Strawberry Shortcake",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-strawberry-shortcake.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3500
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo sabor strawberry shortcake",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1370,16 +1524,18 @@ const products = [
     "name": "LRC Hemp Wrap Tangie",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-tangie.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3500
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo sabor tangie",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1387,16 +1543,18 @@ const products = [
     "name": "LRC Hemp Wrap Tequila",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-hemp-wrap-tequila.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3200
       }
     ],
-    "description": "",
+    "description": "Wrap de cáñamo sabor tequila",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1404,16 +1562,18 @@ const products = [
     "name": "lupa con broche",
     "category": "herramientas",
     "brand": "lupa",
-    "image": "",
+    "image": "img/productos/lup-broche.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 12500
       }
     ],
-    "description": "",
+    "description": "Lupa con broche",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1421,16 +1581,18 @@ const products = [
     "name": "lupa sin broche",
     "category": "herramientas",
     "brand": "lupa",
-    "image": "",
+    "image": "img/productos/lupa-sinbroche.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 11500
       }
     ],
-    "description": "",
+    "description": "Lupa sin broche",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1438,7 +1600,7 @@ const products = [
     "name": "Maceta Geotextil",
     "category": "macetas",
     "brand": "Geotextiles",
-    "image": "",
+    "image": "img/productos/geotextiles.jpg",
     "sizes": [
       {
         "size": "4lt",
@@ -1485,9 +1647,11 @@ const products = [
         "price": 19000
       }
     ],
-    "description": "",
+    "description": "Maceta geotextil transpirable",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1495,7 +1659,7 @@ const products = [
     "name": "Maceta Soplada",
     "category": "macetas",
     "brand": "Sopladas",
-    "image": "",
+    "image": "img/productos/sopladas.jpg",
     "sizes": [
       {
         "size": "250ml",
@@ -1538,9 +1702,11 @@ const products = [
         "price": 5200
       }
     ],
-    "description": "",
+    "description": "Maceta plástico soplado",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1548,7 +1714,7 @@ const products = [
     "name": "Mad Rocket",
     "category": "macetas",
     "brand": "Mad Rocket",
-    "image": "",
+    "image": "img/productos/mad-rocket.jpg",
     "sizes": [
       {
         "size": "5lts",
@@ -1567,9 +1733,11 @@ const products = [
         "price": 15000
       }
     ],
-    "description": "",
+    "description": "Maceta geotextil premium",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1577,16 +1745,18 @@ const products = [
     "name": "Malla de secado",
     "category": "herramientas",
     "brand": "New Haze",
-    "image": "",
+    "image": "img/productos/malla-azul.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 20000
       }
     ],
-    "description": "",
+    "description": "Malla de secado azul",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1594,16 +1764,18 @@ const products = [
     "name": "Malla de secado",
     "category": "herramientas",
     "brand": "New Haze",
-    "image": "",
+    "image": "img/productos/malla-negra.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 20000
       }
     ],
-    "description": "",
+    "description": "Malla de secado negra",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1611,16 +1783,18 @@ const products = [
     "name": "Mamboreta D",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-d.jpg",
     "sizes": [
       {
         "size": "30cc",
         "price": 8500
       }
     ],
-    "description": "",
+    "description": "Insecticida natural",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1628,16 +1802,18 @@ const products = [
     "name": "Mamboreta H",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-h.jpg",
     "sizes": [
       {
         "size": "30cc",
         "price": 8000
       }
     ],
-    "description": "",
+    "description": "Hongos preventivo",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1645,16 +1821,18 @@ const products = [
     "name": "Mamboreta K",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-k.jpg",
     "sizes": [
       {
         "size": "30cc",
         "price": 18200
       }
     ],
-    "description": "",
+    "description": "Insecticida contacto",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1662,7 +1840,7 @@ const products = [
     "name": "Mamboreta M",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-m.jpg",
     "sizes": [
       {
         "size": "250cc",
@@ -1673,9 +1851,11 @@ const products = [
         "price": 14500
       }
     ],
-    "description": "",
+    "description": "Multi plagas",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1683,16 +1863,18 @@ const products = [
     "name": "Mamboreta Z",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-z.jpg",
     "sizes": [
       {
         "size": "30cc",
         "price": 9700
       }
     ],
-    "description": "",
+    "description": "Control de plagas",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1700,16 +1882,18 @@ const products = [
     "name": "Medidor EC",
     "category": "herramientas",
     "brand": "New Haze",
-    "image": "",
+    "image": "img/productos/medidor-ec.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 20000
       }
     ],
-    "description": "",
+    "description": "Medidor de electroconductividad",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1717,16 +1901,18 @@ const products = [
     "name": "Medidor pH",
     "category": "herramientas",
     "brand": "New Haze",
-    "image": "",
+    "image": "img/productos/medidor-ph.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 32000
       }
     ],
-    "description": "",
+    "description": "Medidor digital de pH",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1734,7 +1920,7 @@ const products = [
     "name": "Mirex Hormiguicida",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-mirex.jpg",
     "sizes": [
       {
         "size": "100gr",
@@ -1745,9 +1931,11 @@ const products = [
         "price": 4500
       }
     ],
-    "description": "",
+    "description": "Elimina hormigas",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1755,16 +1943,18 @@ const products = [
     "name": "Mosca Blanca",
     "category": "plaguicidas",
     "brand": "Eco Mambo",
-    "image": "",
+    "image": "img/productos/eco-mambo-mosca-blanca.jpg",
     "sizes": [
       {
         "size": "30ml",
         "price": 2340
       }
     ],
-    "description": "",
+    "description": "Contra mosca blanca",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1772,7 +1962,7 @@ const products = [
     "name": "Multi Spray Giber",
     "category": "herramientas",
     "brand": "Giber",
-    "image": "",
+    "image": "img/productos/giber-1lt.jpg",
     "sizes": [
       {
         "size": "1lt",
@@ -1787,9 +1977,11 @@ const products = [
         "price": 101000
       }
     ],
-    "description": "",
+    "description": "Pulverizador presión",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1797,16 +1989,18 @@ const products = [
     "name": "Nitro Monstruoso",
     "category": "fertilizantes",
     "brand": "Mantra",
-    "image": "",
+    "image": "img/productos/mantra-nitro-monstruoso.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 13600
       }
     ],
-    "description": "",
+    "description": "Booster de nitrógeno",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1814,16 +2008,18 @@ const products = [
     "name": "Nitro Monstruoso Orgánico",
     "category": "fertilizantes",
     "brand": "Mantra",
-    "image": "",
+    "image": "img/productos/mantra-nitro-organico.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 13600
       }
     ],
-    "description": "",
+    "description": "Nitrógeno orgánico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1831,16 +2027,18 @@ const products = [
     "name": "Oil 85",
     "category": "plaguicidas",
     "brand": "Mamboreta",
-    "image": "",
+    "image": "img/productos/mamboreta-oil-85.jpg",
     "sizes": [
       {
         "size": "100cc",
         "price": 9635
       }
     ],
-    "description": "",
+    "description": "Aceite mineral",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1848,7 +2046,7 @@ const products = [
     "name": "Oro Negro",
     "category": "fertilizantes",
     "brand": "Namaste",
-    "image": "",
+    "image": "img/productos/namaste-oro-negro.jpg",
     "sizes": [
       {
         "size": "500ml",
@@ -1863,9 +2061,11 @@ const products = [
         "price": 39449
       }
     ],
-    "description": "",
+    "description": "Húmicos y fúlvicos",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1873,16 +2073,18 @@ const products = [
     "name": "Otros Accesorios",
     "category": "parafernalia",
     "brand": "Pipas",
-    "image": "",
+    "image": "img/productos/accesorios-varios.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2000
       }
     ],
-    "description": "",
+    "description": "Accesorios varios",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1890,16 +2092,18 @@ const products = [
     "name": "Paraiso",
     "category": "plaguicidas",
     "brand": "Eco Mambo",
-    "image": "",
+    "image": "img/productos/eco-mambo-paraiso.jpg",
     "sizes": [
       {
         "size": "100ml",
         "price": 6602
       }
     ],
-    "description": "",
+    "description": "Extracto de paraíso",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1907,16 +2111,18 @@ const products = [
     "name": "pH- Mantra",
     "category": "fertilizantes",
     "brand": "Mantra",
-    "image": "",
+    "image": "img/productos/mantra-ph-.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 10890
       }
     ],
-    "description": "",
+    "description": "Regulador de pH down",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1924,7 +2130,7 @@ const products = [
     "name": "pH- Namaste",
     "category": "fertilizantes",
     "brand": "Namaste",
-    "image": "",
+    "image": "img/productos/namaste-ph-.jpg",
     "sizes": [
       {
         "size": "100ml",
@@ -1935,9 +2141,11 @@ const products = [
         "price": 15543
       }
     ],
-    "description": "",
+    "description": "Regulador pH down",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1945,16 +2153,18 @@ const products = [
     "name": "Picador Acero",
     "category": "parafernalia",
     "brand": "Picadores",
-    "image": "",
+    "image": "img/productos/picador-acero.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2500
       }
     ],
-    "description": "",
+    "description": "Grinder de acero inoxidable",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1962,16 +2172,18 @@ const products = [
     "name": "Picador Acrílico",
     "category": "parafernalia",
     "brand": "Picadores",
-    "image": "",
+    "image": "img/productos/picador-acrilico.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1200
       }
     ],
-    "description": "",
+    "description": "Grinder acrílico transparente",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1979,16 +2191,18 @@ const products = [
     "name": "Picador Cerámica",
     "category": "parafernalia",
     "brand": "Picadores",
-    "image": "",
+    "image": "img/productos/picador-ceramica.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3200
       }
     ],
-    "description": "",
+    "description": "Grinder cerámico premium",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -1996,16 +2210,18 @@ const products = [
     "name": "Picador Madera",
     "category": "parafernalia",
     "brand": "Picadores",
-    "image": "",
+    "image": "img/productos/picador-madera.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2200
       }
     ],
-    "description": "",
+    "description": "Grinder de madera natural",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2013,16 +2229,18 @@ const products = [
     "name": "Picador Metal",
     "category": "parafernalia",
     "brand": "Picadores",
-    "image": "",
+    "image": "img/productos/picador-metal.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1800
       }
     ],
-    "description": "",
+    "description": "Grinder metálico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2030,16 +2248,18 @@ const products = [
     "name": "Pipa Madera",
     "category": "parafernalia",
     "brand": "Pipas",
-    "image": "",
+    "image": "img/productos/pipa-madera.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2800
       }
     ],
-    "description": "",
+    "description": "Pipa de madera artesanal",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2047,16 +2267,18 @@ const products = [
     "name": "Pipa Metal",
     "category": "parafernalia",
     "brand": "Pipas",
-    "image": "",
+    "image": "img/productos/pipa-metal.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Pipa de metal resistente",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2064,16 +2286,18 @@ const products = [
     "name": "Pre-rolled",
     "category": "parafernalia",
     "brand": "Filtros",
-    "image": "",
+    "image": "img/productos/prerolled.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2400
       }
     ],
-    "description": "",
+    "description": "Filtros pre-enrollados",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2081,16 +2305,18 @@ const products = [
     "name": "Pulverizador Transparente",
     "category": "herramientas",
     "brand": "Pulverizadores",
-    "image": "",
+    "image": "img/productos/pulverizador.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2500
       }
     ],
-    "description": "",
+    "description": "Pulverizador transparente",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2098,16 +2324,18 @@ const products = [
     "name": "Raw artesano",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-artesano.jpg",
     "sizes": [
       {
         "size": "Monster",
         "price": 6000
       }
     ],
-    "description": "",
+    "description": "Papel con bandeja origami",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2115,16 +2343,18 @@ const products = [
     "name": "Raw Black",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-black.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1900
       }
     ],
-    "description": "",
+    "description": "Papel Raw Black regular",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2132,16 +2362,18 @@ const products = [
     "name": "Raw Black KS",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-black-ks.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3800
       }
     ],
-    "description": "",
+    "description": "Papel Raw Black King Size",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2149,16 +2381,18 @@ const products = [
     "name": "Raw Black Organic",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-black-organic.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1900
       }
     ],
-    "description": "",
+    "description": "Papel Raw Black orgánico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2166,16 +2400,18 @@ const products = [
     "name": "Raw Black Organic KS",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-black-organic-ks.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3800
       }
     ],
-    "description": "",
+    "description": "Papel Raw Black Organic KS",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2183,16 +2419,18 @@ const products = [
     "name": "Raw Change cone huge",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-gigante.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 55000
       }
     ],
-    "description": "",
+    "description": "Papel gigante pre rolled",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2200,16 +2438,18 @@ const products = [
     "name": "Raw Classic",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-clasic.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1900
       }
     ],
-    "description": "",
+    "description": "Papel Raw Classic regular",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2217,16 +2457,18 @@ const products = [
     "name": "Raw Classic KS",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-clasic-ks.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3800
       }
     ],
-    "description": "",
+    "description": "Papel Raw Classic King Size",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2234,16 +2476,18 @@ const products = [
     "name": "Raw Classic Organic",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-organic.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1900
       }
     ],
-    "description": "",
+    "description": "Papel Raw Classic orgánico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2251,16 +2495,18 @@ const products = [
     "name": "Raw Classic Organic KS",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-organic-ks.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3800
       }
     ],
-    "description": "",
+    "description": "Papel Raw Classic Organic KS",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2268,16 +2514,18 @@ const products = [
     "name": "Raw Cone 05 stage rawket",
     "category": "papeles",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-5-cones.jpg",
     "sizes": [
       {
         "size": "Medium",
         "price": 12000
       }
     ],
-    "description": "",
+    "description": "5 papeles pre rolled",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2285,7 +2533,7 @@ const products = [
     "name": "red scrog",
     "category": "herramientas",
     "brand": "red",
-    "image": "",
+    "image": "img/productos/red-scrog.jpg",
     "sizes": [
       {
         "size": "60x60",
@@ -2308,9 +2556,11 @@ const products = [
         "price": 8500
       }
     ],
-    "description": "",
+    "description": "Red scrog",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2318,7 +2568,7 @@ const products = [
     "name": "red scrog terra",
     "category": "herramientas",
     "brand": "red",
-    "image": "",
+    "image": "img/productos/red.jpg",
     "sizes": [
       {
         "size": "100x100",
@@ -2329,9 +2579,11 @@ const products = [
         "price": 28000
       }
     ],
-    "description": "",
+    "description": "Red scrog",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2339,16 +2591,18 @@ const products = [
     "name": "Sabor Banana",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-banana.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1800
       }
     ],
-    "description": "",
+    "description": "Papel saborizado banana",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2356,16 +2610,18 @@ const products = [
     "name": "Sabor Blueberry",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-blueberry.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1800
       }
     ],
-    "description": "",
+    "description": "Papel saborizado blueberry",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2373,16 +2629,18 @@ const products = [
     "name": "Sabor Bubblegum",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-bubble.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1800
       }
     ],
-    "description": "",
+    "description": "Papel saborizado bubblegum",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2390,16 +2648,18 @@ const products = [
     "name": "Sabor Cherry",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-cherry.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1800
       }
     ],
-    "description": "",
+    "description": "Papel saborizado cherry",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2407,16 +2667,18 @@ const products = [
     "name": "Sabor Chocolate",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-chocolate.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1800
       }
     ],
-    "description": "",
+    "description": "Papel saborizado chocolate",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2424,16 +2686,18 @@ const products = [
     "name": "Sabor Coco",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-coco.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1800
       }
     ],
-    "description": "",
+    "description": "Papel saborizado coco",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2441,16 +2705,18 @@ const products = [
     "name": "Sabor Grape",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-grape.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1800
       }
     ],
-    "description": "",
+    "description": "Papel saborizado grape",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2458,16 +2724,18 @@ const products = [
     "name": "Sabor Strawberry",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-frutilla.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1800
       }
     ],
-    "description": "",
+    "description": "Papel saborizado frutilla",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2475,16 +2743,18 @@ const products = [
     "name": "Sayri",
     "category": "parafernalia",
     "brand": "Tabaco",
-    "image": "",
+    "image": "img/productos/sayri.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 6500
       }
     ],
-    "description": "",
+    "description": "Tabaco Sayri",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2492,16 +2762,18 @@ const products = [
     "name": "Silver",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-silver.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Papel ultra delgado tamaño regular",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2509,16 +2781,18 @@ const products = [
     "name": "silver kings",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-silver-ks.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2200
       }
     ],
-    "description": "",
+    "description": "Papel celulosa tamaño king",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2526,16 +2800,18 @@ const products = [
     "name": "Sugar Candy",
     "category": "fertilizantes",
     "brand": "Mantra",
-    "image": "",
+    "image": "img/productos/mantra-sugar-candy.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 13600
       }
     ],
-    "description": "",
+    "description": "Mejorador de sabor y aroma",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2543,16 +2819,18 @@ const products = [
     "name": "termohigrometro",
     "category": "herramientas",
     "brand": "termohigrometro",
-    "image": "",
+    "image": "img/productos/termohigrometro.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 15000
       }
     ],
-    "description": "",
+    "description": "Termohigrometro",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2560,16 +2838,18 @@ const products = [
     "name": "Tijera con Ojal",
     "category": "herramientas",
     "brand": "Tijeras",
-    "image": "",
+    "image": "img/productos/tijera-ojal.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2900
       }
     ],
-    "description": "",
+    "description": "Tijera ergonómica con ojal",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2577,16 +2857,18 @@ const products = [
     "name": "Tijera Cosecha Blister",
     "category": "herramientas",
     "brand": "Tijeras",
-    "image": "",
+    "image": "img/productos/tijera-blister.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3500
       }
     ],
-    "description": "",
+    "description": "Tijera especial cosecha",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2594,16 +2876,18 @@ const products = [
     "name": "Tijera Negra Mango Corto",
     "category": "herramientas",
     "brand": "Tijeras",
-    "image": "",
+    "image": "img/productos/tijera-corta.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3000
       }
     ],
-    "description": "",
+    "description": "Tijera de poda mango corto",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2611,16 +2895,18 @@ const products = [
     "name": "Tijera Negra Mango Largo",
     "category": "herramientas",
     "brand": "Tijeras",
-    "image": "",
+    "image": "img/productos/tijera-larga.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3500
       }
     ],
-    "description": "",
+    "description": "Tijera de poda mango largo",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2628,16 +2914,18 @@ const products = [
     "name": "timer mecanico",
     "category": "herramientas",
     "brand": "timer",
-    "image": "",
+    "image": "img/productos/timer.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 16000
       }
     ],
-    "description": "",
+    "description": "Timer mecanico",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2645,16 +2933,18 @@ const products = [
     "name": "Tips",
     "category": "parafernalia",
     "brand": "Filtros",
-    "image": "",
+    "image": "img/productos/tips.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1200
       }
     ],
-    "description": "",
+    "description": "Tips para armar",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2662,16 +2952,18 @@ const products = [
     "name": "Tips",
     "category": "filtros",
     "brand": "Raw",
-    "image": "",
+    "image": "img/productos/raw-tips.jpg",
     "sizes": [
       {
         "size": "X200",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Tips Raw",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2679,16 +2971,18 @@ const products = [
     "name": "Tips Curvos",
     "category": "filtros",
     "brand": "3 Rayos",
-    "image": "",
+    "image": "img/productos/3rayos.jpg",
     "sizes": [
       {
         "size": "X200",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Tips curvos",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2696,16 +2990,18 @@ const products = [
     "name": "Tips Multicolor",
     "category": "filtros",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-tips.jpg",
     "sizes": [
       {
         "size": "X200",
         "price": 1000
       }
     ],
-    "description": "",
+    "description": "Tips de colores",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2713,16 +3009,18 @@ const products = [
     "name": "Tips Silver",
     "category": "filtros",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-tips.jpg",
     "sizes": [
       {
         "size": "X200",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Tips silver",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2730,16 +3028,18 @@ const products = [
     "name": "Tips Silver Large",
     "category": "filtros",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-tips.jpg",
     "sizes": [
       {
         "size": "X200",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Tips silver large",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2747,16 +3047,18 @@ const products = [
     "name": "Tips Unbleached",
     "category": "filtros",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-tips-unbleached.jpg",
     "sizes": [
       {
         "size": "X200",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Tips unbleached",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2764,16 +3066,18 @@ const products = [
     "name": "Tips Unbleached Large",
     "category": "filtros",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-tips-unbleached-large.jpg",
     "sizes": [
       {
         "size": "X200",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Tips unbleached large",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2781,16 +3085,18 @@ const products = [
     "name": "Top Auto",
     "category": "fertilizantes",
     "brand": "Top Crop",
-    "image": "",
+    "image": "img/productos/topcrop-top-auto.jpg",
     "sizes": [
       {
         "size": "250ml",
         "price": 11500
       }
     ],
-    "description": "",
+    "description": "Especial autoflorecientes",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2798,16 +3104,18 @@ const products = [
     "name": "Top Barrier",
     "category": "fertilizantes",
     "brand": "Top Crop",
-    "image": "",
+    "image": "img/productos/topcrop-top-barrier.jpg",
     "sizes": [
       {
         "size": "100ml",
         "price": 4473
       }
     ],
-    "description": "",
+    "description": "Protector natural",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2815,7 +3123,7 @@ const products = [
     "name": "Top Bloom",
     "category": "fertilizantes",
     "brand": "Top Crop",
-    "image": "",
+    "image": "img/productos/topcrop-top-bloom.jpg",
     "sizes": [
       {
         "size": "250ml",
@@ -2826,9 +3134,11 @@ const products = [
         "price": 21006
       }
     ],
-    "description": "",
+    "description": "Nutriente floración",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2836,16 +3146,18 @@ const products = [
     "name": "Top Bud",
     "category": "fertilizantes",
     "brand": "Top Crop",
-    "image": "",
+    "image": "img/productos/topcrop-top-bud.jpg",
     "sizes": [
       {
         "size": "100ml",
         "price": 18000
       }
     ],
-    "description": "",
+    "description": "Engordador de cogollos",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2853,16 +3165,18 @@ const products = [
     "name": "Top Candy",
     "category": "fertilizantes",
     "brand": "Top Crop",
-    "image": "",
+    "image": "img/productos/topcrop-top-candy.jpg",
     "sizes": [
       {
         "size": "250ml",
         "price": 9000
       }
     ],
-    "description": "",
+    "description": "Potenciador de terpenos",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2870,7 +3184,7 @@ const products = [
     "name": "Top Deeper",
     "category": "fertilizantes",
     "brand": "Top Crop",
-    "image": "",
+    "image": "img/productos/topcrop-deeper.jpg",
     "sizes": [
       {
         "size": "100ml",
@@ -2881,9 +3195,11 @@ const products = [
         "price": 11183
       }
     ],
-    "description": "",
+    "description": "Estimulador radicular",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2891,7 +3207,7 @@ const products = [
     "name": "Top Veg",
     "category": "fertilizantes",
     "brand": "Top Crop",
-    "image": "",
+    "image": "img/productos/topcrop-top-veg.jpg",
     "sizes": [
       {
         "size": "250ml",
@@ -2902,9 +3218,11 @@ const products = [
         "price": 23760
       }
     ],
-    "description": "",
+    "description": "Nutriente crecimiento vegetal",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2912,16 +3230,18 @@ const products = [
     "name": "Toque Final",
     "category": "fertilizantes",
     "brand": "Mantra",
-    "image": "",
+    "image": "img/productos/mantra-toque-final.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 10800
       }
     ],
-    "description": "",
+    "description": "Limpiador final",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2929,7 +3249,7 @@ const products = [
     "name": "Tree Mix A",
     "category": "fertilizantes",
     "brand": "Tree Mix",
-    "image": "",
+    "image": "img/productos/treemix-a.jpg",
     "sizes": [
       {
         "size": "45ml",
@@ -2940,9 +3260,11 @@ const products = [
         "price": 11000
       }
     ],
-    "description": "",
+    "description": "Nutriente base parte A",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2950,7 +3272,7 @@ const products = [
     "name": "Tree Mix Candy",
     "category": "fertilizantes",
     "brand": "Tree Mix",
-    "image": "",
+    "image": "img/productos/treemix-candy.jpg",
     "sizes": [
       {
         "size": "45ml",
@@ -2965,9 +3287,11 @@ const products = [
         "price": 31600
       }
     ],
-    "description": "",
+    "description": "Potenciador de aroma y sabor",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -2975,7 +3299,7 @@ const products = [
     "name": "Tree Mix F",
     "category": "fertilizantes",
     "brand": "Tree Mix",
-    "image": "",
+    "image": "img/productos/treemix-f.jpg",
     "sizes": [
       {
         "size": "45ml",
@@ -2990,9 +3314,11 @@ const products = [
         "price": 22500
       }
     ],
-    "description": "",
+    "description": "Fertilizante para floración",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3000,7 +3326,7 @@ const products = [
     "name": "Tree Mix Mico",
     "category": "fertilizantes",
     "brand": "Tree Mix",
-    "image": "",
+    "image": "img/productos/treemix-mico.jpg",
     "sizes": [
       {
         "size": "45ml",
@@ -3011,9 +3337,11 @@ const products = [
         "price": 13000
       }
     ],
-    "description": "",
+    "description": "Micorrizas beneficiosas",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3021,7 +3349,7 @@ const products = [
     "name": "Tree Mix N",
     "category": "fertilizantes",
     "brand": "Tree Mix",
-    "image": "",
+    "image": "img/productos/treemix-n.jpg",
     "sizes": [
       {
         "size": "45ml",
@@ -3032,9 +3360,11 @@ const products = [
         "price": 10500
       }
     ],
-    "description": "",
+    "description": "Fertilizante nitrogenado para crecimiento",
     "featured": true,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3042,7 +3372,7 @@ const products = [
     "name": "Tree Mix Pro",
     "category": "fertilizantes",
     "brand": "Tree Mix",
-    "image": "",
+    "image": "img/productos/treemix-pro.jpg",
     "sizes": [
       {
         "size": "45ml",
@@ -3053,9 +3383,11 @@ const products = [
         "price": 15000
       }
     ],
-    "description": "",
+    "description": "Estimulador profesional",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3063,16 +3395,18 @@ const products = [
     "name": "Trichoderma",
     "category": "plaguicidas",
     "brand": "Eco Mambo",
-    "image": "",
+    "image": "img/productos/eco-mambo-trichoderma.jpg",
     "sizes": [
       {
         "size": "30ml",
         "price": 6721
       }
     ],
-    "description": "",
+    "description": "Hongo beneficioso",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3080,7 +3414,7 @@ const products = [
     "name": "Trico+",
     "category": "fertilizantes",
     "brand": "Namaste",
-    "image": "",
+    "image": "img/productos/namaste-trico+.jpg",
     "sizes": [
       {
         "size": "150gr",
@@ -3091,9 +3425,11 @@ const products = [
         "price": 13000
       }
     ],
-    "description": "",
+    "description": "Trichoderma beneficioso",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3101,16 +3437,18 @@ const products = [
     "name": "Trips",
     "category": "plaguicidas",
     "brand": "Green Leaf",
-    "image": "",
+    "image": "img/productos/green-leaf-trips.jpg",
     "sizes": [
       {
         "size": "100ml",
         "price": 3800
       }
     ],
-    "description": "",
+    "description": "Control de trips",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3118,16 +3456,18 @@ const products = [
     "name": "Turbina",
     "category": "parafernalia",
     "brand": "Pipas",
-    "image": "",
+    "image": "img/productos/turbina.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3500
       }
     ],
-    "description": "",
+    "description": "Pipa tipo turbina",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3135,16 +3475,18 @@ const products = [
     "name": "Unbleached",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-unbleached.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Papel sin blanquear tamaño regular",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3152,16 +3494,18 @@ const products = [
     "name": "Unbleached Kings",
     "category": "papeles",
     "brand": "Lion Rolling Circus",
-    "image": "",
+    "image": "img/productos/lion-rolling-unbleached-ks.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2200
       }
     ],
-    "description": "",
+    "description": "Papel sin blanquear tamaño king",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3169,16 +3513,18 @@ const products = [
     "name": "Veg",
     "category": "fertilizantes",
     "brand": "Kawsay",
-    "image": "",
+    "image": "img/productos/kawsay-vege.jpg",
     "sizes": [
       {
         "size": "200ml",
         "price": 17490
       }
     ],
-    "description": "",
+    "description": "Nutriente base para crecimiento",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3186,16 +3532,18 @@ const products = [
     "name": "Zeus Armador Acrílico",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-armador-acrilico.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3000
       }
     ],
-    "description": "",
+    "description": "Armador acrílico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3203,16 +3551,18 @@ const products = [
     "name": "Zeus Armador Automático",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-armador-auto.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 7000
       }
     ],
-    "description": "",
+    "description": "Armador automático",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3220,16 +3570,18 @@ const products = [
     "name": "Zeus Armador Metal",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-armador-metal.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 4500
       }
     ],
-    "description": "",
+    "description": "Armador metálico",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3237,16 +3589,18 @@ const products = [
     "name": "Zeus Celulosa",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-celulosa.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1500
       }
     ],
-    "description": "",
+    "description": "Papel celulosa regular",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3254,16 +3608,18 @@ const products = [
     "name": "Zeus Celulosa Azul",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-azul.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1200
       }
     ],
-    "description": "",
+    "description": "Papel celulosa color azul",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3271,16 +3627,18 @@ const products = [
     "name": "Zeus Celulosa Más Ancha",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-celulosa-ancha.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 2000
       }
     ],
-    "description": "",
+    "description": "Papel celulosa extra ancho",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3288,16 +3646,18 @@ const products = [
     "name": "Zeus Celulosa Naranja",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-naranja.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1200
       }
     ],
-    "description": "",
+    "description": "Papel celulosa color naranja",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3305,16 +3665,18 @@ const products = [
     "name": "Zeus Celulosa Rojo",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-rojo.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1200
       }
     ],
-    "description": "",
+    "description": "Papel celulosa color rojo",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3322,16 +3684,18 @@ const products = [
     "name": "Zeus Celulosa Verde",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-verde.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1200
       }
     ],
-    "description": "",
+    "description": "Papel celulosa color verde",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3339,16 +3703,18 @@ const products = [
     "name": "Zeus con Chalas",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-chalas.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1050
       }
     ],
-    "description": "",
+    "description": "Papel con chalas incluidas",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3356,16 +3722,18 @@ const products = [
     "name": "Zeus Dorado",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-dorado.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 800
       }
     ],
-    "description": "",
+    "description": "Papel dorado especial",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3373,16 +3741,18 @@ const products = [
     "name": "Zeus Estuche",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-estuche.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 5500
       }
     ],
-    "description": "",
+    "description": "Estuche Zeus standard",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3390,16 +3760,18 @@ const products = [
     "name": "Zeus Estuche Negro",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-estuche-negro.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 3600
       }
     ],
-    "description": "",
+    "description": "Estuche Zeus negro",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3407,16 +3779,18 @@ const products = [
     "name": "Zeus Green",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-green.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1000
       }
     ],
-    "description": "",
+    "description": "Papel color verde",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3424,16 +3798,18 @@ const products = [
     "name": "Zeus Pink",
     "category": "papeles",
     "brand": "Zeus",
-    "image": "",
+    "image": "img/productos/zeus-pink.jpg",
     "sizes": [
       {
         "size": "1u",
         "price": 1000
       }
     ],
-    "description": "",
+    "description": "Papel color rosa",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   },
   {
@@ -3441,7 +3817,7 @@ const products = [
     "name": "Zym",
     "category": "fertilizantes",
     "brand": "Tree Mix",
-    "image": "",
+    "image": "img/productos/treemix-zym.jpg",
     "sizes": [
       {
         "size": "45ml",
@@ -3452,9 +3828,11 @@ const products = [
         "price": 23000
       }
     ],
-    "description": "",
+    "description": "Complejo enzimático",
     "featured": false,
     "offer": false,
+    "offerText": "",
+    "icon": "",
     "order": 0
   }
 ];

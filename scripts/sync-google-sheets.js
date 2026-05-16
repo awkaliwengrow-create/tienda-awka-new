@@ -6,6 +6,7 @@ const https = require('https');
 const http = require('http');
 
 const ROOT = path.resolve(__dirname, '..');
+const DEFAULT_METADATA_PATH = path.join(ROOT, 'data', 'product-metadata.json');
 
 function parseArgs(argv) {
   const args = {
@@ -156,6 +157,26 @@ function slugify(value) {
     .replace(/^-+|-+$/g, '');
 }
 
+function loadProductMetadata(filePath = DEFAULT_METADATA_PATH) {
+  if (!fs.existsSync(filePath)) {
+    return new Map();
+  }
+
+  const items = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  const metadata = new Map();
+  items.forEach((item) => {
+    const idKey = Number(item.id);
+    const brandNameKey = `${String(item.brand || '').trim()}::${String(item.name || '').trim()}`;
+    if (Number.isFinite(idKey)) {
+      metadata.set(`id:${idKey}`, item);
+    }
+    if (brandNameKey !== '::') {
+      metadata.set(`name:${brandNameKey}`, item);
+    }
+  });
+  return metadata;
+}
+
 function rowsToObjects(rows) {
   if (!rows.length) return [];
   const requiredHeaders = ['PRODUCTO', 'P_EFECTIVO'];
@@ -205,7 +226,7 @@ function rowsToObjects(rows) {
   });
 }
 
-function buildProducts(objects) {
+function buildProducts(objects, productMetadata = new Map()) {
   const groups = new Map();
 
   objects
@@ -220,22 +241,32 @@ function buildProducts(objects) {
       const productId = num(row.PRODUCT_ID_WEB, 0) || num(row.ID, 0);
       const key = String(productId || row.SKU || `${row.MARCA}:${row.NOMBRE}`).trim();
       if (!key) return;
+      const metadata =
+        productMetadata.get(`id:${productId}`) ||
+        productMetadata.get(`name:${String(row.MARCA || '').trim()}::${String(row.NOMBRE || '').trim()}`) ||
+        null;
 
       const current = groups.get(key) || {
         id: productId || groups.size + 1,
         name: String(row.NOMBRE || '').trim(),
         category: String(row.CATEGORIA_WEB || 'sin-definir').trim().toLowerCase(),
         brand: String(row.MARCA || '').trim(),
-        image: String(row.IMAGEN || '').trim(),
+        image: String(row.IMAGEN || metadata?.image || '').trim(),
         sizes: [],
-        description: String(row.DESCRIPCION_CORTA || '').trim(),
-        featured: yes(row.DESTACADO),
-        offer: yes(row.OFERTA),
-        order: num(row.ORDEN, 9999)
+        description: String(row.DESCRIPCION_CORTA || metadata?.description || '').trim(),
+        featured: yes(row.DESTACADO) || Boolean(metadata?.featured),
+        offer: yes(row.OFERTA) || Boolean(metadata?.offer),
+        offerText: String(row.OFERTA_TEXTO || metadata?.offerText || '').trim(),
+        icon: String(row.ICON || metadata?.icon || '').trim(),
+        order: num(row.ORDEN, num(metadata?.order, 9999))
       };
 
-      current.featured = current.featured || yes(row.DESTACADO);
-      current.offer = current.offer || yes(row.OFERTA);
+      current.featured = current.featured || yes(row.DESTACADO) || Boolean(metadata?.featured);
+      current.offer = current.offer || yes(row.OFERTA) || Boolean(metadata?.offer);
+      current.offerText = current.offerText || String(row.OFERTA_TEXTO || metadata?.offerText || '').trim();
+      current.icon = current.icon || String(row.ICON || metadata?.icon || '').trim();
+      current.image = current.image || String(row.IMAGEN || metadata?.image || '').trim();
+      current.description = current.description || String(row.DESCRIPCION_CORTA || metadata?.description || '').trim();
       current.order = Math.min(current.order, num(row.ORDEN, current.order));
 
       const sizeLabel = String(row.SIZE_LABEL || row.TAMANO || row.PRESENTACION || '').trim();
@@ -290,8 +321,9 @@ async function main() {
 
   const catalogObjects = rowsToObjects(parseCsv(catalogText));
   const rewardObjects = rowsToObjects(parseCsv(rewardsText));
+  const productMetadata = loadProductMetadata();
 
-  const products = buildProducts(catalogObjects);
+  const products = buildProducts(catalogObjects, productMetadata);
   const rewards = buildRewards(rewardObjects);
 
   const outputs = config.outputs || {};
