@@ -29,6 +29,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run-catalog-audit.ps1
 - productos sin descripcion
 - texto con caracteres raros (`Ã`, `Â`, `�`)
 - variantes sin precio
+- categorias fuera de norma
+- tamanos fuera de norma
 - IDs duplicados
 - variantes duplicadas
 
@@ -44,3 +46,25 @@ La auditoria deja un reporte en:
 - cuando cambiaste muchos nombres
 - cuando retocaste imagenes o descripciones
 - antes de una publicacion importante
+
+## Reglas base para la hoja
+
+Categorias recomendadas:
+
+- `fertilizantes`
+- `plaguicidas`
+- `herramientas`
+- `macetas`
+- `parafernalia`
+- `papeles`
+- `filtros`
+
+Tamanos recomendados:
+
+- `200ml`
+- `30cc`
+- `500gr`
+- `1u`
+- `60x60`
+- `X200`
+- `unitario`

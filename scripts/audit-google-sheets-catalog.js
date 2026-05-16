@@ -7,6 +7,16 @@ const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const PRODUCTS_PATH = path.join(ROOT, 'js', 'products.js');
 const OUTPUT_PATH = path.join(ROOT, 'tmp', 'catalog-audit.json');
+const ALLOWED_CATEGORIES = new Set([
+  'fertilizantes',
+  'plaguicidas',
+  'herramientas',
+  'macetas',
+  'parafernalia',
+  'papeles',
+  'filtros',
+  'sin-definir'
+]);
 
 function loadProducts() {
   if (!fs.existsSync(PRODUCTS_PATH)) {
@@ -20,7 +30,20 @@ function loadProducts() {
 }
 
 function hasMojibake(value = '') {
-  return /Ã|Â|�/.test(String(value || ''));
+  return /Ã.|Â|ï¿½|�/.test(String(value || ''));
+}
+
+function isValidSizeLabel(value = '') {
+  const size = String(value || '').trim();
+  if (!size) return false;
+
+  return [
+    /^\d+(?:[.,]\d+)?\s?(?:ml|cc|gr|g|kg|lt|lts|u)$/i,
+    /^\d+\/\d+\s?(?:lt|lts)$/i,
+    /^\d+(?:[.,]\d+)?x\d+(?:[.,]\d+)?$/i,
+    /^x\d+$/i,
+    /^(unitario|medium|monster)$/i
+  ].some((pattern) => pattern.test(size));
 }
 
 function buildAudit(products) {
@@ -31,10 +54,21 @@ function buildAudit(products) {
   const suspiciousText = [];
   const emptySizes = [];
   const zeroPrices = [];
+  const invalidCategories = [];
+  const invalidSizeLabels = [];
 
   products.forEach((product) => {
     const idKey = String(product.id);
     duplicateIds.set(idKey, (duplicateIds.get(idKey) || 0) + 1);
+
+    if (!ALLOWED_CATEGORIES.has(String(product.category || '').trim().toLowerCase())) {
+      invalidCategories.push({
+        id: product.id,
+        name: product.name,
+        brand: product.brand,
+        category: product.category
+      });
+    }
 
     if (!product.image) {
       missingImages.push({ id: product.id, name: product.name, brand: product.brand });
@@ -47,13 +81,15 @@ function buildAudit(products) {
     if (
       hasMojibake(product.name) ||
       hasMojibake(product.brand) ||
-      hasMojibake(product.description)
+      hasMojibake(product.description) ||
+      hasMojibake(product.image)
     ) {
       suspiciousText.push({
         id: product.id,
         name: product.name,
         brand: product.brand,
-        description: product.description
+        description: product.description,
+        image: product.image
       });
     }
 
@@ -66,6 +102,15 @@ function buildAudit(products) {
       const sizeLabel = String(size.size || '').trim();
       const variantKey = `${product.id}::${sizeLabel}`;
       duplicateVariants.set(variantKey, (duplicateVariants.get(variantKey) || 0) + 1);
+
+      if (!isValidSizeLabel(sizeLabel)) {
+        invalidSizeLabels.push({
+          id: product.id,
+          name: product.name,
+          brand: product.brand,
+          size: sizeLabel
+        });
+      }
 
       if (!size.price || Number(size.price) <= 0) {
         zeroPrices.push({
@@ -99,6 +144,8 @@ function buildAudit(products) {
       suspiciousText: suspiciousText.length,
       emptySizes: emptySizes.length,
       zeroPrices: zeroPrices.length,
+      invalidCategories: invalidCategories.length,
+      invalidSizeLabels: invalidSizeLabels.length,
       duplicateIds: duplicateIdItems.length,
       duplicateVariants: duplicateVariantItems.length
     },
@@ -107,6 +154,8 @@ function buildAudit(products) {
     suspiciousText,
     emptySizes,
     zeroPrices,
+    invalidCategories,
+    invalidSizeLabels,
     duplicateIds: duplicateIdItems,
     duplicateVariants: duplicateVariantItems
   };
@@ -124,6 +173,8 @@ function main() {
   console.log(`Sin descripcion: ${audit.totals.missingDescriptions}`);
   console.log(`Texto sospechoso: ${audit.totals.suspiciousText}`);
   console.log(`Variantes sin precio: ${audit.totals.zeroPrices}`);
+  console.log(`Categorias fuera de norma: ${audit.totals.invalidCategories}`);
+  console.log(`Tamanos fuera de norma: ${audit.totals.invalidSizeLabels}`);
   console.log(`IDs duplicados: ${audit.totals.duplicateIds}`);
   console.log(`Variantes duplicadas: ${audit.totals.duplicateVariants}`);
   console.log(`Reporte: ${OUTPUT_PATH}`);
