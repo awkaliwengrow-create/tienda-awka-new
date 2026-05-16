@@ -28,6 +28,12 @@ Eso actualiza:
 - `js/products.js`
 - `api/_lib/reward-catalog.generated.json`
 
+Opcional, para revisar el catalogo antes de publicar:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run-catalog-audit.ps1
+```
+
 ## Como publicar
 
 Despues de correr la sync:
