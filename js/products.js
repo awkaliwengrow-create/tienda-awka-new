@@ -66,7 +66,7 @@ const products = [
     "sizes": [
       {
         "size": "200ml",
-        "price": 12000
+        "price": 13600
       }
     ],
     "description": "Extracto de algas",
