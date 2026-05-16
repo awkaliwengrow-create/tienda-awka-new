@@ -45,6 +45,28 @@ git commit -m "Sync catalog from Google Sheets"
 git push origin main
 ```
 
+## Opcion mas comoda
+
+Si quieres hacer todo junto:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-google-sheets-sync.ps1
+```
+
+Eso hace:
+
+1. sync
+2. auditoria
+3. `git add`
+4. `git commit`
+5. `git push`
+
+Si quieres cambiar el mensaje del commit:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-google-sheets-sync.ps1 -CommitMessage "Actualiza catalogo y canjes"
+```
+
 ## Que pasa si cambias un precio o stock y no lo ves en la web
 
 Eso significa una de estas dos cosas:
