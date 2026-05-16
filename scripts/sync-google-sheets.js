@@ -51,7 +51,20 @@ function fetchText(source) {
         }
         const chunks = [];
         res.on('data', (chunk) => chunks.push(chunk));
-        res.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+        res.on('end', () => {
+          const body = Buffer.concat(chunks).toString('utf8');
+          const googleRedirectMatch = body.match(/<A\s+HREF="([^"]+)"/i);
+          if (
+            /<TITLE>\s*Temporary Redirect\s*<\/TITLE>/i.test(body) &&
+            googleRedirectMatch &&
+            googleRedirectMatch[1]
+          ) {
+            const redirected = googleRedirectMatch[1].replace(/&amp;/g, '&');
+            fetchText(redirected).then(resolve).catch(reject);
+            return;
+          }
+          resolve(body);
+        });
       }).on('error', reject);
     });
   }
@@ -147,12 +160,45 @@ function rowsToObjects(rows) {
   if (!rows.length) return [];
   const requiredHeaders = ['PRODUCTO', 'P_EFECTIVO'];
   const headerRowIndex = findHeaderRowIndex(rows, requiredHeaders);
-  const safeHeaderRowIndex = headerRowIndex >= 0 ? headerRowIndex : 0;
-  const headers = rows[safeHeaderRowIndex].map(normalizeHeader);
+  if (headerRowIndex >= 0) {
+    const headers = rows[headerRowIndex].map(normalizeHeader);
+    return rows.slice(headerRowIndex + 1).map((row) => {
+      const item = {};
+      headers.forEach((header, index) => {
+        item[header] = row[index] ?? '';
+      });
+      return item;
+    });
+  }
 
-  return rows.slice(safeHeaderRowIndex + 1).map((row) => {
+  const firstRowHeaders = rows[0].map(normalizeHeader);
+  const rewardHeaders = ['ACTIVO', 'PRODUCT_ID_WEB', 'NOMBRE', 'SIZE_LABEL', 'PUNTOS_CANJE'];
+  if (rewardHeaders.every((header) => firstRowHeaders.includes(header))) {
+    return rows.slice(1).map((row) => {
+      const item = {};
+      firstRowHeaders.forEach((header, index) => {
+        item[header] = row[index] ?? '';
+      });
+      return item;
+    });
+  }
+
+  const fallbackHeaders = [
+    'ACTIVO',
+    'MOSTRAR_WEB',
+    'DESTACADO',
+    'PRODUCT_ID_WEB',
+    'CATEGORIA_WEB',
+    'MARCA',
+    'NOMBRE',
+    'SIZE_LABEL',
+    'PRECIO',
+    'STOCK'
+  ];
+
+  return rows.map((row) => {
     const item = {};
-    headers.forEach((header, index) => {
+    fallbackHeaders.forEach((header, index) => {
       item[header] = row[index] ?? '';
     });
     return item;
@@ -163,7 +209,13 @@ function buildProducts(objects) {
   const groups = new Map();
 
   objects
-    .filter((row) => yes(row.ACTIVO) && yes(row.MOSTRAR_WEB))
+    .filter((row) => {
+      const active = yes(row.ACTIVO);
+      const explicitShow = String(row.MOSTRAR_WEB || '').trim();
+      const hasStock = num(row.STOCK, 0) > 0;
+      const visible = yes(explicitShow) || hasStock;
+      return active && visible;
+    })
     .forEach((row) => {
       const productId = num(row.PRODUCT_ID_WEB, 0) || num(row.ID, 0);
       const key = String(productId || row.SKU || `${row.MARCA}:${row.NOMBRE}`).trim();

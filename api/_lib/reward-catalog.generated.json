@@ -1,0 +1,58 @@
+[
+  {
+    "key": "4:unitario",
+    "productId": 4,
+    "sizeLabel": "unitario",
+    "pointsCost": 2,
+    "productName": "MAMA CULTIVA"
+  },
+  {
+    "key": "5:unitario",
+    "productId": 5,
+    "sizeLabel": "unitario",
+    "pointsCost": 1,
+    "productName": "SAYRI"
+  },
+  {
+    "key": "9:45ml",
+    "productId": 9,
+    "sizeLabel": "45ml",
+    "pointsCost": 4,
+    "productName": "Biocann"
+  },
+  {
+    "key": "30:100ml",
+    "productId": 30,
+    "sizeLabel": "100ml",
+    "pointsCost": 5,
+    "productName": "Top Deeper"
+  },
+  {
+    "key": "57:100ml",
+    "productId": 57,
+    "sizeLabel": "100ml",
+    "pointsCost": 2,
+    "productName": "Cactus y Suculentas"
+  },
+  {
+    "key": "58:30ml",
+    "productId": 58,
+    "sizeLabel": "30ml",
+    "pointsCost": 2,
+    "productName": "Mosca Blanca"
+  },
+  {
+    "key": "59:30ml",
+    "productId": 59,
+    "sizeLabel": "30ml",
+    "pointsCost": 2,
+    "productName": "Arañuela"
+  },
+  {
+    "key": "68:500gr",
+    "productId": 68,
+    "sizeLabel": "500gr",
+    "pointsCost": 3,
+    "productName": "Diatomea La Pota"
+  }
+]
