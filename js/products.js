@@ -58,6 +58,25 @@ const products = [
     "order": 0
   },
   {
+    "id": 15,
+    "name": "Algafishum Nodosum",
+    "category": "fertilizantes",
+    "brand": "Mantra",
+    "image": "img/productos/mantra-algafishum.jpg",
+    "sizes": [
+      {
+        "size": "200ml",
+        "price": 13600
+      }
+    ],
+    "description": "Extracto de algas",
+    "featured": false,
+    "offer": false,
+    "offerText": "",
+    "icon": "",
+    "order": 0
+  },
+  {
     "id": 20,
     "name": "Amazonia",
     "category": "fertilizantes",
