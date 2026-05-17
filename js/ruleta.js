@@ -125,6 +125,7 @@ const btnPrizeCatalog = document.getElementById('btnPrizeCatalog');
 const confettiWrap = document.getElementById('confettiWrap');
 const prizeGuide = document.getElementById('ruletaPrizeGuide');
 const canvas = document.getElementById('ruletaCanvas');
+const wheelOuter = document.querySelector('.awka-wheel-outer');
 
 const ctx = canvas.getContext('2d');
 const size = canvas.width;
@@ -295,12 +296,34 @@ function renderWheel(rotation) {
         ctx.stroke();
 
         const labelAngle = start + arcs[index] / 2;
-        const textRadius = isCompactWheel ? radius - 86 : radius - 98;
+        const textRadius = isCompactWheel ? radius - 74 : radius - 98;
         const textX = centerX + Math.cos(labelAngle) * textRadius;
         const textY = centerY + Math.sin(labelAngle) * textRadius;
 
         if (isCompactWheel) {
-            return;
+            const wheelLines = prize.wheelLines || [prize.label];
+            const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
+            const fontSize = longestLine >= 12 ? 7.1 : longestLine >= 9 ? 7.8 : 8.4;
+            const lineGap = 8.5;
+            let textRotation = labelAngle + Math.PI / 2;
+
+            if (textRotation > Math.PI / 2 && textRotation < (3 * Math.PI) / 2) {
+                textRotation += Math.PI;
+            }
+
+            ctx.save();
+            ctx.translate(textX, textY);
+            ctx.rotate(textRotation);
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = 'rgba(245, 236, 214, 0.98)';
+            ctx.font = `700 ${fontSize}px "DM Sans", sans-serif`;
+
+            const startY = -((wheelLines.length - 1) * lineGap) / 2;
+            wheelLines.forEach((line, lineIndex) => {
+                ctx.fillText(line, 0, startY + (lineIndex * lineGap));
+            });
+            ctx.restore();
         } else {
             const wheelLines = prize.wheelLines || [prize.label];
             const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
@@ -347,10 +370,12 @@ function renderWheel(rotation) {
 }
 
 function resizeCanvas() {
-    const viewportWidth = Math.min(window.innerWidth - 40, 360);
-    const scale = viewportWidth / 340;
-    canvas.style.width = `${340 * scale}px`;
-    canvas.style.height = `${340 * scale}px`;
+    const outerWidth = wheelOuter?.getBoundingClientRect().width || 340;
+    const outerPadding = window.matchMedia('(max-width: 520px)').matches ? 12 : 24;
+    const target = Math.max(180, Math.min(340, outerWidth - outerPadding));
+    canvas.style.width = `${target}px`;
+    canvas.style.height = `${target}px`;
+    renderWheel(currentRotation);
 }
 
 function formatPending(profile) {

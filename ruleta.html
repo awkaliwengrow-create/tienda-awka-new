@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=20260517-7">
+    <link rel="stylesheet" href="css/styles.css?v=20260517-8">
     <style>
         :root {
             --play-bg: #07100a;
@@ -173,6 +173,9 @@
             position: relative;
             width: 100%;
             max-width: 392px;
+            aspect-ratio: 1 / 1;
+            display: grid;
+            place-items: center;
             padding: 12px;
             margin-inline: auto;
             border-radius: 50%;
@@ -583,24 +586,24 @@
             }
 
             .awka-wheel-wrap {
-                width: min(100%, 212px);
+                width: min(100%, 196px);
                 margin-inline: auto;
             }
 
             .awka-wheel-outer {
-                max-width: 212px;
-                padding: 7px;
+                max-width: 196px;
+                padding: 6px;
             }
 
             .awka-spin-center {
-                width: 46px;
-                height: 46px;
-                font-size: 0.72rem;
+                width: 44px;
+                height: 44px;
+                font-size: 0.68rem;
             }
 
             .awka-pointer-wrap svg {
-                width: 20px;
-                height: 30px;
+                width: 18px;
+                height: 28px;
             }
 
             .awka-prize-guide-title {
@@ -756,6 +759,6 @@
             btn.classList.toggle('open');
         }
     </script>
-    <script src="js/ruleta.js?v=20260517-7"></script>
+    <script src="js/ruleta.js?v=20260517-8"></script>
 </body>
 </html>
