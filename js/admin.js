@@ -43,6 +43,11 @@ function setFeedback(element, message, variant = '') {
     element.className = `club-profile-feedback${variant ? ` is-${variant}` : ''}`;
 }
 
+function setText(element, value) {
+    if (!element) return;
+    element.textContent = value;
+}
+
 function formatPhone(phone = '') {
     return String(phone).replace(/\D/g, '').slice(-10);
 }
@@ -106,6 +111,7 @@ function renderList(items, renderer, emptyMessage) {
 }
 
 function renderRewards(items) {
+    if (!rewardsList) return;
     rewardsList.innerHTML = renderList(
         items,
         (item) => `
@@ -126,6 +132,7 @@ function renderRewards(items) {
 }
 
 function renderRewardRedemptions(items) {
+    if (!rewardRedemptionsList) return;
     rewardRedemptionsList.innerHTML = renderList(
         items,
         (item) => `
@@ -154,6 +161,7 @@ function renderRewardRedemptions(items) {
 }
 
 function renderTopPoints(items) {
+    if (!pointsList) return;
     pointsList.innerHTML = renderList(
         items,
         (item) => `
@@ -174,6 +182,7 @@ function renderTopPoints(items) {
 }
 
 function renderSpins(target, items, emptyMessage, isUsed = false) {
+    if (!target) return;
     target.innerHTML = renderList(
         items,
         (item) => `
@@ -193,6 +202,7 @@ function renderSpins(target, items, emptyMessage, isUsed = false) {
 }
 
 function renderLevelHistory(items) {
+    if (!levelHistoryList) return;
     levelHistoryList.innerHTML = renderList(
         items,
         (item) => `
@@ -223,6 +233,7 @@ function humanizeCampaignPriority(priority = '') {
 }
 
 function renderCampaigns(items) {
+    if (!campaignsList) return;
     campaignsList.innerHTML = renderList(
         items,
         (item) => `
@@ -258,6 +269,7 @@ function humanizeTrigger(trigger = '') {
 }
 
 function renderCampaignActivations(items) {
+    if (!campaignActivationList) return;
     campaignActivationList.innerHTML = renderList(
         items,
         (item) => `
@@ -280,25 +292,25 @@ function renderCampaignActivations(items) {
 async function loadDashboard() {
     const data = await adminFetch('/api/admin-dashboard');
 
-    statPending.textContent = data.stats.pendingSpins;
-    statUsed.textContent = data.stats.usedSpins;
-    statPoints.textContent = data.stats.activePoints;
-    statRewards.textContent = data.stats.pendingRewards;
-    segmentNuevo.textContent = data.segments?.nuevo || 0;
-    segmentRecurrente.textContent = data.segments?.recurrente || 0;
-    segmentFiel.textContent = data.segments?.fiel || 0;
-    metricCustomers.textContent = `${data.metrics?.purchasingCustomers || 0}/${data.metrics?.totalCustomers || 0}`;
-    metricRepeat.textContent = `${data.metrics?.repeatCustomers || 0} recurrentes`;
-    metricTicket.textContent = formatMoney(data.metrics?.averageTicket || 0);
-    metricRevenue.textContent = `${formatMoney(data.metrics?.totalRevenue || 0)} facturados`;
-    metricSpinUsage.textContent = `${Math.round(data.metrics?.spinUsageRate || 0)}%`;
-    metricRewardRate.textContent = `${Math.round(data.metrics?.rewardDeliveryRate || 0)}%`;
-    metricTopCampaign.textContent = data.metrics?.topCampaign
+    setText(statPending, data.stats.pendingSpins);
+    setText(statUsed, data.stats.usedSpins);
+    setText(statPoints, data.stats.activePoints);
+    setText(statRewards, data.stats.pendingRewards);
+    setText(segmentNuevo, data.segments?.nuevo || 0);
+    setText(segmentRecurrente, data.segments?.recurrente || 0);
+    setText(segmentFiel, data.segments?.fiel || 0);
+    setText(metricCustomers, `${data.metrics?.purchasingCustomers || 0}/${data.metrics?.totalCustomers || 0}`);
+    setText(metricRepeat, `${data.metrics?.repeatCustomers || 0} recurrentes`);
+    setText(metricTicket, formatMoney(data.metrics?.averageTicket || 0));
+    setText(metricRevenue, `${formatMoney(data.metrics?.totalRevenue || 0)} facturados`);
+    setText(metricSpinUsage, `${Math.round(data.metrics?.spinUsageRate || 0)}%`);
+    setText(metricRewardRate, `${Math.round(data.metrics?.rewardDeliveryRate || 0)}%`);
+    setText(metricTopCampaign, data.metrics?.topCampaign
         ? `${data.metrics.topCampaign.id} · ${data.metrics.topCampaign.activations} activaciones`
-        : 'Sin datos';
-    metricTopPrize.textContent = data.metrics?.topPrize
+        : 'Sin datos');
+    setText(metricTopPrize, data.metrics?.topPrize
         ? `${data.metrics.topPrize.prize} · ${data.metrics.topPrize.count} registro(s)`
-        : 'Sin datos';
+        : 'Sin datos');
 
     renderRewards(data.rewards || []);
     renderRewardRedemptions(data.rewardRedemptions || []);
@@ -309,7 +321,7 @@ async function loadDashboard() {
     renderCampaigns(data.campaigns || []);
     renderCampaignActivations(data.campaignActivations || []);
 
-    rewardsList.querySelectorAll('[data-reward-deliver]').forEach((button) => {
+    rewardsList?.querySelectorAll('[data-reward-deliver]').forEach((button) => {
         button.addEventListener('click', async () => {
             button.disabled = true;
             try {
@@ -328,7 +340,7 @@ async function loadDashboard() {
         });
     });
 
-    rewardRedemptionsList.querySelectorAll('[data-redemption-deliver]').forEach((button) => {
+    rewardRedemptionsList?.querySelectorAll('[data-redemption-deliver]').forEach((button) => {
         button.addEventListener('click', async () => {
             button.disabled = true;
             try {
@@ -348,7 +360,7 @@ async function loadDashboard() {
         });
     });
 
-    rewardRedemptionsList.querySelectorAll('[data-redemption-cancel]').forEach((button) => {
+    rewardRedemptionsList?.querySelectorAll('[data-redemption-cancel]').forEach((button) => {
         button.addEventListener('click', async () => {
             button.disabled = true;
             try {
