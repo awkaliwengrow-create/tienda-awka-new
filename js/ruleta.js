@@ -126,18 +126,26 @@ const confettiWrap = document.getElementById('confettiWrap');
 const prizeGuide = document.getElementById('ruletaPrizeGuide');
 const canvas = document.getElementById('ruletaCanvas');
 const wheelOuter = document.querySelector('.awka-wheel-outer');
+const pointerSvg = document.querySelector('.awka-pointer-wrap svg');
 
 const ctx = canvas.getContext('2d');
-const size = canvas.width;
-const centerX = size / 2;
-const centerY = size / 2;
-const radius = size / 2 - 6;
+let size = canvas.width;
+let centerX = size / 2;
+let centerY = size / 2;
+let radius = size / 2 - 6;
 const equalArc = (2 * Math.PI) / PRIZES.length;
 const arcs = PRIZES.map(() => equalArc);
 const arcStarts = arcs.reduce((acc, arc, index) => {
     acc.push(index === 0 ? 0 : acc[index - 1] + arcs[index - 1]);
     return acc;
 }, []);
+
+function updateWheelGeometry(nextSize) {
+    size = nextSize;
+    centerX = size / 2;
+    centerY = size / 2;
+    radius = size / 2 - Math.max(6, size * 0.018);
+}
 
 let currentProfile = null;
 let currentSession = null;
@@ -271,6 +279,8 @@ function buildSpinResultFromProfile(previousProfile, nextProfile) {
 function renderWheel(rotation) {
     ctx.clearRect(0, 0, size, size);
     const isCompactWheel = window.matchMedia('(max-width: 520px)').matches;
+    const compactTextRadius = radius * 0.56;
+    const wideTextRadius = radius * 0.5;
 
     PRIZES.forEach((prize, index) => {
         const start = rotation + arcStarts[index];
@@ -296,15 +306,19 @@ function renderWheel(rotation) {
         ctx.stroke();
 
         const labelAngle = start + arcs[index] / 2;
-        const textRadius = isCompactWheel ? radius - 74 : radius - 98;
+        const textRadius = isCompactWheel ? compactTextRadius : wideTextRadius;
         const textX = centerX + Math.cos(labelAngle) * textRadius;
         const textY = centerY + Math.sin(labelAngle) * textRadius;
 
         if (isCompactWheel) {
             const wheelLines = prize.wheelLines || [prize.label];
             const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
-            const fontSize = longestLine >= 12 ? 7.1 : longestLine >= 9 ? 7.8 : 8.4;
-            const lineGap = 8.5;
+            const fontSize = longestLine >= 12
+                ? Math.max(10, size * 0.03)
+                : longestLine >= 9
+                    ? Math.max(11, size * 0.032)
+                    : Math.max(12, size * 0.034);
+            const lineGap = fontSize + 1.8;
             let textRotation = labelAngle + Math.PI / 2;
 
             if (textRotation > Math.PI / 2 && textRotation < (3 * Math.PI) / 2) {
@@ -327,8 +341,12 @@ function renderWheel(rotation) {
         } else {
             const wheelLines = prize.wheelLines || [prize.label];
             const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
-            const fontSize = longestLine >= 12 ? 9.75 : longestLine >= 9 ? 10.75 : 11.75;
-            const lineGap = 12;
+            const fontSize = longestLine >= 12
+                ? Math.max(12, size * 0.034)
+                : longestLine >= 9
+                    ? Math.max(13, size * 0.037)
+                    : Math.max(14, size * 0.04);
+            const lineGap = fontSize + 1.5;
             let textRotation = labelAngle + Math.PI / 2;
 
             if (textRotation > Math.PI / 2 && textRotation < (3 * Math.PI) / 2) {
@@ -351,9 +369,19 @@ function renderWheel(rotation) {
         }
     });
 
+    const outerCapRadius = size * 0.1;
+    const innerCapRadius = size * 0.076;
+
     ctx.beginPath();
-    ctx.arc(centerX, centerY, 34, 0, 2 * Math.PI);
-    const capGradient = ctx.createRadialGradient(centerX - 8, centerY - 8, 2, centerX, centerY, 34);
+    ctx.arc(centerX, centerY, outerCapRadius, 0, 2 * Math.PI);
+    const capGradient = ctx.createRadialGradient(
+        centerX - (outerCapRadius * 0.24),
+        centerY - (outerCapRadius * 0.24),
+        2,
+        centerX,
+        centerY,
+        outerCapRadius
+    );
     capGradient.addColorStop(0, '#1a3020');
     capGradient.addColorStop(1, '#07100a');
     ctx.fillStyle = capGradient;
@@ -363,7 +391,7 @@ function renderWheel(rotation) {
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.arc(centerX, centerY, 26, 0, 2 * Math.PI);
+    ctx.arc(centerX, centerY, innerCapRadius, 0, 2 * Math.PI);
     ctx.strokeStyle = '#1a3020';
     ctx.lineWidth = 1;
     ctx.stroke();
@@ -371,10 +399,30 @@ function renderWheel(rotation) {
 
 function resizeCanvas() {
     const outerWidth = wheelOuter?.getBoundingClientRect().width || 340;
-    const outerPadding = window.matchMedia('(max-width: 520px)').matches ? 12 : 24;
-    const target = Math.max(180, Math.min(340, outerWidth - outerPadding));
+    const isCompactWheel = window.matchMedia('(max-width: 520px)').matches;
+    const outerPadding = isCompactWheel ? 16 : 24;
+    const maxTarget = isCompactWheel ? 276 : 340;
+    const minTarget = isCompactWheel ? 220 : 260;
+    const target = Math.max(minTarget, Math.min(maxTarget, outerWidth - outerPadding));
+    const pixelRatio = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+    const drawSize = Math.round(target * pixelRatio);
+
     canvas.style.width = `${target}px`;
     canvas.style.height = `${target}px`;
+    canvas.width = drawSize;
+    canvas.height = drawSize;
+    updateWheelGeometry(drawSize);
+
+    const centerSize = Math.round(target * (isCompactWheel ? 0.26 : 0.21));
+    spinButton.style.width = `${centerSize}px`;
+    spinButton.style.height = `${centerSize}px`;
+    spinButton.style.fontSize = `${Math.max(12, centerSize * 0.25)}px`;
+
+    if (pointerSvg) {
+        pointerSvg.style.width = `${Math.round(target * (isCompactWheel ? 0.1 : 0.082))}px`;
+        pointerSvg.style.height = `${Math.round(target * (isCompactWheel ? 0.15 : 0.124))}px`;
+    }
+
     renderWheel(currentRotation);
 }
 
