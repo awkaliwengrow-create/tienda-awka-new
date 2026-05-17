@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Crimson+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=20260507-2">
+    <link rel="stylesheet" href="css/styles.css?v=20260517-10">
 </head>
 <body class="club-page">
     <header>
@@ -122,6 +122,18 @@
         </section>
     </main>
 
+    <div id="clubRewardNotice" class="club-notice-overlay" hidden>
+        <div class="club-notice-card" role="dialog" aria-modal="true" aria-labelledby="clubNoticeTitle">
+            <button type="button" class="club-notice-close" id="clubNoticeClose" aria-label="Cerrar aviso">×</button>
+            <div class="club-notice-badge">Canje registrado</div>
+            <h3 id="clubNoticeTitle">Tu recompensa ya quedo pedida</h3>
+            <p id="clubNoticeMessage">Descontamos tus puntos y el pedido ya esta en revision desde Awka Admin.</p>
+            <div class="club-notice-actions">
+                <button type="button" id="clubNoticeConfirm" class="hero-cta club-profile-button">Entendido</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -161,6 +173,6 @@
         }
     </script>
     <script src="js/products.js?v=20260507-2"></script>
-    <script src="js/club.js?v=20260507-2"></script>
+    <script src="js/club.js?v=20260517-10"></script>
 </body>
 </html>

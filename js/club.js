@@ -15,6 +15,10 @@ const logoutButton = document.getElementById('clubLogoutButton');
 const clubResult = document.getElementById('clubProfileResult');
 const memberPanel = document.getElementById('clubMemberPanel');
 const authStage = document.querySelector('.club-auth-stage');
+const rewardNotice = document.getElementById('clubRewardNotice');
+const rewardNoticeMessage = document.getElementById('clubNoticeMessage');
+const rewardNoticeClose = document.getElementById('clubNoticeClose');
+const rewardNoticeConfirm = document.getElementById('clubNoticeConfirm');
 
 const PRIZE_EMOJIS = {
     'Sin resultado': '🎯',
@@ -146,6 +150,17 @@ function setFeedback(element, message, variant = '') {
     if (!element) return;
     element.textContent = message;
     element.className = `club-profile-feedback${variant ? ` is-${variant}` : ''}`;
+}
+
+function openRewardNotice(message) {
+    if (!rewardNotice || !rewardNoticeMessage) return;
+    rewardNoticeMessage.textContent = message;
+    rewardNotice.hidden = false;
+}
+
+function closeRewardNotice() {
+    if (!rewardNotice) return;
+    rewardNotice.hidden = true;
 }
 
 function saveSession(session) {
@@ -625,6 +640,7 @@ function renderProfile(profile) {
         button.addEventListener('click', async () => {
             const rewardKey = String(button.dataset.rewardKey || '').trim();
             if (!rewardKey || !authState.token) return;
+            const selectedReward = resolveRewardCatalog(profile).find((reward) => reward.key === rewardKey) || null;
 
             button.disabled = true;
             if (rewardsFeedback) {
@@ -662,6 +678,11 @@ function renderProfile(profile) {
                     refreshedFeedback.hidden = false;
                     setFeedback(refreshedFeedback, `${data.message} Ya quedo en revision desde Awka Admin.`, 'success');
                 }
+
+                const rewardLabel = selectedReward
+                    ? `${selectedReward.productName}${selectedReward.sizeLabel ? ` · ${selectedReward.sizeLabel}` : ''}`
+                    : 'tu recompensa';
+                openRewardNotice(`Pediste ${rewardLabel}. Descontamos tus puntos y el canje ya quedo en revision desde Awka Admin.`);
             } catch (error) {
                 button.disabled = false;
                 if (rewardsFeedback) {
@@ -856,6 +877,14 @@ if (authBackButton) {
 if (logoutButton) {
     logoutButton.addEventListener('click', handleLogout);
 }
+
+rewardNoticeClose?.addEventListener('click', closeRewardNotice);
+rewardNoticeConfirm?.addEventListener('click', closeRewardNotice);
+rewardNotice?.addEventListener('click', (event) => {
+    if (event.target === rewardNotice) {
+        closeRewardNotice();
+    }
+});
 
 const existingSession = loadSession();
 if (existingSession?.token) {
