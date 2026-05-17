@@ -183,8 +183,9 @@ function renderPrizeGuide() {
     prizeGuide.innerHTML = `
         <div class="awka-prize-guide-title">Premios en juego</div>
         <div class="awka-prize-guide-grid">
-            ${PRIZES.map((prize) => `
+            ${PRIZES.map((prize, index) => `
                 <div class="awka-prize-guide-item">
+                    <div class="awka-prize-slot">${index + 1}</div>
                     <div class="awka-prize-swatch" style="background:${prize.color}"></div>
                     <strong>${prize.label}</strong>
                     <span>${subtitleForPrize(prize)}</span>
@@ -269,6 +270,7 @@ function buildSpinResultFromProfile(previousProfile, nextProfile) {
 
 function renderWheel(rotation) {
     ctx.clearRect(0, 0, size, size);
+    const isCompactWheel = window.matchMedia('(max-width: 520px)').matches;
 
     PRIZES.forEach((prize, index) => {
         const start = rotation + arcStarts[index];
@@ -293,33 +295,44 @@ function renderWheel(rotation) {
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        const wheelLines = prize.wheelLines || [prize.label];
-        const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
-        const fontSize = longestLine >= 12 ? 9.75 : longestLine >= 9 ? 10.75 : 11.75;
-        const lineGap = 12;
         const labelAngle = start + arcs[index] / 2;
-        const textRadius = radius - 98;
+        const textRadius = isCompactWheel ? radius - 86 : radius - 98;
         const textX = centerX + Math.cos(labelAngle) * textRadius;
         const textY = centerY + Math.sin(labelAngle) * textRadius;
-        let textRotation = labelAngle + Math.PI / 2;
 
-        if (textRotation > Math.PI / 2 && textRotation < (3 * Math.PI) / 2) {
-            textRotation += Math.PI;
+        if (isCompactWheel) {
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = 'rgba(245, 236, 214, 0.98)';
+            ctx.font = '700 18px "DM Sans", sans-serif';
+            ctx.fillText(String(index + 1), textX, textY);
+            ctx.restore();
+        } else {
+            const wheelLines = prize.wheelLines || [prize.label];
+            const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
+            const fontSize = longestLine >= 12 ? 9.75 : longestLine >= 9 ? 10.75 : 11.75;
+            const lineGap = 12;
+            let textRotation = labelAngle + Math.PI / 2;
+
+            if (textRotation > Math.PI / 2 && textRotation < (3 * Math.PI) / 2) {
+                textRotation += Math.PI;
+            }
+
+            ctx.save();
+            ctx.translate(textX, textY);
+            ctx.rotate(textRotation);
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = 'rgba(245, 236, 214, 0.96)';
+            ctx.font = `700 ${fontSize}px "DM Sans", sans-serif`;
+
+            const startY = -((wheelLines.length - 1) * lineGap) / 2;
+            wheelLines.forEach((line, lineIndex) => {
+                ctx.fillText(line, 0, startY + (lineIndex * lineGap));
+            });
+            ctx.restore();
         }
-
-        ctx.save();
-        ctx.translate(textX, textY);
-        ctx.rotate(textRotation);
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillStyle = 'rgba(245, 236, 214, 0.96)';
-        ctx.font = `700 ${fontSize}px "DM Sans", sans-serif`;
-
-        const startY = -((wheelLines.length - 1) * lineGap) / 2;
-        wheelLines.forEach((line, lineIndex) => {
-            ctx.fillText(line, 0, startY + (lineIndex * lineGap));
-        });
-        ctx.restore();
     });
 
     ctx.beginPath();
