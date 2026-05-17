@@ -158,7 +158,7 @@ function renderRewardRedemptions(items) {
                 </div>
             </article>
         `,
-        'No hay canjes registrados.'
+        'No hay puntos canjeados aun.'
     );
 }
 
