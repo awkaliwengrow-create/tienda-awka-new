@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Awka - Cartel QR</title>
+    <style>
+        :root {
+            --awka-green: #567f43;
+            --awka-green-dark: #324c28;
+            --awka-ink: #3f2b1f;
+            --awka-cream: #f6f1e7;
+            --awka-line: rgba(86, 127, 67, 0.18);
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(circle at top, rgba(188, 203, 170, 0.35), transparent 34%),
+                linear-gradient(180deg, #f9f5ed 0%, #f3ecde 100%);
+            color: var(--awka-ink);
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        .poster-sheet {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .poster {
+            width: 210mm;
+            min-height: 297mm;
+            background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(246,241,231,0.98));
+            border: 1px solid rgba(86, 127, 67, 0.2);
+            box-shadow: 0 26px 90px rgba(59, 42, 28, 0.16);
+            padding: 22mm 16mm 16mm;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poster::before,
+        .poster::after {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border: 1px solid var(--awka-line);
+            pointer-events: none;
+        }
+
+        .poster::after {
+            inset: 32px;
+            border-color: rgba(86, 127, 67, 0.08);
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 142px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: rgba(86, 127, 67, 0.1);
+            color: var(--awka-green-dark);
+            font-size: 12px;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .title {
+            max-width: 150mm;
+            margin: 0;
+            font-size: 33px;
+            line-height: 1.06;
+            letter-spacing: -0.03em;
+            color: var(--awka-green-dark);
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            max-width: 146mm;
+            margin: 14px 0 0;
+            font-size: 19px;
+            line-height: 1.45;
+            color: rgba(63, 43, 31, 0.86);
+        }
+
+        .qr-card {
+            width: 100%;
+            max-width: 118mm;
+            margin-top: 18mm;
+            padding: 12mm 10mm 10mm;
+            border-radius: 24px;
+            background: linear-gradient(180deg, rgba(236,227,208,0.62), rgba(255,255,255,0.95));
+            border: 1px solid rgba(86, 127, 67, 0.18);
+            box-shadow: 0 18px 40px rgba(56, 40, 24, 0.08);
+        }
+
+        .qr {
+            width: 84mm;
+            height: 84mm;
+            display: block;
+            margin: 0 auto;
+            padding: 10px;
+            background: #fff;
+            border-radius: 18px;
+            border: 1px solid rgba(86, 127, 67, 0.16);
+        }
+
+        .scan-label {
+            margin-top: 12px;
+            font-size: 13px;
+            letter-spacing: 0.34em;
+            font-weight: 700;
+            color: var(--awka-green-dark);
+            text-transform: uppercase;
+        }
+
+        .benefits {
+            width: 100%;
+            max-width: 142mm;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 18mm 0 0;
+        }
+
+        .benefit {
+            padding: 12px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(86, 127, 67, 0.14);
+            background: rgba(255,255,255,0.78);
+            color: var(--awka-ink);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .cta {
+            margin-top: 18mm;
+            padding: 16px 34px;
+            border-radius: 999px;
+            background: var(--awka-green);
+            color: #fff;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            box-shadow: 0 14px 30px rgba(86, 127, 67, 0.28);
+        }
+
+        .foot {
+            max-width: 140mm;
+            margin: auto 0 0;
+            padding-top: 14mm;
+            font-size: 16px;
+            line-height: 1.5;
+            color: rgba(63, 43, 31, 0.76);
+        }
+
+        .url {
+            margin-top: 10px;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            color: rgba(63, 43, 31, 0.56);
+            word-break: break-all;
+        }
+
+        @media screen and (max-width: 900px) {
+            .poster-sheet {
+                padding: 0;
+            }
+
+            .poster {
+                width: 100%;
+                min-height: 100vh;
+                padding: 32px 18px 22px;
+            }
+
+            .title {
+                font-size: 30px;
+            }
+
+            .subtitle {
+                font-size: 17px;
+            }
+
+            .qr-card {
+                margin-top: 40px;
+                max-width: 100%;
+                padding: 22px 18px 18px;
+            }
+
+            .qr {
+                width: min(76vw, 320px);
+                height: min(76vw, 320px);
+            }
+
+            .benefit {
+                font-size: 17px;
+            }
+
+            .cta {
+                font-size: 23px;
+                padding: 15px 24px;
+            }
+
+            .foot {
+                margin-top: 38px;
+                padding-top: 0;
+                font-size: 15px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .poster-sheet {
+                padding: 0;
+            }
+
+            .poster {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="poster-sheet">
+        <section class="poster">
+            <div class="brand">Awka Liwen</div>
+
+            <h1 class="title">Suma puntos con tu compra</h1>
+            <p class="subtitle">
+                Escanea, entra a <strong>Club Awka</strong> y activa tus beneficios con tu WhatsApp.
+            </p>
+
+            <div class="qr-card">
+                <img
+                    class="qr"
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=800x800&data=https%3A%2F%2Ftienda-awka-new.vercel.app%2Fclub.html"
+                    alt="QR Club Awka"
+                >
+                <div class="scan-label">Escanea aqui</div>
+            </div>
+
+            <div class="benefits">
+                <div class="benefit">Acumula puntos</div>
+                <div class="benefit">Desbloquea giros</div>
+                <div class="benefit">Canjea recompensas</div>
+            </div>
+
+            <div class="cta">Escanea aqui</div>
+
+            <div class="foot">
+                Tu compra en Awka tambien puede darte premios.
+                <div class="url">https://tienda-awka-new.vercel.app/club.html</div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
