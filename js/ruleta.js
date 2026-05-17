@@ -256,19 +256,10 @@ function renderWheel(rotation) {
         ctx.save();
         ctx.translate(centerX, centerY);
         ctx.rotate(start + arcs[index] / 2);
-        ctx.textAlign = 'right';
-        ctx.fillStyle = 'rgba(240,232,212,0.95)';
-        ctx.font = '600 12px "DM Sans", sans-serif';
-        ctx.fillText(prize.label, radius - 12, 5);
-        ctx.restore();
-
-        ctx.save();
-        ctx.translate(centerX, centerY);
-        ctx.rotate(start + arcs[index] / 2);
         ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(240,232,212,0.88)';
-        ctx.font = '700 10px "DM Sans", sans-serif';
-        ctx.fillText(prize.badge, radius - 92, 8);
+        ctx.fillStyle = 'rgba(245, 236, 214, 0.96)';
+        ctx.font = '700 15px "DM Sans", sans-serif';
+        ctx.fillText(prize.mark || prize.badge, radius - 84, 6);
         ctx.restore();
     });
 
