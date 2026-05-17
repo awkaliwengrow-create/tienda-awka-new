@@ -56,7 +56,6 @@
                         <div>
                             <div class="club-preview-kicker">Awka Admin</div>
                             <h2>Control diario</h2>
-                            <p>Pendientes, ajustes y seguimiento del club.</p>
                         </div>
                         <div class="admin-topbar-actions">
                             <button type="button" id="adminRefreshButton" class="club-side-link admin-topbar-button">Actualizar</button>
@@ -66,30 +65,22 @@
 
                     <div class="admin-grid admin-grid-actions">
                         <div class="club-profile-box admin-card admin-card-priority">
-                            <div class="club-preview-kicker">Accion</div>
                             <h3>Habilitar giros</h3>
-                            <form id="adminSpinForm" class="club-profile-form">
-                                <label for="adminSpinName">Nombre</label>
-                                <input id="adminSpinName" name="adminSpinName" type="text" placeholder="Cliente Awka">
-                                <label for="adminSpinPhone">WhatsApp</label>
-                                <input id="adminSpinPhone" name="adminSpinPhone" type="tel" inputmode="numeric" placeholder="1123456789">
-                                <label for="adminSpinCount">Cantidad</label>
-                                <input id="adminSpinCount" name="adminSpinCount" type="number" min="1" max="10" value="1">
+                            <form id="adminSpinForm" class="club-profile-form admin-compact-form">
+                                <input id="adminSpinName" name="adminSpinName" type="text" placeholder="Nombre">
+                                <input id="adminSpinPhone" name="adminSpinPhone" type="tel" inputmode="numeric" placeholder="WhatsApp">
+                                <input id="adminSpinCount" name="adminSpinCount" type="number" min="1" max="10" value="1" aria-label="Cantidad de giros">
                                 <button type="submit" class="hero-cta admin-submit">Habilitar giro</button>
                                 <div id="adminSpinFeedback" class="club-profile-feedback"></div>
                             </form>
                         </div>
 
                         <div class="club-profile-box admin-card admin-card-priority">
-                            <div class="club-preview-kicker">Accion</div>
                             <h3>Ajustar puntos</h3>
-                            <form id="adminPointsForm" class="club-profile-form">
-                                <label for="adminPointsName">Nombre</label>
-                                <input id="adminPointsName" name="adminPointsName" type="text" placeholder="Cliente Awka">
-                                <label for="adminPointsPhone">WhatsApp</label>
-                                <input id="adminPointsPhone" name="adminPointsPhone" type="tel" inputmode="numeric" placeholder="1123456789">
-                                <label for="adminPointsAmount">Ajuste</label>
-                                <input id="adminPointsAmount" name="adminPointsAmount" type="number" placeholder="5 o -3">
+                            <form id="adminPointsForm" class="club-profile-form admin-compact-form">
+                                <input id="adminPointsName" name="adminPointsName" type="text" placeholder="Nombre">
+                                <input id="adminPointsPhone" name="adminPointsPhone" type="tel" inputmode="numeric" placeholder="WhatsApp">
+                                <input id="adminPointsAmount" name="adminPointsAmount" type="number" placeholder="+5 o -3" aria-label="Ajuste de puntos">
                                 <button type="submit" class="hero-cta admin-submit">Aplicar ajuste</button>
                                 <div id="adminPointsFeedback" class="club-profile-feedback"></div>
                             </form>
@@ -98,30 +89,35 @@
 
                     <div class="admin-grid admin-grid-secondary">
                         <div class="club-profile-box admin-card">
-                            <div class="club-preview-kicker">Puntos</div>
                             <h3>Top clientes</h3>
                             <details class="admin-disclosure">
-                                <summary class="admin-disclosure-toggle">Ver estadisticas de puntos</summary>
+                                <summary class="admin-disclosure-toggle">Abrir</summary>
                                 <div id="adminPointsList" class="admin-list"></div>
                             </details>
                         </div>
 
                         <div class="club-profile-box admin-card">
-                            <div class="club-preview-kicker">Niveles</div>
                             <h3>Subidas recientes</h3>
-                            <div id="adminLevelHistoryList" class="admin-list"></div>
+                            <details class="admin-disclosure">
+                                <summary class="admin-disclosure-toggle">Abrir</summary>
+                                <div id="adminLevelHistoryList" class="admin-list"></div>
+                            </details>
                         </div>
 
                         <div class="club-profile-box admin-card">
-                            <div class="club-preview-kicker">Automatizaciones</div>
                             <h3>Activaciones recientes</h3>
-                            <div id="adminCampaignActivationList" class="admin-list"></div>
+                            <details class="admin-disclosure">
+                                <summary class="admin-disclosure-toggle">Abrir</summary>
+                                <div id="adminCampaignActivationList" class="admin-list"></div>
+                            </details>
                         </div>
 
                         <div class="club-profile-box admin-card">
-                            <div class="club-preview-kicker">Historial</div>
                             <h3>Movimientos</h3>
-                            <div id="adminUsedList" class="admin-list"></div>
+                            <details class="admin-disclosure">
+                                <summary class="admin-disclosure-toggle">Abrir</summary>
+                                <div id="adminUsedList" class="admin-list"></div>
+                            </details>
                         </div>
                     </div>
                 </div>
