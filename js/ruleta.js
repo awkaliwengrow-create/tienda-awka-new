@@ -293,20 +293,31 @@ function renderWheel(rotation) {
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        ctx.save();
-        ctx.translate(centerX, centerY);
-        ctx.rotate(start + arcs[index] / 2);
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(245, 236, 214, 0.96)';
-
         const wheelLines = prize.wheelLines || [prize.label];
         const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
-        const fontSize = longestLine >= 10 ? 10.5 : longestLine >= 8 ? 11.5 : 12.5;
-        const startY = wheelLines.length > 1 ? -7 : 3;
+        const fontSize = longestLine >= 12 ? 9.75 : longestLine >= 9 ? 10.75 : 11.75;
+        const lineGap = 12;
+        const labelAngle = start + arcs[index] / 2;
+        const textRadius = radius - 98;
+        const textX = centerX + Math.cos(labelAngle) * textRadius;
+        const textY = centerY + Math.sin(labelAngle) * textRadius;
+        let textRotation = labelAngle + Math.PI / 2;
 
+        if (textRotation > Math.PI / 2 && textRotation < (3 * Math.PI) / 2) {
+            textRotation += Math.PI;
+        }
+
+        ctx.save();
+        ctx.translate(textX, textY);
+        ctx.rotate(textRotation);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'rgba(245, 236, 214, 0.96)';
         ctx.font = `700 ${fontSize}px "DM Sans", sans-serif`;
+
+        const startY = -((wheelLines.length - 1) * lineGap) / 2;
         wheelLines.forEach((line, lineIndex) => {
-            ctx.fillText(line, radius - 86, startY + (lineIndex * 14));
+            ctx.fillText(line, 0, startY + (lineIndex * lineGap));
         });
         ctx.restore();
     });
