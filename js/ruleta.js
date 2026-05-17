@@ -5,6 +5,7 @@ const PRIZES = [
     {
         code: 'miss',
         label: 'Segui participando',
+        wheelLines: ['SEGUI', 'GIRANDO'],
         mark: 'TRY',
         badge: 'TRY',
         desc: 'La proxima puede ser tuya. Vuelve con tu siguiente compra.',
@@ -15,6 +16,7 @@ const PRIZES = [
     {
         code: 'discount-5',
         label: '5% OFF',
+        wheelLines: ['5% OFF'],
         mark: '5%',
         badge: '5%',
         desc: 'Descuento para tu proxima compra segun condiciones del local.',
@@ -26,6 +28,7 @@ const PRIZES = [
     {
         code: 'discount-10',
         label: '10% OFF',
+        wheelLines: ['10% OFF'],
         mark: '10%',
         badge: '10%',
         desc: 'Un descuento mas fuerte para premiar tu avance.',
@@ -37,6 +40,7 @@ const PRIZES = [
     {
         code: 'product-raw-classic',
         label: 'Raw Classic',
+        wheelLines: ['RAW', 'CLASSIC'],
         mark: 'RAW',
         badge: 'RAW',
         desc: 'Premio real del catalogo para retirar o coordinar con Awka.',
@@ -49,6 +53,7 @@ const PRIZES = [
     {
         code: 'product-tips-silver',
         label: 'Tips Silver',
+        wheelLines: ['TIPS', 'SILVER'],
         mark: 'TIPS',
         badge: 'TIP',
         desc: 'Premio real del catalogo para sumar al ecosistema Awka.',
@@ -61,6 +66,7 @@ const PRIZES = [
     {
         code: 'product-fumanchu',
         label: 'Fumanchu Blanco',
+        wheelLines: ['FUMANCHU'],
         mark: 'FUM',
         badge: 'FUM',
         desc: 'Premio real del catalogo listo para canjear.',
@@ -73,6 +79,7 @@ const PRIZES = [
     {
         code: 'product-zeus-pink',
         label: 'Zeus Pink',
+        wheelLines: ['ZEUS', 'PINK'],
         mark: 'ZEUS',
         badge: 'ZS',
         desc: 'Premio real del catalogo para clientes del club.',
@@ -85,6 +92,7 @@ const PRIZES = [
     {
         code: 'discount-20',
         label: '20% OFF',
+        wheelLines: ['20% OFF'],
         mark: '20%',
         badge: '20%',
         desc: 'Premio mayor de esta primera version de la ruleta.',
@@ -115,6 +123,7 @@ const prizeDesc = document.getElementById('prizeDesc');
 const btnWsp = document.getElementById('btnWsp');
 const btnPrizeCatalog = document.getElementById('btnPrizeCatalog');
 const confettiWrap = document.getElementById('confettiWrap');
+const prizeGuide = document.getElementById('ruletaPrizeGuide');
 const canvas = document.getElementById('ruletaCanvas');
 
 const ctx = canvas.getContext('2d');
@@ -152,6 +161,37 @@ function setSpinEnabled(enabled) {
     const disabled = !enabled || spinning;
     spinButton.disabled = disabled;
     readySpinButton.disabled = disabled;
+}
+
+function renderPrizeGuide() {
+    if (!prizeGuide) {
+        return;
+    }
+
+    const subtitleForPrize = (prize) => {
+        if (prize.type === 'discount') {
+            return 'Descuento directo';
+        }
+
+        if (prize.type === 'miss') {
+            return 'Intento sin premio';
+        }
+
+        return 'Producto del catalogo';
+    };
+
+    prizeGuide.innerHTML = `
+        <div class="awka-prize-guide-title">Premios en juego</div>
+        <div class="awka-prize-guide-grid">
+            ${PRIZES.map((prize) => `
+                <div class="awka-prize-guide-item">
+                    <div class="awka-prize-swatch" style="background:${prize.color}"></div>
+                    <strong>${prize.label}</strong>
+                    <span>${subtitleForPrize(prize)}</span>
+                </div>
+            `).join('')}
+        </div>
+    `;
 }
 
 function openOverlay(element) {
@@ -258,8 +298,16 @@ function renderWheel(rotation) {
         ctx.rotate(start + arcs[index] / 2);
         ctx.textAlign = 'center';
         ctx.fillStyle = 'rgba(245, 236, 214, 0.96)';
-        ctx.font = '700 15px "DM Sans", sans-serif';
-        ctx.fillText(prize.mark || prize.badge, radius - 84, 6);
+
+        const wheelLines = prize.wheelLines || [prize.label];
+        const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
+        const fontSize = longestLine >= 10 ? 10.5 : longestLine >= 8 ? 11.5 : 12.5;
+        const startY = wheelLines.length > 1 ? -7 : 3;
+
+        ctx.font = `700 ${fontSize}px "DM Sans", sans-serif`;
+        wheelLines.forEach((line, lineIndex) => {
+            ctx.fillText(line, radius - 86, startY + (lineIndex * 14));
+        });
         ctx.restore();
     });
 
@@ -571,5 +619,6 @@ document.querySelectorAll('[data-close-overlay]').forEach((button) => {
 window.addEventListener('resize', resizeCanvas);
 
 resizeCanvas();
+renderPrizeGuide();
 renderWheel(0);
 loadPlay();

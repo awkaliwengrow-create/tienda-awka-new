@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=20260517-1">
+    <link rel="stylesheet" href="css/styles.css?v=20260517-2">
     <style>
         :root {
             --play-bg: #07100a;
@@ -90,6 +90,7 @@
             align-content: start;
             gap: 1rem;
             padding: 1.35rem 1.2rem 1.15rem;
+            overflow: hidden;
             border-radius: 28px;
             background: linear-gradient(165deg, rgba(12, 23, 14, 0.96), rgba(7, 16, 10, 0.96));
             border: 1px solid rgba(109, 189, 62, 0.14);
@@ -104,6 +105,7 @@
             display: grid;
             gap: 0.35rem;
             max-width: 520px;
+            justify-items: center;
         }
 
         .awka-play-back {
@@ -155,6 +157,7 @@
             font-size: 0.92rem;
             letter-spacing: 0.01em;
             line-height: 1.55;
+            max-width: 30ch;
         }
 
         .awka-wheel-wrap {
@@ -162,13 +165,13 @@
             width: min(100%, 460px);
             display: grid;
             justify-items: center;
-            gap: 1rem;
+            gap: 0.85rem;
         }
 
         .awka-wheel-outer {
             position: relative;
-            width: min(100%, 420px);
-            padding: 14px;
+            width: min(100%, 392px);
+            padding: 12px;
             border-radius: 50%;
             background: conic-gradient(from 0deg, #1a3a1a, #2a5a2a, #1e4020, #0e1a10, #1a3a1a);
             box-shadow:
@@ -342,16 +345,31 @@
             box-shadow: 0 10px 26px rgba(42, 96, 32, 0.33), inset 0 1px 0 rgba(255, 255, 255, 0.13);
         }
 
-        .awka-wheel-legend {
+        .awka-prize-guide {
             width: min(100%, 420px);
+            display: grid;
+            gap: 0.65rem;
+        }
+
+        .awka-prize-guide-title {
+            color: var(--play-gold-2);
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .awka-prize-guide-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 0.6rem;
         }
 
-        .awka-wheel-legend-item {
+        .awka-prize-guide-item {
             display: grid;
-            gap: 0.12rem;
+            grid-template-columns: auto 1fr;
+            align-items: start;
+            gap: 0.16rem 0.62rem;
             padding: 0.78rem 0.82rem;
             border-radius: 16px;
             background: rgba(7, 16, 10, 0.58);
@@ -359,31 +377,26 @@
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
 
-        .awka-wheel-legend-mark {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 26px;
-            width: fit-content;
-            padding: 0 0.55rem;
+        .awka-prize-swatch {
+            grid-row: 1 / span 2;
+            width: 12px;
+            height: 12px;
+            margin-top: 0.28rem;
             border-radius: 999px;
-            background: rgba(109, 189, 62, 0.12);
-            color: var(--play-gold-2);
-            font-size: 0.68rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            font-weight: 700;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
         }
 
-        .awka-wheel-legend-item strong {
+        .awka-prize-guide-item strong {
+            grid-column: 2;
             color: var(--play-cream);
-            font-size: 0.96rem;
+            font-size: 0.9rem;
             line-height: 1.25;
         }
 
-        .awka-wheel-legend-item span {
+        .awka-prize-guide-item span {
+            grid-column: 2;
             color: #90b188;
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             line-height: 1.45;
         }
 
@@ -537,7 +550,8 @@
 
         @media (max-width: 520px) {
             .awka-play-main {
-                padding: 6rem 0.8rem 1.8rem;
+                align-items: start;
+                padding: 5.4rem 0.65rem 1.6rem;
             }
 
             .awka-overlay-card,
@@ -550,25 +564,30 @@
             }
 
             .awka-play-title {
-                font-size: clamp(2.45rem, 14vw, 3.4rem);
+                font-size: clamp(2.2rem, 12vw, 3rem);
+                line-height: 0.92;
             }
 
             .awka-play-subtitle {
                 font-size: 0.84rem;
             }
 
+            .awka-play-stage {
+                padding: 1rem 0.8rem 1rem;
+            }
+
             .awka-wheel-wrap,
             .awka-wheel-outer {
-                width: min(100%, 336px);
+                width: min(100%, 300px);
             }
 
             .awka-spin-center {
-                width: 64px;
-                height: 64px;
-                font-size: 0.92rem;
+                width: 60px;
+                height: 60px;
+                font-size: 0.88rem;
             }
 
-            .awka-wheel-legend {
+            .awka-prize-guide-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -622,18 +641,7 @@
                         <button type="button" id="ruletaSpinButton" class="awka-spin-center">GIRAR</button>
                     </div>
 
-                    <div class="awka-wheel-legend" aria-hidden="true">
-                        <div class="awka-wheel-legend-item">
-                            <div class="awka-wheel-legend-mark">OFF</div>
-                            <strong>Descuentos reales</strong>
-                            <span>Premios directos para tu siguiente compra.</span>
-                        </div>
-                        <div class="awka-wheel-legend-item">
-                            <div class="awka-wheel-legend-mark">PREMIO</div>
-                            <strong>Productos del catalogo</strong>
-                            <span>Canjeables desde el ecosistema Awka.</span>
-                        </div>
-                    </div>
+                    <div id="ruletaPrizeGuide" class="awka-prize-guide" aria-label="Premios en juego"></div>
                 </div>
 
                 <div id="ruletaFeedback" class="awka-play-feedback">Validando tu sesion del club...</div>
@@ -708,6 +716,6 @@
             btn.classList.toggle('open');
         }
     </script>
-    <script src="js/ruleta.js?v=20260517-1"></script>
+    <script src="js/ruleta.js?v=20260517-2"></script>
 </body>
 </html>
