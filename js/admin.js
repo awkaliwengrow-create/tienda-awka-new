@@ -383,12 +383,20 @@ async function loadDashboard() {
 
 function showDashboard() {
     loginShell.hidden = true;
+    loginShell.setAttribute('hidden', 'hidden');
+    loginShell.style.display = 'none';
     dashboard.hidden = false;
+    dashboard.removeAttribute('hidden');
+    dashboard.style.display = '';
 }
 
 function showLogin() {
     loginShell.hidden = false;
+    loginShell.removeAttribute('hidden');
+    loginShell.style.display = '';
     dashboard.hidden = true;
+    dashboard.setAttribute('hidden', 'hidden');
+    dashboard.style.display = 'none';
 }
 
 async function handleLogin(event) {
