@@ -3048,6 +3048,44 @@ footer {
     margin-top: 0.65rem;
 }
 
+.admin-disclosure {
+    margin-top: 0.55rem;
+    border-top: 1px solid rgba(74,103,65,0.12);
+    padding-top: 0.55rem;
+}
+
+.admin-disclosure-toggle {
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 38px;
+    padding: 0 0.85rem;
+    border-radius: 999px;
+    background: rgba(74,103,65,0.08);
+    border: 1px solid rgba(74,103,65,0.12);
+    color: var(--earth-dark);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    user-select: none;
+}
+
+.admin-disclosure-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.admin-disclosure-toggle::before {
+    content: '+';
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.admin-disclosure[open] .admin-disclosure-toggle::before {
+    content: '-';
+}
+
 .admin-grid-queue .admin-list {
     margin-top: 0.55rem;
 }
