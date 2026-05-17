@@ -6,6 +6,8 @@ const loginForm = document.getElementById('adminLoginForm');
 const loginFeedback = document.getElementById('adminLoginFeedback');
 const logoutButton = document.getElementById('adminLogoutButton');
 const refreshButton = document.getElementById('adminRefreshButton');
+const sessionLogoutButton = document.getElementById('adminSessionLogoutButton');
+const sessionRefreshButton = document.getElementById('adminSessionRefreshButton');
 
 const statPending = document.getElementById('adminStatPending');
 const statUsed = document.getElementById('adminStatUsed');
@@ -512,10 +514,14 @@ async function bootAdmin() {
 loginForm?.addEventListener('submit', handleLogin);
 spinForm?.addEventListener('submit', handleSpinSubmit);
 pointsForm?.addEventListener('submit', handlePointsSubmit);
-refreshButton?.addEventListener('click', loadDashboard);
-logoutButton?.addEventListener('click', () => {
+const handleLogout = () => {
     clearSession();
     showLogin();
-});
+};
+
+refreshButton?.addEventListener('click', loadDashboard);
+sessionRefreshButton?.addEventListener('click', loadDashboard);
+logoutButton?.addEventListener('click', handleLogout);
+sessionLogoutButton?.addEventListener('click', handleLogout);
 
 bootAdmin();
