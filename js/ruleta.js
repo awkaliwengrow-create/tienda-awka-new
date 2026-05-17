@@ -183,9 +183,8 @@ function renderPrizeGuide() {
     prizeGuide.innerHTML = `
         <div class="awka-prize-guide-title">Premios en juego</div>
         <div class="awka-prize-guide-grid">
-            ${PRIZES.map((prize, index) => `
+            ${PRIZES.map((prize) => `
                 <div class="awka-prize-guide-item">
-                    <div class="awka-prize-slot">${index + 1}</div>
                     <div class="awka-prize-swatch" style="background:${prize.color}"></div>
                     <strong>${prize.label}</strong>
                     <span>${subtitleForPrize(prize)}</span>
@@ -301,13 +300,7 @@ function renderWheel(rotation) {
         const textY = centerY + Math.sin(labelAngle) * textRadius;
 
         if (isCompactWheel) {
-            ctx.save();
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillStyle = 'rgba(245, 236, 214, 0.98)';
-            ctx.font = '700 18px "DM Sans", sans-serif';
-            ctx.fillText(String(index + 1), textX, textY);
-            ctx.restore();
+            return;
         } else {
             const wheelLines = prize.wheelLines || [prize.label];
             const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
