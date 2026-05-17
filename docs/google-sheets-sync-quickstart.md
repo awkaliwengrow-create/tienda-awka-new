@@ -67,6 +67,16 @@ Si quieres cambiar el mensaje del commit:
 powershell -ExecutionPolicy Bypass -File .\scripts\publish-google-sheets-sync.ps1 -CommitMessage "Actualiza catalogo y canjes"
 ```
 
+## Opcion sin terminal
+
+Si te resulta mas comodo, puedes:
+
+- usar `Terminal > Run Task` en VS Code
+- o ejecutar por doble clic:
+  - `scripts\run-google-sheets-sync.cmd`
+  - `scripts\run-catalog-audit.cmd`
+  - `scripts\publish-google-sheets-sync.cmd`
+
 ## Que pasa si cambias un precio o stock y no lo ves en la web
 
 Eso significa una de estas dos cosas:

@@ -16,6 +16,27 @@ Ese comando hace todo:
 4. crea commit
 5. hace push a `main`
 
+## Opcion sin escribir comandos
+
+### Desde VS Code
+
+1. abre `Terminal`
+2. elige `Run Task`
+3. usa una de estas:
+   - `Awka: Sync Google Sheets`
+   - `Awka: Audit Catalog`
+   - `Awka: Publish Google Sheets`
+
+### Por doble clic
+
+Dentro de `scripts` tienes:
+
+- `run-google-sheets-sync.cmd`
+- `run-catalog-audit.cmd`
+- `publish-google-sheets-sync.cmd`
+
+Esos accesos llaman a PowerShell por ti.
+
 ## Camino paso a paso
 
 ```powershell
