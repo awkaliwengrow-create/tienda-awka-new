@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=20260517-2">
+    <link rel="stylesheet" href="css/styles.css?v=20260517-3">
     <style>
         :root {
             --play-bg: #07100a;
@@ -162,16 +162,19 @@
 
         .awka-wheel-wrap {
             position: relative;
-            width: min(100%, 460px);
+            width: min(100%, 420px);
             display: grid;
             justify-items: center;
             gap: 0.85rem;
         }
 
         .awka-wheel-outer {
+            box-sizing: border-box;
             position: relative;
-            width: min(100%, 392px);
+            width: 100%;
+            max-width: 392px;
             padding: 12px;
+            margin-inline: auto;
             border-radius: 50%;
             background: conic-gradient(from 0deg, #1a3a1a, #2a5a2a, #1e4020, #0e1a10, #1a3a1a);
             box-shadow:
@@ -539,12 +542,11 @@
             }
 
             .awka-wheel-wrap {
-                width: min(100%, 420px);
+                width: min(100%, 380px);
             }
 
-            .awka-wheel-wrap,
             .awka-wheel-outer {
-                width: min(100%, 390px);
+                max-width: 380px;
             }
         }
 
@@ -576,9 +578,12 @@
                 padding: 1rem 0.8rem 1rem;
             }
 
-            .awka-wheel-wrap,
+            .awka-wheel-wrap {
+                width: min(100%, 280px);
+            }
+
             .awka-wheel-outer {
-                width: min(100%, 300px);
+                max-width: 280px;
             }
 
             .awka-spin-center {
@@ -716,6 +721,6 @@
             btn.classList.toggle('open');
         }
     </script>
-    <script src="js/ruleta.js?v=20260517-2"></script>
+    <script src="js/ruleta.js?v=20260517-3"></script>
 </body>
 </html>
