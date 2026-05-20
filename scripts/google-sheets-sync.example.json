@@ -3,7 +3,8 @@
     "source": "https://docs.google.com/spreadsheets/d/TU_SHEET_ID/export?format=csv&gid=WEB_CATALOGO_GID"
   },
   "rewards": {
-    "source": "https://docs.google.com/spreadsheets/d/TU_SHEET_ID/export?format=csv&gid=WEB_CANJES_GID"
+    "source": "https://docs.google.com/spreadsheets/d/TU_SHEET_ID/export?format=csv&gid=WEB_CANJES_GID",
+    "redeemValuePerPoint": 1000
   },
   "outputs": {
     "catalogSnapshot": "tmp/web-catalog.snapshot.json",

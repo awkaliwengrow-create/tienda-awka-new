@@ -4,6 +4,7 @@ const path = require('path');
 
 const CLUB_ENV_ERROR = 'AWKA_CLUB_NOT_CONFIGURED';
 const POINTS_PER_AMOUNT = Number(process.env.AWKA_POINTS_PER_AMOUNT) || 5000;
+const REDEEM_VALUE_PER_POINT = Number(process.env.AWKA_REDEEM_VALUE_PER_POINT) || 1000;
 const LEVELS = [
     { key: 'nuevo', label: 'Nuevo', minPurchases: 0, maxPurchases: 1 },
     { key: 'recurrente', label: 'Recurrente', minPurchases: 2, maxPurchases: 4 },
@@ -523,7 +524,8 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
             lastActivity: pointsRow?.ultima_actividad || null
         },
         rewardPolicy: {
-            earningValue: POINTS_PER_AMOUNT
+            earningValue: POINTS_PER_AMOUNT,
+            redeemValue: REDEEM_VALUE_PER_POINT
         },
         rewardCatalog: getRewardCatalog().map((reward) => ({
             key: reward.key,

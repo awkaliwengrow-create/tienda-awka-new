@@ -110,6 +110,7 @@ Columnas sugeridas:
 - `MARCA`
 - `SIZE_LABEL`
 - `PUNTOS_CANJE`
+- `PRECIO_REFERENCIA`
 - `IMAGEN`
 - `DESTACADO`
 - `ORDEN`
@@ -117,6 +118,23 @@ Columnas sugeridas:
 ### Valores recomendados
 - `ACTIVO`: `SI` / `NO`
 - `DESTACADO`: `SI` / `NO`
+
+### Regla recomendada para canjes
+
+- `1 punto se gana cada $5000 de compra`
+- `1 punto de canje vale $1000 de referencia`
+
+Formula sugerida para `PUNTOS_CANJE`:
+
+```gs
+=MAX(1,ROUNDUP(I2/1000,0))
+```
+
+Si `I2` fuera tu `PRECIO_REFERENCIA`.
+
+La idea es separar:
+- `acumulacion`: mas lenta, para sostener valor del programa
+- `canje`: mas accesible, pero siempre atado al precio real del producto
 
 ## Logica recomendada
 

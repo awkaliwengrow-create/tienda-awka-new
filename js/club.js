@@ -84,6 +84,10 @@ function getPointsEarningValue(profile) {
     return Number(profile?.rewardPolicy?.earningValue || 5000);
 }
 
+function getRewardRedeemValue(profile) {
+    return Number(profile?.rewardPolicy?.redeemValue || 1000);
+}
+
 function resolveRewardCatalog(profile) {
     const rewardCatalog = Array.isArray(profile?.rewardCatalog) ? profile.rewardCatalog : [];
 
@@ -474,13 +478,14 @@ function renderRewardsCatalog(profile) {
 
     const currentPoints = Number(profile.points?.current || 0);
     const earningValue = getPointsEarningValue(profile);
+    const redeemValue = getRewardRedeemValue(profile);
 
     return `
         <section class="club-rewards-panel" aria-label="Canje de puntos">
             <div class="club-rewards-head">
                 <div>
                     <div class="club-profile-history-title">Canjea tus puntos</div>
-                    <p>1 punto se suma cada $${earningValue.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.</p>
+                    <p>1 punto se suma cada $${earningValue.toLocaleString('es-AR')} de compra. Para canjes usamos una referencia de $${redeemValue.toLocaleString('es-AR')} por punto en productos seleccionados.</p>
                 </div>
                 <div class="club-rewards-points">
                     <strong>${currentPoints}</strong>
@@ -530,14 +535,15 @@ function renderRewardsPanel(profile) {
     const availableCount = rewards.filter((reward) => reward.pointsCost <= currentPoints).length;
     const heading = availableCount > 0 ? 'Canje disponible' : 'Canjea tus puntos';
     const earningValue = getPointsEarningValue(profile);
+    const redeemValue = getRewardRedeemValue(profile);
     const intro = availableCount > 0
         ? `${availableCount} recompensa${availableCount === 1 ? '' : 's'} lista${availableCount === 1 ? '' : 's'} para pedir.`
-        : `1 punto cada $${earningValue.toLocaleString('es-AR')} de compra. Elige productos seleccionados.`;
+        : `1 punto cada $${earningValue.toLocaleString('es-AR')} de compra. Para canjes tomamos $${redeemValue.toLocaleString('es-AR')} por punto en productos seleccionados.`;
 
     return renderRewardsCatalog(profile)
         .replace('<section class="club-rewards-panel" aria-label="Canje de puntos">', '<section class="club-rewards-panel" id="clubRewardsPanel" aria-label="Canje de puntos">')
         .replace('<div class="club-profile-history-title">Canjea tus puntos</div>', `<div class="club-profile-history-title">${heading}</div>`)
-        .replace(`1 punto se suma cada $${earningValue.toLocaleString('es-AR')} de compra. Usa tus puntos en productos seleccionados.`, intro);
+        .replace(`1 punto se suma cada $${earningValue.toLocaleString('es-AR')} de compra. Para canjes usamos una referencia de $${redeemValue.toLocaleString('es-AR')} por punto en productos seleccionados.`, intro);
 }
 
 

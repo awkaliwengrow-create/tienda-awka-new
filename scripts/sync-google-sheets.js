@@ -286,16 +286,42 @@ function buildProducts(objects, productMetadata = new Map()) {
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name, 'es'));
 }
 
-function buildRewards(objects) {
+function findRewardReferencePrice(products, productId, sizeLabel) {
+  const product = products.find((item) => Number(item.id) === Number(productId));
+  if (!product) return 0;
+
+  const matchingSize = (product.sizes || []).find(
+    (size) => String(size.size || '').trim().toLowerCase() === String(sizeLabel || '').trim().toLowerCase()
+  );
+
+  if (matchingSize?.price) return num(matchingSize.price, 0);
+  return num(product.sizes?.[0]?.price, 0);
+}
+
+function buildRewards(objects, products, redeemValuePerPoint = 1000) {
   return objects
     .filter((row) => yes(row.ACTIVO))
-    .map((row, index) => ({
-      key: String(row.REWARD_KEY || `${row.PRODUCT_ID_WEB}:${row.SIZE_LABEL}`).trim() || `reward-${index + 1}`,
-      productId: num(row.PRODUCT_ID_WEB, 0),
-      sizeLabel: String(row.SIZE_LABEL || '').trim(),
-      pointsCost: num(row.PUNTOS_CANJE, 0),
-      productName: String(row.NOMBRE || '').trim()
-    }))
+    .map((row, index) => {
+      const productId = num(row.PRODUCT_ID_WEB, 0);
+      const sizeLabel = String(row.SIZE_LABEL || '').trim();
+      const referencePrice =
+        num(row.PRECIO_REFERENCIA, 0) ||
+        num(row.PRECIO, 0) ||
+        findRewardReferencePrice(products, productId, sizeLabel);
+      const manualPoints = num(row.PUNTOS_CANJE, 0);
+      const pointsCost = referencePrice > 0
+        ? Math.max(1, Math.ceil(referencePrice / redeemValuePerPoint))
+        : manualPoints;
+
+      return {
+        key: String(row.REWARD_KEY || `${productId}:${sizeLabel}`).trim() || `reward-${index + 1}`,
+        productId,
+        sizeLabel,
+        pointsCost,
+        productName: String(row.NOMBRE || '').trim(),
+        referencePrice
+      };
+    })
     .filter((item) => item.productId > 0 && item.pointsCost > 0 && item.productName);
 }
 
@@ -322,9 +348,10 @@ async function main() {
   const catalogObjects = rowsToObjects(parseCsv(catalogText));
   const rewardObjects = rowsToObjects(parseCsv(rewardsText));
   const productMetadata = loadProductMetadata();
+  const redeemValuePerPoint = Number(config.rewards?.redeemValuePerPoint) || 1000;
 
   const products = buildProducts(catalogObjects, productMetadata);
-  const rewards = buildRewards(rewardObjects);
+  const rewards = buildRewards(rewardObjects, products, redeemValuePerPoint);
 
   const outputs = config.outputs || {};
   const catalogSnapshotPath = path.resolve(ROOT, outputs.catalogSnapshot || 'tmp/web-catalog.snapshot.json');
