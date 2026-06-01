@@ -7,7 +7,7 @@ const ADMIN_SESSION_DURATION_MS = 1000 * 60 * 60 * 12;
 function getAdminEnv() {
     const clubEnv = getClubEnv();
     const password = process.env.AWKA_ADMIN_PASSWORD;
-    const secret = process.env.AWKA_ADMIN_SESSION_SECRET || process.env.CLUB_SESSION_SECRET || clubEnv?.serviceRoleKey;
+    const secret = process.env.AWKA_ADMIN_SESSION_SECRET;
 
     if (!clubEnv || !password || !secret) {
         return null;

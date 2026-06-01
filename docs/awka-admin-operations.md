@@ -256,6 +256,12 @@ En Vercel deben existir:
 - `AWKA_ADMIN_PASSWORD`
 - `AWKA_ADMIN_SESSION_SECRET`
 
+Importante:
+
+- `CLUB_SESSION_SECRET` debe ser un secreto propio del club
+- `AWKA_ADMIN_SESSION_SECRET` debe ser un secreto propio del admin
+- ninguna de las dos sesiones debe reutilizar `SUPABASE_SERVICE_ROLE_KEY`
+
 ## Tablas clave en Supabase
 
 - `clientes`

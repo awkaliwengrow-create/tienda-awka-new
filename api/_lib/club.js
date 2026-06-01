@@ -300,7 +300,7 @@ function getRewardCatalog() {
 function getClubEnv() {
     const url = process.env.SUPABASE_URL;
     const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    const sessionSecret = process.env.CLUB_SESSION_SECRET || serviceRoleKey;
+    const sessionSecret = process.env.CLUB_SESSION_SECRET;
 
     if (!url || !serviceRoleKey || !sessionSecret) {
         return null;
