@@ -89,6 +89,7 @@
             justify-items: center;
             align-content: start;
             gap: 1rem;
+            width: 100%;
             padding: 1.35rem 1.2rem 1.15rem;
             overflow: hidden;
             border-radius: 28px;
@@ -356,6 +357,7 @@
             width: min(100%, 420px);
             display: grid;
             gap: 0.65rem;
+            justify-items: center;
         }
 
         .awka-prize-guide-title {
@@ -370,6 +372,7 @@
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 0.6rem;
+            width: 100%;
         }
 
         .awka-prize-guide-item {
@@ -536,6 +539,12 @@
                 gap: 1.15rem;
             }
 
+            .awka-play-stage,
+            .awka-play-side {
+                width: 100%;
+                justify-self: center;
+            }
+
             .awka-play-side {
                 order: 2;
             }
@@ -566,8 +575,8 @@
             }
 
             .awka-play-shell {
-                width: min(100%, 360px);
-                gap: 0.8rem;
+                width: min(100%, 352px);
+                gap: 0.9rem;
             }
 
             .awka-play-title {
@@ -582,18 +591,18 @@
 
             .awka-play-stage {
                 gap: 0.8rem;
-                padding: 1rem 0.95rem 1rem;
+                padding: 1rem 0.82rem 1rem;
                 border-radius: 22px;
             }
 
             .awka-wheel-wrap {
-                width: min(100%, 288px);
+                width: min(100%, 272px);
                 margin-inline: auto;
             }
 
             .awka-wheel-outer {
-                max-width: 288px;
-                padding: 8px;
+                max-width: 272px;
+                padding: 7px;
             }
 
             .awka-prize-guide-title {
@@ -601,27 +610,40 @@
             }
 
             .awka-prize-guide {
-                width: min(100%, 320px);
+                width: min(100%, 272px);
                 justify-items: center;
             }
 
             .awka-prize-guide-item {
-                min-height: 78px;
-                padding: 0.62rem 0.68rem;
+                min-height: 72px;
+                padding: 0.62rem 0.72rem;
             }
 
             .awka-prize-guide-item strong {
-                font-size: 0.92rem;
+                font-size: 0.9rem;
             }
 
             .awka-prize-guide-item span {
-                font-size: 0.8rem;
+                font-size: 0.74rem;
             }
 
             .awka-prize-guide-grid {
                 width: 100%;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 0.5rem;
+                grid-template-columns: 1fr;
+                gap: 0.45rem;
+            }
+
+            .awka-play-side h2 {
+                font-size: 1.5rem;
+            }
+
+            .awka-side-block strong {
+                font-size: 1rem;
+            }
+
+            .awka-side-block p,
+            .awka-side-block span {
+                font-size: 0.8rem;
             }
 
             .awka-side-link,

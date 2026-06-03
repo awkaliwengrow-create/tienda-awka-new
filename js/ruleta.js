@@ -400,9 +400,9 @@ function renderWheel(rotation) {
 function resizeCanvas() {
     const outerWidth = wheelOuter?.getBoundingClientRect().width || 340;
     const isCompactWheel = window.matchMedia('(max-width: 520px)').matches;
-    const outerPadding = isCompactWheel ? 16 : 24;
-    const maxTarget = isCompactWheel ? 276 : 340;
-    const minTarget = isCompactWheel ? 220 : 260;
+    const outerPadding = isCompactWheel ? 14 : 24;
+    const maxTarget = isCompactWheel ? 258 : 340;
+    const minTarget = isCompactWheel ? 214 : 260;
     const target = Math.max(minTarget, Math.min(maxTarget, outerWidth - outerPadding));
     const pixelRatio = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
     const drawSize = Math.round(target * pixelRatio);
