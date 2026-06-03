@@ -4599,7 +4599,7 @@ footer {
         grid-template-columns: 1fr;
     }
     .club-rewards-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
     }
     .admin-dashboard-layout,
     .club-campaign-secondary-list,
