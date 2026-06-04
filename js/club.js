@@ -688,6 +688,13 @@ function renderProfile(profile) {
                 const rewardLabel = selectedReward
                     ? `${selectedReward.productName}${selectedReward.sizeLabel ? ` · ${selectedReward.sizeLabel}` : ''}`
                     : 'tu recompensa';
+                window.awkaAnalytics?.trackRedeem({
+                    key: rewardKey,
+                    productName: selectedReward?.productName || rewardLabel,
+                    sizeLabel: selectedReward?.sizeLabel || '',
+                    category: selectedReward?.category || '',
+                    pointsCost: selectedReward?.pointsCost || 0
+                });
                 openRewardNotice(`Pediste ${rewardLabel}. Descontamos tus puntos y el canje ya quedo en revision desde Awka Admin.`);
             } catch (error) {
                 button.disabled = false;
@@ -828,6 +835,7 @@ async function handlePinSubmit(event) {
         };
 
         saveSession(session);
+        window.awkaAnalytics?.trackLogin('club_awka');
         phoneInput.value = data.phone;
         pinInput.value = '';
         logoutButton.hidden = false;

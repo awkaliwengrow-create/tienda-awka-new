@@ -137,6 +137,23 @@ function formatCurrency(amount) {
     return `$${Number(amount || 0).toLocaleString('es-AR')}`;
 }
 
+function buildAnalyticsItem(item, quantity = item?.quantity || 1) {
+    return {
+        id: item.id,
+        cartId: item.cartId,
+        name: item.name,
+        brand: item.brand,
+        category: item.category,
+        selectedSize: item.selectedSize || '',
+        price: Number(item.price) || 0,
+        quantity: Number(quantity) || 1
+    };
+}
+
+function buildAnalyticsCartItems(items = cart) {
+    return Array.isArray(items) ? items.map((item) => buildAnalyticsItem(item, item.quantity || 1)) : [];
+}
+
 function buildSupportWhatsAppUrl(reference, phone) {
     const detail = reference ? ` con la referencia ${reference}` : '';
     const message = `Hola Awka Liwen, necesito ayuda con mi compra${detail}.${phone ? ` Mi WhatsApp es ${phone}.` : ''}`;
@@ -325,6 +342,14 @@ function showProductDetails(productId) {
     `).join('');
 
     modal.classList.add('active');
+    window.awkaAnalytics?.trackViewItem({
+        id: product.id,
+        name: product.name,
+        brand: product.brand,
+        category: product.category,
+        selectedSize: product.sizes[0]?.size || '',
+        price: product.sizes[0]?.price || 0
+    });
 }
 
 // Close Modal
@@ -340,6 +365,7 @@ function addToCart(productId, sizeIndex = 0) {
     if (!product) return;
 
     let cartItem;
+    let trackedItem;
     if (product.sizes && product.sizes.length > 0) {
         const selectedSize = product.sizes[sizeIndex];
         const cartId = `${productId}-${sizeIndex}`;
@@ -347,6 +373,7 @@ function addToCart(productId, sizeIndex = 0) {
 
         if (existingItem) {
             existingItem.quantity++;
+            trackedItem = buildAnalyticsItem(existingItem, 1);
         } else {
             cartItem = {
                 ...product,
@@ -356,18 +383,30 @@ function addToCart(productId, sizeIndex = 0) {
                 quantity: 1
             };
             cart.push(cartItem);
+            trackedItem = buildAnalyticsItem(cartItem, 1);
         }
     } else {
         const existingItem = cart.find(item => item.id === productId);
         if (existingItem) {
             existingItem.quantity++;
+            trackedItem = buildAnalyticsItem(existingItem, 1);
         } else {
-            cart.push({ ...product, quantity: 1 });
+            cartItem = { ...product, quantity: 1 };
+            cart.push(cartItem);
+            trackedItem = buildAnalyticsItem(cartItem, 1);
         }
     }
 
     updateCart();
     closeModal();
+
+    if (trackedItem) {
+        window.awkaAnalytics?.trackAddToCart({
+            currency: 'ARS',
+            value: trackedItem.price,
+            items: [trackedItem]
+        });
+    }
 }
 
 // Update Cart Display
@@ -446,6 +485,13 @@ function checkoutWhatsApp() {
         alert('Tu carrito esta vacio por ahora.');
         return;
     }
+
+    window.awkaAnalytics?.event('generate_lead', {
+        method: 'whatsapp',
+        lead_source: 'cart',
+        value: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        currency: 'ARS'
+    });
 
     const whatsappUrl = `https://wa.me/${WHATSAPP_ORDER_NUMBER}?text=${encodeURIComponent(formatCartMessage())}`;
     window.open(whatsappUrl, '_blank', 'noopener');
@@ -527,6 +573,7 @@ async function submitCheckoutProfile(event) {
     try {
         const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         const reference = buildOrderReference(customer.phone);
+        const analyticsItems = buildAnalyticsCartItems(cart);
 
         saveCheckoutProfile(customer);
         savePendingPurchase({
@@ -534,7 +581,14 @@ async function submitCheckoutProfile(event) {
             phone: customer.phone,
             name: customer.name,
             totalAmount,
+            items: analyticsItems,
             createdAt: new Date().toISOString()
+        });
+
+        window.awkaAnalytics?.trackBeginCheckout({
+            currency: 'ARS',
+            value: totalAmount,
+            items: analyticsItems
         });
 
         const response = await fetch('/api/create-preference', {
@@ -702,6 +756,12 @@ async function processApprovedPurchase(referenceFromUrl) {
         });
         return;
     }
+
+    window.awkaAnalytics?.trackPurchaseOnce(pendingPurchase.reference, {
+        currency: 'ARS',
+        value: pendingPurchase.totalAmount,
+        items: pendingPurchase.items || []
+    });
 
     try {
         const response = await fetch('/api/club-points-award', {

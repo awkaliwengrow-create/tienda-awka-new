@@ -687,6 +687,13 @@ async function confirmSpin() {
         console.error('Prize modal error', modalError);
     }
 
+    window.awkaAnalytics?.trackSpin({
+        prize: spinResult.prize,
+        code: spinResult.prizeMeta?.code || '',
+        type: spinResult.prizeMeta?.type || '',
+        winner: spinResult.winner
+    });
+
     setFeedback(
         spinResult.winner ? `Ganaste ${spinResult.prize}.` : `Resultado: ${spinResult.prize}.`,
         spinResult.winner ? 'success' : ''
