@@ -532,7 +532,8 @@ function buildProfile({ phone, customer, pointsRow, spins, pendingSpins, purchas
             productId: reward.productId,
             productName: reward.productName,
             sizeLabel: reward.sizeLabel,
-            pointsCost: reward.pointsCost
+            pointsCost: reward.pointsCost,
+            referencePrice: reward.referencePrice || 0
         })),
         campaigns: {
             audience: level.label,
