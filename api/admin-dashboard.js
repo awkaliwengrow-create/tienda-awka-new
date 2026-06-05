@@ -225,6 +225,40 @@ module.exports = async (req, res) => {
             }, {})
         ).sort((a, b) => b[1] - a[1])[0];
 
+        const pointsByPhone = new Map(
+            (pointsRows || []).map((row) => [
+                normalizePhone(row.telefono),
+                {
+                    points: row.puntos || 0,
+                    redeemed: row.puntos_canjeados || 0,
+                    lastActivity: row.ultima_actividad || null,
+                    name: row.nombre || ''
+                }
+            ])
+        );
+
+        const customerNameByPhone = new Map(
+            (customerRows || []).map((row) => [normalizePhone(row.telefono), row.nombre || 'Cliente'])
+        );
+
+        const registeredCustomers = [...knownPhones]
+            .map((phone) => {
+                const pointsEntry = pointsByPhone.get(phone) || null;
+                return {
+                    phone,
+                    name: customerNameByPhone.get(phone) || pointsEntry?.name || 'Cliente',
+                    points: pointsEntry?.points || 0,
+                    redeemed: pointsEntry?.redeemed || 0,
+                    purchases: purchaseCountByPhone.get(phone) || 0,
+                    lastActivity: pointsEntry?.lastActivity || lastPurchaseByPhone.get(phone) || null
+                };
+            })
+            .sort((a, b) => {
+                const aTime = a.lastActivity ? new Date(a.lastActivity).getTime() : 0;
+                const bTime = b.lastActivity ? new Date(b.lastActivity).getTime() : 0;
+                return bTime - aTime || a.name.localeCompare(b.name, 'es');
+            });
+
         json(res, 200, {
             stats: {
                 pendingSpins: pendingSpins?.length || 0,
@@ -258,6 +292,7 @@ module.exports = async (req, res) => {
             campaigns,
             pendingSpins: pendingSpins || [],
             usedSpins: usedSpins || [],
+            registeredCustomers,
             topPoints: (pointsRows || []).map((row) => ({
                 id: row.id,
                 name: row.nombre,

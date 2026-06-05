@@ -35,6 +35,7 @@ const rewardRedemptionsList = document.getElementById('adminRewardRedemptionsLis
 const rewardsFeedback = document.getElementById('adminRewardsFeedback');
 const rewardRedemptionsFeedback = document.getElementById('adminRewardRedemptionsFeedback');
 const pointsList = document.getElementById('adminPointsList');
+const registeredCustomersList = document.getElementById('adminRegisteredCustomersList');
 const pendingList = document.getElementById('adminPendingList');
 const usedList = document.getElementById('adminUsedList');
 const levelHistoryList = document.getElementById('adminLevelHistoryList');
@@ -188,6 +189,27 @@ function renderTopPoints(items) {
     );
 }
 
+function renderRegisteredCustomers(items) {
+    if (!registeredCustomersList) return;
+    registeredCustomersList.innerHTML = renderList(
+        items,
+        (item) => `
+            <article class="admin-item">
+                <div class="admin-item-main">
+                    <strong>${item.name}</strong>
+                    <span>${item.phone}</span>
+                    <span>Ultima actividad: ${formatDate(item.lastActivity)}</span>
+                </div>
+                <div class="admin-item-side">
+                    <span class="admin-pill">${item.points} pts</span>
+                    <span class="admin-item-note">${item.purchases} compra${item.purchases === 1 ? '' : 's'}</span>
+                </div>
+            </article>
+        `,
+        'No hay clientes registrados.'
+    );
+}
+
 function renderSpins(target, items, emptyMessage, isUsed = false) {
     if (!target) return;
     target.innerHTML = renderList(
@@ -330,6 +352,7 @@ async function loadDashboard() {
 
     renderRewards(data.rewards || []);
     renderRewardRedemptions(data.rewardRedemptions || []);
+    renderRegisteredCustomers(data.registeredCustomers || []);
     renderTopPoints(data.topPoints || []);
     renderSpins(pendingList, data.pendingSpins || [], 'No hay giros pendientes.');
     renderSpins(usedList, data.usedSpins || [], 'No hay giros usados aun.', true);
