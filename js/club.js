@@ -487,10 +487,6 @@ function renderRewardsCatalog(profile) {
                     <div class="club-profile-history-title">Canjea tus puntos</div>
                     <p>1 punto se suma cada $${earningValue.toLocaleString('es-AR')} de compra. Para canjes usamos una referencia de $${redeemValue.toLocaleString('es-AR')} por punto en productos seleccionados.</p>
                 </div>
-                <div class="club-rewards-points">
-                    <strong>${currentPoints}</strong>
-                    <span>puntos disponibles</span>
-                </div>
             </div>
             <div class="club-rewards-grid">
                 ${rewards.map((reward) => {
