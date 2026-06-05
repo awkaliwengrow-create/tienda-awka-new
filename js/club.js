@@ -107,7 +107,7 @@ function resolveRewardCatalog(profile) {
             brand: product.brand,
             image: product.image || '',
             category: product.category,
-            price: sizeMatch?.price || product.sizes?.[0]?.price || 0
+            price: Number(reward.referencePrice || 0) || sizeMatch?.price || product.sizes?.[0]?.price || 0
         };
     }).filter(Boolean);
 }
