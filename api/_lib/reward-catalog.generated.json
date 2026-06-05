@@ -27,9 +27,9 @@
     "key": "94:1u",
     "productId": 94,
     "sizeLabel": "1u",
-    "pointsCost": 3,
+    "pointsCost": 6,
     "productName": "Picador Acrílico",
-    "referencePrice": 1200
+    "referencePrice": 3000
   },
   {
     "key": "1119:1u",
@@ -51,9 +51,9 @@
     "key": "21:100ml",
     "productId": 21,
     "sizeLabel": "100ml",
-    "pointsCost": 8,
+    "pointsCost": 11,
     "productName": "Oro Negro",
-    "referencePrice": 3900
+    "referencePrice": 5490
   },
   {
     "key": "22:100ml",
