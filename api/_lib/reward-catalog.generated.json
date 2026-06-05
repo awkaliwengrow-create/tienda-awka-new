@@ -1,11 +1,11 @@
 [
   {
-    "key": "142:1u",
-    "productId": 142,
-    "sizeLabel": "1u",
-    "pointsCost": 2,
-    "productName": "Zeus Dorado",
-    "referencePrice": 800
+    "key": "21:100ml",
+    "productId": 21,
+    "sizeLabel": "100ml",
+    "pointsCost": 78,
+    "productName": "Oro Negro",
+    "referencePrice": 39000
   },
   {
     "key": "3151:1u",
@@ -16,12 +16,12 @@
     "referencePrice": 800
   },
   {
-    "key": "143:1u",
-    "productId": 143,
-    "sizeLabel": "1u",
-    "pointsCost": 2,
-    "productName": "Zeus Pink",
-    "referencePrice": 1000
+    "key": "22:100ml",
+    "productId": 22,
+    "sizeLabel": "100ml",
+    "pointsCost": 11,
+    "productName": "Flora Booster",
+    "referencePrice": 5490
   },
   {
     "key": "3152:1u",
@@ -48,12 +48,12 @@
     "referencePrice": 1500
   },
   {
-    "key": "2124:1u",
-    "productId": 2124,
+    "key": "1119:1u",
+    "productId": 1119,
     "sizeLabel": "1u",
-    "pointsCost": 4,
-    "productName": "Raw Classic",
-    "referencePrice": 1900
+    "pointsCost": 7,
+    "productName": "LRC Hemp Wrap Chocolate",
+    "referencePrice": 3200
   },
   {
     "key": "1111:1u",
