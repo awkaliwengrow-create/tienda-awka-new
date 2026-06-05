@@ -294,9 +294,9 @@ function getPrimaryAction(profile) {
     }
 
     return {
-        href: '#clubWaysToGrow',
-        label: 'Ver como ganar giros',
-        note: 'Suma compras, sube de nivel y activa nuevas ventajas.'
+        href: 'shop.html',
+        label: 'Ver catalogo',
+        note: 'Suma compras para seguir acumulando puntos y activar nuevas ventajas.'
     };
 }
 
@@ -635,8 +635,6 @@ function renderProfile(profile) {
             ${renderActionSummary(profile)}
             ${renderPrimaryAction(profile)}
             ${renderRewardsPanel(profile)}
-            ${renderBenefits(profile)}
-            ${renderCampaignsPanel(profile)}
             ${renderHistorySection(profile)}
         </div>
     `;
