@@ -1,27 +1,11 @@
 [
   {
-    "key": "21:100ml",
-    "productId": 21,
-    "sizeLabel": "100ml",
-    "pointsCost": 78,
-    "productName": "Oro Negro",
-    "referencePrice": 39000
-  },
-  {
     "key": "3151:1u",
     "productId": 3151,
     "sizeLabel": "1u",
     "pointsCost": 2,
     "productName": "Fumanchu Blanco",
     "referencePrice": 800
-  },
-  {
-    "key": "22:100ml",
-    "productId": 22,
-    "sizeLabel": "100ml",
-    "pointsCost": 11,
-    "productName": "Flora Booster",
-    "referencePrice": 5490
   },
   {
     "key": "3152:1u",
@@ -62,5 +46,21 @@
     "pointsCost": 7,
     "productName": "Celulosa king",
     "referencePrice": 3200
+  },
+  {
+    "key": "21:100ml",
+    "productId": 21,
+    "sizeLabel": "100ml",
+    "pointsCost": 8,
+    "productName": "Oro Negro",
+    "referencePrice": 3900
+  },
+  {
+    "key": "22:100ml",
+    "productId": 22,
+    "sizeLabel": "100ml",
+    "pointsCost": 11,
+    "productName": "Flora Booster",
+    "referencePrice": 5490
   }
 ]
