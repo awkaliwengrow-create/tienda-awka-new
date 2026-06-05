@@ -111,6 +111,8 @@ const pendingCount = document.getElementById('ruletaPendingCount');
 const statusCopy = document.getElementById('ruletaStatusCopy');
 const prizeLabel = document.getElementById('ruletaPrizeLabel');
 const prizeCopy = document.getElementById('ruletaPrizeCopy');
+const summaryPending = document.getElementById('ruletaSummaryPending');
+const summaryPrize = document.getElementById('ruletaSummaryPrize');
 const readyName = document.getElementById('readyName');
 const blockedMessage = document.getElementById('blockedMessage');
 const overlayBlocked = document.getElementById('overlayBlocked');
@@ -452,6 +454,9 @@ function renderProfile(profile) {
     memberName.textContent = profile.name || 'Club Awka';
     readyName.textContent = `Listo, ${profile.name || 'Awka'}!`;
     pendingCount.textContent = formatPending(profile);
+    if (summaryPending) {
+        summaryPending.textContent = formatPending(profile);
+    }
 
     if (profile.spins.pending > 0) {
         statusCopy.textContent = 'Tu giro ya esta listo.';
@@ -465,9 +470,14 @@ function renderProfile(profile) {
 
     if (profile.spins.latestPrize) {
         prizeLabel.textContent = profile.spins.latestPrize;
+        if (summaryPrize) {
+            summaryPrize.textContent = profile.spins.latestPrize;
+        }
         prizeCopy.textContent = profile.spins.latestWinPrize
             ? `Ultimo premio: ${profile.spins.latestWinPrize}.`
             : 'Tu ultimo giro ya quedo guardado.';
+    } else if (summaryPrize) {
+        summaryPrize.textContent = 'Aun sin girar';
     }
 }
 
@@ -624,6 +634,12 @@ function refreshProfileSilently(token) {
 async function loadPlay() {
     currentSession = loadSession();
     if (!currentSession?.token) {
+        if (summaryPending) {
+            summaryPending.textContent = 'Sin sesion';
+        }
+        if (summaryPrize) {
+            summaryPrize.textContent = 'Inicia sesion';
+        }
         setFeedback('Primero inicia sesion en Club Awka para usar la ruleta.', 'error');
         setSpinEnabled(false);
         return;
@@ -633,6 +649,12 @@ async function loadPlay() {
         const profile = await fetchProfile(currentSession.token);
         renderProfile(profile);
     } catch (error) {
+        if (summaryPending) {
+            summaryPending.textContent = 'Acceso no valido';
+        }
+        if (summaryPrize) {
+            summaryPrize.textContent = 'Reintenta';
+        }
         setFeedback(error.message || 'No pudimos validar tu acceso.', 'error');
         setSpinEnabled(false);
     }
