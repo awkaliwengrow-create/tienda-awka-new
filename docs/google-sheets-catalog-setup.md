@@ -122,12 +122,12 @@ Columnas sugeridas:
 ### Regla recomendada para canjes
 
 - `1 punto se gana cada $5000 de compra`
-- `1 punto de canje vale $1000 de referencia`
+- `1 punto de canje vale $500 de referencia`
 
 Formula sugerida para `PUNTOS_CANJE`:
 
 ```gs
-=MAX(1,ROUNDUP(I2/1000,0))
+=MAX(1,ROUNDUP(I2/500,0))
 ```
 
 Si `I2` fuera tu `PRECIO_REFERENCIA`.

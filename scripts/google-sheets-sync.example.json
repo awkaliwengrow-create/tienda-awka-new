@@ -4,7 +4,7 @@
   },
   "rewards": {
     "source": "https://docs.google.com/spreadsheets/d/TU_SHEET_ID/export?format=csv&gid=WEB_CANJES_GID",
-    "redeemValuePerPoint": 1000
+    "redeemValuePerPoint": 500
   },
   "outputs": {
     "catalogSnapshot": "tmp/web-catalog.snapshot.json",

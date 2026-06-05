@@ -248,7 +248,7 @@ function buildRewardsRows(catalogRows) {
     PRODUCT_ID_WEB: row.PRODUCT_ID_WEB,
     NOMBRE: row.NOMBRE,
     SIZE_LABEL: row.SIZE_LABEL,
-    PUNTOS_CANJE: Math.max(1, Math.round(Number(row.PRECIO) / 2500))
+    PUNTOS_CANJE: Math.max(1, Math.ceil(Number(row.PRECIO) / 500))
   }));
 
   const seen = new Set();

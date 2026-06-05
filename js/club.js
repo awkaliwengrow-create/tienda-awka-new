@@ -85,7 +85,7 @@ function getPointsEarningValue(profile) {
 }
 
 function getRewardRedeemValue(profile) {
-    return Number(profile?.rewardPolicy?.redeemValue || 1000);
+    return Number(profile?.rewardPolicy?.redeemValue || 500);
 }
 
 function resolveRewardCatalog(profile) {

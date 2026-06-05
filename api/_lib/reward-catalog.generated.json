@@ -3,7 +3,7 @@
     "key": "4:unitario",
     "productId": 4,
     "sizeLabel": "unitario",
-    "pointsCost": 6,
+    "pointsCost": 11,
     "productName": "MAMA CULTIVA",
     "referencePrice": 5500
   },
@@ -11,7 +11,7 @@
     "key": "5:unitario",
     "productId": 5,
     "sizeLabel": "unitario",
-    "pointsCost": 7,
+    "pointsCost": 14,
     "productName": "SAYRI",
     "referencePrice": 7000
   },
@@ -19,7 +19,7 @@
     "key": "9:45ml",
     "productId": 9,
     "sizeLabel": "45ml",
-    "pointsCost": 4,
+    "pointsCost": 7,
     "productName": "Biocann",
     "referencePrice": 3188
   },
@@ -27,7 +27,7 @@
     "key": "30:100ml",
     "productId": 30,
     "sizeLabel": "100ml",
-    "pointsCost": 6,
+    "pointsCost": 11,
     "productName": "Top Deeper",
     "referencePrice": 5445
   },
@@ -35,7 +35,7 @@
     "key": "57:100ml",
     "productId": 57,
     "sizeLabel": "100ml",
-    "pointsCost": 3,
+    "pointsCost": 5,
     "productName": "Cactus y Suculentas",
     "referencePrice": 2340
   },
@@ -43,7 +43,7 @@
     "key": "58:30ml",
     "productId": 58,
     "sizeLabel": "30ml",
-    "pointsCost": 3,
+    "pointsCost": 5,
     "productName": "Mosca Blanca",
     "referencePrice": 2340
   },
@@ -51,7 +51,7 @@
     "key": "59:30ml",
     "productId": 59,
     "sizeLabel": "30ml",
-    "pointsCost": 3,
+    "pointsCost": 5,
     "productName": "Arañuela",
     "referencePrice": 2340
   },
@@ -59,7 +59,7 @@
     "key": "68:500gr",
     "productId": 68,
     "sizeLabel": "500gr",
-    "pointsCost": 8,
+    "pointsCost": 15,
     "productName": "Diatomea La Pota",
     "referencePrice": 7400
   }

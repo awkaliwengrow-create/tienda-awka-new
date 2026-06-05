@@ -298,7 +298,7 @@ function findRewardReferencePrice(products, productId, sizeLabel) {
   return num(product.sizes?.[0]?.price, 0);
 }
 
-function buildRewards(objects, products, redeemValuePerPoint = 1000) {
+function buildRewards(objects, products, redeemValuePerPoint = 500) {
   return objects
     .filter((row) => yes(row.ACTIVO))
     .map((row, index) => {
@@ -348,7 +348,7 @@ async function main() {
   const catalogObjects = rowsToObjects(parseCsv(catalogText));
   const rewardObjects = rowsToObjects(parseCsv(rewardsText));
   const productMetadata = loadProductMetadata();
-  const redeemValuePerPoint = Number(config.rewards?.redeemValuePerPoint) || 1000;
+  const redeemValuePerPoint = Number(config.rewards?.redeemValuePerPoint) || 500;
 
   const products = buildProducts(catalogObjects, productMetadata);
   const rewards = buildRewards(rewardObjects, products, redeemValuePerPoint);
