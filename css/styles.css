@@ -3301,6 +3301,10 @@ footer {
     justify-content: flex-end;
 }
 
+.admin-section-feedback {
+    margin: 0.75rem 0 0.3rem;
+}
+
 .admin-badge,
 .admin-pill {
     display: inline-flex;
@@ -3330,6 +3334,13 @@ footer {
 .admin-mini-button {
     min-height: 36px;
     padding: 0 0.82rem;
+}
+
+.admin-mini-button.is-primary {
+    background: linear-gradient(135deg, var(--terracotta), var(--clay));
+    border: none;
+    color: var(--cream);
+    box-shadow: 0 10px 22px rgba(201,123,77,0.18);
 }
 
 .admin-mini-button.is-muted {

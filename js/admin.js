@@ -32,6 +32,8 @@ const pointsFeedback = document.getElementById('adminPointsFeedback');
 
 const rewardsList = document.getElementById('adminRewardsList');
 const rewardRedemptionsList = document.getElementById('adminRewardRedemptionsList');
+const rewardsFeedback = document.getElementById('adminRewardsFeedback');
+const rewardRedemptionsFeedback = document.getElementById('adminRewardRedemptionsFeedback');
 const pointsList = document.getElementById('adminPointsList');
 const pendingList = document.getElementById('adminPendingList');
 const usedList = document.getElementById('adminUsedList');
@@ -125,7 +127,10 @@ function renderRewards(items) {
                 </div>
                 <div class="admin-item-side">
                     <span class="admin-badge${item.status === 'entregado' ? ' is-success' : ''}">${item.status}</span>
-                    ${item.status === 'pendiente' ? `<button class="club-side-link admin-mini-button" data-reward-deliver="${item.id}">Marcar entregado</button>` : `<span class="admin-item-note">${item.deliveryNote || 'Entregado'}</span>`}
+                    ${item.status === 'pendiente'
+                        ? `<button class="club-side-link admin-mini-button is-primary" data-reward-deliver="${item.id}">Marcar como entregado</button>`
+                        : `<span class="admin-item-note">${item.deliveryNote || `Entregado ${formatDate(item.deliveredAt)}`}</span>`
+                    }
                 </div>
             </article>
         `,
@@ -149,11 +154,11 @@ function renderRewardRedemptions(items) {
                     ${item.status === 'pendiente'
                         ? `
                             <div class="admin-inline-actions">
-                                <button class="club-side-link admin-mini-button" data-redemption-deliver="${item.id}">Marcar entregado</button>
+                                <button class="club-side-link admin-mini-button is-primary" data-redemption-deliver="${item.id}">Marcar como entregado</button>
                                 <button class="club-side-link admin-mini-button is-muted" data-redemption-cancel="${item.id}">Cancelar</button>
                             </div>
                         `
-                        : `<span class="admin-item-note">${item.deliveryNote || item.requestNote || (item.status === 'cancelado' ? 'Cancelado' : 'Entregado')}</span>`
+                        : `<span class="admin-item-note">${item.deliveryNote || item.requestNote || (item.status === 'cancelado' ? 'Cancelado' : `Entregado ${formatDate(item.deliveredAt)}`)}</span>`
                     }
                 </div>
             </article>
@@ -291,6 +296,15 @@ function renderCampaignActivations(items) {
     );
 }
 
+function askDeliveryNote(actionLabel) {
+    const input = window.prompt(`${actionLabel}\n\nSi quieres, deja una nota corta para registro:`, '');
+    if (input === null) {
+        return null;
+    }
+
+    return String(input || '').trim();
+}
+
 async function loadDashboard() {
     const data = await adminFetch('/api/admin-dashboard');
 
@@ -325,59 +339,77 @@ async function loadDashboard() {
 
     rewardsList?.querySelectorAll('[data-reward-deliver]').forEach((button) => {
         button.addEventListener('click', async () => {
+            const note = askDeliveryNote('Vas a marcar este premio de ruleta como entregado.');
+            if (note === null) {
+                return;
+            }
             button.disabled = true;
+            setFeedback(rewardsFeedback, 'Marcando premio como entregado...');
             try {
                 await adminFetch('/api/admin-reward-deliver', {
                     method: 'POST',
                     body: JSON.stringify({
                         rewardId: Number(button.dataset.rewardDeliver),
-                        note: 'Entrega confirmada desde admin'
+                        note: note || 'Entrega confirmada desde admin'
                     })
                 });
+                setFeedback(rewardsFeedback, 'Premio marcado como entregado.', 'success');
                 await loadDashboard();
             } catch (error) {
                 button.disabled = false;
-                alert(error.message || 'No pudimos marcar el premio como entregado.');
+                setFeedback(rewardsFeedback, error.message || 'No pudimos marcar el premio como entregado.', 'error');
             }
         });
     });
 
     rewardRedemptionsList?.querySelectorAll('[data-redemption-deliver]').forEach((button) => {
         button.addEventListener('click', async () => {
+            const note = askDeliveryNote('Vas a marcar este canje como entregado.');
+            if (note === null) {
+                return;
+            }
             button.disabled = true;
+            setFeedback(rewardRedemptionsFeedback, 'Marcando canje como entregado...');
             try {
                 await adminFetch('/api/admin-reward-deliver', {
                     method: 'POST',
                     body: JSON.stringify({
                         redemptionId: Number(button.dataset.redemptionDeliver),
                         status: 'entregado',
-                        note: 'Canje entregado desde admin'
+                        note: note || 'Canje entregado desde admin'
                     })
                 });
+                setFeedback(rewardRedemptionsFeedback, 'Canje marcado como entregado.', 'success');
                 await loadDashboard();
             } catch (error) {
                 button.disabled = false;
-                alert(error.message || 'No pudimos marcar el canje como entregado.');
+                setFeedback(rewardRedemptionsFeedback, error.message || 'No pudimos marcar el canje como entregado.', 'error');
             }
         });
     });
 
     rewardRedemptionsList?.querySelectorAll('[data-redemption-cancel]').forEach((button) => {
         button.addEventListener('click', async () => {
+            const note = askDeliveryNote('Vas a cancelar este canje y devolver los puntos.');
+            if (note === null) {
+                return;
+            }
             button.disabled = true;
+            setFeedback(rewardRedemptionsFeedback, 'Cancelando canje y devolviendo puntos...');
             try {
                 await adminFetch('/api/admin-reward-deliver', {
                     method: 'POST',
                     body: JSON.stringify({
                         redemptionId: Number(button.dataset.redemptionCancel),
                         status: 'cancelado',
-                        note: 'Canje cancelado desde admin con devolucion de puntos'
+                        note: note || 'Canje cancelado desde admin con devolucion de puntos'
                     })
                 });
+                setFeedback(rewardRedemptionsFeedback, 'Canje cancelado y puntos devueltos.', 'success');
                 await loadDashboard();
             } catch (error) {
                 button.disabled = false;
-                alert(error.message || 'No pudimos cancelar el canje.');
+                setFeedback(rewardRedemptionsFeedback, error.message || 'No pudimos cancelar el canje.', 'error');
             }
         });
     });
