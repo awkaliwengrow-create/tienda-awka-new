@@ -335,17 +335,18 @@ function renderActionSummary(profile) {
 
 function renderPrimaryAction(profile) {
     const action = getPrimaryAction(profile);
-    const spinsLabel = profile.spins.pending === 1 ? '1 giro disponible' : `${profile.spins.pending} giros disponibles`;
-    const spinsMeta = `${profile.spins.wins}/${profile.spins.total} premios / giros`;
+    const spinsLabel = profile.spins.pending === 1 ? '1 giro listo' : `${profile.spins.pending} giros listos`;
+    const spinsMeta = profile.spins.total > 0
+        ? `${profile.spins.wins} premios`
+        : 'Listos para usar';
 
     return `
         <section class="club-primary-action-panel" aria-label="Accion principal">
             <div class="club-primary-action-copy">
-                <div class="club-profile-history-title">Haz esto ahora</div>
-                <p>${action.note}</p>
+                <div class="club-profile-history-title">Awka Play</div>
             </div>
             <div class="club-primary-action-kpi">
-                <span class="club-summary-label">Giros disponibles</span>
+                <span class="club-summary-label">Disponibles</span>
                 <strong>${spinsLabel}</strong>
                 <small>${spinsMeta}</small>
             </div>
