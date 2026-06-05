@@ -281,8 +281,8 @@ function buildSpinResultFromProfile(previousProfile, nextProfile) {
 function renderWheel(rotation) {
     ctx.clearRect(0, 0, size, size);
     const isCompactWheel = window.matchMedia('(max-width: 520px)').matches;
-    const compactTextRadius = radius * 0.56;
-    const wideTextRadius = radius * 0.5;
+    const compactTextRadius = radius * 0.66;
+    const wideTextRadius = radius * 0.64;
 
     PRIZES.forEach((prize, index) => {
         const start = rotation + arcStarts[index];
@@ -316,11 +316,11 @@ function renderWheel(rotation) {
             const wheelLines = prize.wheelLines || [prize.label];
             const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
             const fontSize = longestLine >= 12
-                ? Math.max(10, size * 0.03)
+                ? Math.max(9, size * 0.028)
                 : longestLine >= 9
-                    ? Math.max(11, size * 0.032)
-                    : Math.max(12, size * 0.034);
-            const lineGap = fontSize + 1.8;
+                    ? Math.max(10, size * 0.03)
+                    : Math.max(11, size * 0.032);
+            const lineGap = fontSize + 1.4;
             let textRotation = labelAngle + Math.PI / 2;
 
             if (textRotation > Math.PI / 2 && textRotation < (3 * Math.PI) / 2) {
@@ -344,11 +344,11 @@ function renderWheel(rotation) {
             const wheelLines = prize.wheelLines || [prize.label];
             const longestLine = wheelLines.reduce((max, line) => Math.max(max, line.length), 0);
             const fontSize = longestLine >= 12
-                ? Math.max(12, size * 0.034)
+                ? Math.max(11, size * 0.031)
                 : longestLine >= 9
-                    ? Math.max(13, size * 0.037)
-                    : Math.max(14, size * 0.04);
-            const lineGap = fontSize + 1.5;
+                    ? Math.max(12, size * 0.034)
+                    : Math.max(13, size * 0.037);
+            const lineGap = fontSize + 1.2;
             let textRotation = labelAngle + Math.PI / 2;
 
             if (textRotation > Math.PI / 2 && textRotation < (3 * Math.PI) / 2) {
