@@ -500,29 +500,37 @@ async function handleSpinSubmit(event) {
 async function handlePointsSubmit(event) {
     event.preventDefault();
 
+    const amount = Number(document.getElementById('adminPointsAmount').value || 0);
+    const computedPoints = Math.floor(amount / 5000);
     const payload = {
         name: String(document.getElementById('adminPointsName').value || '').trim(),
         phone: formatPhone(document.getElementById('adminPointsPhone').value || ''),
-        amount: Number(document.getElementById('adminPointsAmount').value || 0)
+        amount,
+        points: computedPoints
     };
 
     if (payload.phone.length < 8 || !payload.amount) {
-        setFeedback(pointsFeedback, 'Ingresa un WhatsApp valido y un ajuste distinto de cero.', 'error');
+        setFeedback(pointsFeedback, 'Ingresa un WhatsApp valido y un monto de compra.', 'error');
         return;
     }
 
-    setFeedback(pointsFeedback, 'Actualizando puntos...');
+    if (computedPoints <= 0) {
+        setFeedback(pointsFeedback, 'El monto debe alcanzar al menos $5000 para sumar 1 punto.', 'error');
+        return;
+    }
+
+    setFeedback(pointsFeedback, `Acreditando ${computedPoints} punto${computedPoints === 1 ? '' : 's'}...`);
 
     try {
         const data = await adminFetch('/api/admin-points-adjust', {
             method: 'POST',
             body: JSON.stringify(payload)
         });
-        setFeedback(pointsFeedback, data.message || 'Puntos actualizados.', 'success');
+        setFeedback(pointsFeedback, data.message || 'Compra acreditada correctamente.', 'success');
         pointsForm.reset();
         await loadDashboard();
     } catch (error) {
-        setFeedback(pointsFeedback, error.message || 'No pudimos ajustar los puntos.', 'error');
+        setFeedback(pointsFeedback, error.message || 'No pudimos acreditar la compra.', 'error');
     }
 }
 

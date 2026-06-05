@@ -82,12 +82,13 @@
                         </div>
 
                         <div class="club-profile-box admin-card admin-card-priority">
-                            <h3>Ajustar puntos</h3>
+                            <h3>Acreditar compra</h3>
                             <form id="adminPointsForm" class="club-profile-form admin-compact-form">
                                 <input id="adminPointsName" name="adminPointsName" type="text" placeholder="Nombre">
                                 <input id="adminPointsPhone" name="adminPointsPhone" type="tel" inputmode="numeric" placeholder="WhatsApp">
-                                <input id="adminPointsAmount" name="adminPointsAmount" type="number" placeholder="+5 o -3" aria-label="Ajuste de puntos">
-                                <button type="submit" class="hero-cta admin-submit">Aplicar ajuste</button>
+                                <input id="adminPointsAmount" name="adminPointsAmount" type="number" min="5000" step="1000" placeholder="Monto en pesos" aria-label="Monto de compra en pesos">
+                                <button type="submit" class="hero-cta admin-submit">Acreditar compra</button>
+                                <div class="admin-form-hint">Se suma 1 punto cada $5000 de compra.</div>
                                 <div id="adminPointsFeedback" class="club-profile-feedback"></div>
                             </form>
                         </div>

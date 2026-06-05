@@ -3305,6 +3305,12 @@ footer {
     margin: 0.75rem 0 0.3rem;
 }
 
+.admin-form-hint {
+    color: rgba(61,40,23,0.68);
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
 .admin-badge,
 .admin-pill {
     display: inline-flex;

@@ -33,12 +33,13 @@ module.exports = async (req, res) => {
         const body = await readJsonBody(req);
         const phone = normalizePhone(body.phone || '');
         const amount = Number(body.amount) || 0;
+        const points = Number(body.points) || Math.floor(amount / 5000);
         const name = String(body.name || '').trim() || 'Cliente Awka';
 
-        if (!phone || phone.length < 8 || !amount) {
+        if (!phone || phone.length < 8 || !amount || points <= 0) {
             json(res, 400, {
                 error: 'Invalid payload',
-                message: 'Ingresa un WhatsApp valido y un ajuste distinto de cero.'
+                message: 'Ingresa un WhatsApp valido y un monto que sume al menos 1 punto.'
             });
             return;
         }
@@ -48,7 +49,7 @@ module.exports = async (req, res) => {
         );
 
         const current = existingRows?.[0] || null;
-        const nextPoints = Math.max(0, (current?.puntos || 0) + amount);
+        const nextPoints = Math.max(0, (current?.puntos || 0) + points);
 
         await supabaseRequest('puntos?on_conflict=telefono', {
             method: 'POST',
@@ -66,7 +67,7 @@ module.exports = async (req, res) => {
 
         json(res, 200, {
             ok: true,
-            message: `Puntos ajustados. Nuevo saldo: ${nextPoints}.`,
+            message: `Compra acreditada: ${points} punto${points === 1 ? '' : 's'} por ${Number(amount).toLocaleString('es-AR')} pesos. Nuevo saldo: ${nextPoints}.`,
             points: nextPoints
         });
     } catch (error) {
