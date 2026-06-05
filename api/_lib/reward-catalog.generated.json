@@ -1,66 +1,66 @@
 [
   {
-    "key": "4:unitario",
-    "productId": 4,
-    "sizeLabel": "unitario",
-    "pointsCost": 11,
-    "productName": "MAMA CULTIVA",
-    "referencePrice": 5500
+    "key": "142:1u",
+    "productId": 142,
+    "sizeLabel": "1u",
+    "pointsCost": 2,
+    "productName": "Zeus Dorado",
+    "referencePrice": 800
   },
   {
-    "key": "5:unitario",
-    "productId": 5,
-    "sizeLabel": "unitario",
-    "pointsCost": 14,
-    "productName": "SAYRI",
-    "referencePrice": 7000
+    "key": "3151:1u",
+    "productId": 3151,
+    "sizeLabel": "1u",
+    "pointsCost": 2,
+    "productName": "Fumanchu Blanco",
+    "referencePrice": 800
   },
   {
-    "key": "9:45ml",
-    "productId": 9,
-    "sizeLabel": "45ml",
+    "key": "143:1u",
+    "productId": 143,
+    "sizeLabel": "1u",
+    "pointsCost": 2,
+    "productName": "Zeus Pink",
+    "referencePrice": 1000
+  },
+  {
+    "key": "3152:1u",
+    "productId": 3152,
+    "sizeLabel": "1u",
+    "pointsCost": 2,
+    "productName": "Fumanchu Blanco KS",
+    "referencePrice": 1000
+  },
+  {
+    "key": "1106:1u",
+    "productId": 1106,
+    "sizeLabel": "1u",
+    "pointsCost": 3,
+    "productName": "Silver",
+    "referencePrice": 1500
+  },
+  {
+    "key": "1107:1u",
+    "productId": 1107,
+    "sizeLabel": "1u",
+    "pointsCost": 3,
+    "productName": "Unbleached",
+    "referencePrice": 1500
+  },
+  {
+    "key": "2124:1u",
+    "productId": 2124,
+    "sizeLabel": "1u",
+    "pointsCost": 4,
+    "productName": "Raw Classic",
+    "referencePrice": 1900
+  },
+  {
+    "key": "1111:1u",
+    "productId": 1111,
+    "sizeLabel": "1u",
     "pointsCost": 7,
-    "productName": "Biocann",
-    "referencePrice": 3188
-  },
-  {
-    "key": "30:100ml",
-    "productId": 30,
-    "sizeLabel": "100ml",
-    "pointsCost": 11,
-    "productName": "Top Deeper",
-    "referencePrice": 5445
-  },
-  {
-    "key": "57:100ml",
-    "productId": 57,
-    "sizeLabel": "100ml",
-    "pointsCost": 5,
-    "productName": "Cactus y Suculentas",
-    "referencePrice": 2340
-  },
-  {
-    "key": "58:30ml",
-    "productId": 58,
-    "sizeLabel": "30ml",
-    "pointsCost": 5,
-    "productName": "Mosca Blanca",
-    "referencePrice": 2340
-  },
-  {
-    "key": "59:30ml",
-    "productId": 59,
-    "sizeLabel": "30ml",
-    "pointsCost": 5,
-    "productName": "Arañuela",
-    "referencePrice": 2340
-  },
-  {
-    "key": "68:500gr",
-    "productId": 68,
-    "sizeLabel": "500gr",
-    "pointsCost": 15,
-    "productName": "Diatomea La Pota",
-    "referencePrice": 7400
+    "productName": "Celulosa king",
+    "referencePrice": 3200
   }
 ]
