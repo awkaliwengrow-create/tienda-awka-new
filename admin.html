@@ -98,24 +98,36 @@
                     <div class="admin-grid admin-grid-secondary">
                         <div class="club-profile-box admin-card">
                             <h3>Clientes registrados</h3>
-                            <div id="adminRegisteredCustomersList" class="admin-list"></div>
+                            <details class="admin-disclosure">
+                                <summary class="admin-disclosure-toggle">Abrir</summary>
+                                <div id="adminRegisteredCustomersList" class="admin-list"></div>
+                            </details>
                         </div>
 
                         <div class="club-profile-box admin-card">
                             <h3>Top clientes</h3>
-                            <div id="adminPointsList" class="admin-list"></div>
+                            <details class="admin-disclosure">
+                                <summary class="admin-disclosure-toggle">Abrir</summary>
+                                <div id="adminPointsList" class="admin-list"></div>
+                            </details>
                         </div>
 
                         <div class="club-profile-box admin-card">
                             <h3>Premios de ruleta</h3>
-                            <div id="adminRewardsFeedback" class="club-profile-feedback admin-section-feedback"></div>
-                            <div id="adminRewardsList" class="admin-list"></div>
+                            <details class="admin-disclosure">
+                                <summary class="admin-disclosure-toggle">Abrir</summary>
+                                <div id="adminRewardsFeedback" class="club-profile-feedback admin-section-feedback"></div>
+                                <div id="adminRewardsList" class="admin-list"></div>
+                            </details>
                         </div>
 
                         <div class="club-profile-box admin-card">
                             <h3>Puntos canjeados</h3>
-                            <div id="adminRewardRedemptionsFeedback" class="club-profile-feedback admin-section-feedback"></div>
-                            <div id="adminRewardRedemptionsList" class="admin-list"></div>
+                            <details class="admin-disclosure">
+                                <summary class="admin-disclosure-toggle">Abrir</summary>
+                                <div id="adminRewardRedemptionsFeedback" class="club-profile-feedback admin-section-feedback"></div>
+                                <div id="adminRewardRedemptionsList" class="admin-list"></div>
+                            </details>
                         </div>
                     </div>
                 </div>
@@ -133,6 +145,6 @@
     </script>
     <script src="data/analytics-config.js?v=20260604-01"></script>
     <script src="js/analytics.js?v=20260604-01"></script>
-    <script src="js/admin.js?v=20260613-03"></script>
+    <script src="js/admin.js?v=20260613-04"></script>
 </body>
 </html>
