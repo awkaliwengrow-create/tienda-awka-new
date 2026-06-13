@@ -63,7 +63,8 @@ module.exports = async (req, res) => {
                 body: JSON.stringify({
                     nombre: name,
                     telefono: phone,
-                    estado: 'pendiente'
+                    estado: 'pendiente',
+                    created_at: new Date().toISOString()
                 })
             });
         }
