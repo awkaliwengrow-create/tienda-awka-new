@@ -3106,6 +3106,10 @@ footer {
     line-height: 1.45;
 }
 
+.admin-dashboard-feedback {
+    margin: 0.35rem 0 0.15rem;
+}
+
 .admin-welcome-actions {
     display: flex;
     align-items: center;

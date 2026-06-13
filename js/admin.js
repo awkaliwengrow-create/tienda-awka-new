@@ -4,6 +4,7 @@ const loginShell = document.getElementById('adminLoginShell');
 const dashboard = document.getElementById('adminDashboard');
 const loginForm = document.getElementById('adminLoginForm');
 const loginFeedback = document.getElementById('adminLoginFeedback');
+const dashboardFeedback = document.getElementById('adminDashboardFeedback');
 const logoutButton = document.getElementById('adminLogoutButton');
 const refreshButton = document.getElementById('adminRefreshButton');
 const sessionLogoutButton = document.getElementById('adminSessionLogoutButton');
@@ -46,6 +47,12 @@ function setFeedback(element, message, variant = '') {
     if (!element) return;
     element.textContent = message;
     element.className = `club-profile-feedback${variant ? ` is-${variant}` : ''}`;
+}
+
+function clearFeedback(element) {
+    if (!element) return;
+    element.textContent = '';
+    element.className = 'club-profile-feedback';
 }
 
 function setText(element, value) {
@@ -328,6 +335,7 @@ function askDeliveryNote(actionLabel) {
 }
 
 async function loadDashboard() {
+    clearFeedback(dashboardFeedback);
     const data = await adminFetch('/api/admin-dashboard');
 
     setText(statPending, data.stats.pendingSpins);
@@ -438,6 +446,15 @@ async function loadDashboard() {
     });
 }
 
+async function loadDashboardSafely() {
+    try {
+        await loadDashboard();
+    } catch (error) {
+        setFeedback(dashboardFeedback, error.message || 'No pudimos cargar los datos del panel admin.', 'error');
+        throw error;
+    }
+}
+
 function showDashboard() {
     loginShell.hidden = true;
     loginShell.setAttribute('hidden', 'hidden');
@@ -466,6 +483,7 @@ async function handleLogin(event) {
     }
 
     setFeedback(loginFeedback, 'Validando acceso...');
+    let authenticated = false;
 
     try {
         const response = await fetch('/api/admin-auth', {
@@ -482,11 +500,16 @@ async function handleLogin(event) {
         }
 
         saveSession(data.token);
+        authenticated = true;
         showDashboard();
         setFeedback(loginFeedback, 'Sesion iniciada correctamente.', 'success');
-        await loadDashboard();
+        await loadDashboardSafely();
     } catch (error) {
-        setFeedback(loginFeedback, error.message || 'No pudimos iniciar sesion.', 'error');
+        if (!authenticated) {
+            setFeedback(loginFeedback, error.message || 'No pudimos iniciar sesion.', 'error');
+            return;
+        }
+        setFeedback(loginFeedback, 'Sesion iniciada, pero el panel no pudo cargar sus datos.', 'error');
     }
 }
 
@@ -514,7 +537,7 @@ async function handleSpinSubmit(event) {
         setFeedback(spinFeedback, data.message || 'Giro habilitado.', 'success');
         spinForm.reset();
         document.getElementById('adminSpinCount').value = 1;
-        await loadDashboard();
+        await loadDashboardSafely();
     } catch (error) {
         setFeedback(spinFeedback, error.message || 'No pudimos habilitar el giro.', 'error');
     }
@@ -551,7 +574,7 @@ async function handlePointsSubmit(event) {
         });
         setFeedback(pointsFeedback, data.message || 'Compra acreditada correctamente.', 'success');
         pointsForm.reset();
-        await loadDashboard();
+        await loadDashboardSafely();
     } catch (error) {
         setFeedback(pointsFeedback, error.message || 'No pudimos acreditar la compra.', 'error');
     }
@@ -566,7 +589,7 @@ async function bootAdmin() {
 
     try {
         showDashboard();
-        await loadDashboard();
+        await loadDashboardSafely();
     } catch (error) {
         clearSession();
         showLogin();
@@ -582,8 +605,8 @@ const handleLogout = () => {
     showLogin();
 };
 
-refreshButton?.addEventListener('click', loadDashboard);
-sessionRefreshButton?.addEventListener('click', loadDashboard);
+refreshButton?.addEventListener('click', loadDashboardSafely);
+sessionRefreshButton?.addEventListener('click', loadDashboardSafely);
 logoutButton?.addEventListener('click', handleLogout);
 sessionLogoutButton?.addEventListener('click', handleLogout);
 

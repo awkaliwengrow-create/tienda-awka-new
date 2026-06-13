@@ -1,6 +1,15 @@
 const { calculateLevel, getCampaignCatalog, json, normalizePhone, supabaseRequest } = require('./_lib/club');
 const { requireAdmin } = require('./_lib/admin');
 
+async function safeRequest(path, fallback = []) {
+    try {
+        const result = await supabaseRequest(path);
+        return Array.isArray(result) ? result : (result || fallback);
+    } catch (error) {
+        return fallback;
+    }
+}
+
 function diffDaysFromNow(value) {
     if (!value) return null;
     const parsed = new Date(value);
@@ -20,19 +29,19 @@ module.exports = async (req, res) => {
 
     try {
         const [pendingSpins, usedSpins, pointsRows, levelHistoryRows, purchaseRows, customerRows, campaignActivationRows, rewardRedemptionRows] = await Promise.all([
-            supabaseRequest('giros_habilitados?select=id,nombre,telefono,created_at&estado=eq.pendiente&order=created_at.desc&limit=40'),
-            supabaseRequest('giros_habilitados?select=id,nombre,telefono,used_at,created_at&estado=eq.usado&order=used_at.desc.nullslast,created_at.desc&limit=20'),
-            supabaseRequest('puntos?select=id,nombre,telefono,puntos,puntos_canjeados,ultima_actividad&order=puntos.desc&limit=30'),
-            supabaseRequest('club_niveles_historial?select=id,telefono,nivel_anterior,nivel_nuevo,motivo,created_at&order=created_at.desc&limit=20').catch(() => []),
-            supabaseRequest('club_compras?select=telefono,estado,monto_total,created_at&estado=eq.aprobada').catch(() => []),
-            supabaseRequest('clientes?select=nombre,telefono').catch(() => []),
-            supabaseRequest('club_campaign_activations?select=id,telefono,nombre,campaign_id,trigger_type,reference,note,created_at&order=created_at.desc&limit=20').catch(() => []),
-            supabaseRequest('club_reward_redemptions?select=id,telefono,nombre,product_name,size_label,points_cost,estado,request_note,delivery_note,created_at,delivered_at&order=created_at.desc&limit=40').catch(() => [])
+            safeRequest('giros_habilitados?select=id,nombre,telefono,created_at&estado=eq.pendiente&order=created_at.desc&limit=40'),
+            safeRequest('giros_habilitados?select=id,nombre,telefono,used_at,created_at&estado=eq.usado&order=used_at.desc.nullslast,created_at.desc&limit=20'),
+            safeRequest('puntos?select=id,nombre,telefono,puntos,puntos_canjeados,ultima_actividad&order=puntos.desc&limit=30'),
+            safeRequest('club_niveles_historial?select=id,telefono,nivel_anterior,nivel_nuevo,motivo,created_at&order=created_at.desc&limit=20'),
+            safeRequest('club_compras?select=telefono,estado,monto_total,created_at&estado=eq.aprobada'),
+            safeRequest('clientes?select=nombre,telefono'),
+            safeRequest('club_campaign_activations?select=id,telefono,nombre,campaign_id,trigger_type,reference,note,created_at&order=created_at.desc&limit=20'),
+            safeRequest('club_reward_redemptions?select=id,telefono,nombre,product_name,size_label,points_cost,estado,request_note,delivery_note,created_at,delivered_at&order=created_at.desc&limit=40')
         ]);
 
         let rewardRows = [];
         try {
-            rewardRows = await supabaseRequest('club_premios_estado?select=id,ruleta_registro_id,nombre,telefono,premio,premio_codigo,premio_tipo,product_id,discount_percent,estado,delivery_note,delivered_at,created_at&order=created_at.desc&limit=40');
+            rewardRows = await safeRequest('club_premios_estado?select=id,ruleta_registro_id,nombre,telefono,premio,premio_codigo,premio_tipo,product_id,discount_percent,estado,delivery_note,delivered_at,created_at&order=created_at.desc&limit=40');
         } catch (rewardError) {
             rewardRows = [];
         }
