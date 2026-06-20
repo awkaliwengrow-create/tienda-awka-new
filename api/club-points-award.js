@@ -1,4 +1,5 @@
 const { calculateLevel, getClubEnv, json, normalizePhone } = require('./_lib/club');
+const { sendClubWhatsAppNotification } = require('./_lib/whatsapp');
 
 const POINTS_PER_AMOUNT = Number(process.env.AWKA_POINTS_PER_AMOUNT) || 5000;
 const REACTIVATION_SPIN_AFTER_DAYS = Number(process.env.AWKA_REACTIVATION_SPIN_AFTER_DAYS) || 45;
@@ -338,6 +339,22 @@ module.exports = async (req, res) => {
             }
         }
 
+        let notification = null;
+        if (pointsToAward > 0 || bonusSpins > 0) {
+            notification = await sendClubWhatsAppNotification({
+                phone,
+                name,
+                type: 'purchase_progress',
+                payload: {
+                    points: pointsToAward,
+                    spins: bonusSpins,
+                    level: level.label,
+                    totalAmount,
+                    reference
+                }
+            });
+        }
+
         json(res, 200, {
             awarded: true,
             duplicate: false,
@@ -358,6 +375,9 @@ module.exports = async (req, res) => {
             recurringFielBonusTriggered: fielRecurringBonusSpins > 0,
             fielPriorityUnlocked,
             campaignActivations: recordedCampaigns,
+            notificationStatus: notification
+                ? (notification.ok ? 'sent' : notification.skipped ? 'skipped' : 'failed')
+                : 'not_needed',
             message: pointsToAward > 0
                 ? `Se acreditaron ${pointsToAward} punto${pointsToAward === 1 ? '' : 's'}.`
                 : 'Compra registrada sin puntos por monto mínimo.'

@@ -1,5 +1,6 @@
 const { json, normalizePhone, supabaseRequest } = require('./_lib/club');
 const { requireAdmin } = require('./_lib/admin');
+const { sendClubWhatsAppNotification } = require('./_lib/whatsapp');
 
 async function readJsonBody(req) {
     if (req.body && typeof req.body === 'object') {
@@ -69,8 +70,18 @@ module.exports = async (req, res) => {
             });
         }
 
+        const notification = await sendClubWhatsAppNotification({
+            phone,
+            name,
+            type: 'manual_spin_grant',
+            payload: {
+                spins: count
+            }
+        });
+
         json(res, 200, {
             ok: true,
+            notificationStatus: notification.ok ? 'sent' : notification.skipped ? 'skipped' : 'failed',
             message: `Se habilitaron ${count} giro${count === 1 ? '' : 's'} para ${name}.`
         });
     } catch (error) {

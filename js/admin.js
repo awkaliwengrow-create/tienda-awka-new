@@ -83,6 +83,13 @@ function formatMoney(value = 0) {
     return `$${Number(value || 0).toLocaleString('es-AR')}`;
 }
 
+function getNotificationNote(status) {
+    if (status === 'sent') return ' WhatsApp enviado.';
+    if (status === 'failed') return ' El giro o los puntos se aplicaron, pero el WhatsApp fallo.';
+    if (status === 'skipped') return ' El giro o los puntos se aplicaron, pero WhatsApp aun no esta configurado.';
+    return '';
+}
+
 function saveSession(token) {
     localStorage.setItem(ADMIN_SESSION_STORAGE_KEY, token);
 }
@@ -534,7 +541,7 @@ async function handleSpinSubmit(event) {
             method: 'POST',
             body: JSON.stringify(payload)
         });
-        setFeedback(spinFeedback, data.message || 'Giro habilitado.', 'success');
+        setFeedback(spinFeedback, `${data.message || 'Giro habilitado.'}${getNotificationNote(data.notificationStatus)}`, 'success');
         spinForm.reset();
         document.getElementById('adminSpinCount').value = 1;
         await loadDashboardSafely();
@@ -572,7 +579,7 @@ async function handlePointsSubmit(event) {
             method: 'POST',
             body: JSON.stringify(payload)
         });
-        setFeedback(pointsFeedback, data.message || 'Compra acreditada correctamente.', 'success');
+        setFeedback(pointsFeedback, `${data.message || 'Compra acreditada correctamente.'}${getNotificationNote(data.notificationStatus)}`, 'success');
         pointsForm.reset();
         await loadDashboardSafely();
     } catch (error) {

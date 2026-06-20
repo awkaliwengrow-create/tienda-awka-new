@@ -111,6 +111,18 @@ create table if not exists public.club_reward_redemptions (
     created_at timestamptz not null default now()
 );
 
+create table if not exists public.club_whatsapp_notifications (
+    id bigserial primary key,
+    telefono text not null,
+    tipo text not null,
+    mensaje text not null,
+    estado text not null default 'pending' check (estado in ('pending', 'sent', 'failed', 'skipped')),
+    provider text,
+    provider_message_id text,
+    provider_response jsonb,
+    created_at timestamptz not null default now()
+);
+
 create index if not exists idx_clientes_telefono on public.clientes (telefono);
 create index if not exists idx_puntos_telefono on public.puntos (telefono);
 create index if not exists idx_giros_telefono_estado on public.giros_habilitados (telefono, estado);
@@ -124,6 +136,7 @@ create index if not exists idx_club_campaign_activations_telefono_created on pub
 create index if not exists idx_club_campaign_activations_campaign_created on public.club_campaign_activations (campaign_id, created_at desc);
 create index if not exists idx_club_reward_redemptions_telefono_created on public.club_reward_redemptions (telefono, created_at desc);
 create index if not exists idx_club_reward_redemptions_status_created on public.club_reward_redemptions (estado, created_at desc);
+create index if not exists idx_club_whatsapp_notifications_telefono_created on public.club_whatsapp_notifications (telefono, created_at desc);
 
 comment on table public.clientes is 'Base de identidad liviana para Club Awka.';
 comment on table public.puntos is 'Saldo de puntos acumulados y canjeados por cliente.';
@@ -135,3 +148,4 @@ comment on table public.club_premios_estado is 'Trazabilidad operativa de premio
 comment on table public.club_niveles_historial is 'Auditoria de subidas de nivel y desbloqueos del sistema de fidelizacion.';
 comment on table public.club_campaign_activations is 'Registro de campanas y automatizaciones disparadas sobre perfiles del club.';
 comment on table public.club_reward_redemptions is 'Canjes de puntos solicitados desde Club Awka y gestionados desde admin.';
+comment on table public.club_whatsapp_notifications is 'Auditoria opcional de mensajes de WhatsApp enviados por el ecosistema del club.';
