@@ -5,7 +5,7 @@ function getWhatsAppEnv() {
     const provider = String(process.env.AWKA_WHATSAPP_PROVIDER || 'meta_cloud').trim().toLowerCase();
     const accessToken = String(process.env.AWKA_WHATSAPP_ACCESS_TOKEN || '').trim();
     const phoneNumberId = String(process.env.AWKA_WHATSAPP_PHONE_NUMBER_ID || '').trim();
-    const graphVersion = String(process.env.AWKA_WHATSAPP_GRAPH_VERSION || 'v23.0').trim();
+    const graphVersion = String(process.env.AWKA_WHATSAPP_GRAPH_VERSION || 'v25.0').trim();
     const defaultCountryCode = String(process.env.AWKA_WHATSAPP_DEFAULT_COUNTRY_CODE || '549').replace(/\D/g, '');
     const siteUrl = String(process.env.SITE_URL || '').trim().replace(/\/$/, '');
     const templateLanguage = String(process.env.AWKA_WHATSAPP_TEMPLATE_LANGUAGE || 'es_AR').trim();
@@ -29,17 +29,62 @@ function getWhatsAppEnv() {
     };
 }
 
-function toWhatsAppPhone(phone, defaultCountryCode) {
+function buildArgentinaPhoneCandidates(normalizedPhone) {
+    if (!/^\d{10}$/.test(normalizedPhone)) {
+        return [];
+    }
+
+    const candidates = [`54${normalizedPhone}`];
+
+    // Meta sometimes registers Argentina test recipients as 54 + area code + 15 + local number.
+    [2, 3, 4].forEach((areaCodeLength) => {
+        const localNumberLength = normalizedPhone.length - areaCodeLength;
+        if (localNumberLength < 6 || localNumberLength > 8) {
+            return;
+        }
+
+        const areaCode = normalizedPhone.slice(0, areaCodeLength);
+        const localNumber = normalizedPhone.slice(areaCodeLength);
+        if (!localNumber || localNumber.startsWith('0')) {
+            return;
+        }
+
+        candidates.push(`54${areaCode}15${localNumber}`);
+    });
+
+    return candidates;
+}
+
+function buildWhatsAppPhoneCandidates(phone, defaultCountryCode) {
     const rawDigits = String(phone || '').replace(/\D/g, '');
     const normalized = normalizePhone(rawDigits);
 
-    if (!normalized) return '';
+    if (!normalized) return [];
+
+    const candidates = [];
 
     if (rawDigits.length > normalized.length) {
-        return rawDigits;
+        candidates.push(rawDigits);
     }
 
-    return `${defaultCountryCode}${normalized}`;
+    candidates.push(`${defaultCountryCode}${normalized}`);
+
+    if (defaultCountryCode === '54' || defaultCountryCode === '549') {
+        candidates.push(...buildArgentinaPhoneCandidates(normalized));
+    }
+
+    return [...new Set(candidates.filter(Boolean))];
+}
+
+function toWhatsAppPhone(phone, defaultCountryCode) {
+    return buildWhatsAppPhoneCandidates(phone, defaultCountryCode)[0] || '';
+}
+
+function isRetryableRecipientError(error) {
+    const code = String(error?.code || '').trim();
+    const message = String(error?.detail?.error?.message || error?.message || '').trim().toLowerCase();
+
+    return code === '133010' || message.includes('account not registered');
 }
 
 function formatNumber(value, singular, plural = `${singular}s`) {
@@ -224,9 +269,32 @@ async function sendMetaCloudMessage({ to, body, template, env }) {
     return data;
 }
 
+async function sendMetaCloudMessageWithFallback({ recipients, body, template, env }) {
+    let lastError = null;
+
+    for (let index = 0; index < recipients.length; index += 1) {
+        const to = recipients[index];
+
+        try {
+            const data = await sendMetaCloudMessage({ to, body, template, env });
+            return { data, to };
+        } catch (error) {
+            error.attemptedTo = to;
+            lastError = error;
+
+            if (!isRetryableRecipientError(error) || index === recipients.length - 1) {
+                throw error;
+            }
+        }
+    }
+
+    throw lastError || new Error('WHATSAPP_SEND_FAILED');
+}
+
 async function sendClubWhatsAppNotification({ phone, name, type, payload = {} }) {
     const env = getWhatsAppEnv();
-    const to = toWhatsAppPhone(phone, env.defaultCountryCode);
+    const recipients = buildWhatsAppPhoneCandidates(phone, env.defaultCountryCode);
+    const primaryRecipient = recipients[0] || '';
     const message = buildNotificationMessage(type, { ...payload, name }, env);
     const template = buildTemplateConfig(type, { ...payload, name }, env);
 
@@ -236,7 +304,7 @@ async function sendClubWhatsAppNotification({ phone, name, type, payload = {} })
 
     if (!env.configured) {
         await recordNotificationLog({
-            phone: to || phone,
+            phone: primaryRecipient || phone,
             type,
             message: template ? `template:${template.name}` : message,
             status: 'skipped',
@@ -253,7 +321,7 @@ async function sendClubWhatsAppNotification({ phone, name, type, payload = {} })
         };
     }
 
-    if (!to) {
+    if (!primaryRecipient) {
         await recordNotificationLog({
             phone: phone || '',
             type,
@@ -269,7 +337,12 @@ async function sendClubWhatsAppNotification({ phone, name, type, payload = {} })
     }
 
     try {
-        const data = await sendMetaCloudMessage({ to, body: message, template, env });
+        const { data, to } = await sendMetaCloudMessageWithFallback({
+            recipients,
+            body: message,
+            template,
+            env
+        });
         const providerMessageId = data?.messages?.[0]?.id || null;
 
         await recordNotificationLog({
@@ -286,11 +359,12 @@ async function sendClubWhatsAppNotification({ phone, name, type, payload = {} })
             ok: true,
             skipped: false,
             provider: env.provider,
-            messageId: providerMessageId
+            messageId: providerMessageId,
+            to
         };
     } catch (error) {
         await recordNotificationLog({
-            phone: to,
+            phone: error.attemptedTo || primaryRecipient,
             type,
             message: template ? `template:${template.name}` : message,
             status: 'failed',
@@ -307,6 +381,7 @@ async function sendClubWhatsAppNotification({ phone, name, type, payload = {} })
 }
 
 module.exports = {
+    buildWhatsAppPhoneCandidates,
     buildNotificationMessage,
     getWhatsAppEnv,
     sendClubWhatsAppNotification,
