@@ -82,6 +82,8 @@ module.exports = async (req, res) => {
         json(res, 200, {
             ok: true,
             notificationStatus: notification.ok ? 'sent' : notification.skipped ? 'skipped' : 'failed',
+            notificationReason: notification.reason || '',
+            notificationDetail: notification.detailMessage || '',
             message: `Se habilitaron ${count} giro${count === 1 ? '' : 's'} para ${name}.`
         });
     } catch (error) {

@@ -79,6 +79,8 @@ module.exports = async (req, res) => {
         json(res, 200, {
             ok: true,
             notificationStatus: notification.ok ? 'sent' : notification.skipped ? 'skipped' : 'failed',
+            notificationReason: notification.reason || '',
+            notificationDetail: notification.detailMessage || '',
             message: `Compra acreditada: ${points} punto${points === 1 ? '' : 's'} por ${Number(amount).toLocaleString('es-AR')} pesos. Nuevo saldo: ${nextPoints}.`,
             points: nextPoints
         });

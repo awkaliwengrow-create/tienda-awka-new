@@ -83,9 +83,14 @@ function formatMoney(value = 0) {
     return `$${Number(value || 0).toLocaleString('es-AR')}`;
 }
 
-function getNotificationNote(status) {
+function getNotificationNote(status, reason = '', detail = '') {
     if (status === 'sent') return ' WhatsApp enviado.';
-    if (status === 'failed') return ' El giro o los puntos se aplicaron, pero el WhatsApp fallo.';
+    if (status === 'failed') {
+        const note = detail || reason;
+        return note
+            ? ` El giro o los puntos se aplicaron, pero el WhatsApp fallo: ${note}.`
+            : ' El giro o los puntos se aplicaron, pero el WhatsApp fallo.';
+    }
     if (status === 'skipped') return ' El giro o los puntos se aplicaron, pero WhatsApp aun no esta configurado.';
     return '';
 }
@@ -541,7 +546,11 @@ async function handleSpinSubmit(event) {
             method: 'POST',
             body: JSON.stringify(payload)
         });
-        setFeedback(spinFeedback, `${data.message || 'Giro habilitado.'}${getNotificationNote(data.notificationStatus)}`, 'success');
+        setFeedback(
+            spinFeedback,
+            `${data.message || 'Giro habilitado.'}${getNotificationNote(data.notificationStatus, data.notificationReason, data.notificationDetail)}`,
+            'success'
+        );
         spinForm.reset();
         document.getElementById('adminSpinCount').value = 1;
         await loadDashboardSafely();
@@ -579,7 +588,11 @@ async function handlePointsSubmit(event) {
             method: 'POST',
             body: JSON.stringify(payload)
         });
-        setFeedback(pointsFeedback, `${data.message || 'Compra acreditada correctamente.'}${getNotificationNote(data.notificationStatus)}`, 'success');
+        setFeedback(
+            pointsFeedback,
+            `${data.message || 'Compra acreditada correctamente.'}${getNotificationNote(data.notificationStatus, data.notificationReason, data.notificationDetail)}`,
+            'success'
+        );
         pointsForm.reset();
         await loadDashboardSafely();
     } catch (error) {

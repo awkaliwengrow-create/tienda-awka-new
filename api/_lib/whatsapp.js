@@ -10,6 +10,11 @@ function getWhatsAppEnv() {
     const siteUrl = String(process.env.SITE_URL || '').trim().replace(/\/$/, '');
     const templateLanguage = String(process.env.AWKA_WHATSAPP_TEMPLATE_LANGUAGE || 'es_AR').trim();
     const enabled = ['1', 'true', 'yes', 'si'].includes(enabledRaw);
+    const defaultTemplates = {
+        points: 'awka_club_puntos',
+        pointsAndSpins: 'awka_club_puntos_giros',
+        spins: 'awka_club_giros'
+    };
 
     return {
         enabled,
@@ -21,9 +26,9 @@ function getWhatsAppEnv() {
         siteUrl,
         templateLanguage,
         templates: {
-            points: String(process.env.AWKA_WHATSAPP_TEMPLATE_POINTS || '').trim(),
-            pointsAndSpins: String(process.env.AWKA_WHATSAPP_TEMPLATE_POINTS_AND_SPINS || '').trim(),
-            spins: String(process.env.AWKA_WHATSAPP_TEMPLATE_SPINS || '').trim()
+            points: String(process.env.AWKA_WHATSAPP_TEMPLATE_POINTS || defaultTemplates.points).trim(),
+            pointsAndSpins: String(process.env.AWKA_WHATSAPP_TEMPLATE_POINTS_AND_SPINS || defaultTemplates.pointsAndSpins).trim(),
+            spins: String(process.env.AWKA_WHATSAPP_TEMPLATE_SPINS || defaultTemplates.spins).trim()
         },
         configured: enabled && provider === 'meta_cloud' && !!accessToken && !!phoneNumberId
     };
@@ -375,7 +380,8 @@ async function sendClubWhatsAppNotification({ phone, name, type, payload = {} })
         return {
             ok: false,
             skipped: false,
-            reason: error.code || 'WHATSAPP_SEND_FAILED'
+            reason: error.code || 'WHATSAPP_SEND_FAILED',
+            detailMessage: error.detail?.error?.message || error.message || ''
         };
     }
 }

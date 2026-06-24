@@ -27,6 +27,18 @@ Esta capa deja listo el producto para avisar por WhatsApp cuando:
 - `AWKA_WHATSAPP_TEMPLATE_POINTS_AND_SPINS=...`
 - `AWKA_WHATSAPP_TEMPLATE_SPINS=...`
 
+## Plantillas creadas en Meta el 24 jun 2026
+
+Quedaron creadas estas plantillas en `Awka Liwen Club`:
+
+- `awka_club_puntos`
+- `awka_club_puntos_giros`
+- `awka_club_giros`
+
+Las tres quedaron enviadas a revision.
+
+La de `awka_club_giros` fue detectada por Meta como contenido de tipo marketing al enviarla.
+
 ## Datos actuales de Awka Liwen Club
 
 La app de Meta creada para esta integracion es:
@@ -47,6 +59,14 @@ En Vercel, dentro del proyecto, define:
 - `AWKA_WHATSAPP_PHONE_NUMBER_ID=1169903369544965`
 - `AWKA_WHATSAPP_GRAPH_VERSION=v25.0`
 - `AWKA_WHATSAPP_DEFAULT_COUNTRY_CODE=549`
+
+Si quieres fijarlas manualmente en Vercel, estos son los valores:
+
+- `AWKA_WHATSAPP_TEMPLATE_POINTS=awka_club_puntos`
+- `AWKA_WHATSAPP_TEMPLATE_POINTS_AND_SPINS=awka_club_puntos_giros`
+- `AWKA_WHATSAPP_TEMPLATE_SPINS=awka_club_giros`
+
+De todos modos, el codigo ahora ya toma estos tres nombres por defecto aunque no existan las variables.
 
 Si por ahora no usaras plantillas aprobadas, no hace falta definir:
 
