@@ -89,7 +89,12 @@ function isRetryableRecipientError(error) {
     const code = String(error?.code || '').trim();
     const message = String(error?.detail?.error?.message || error?.message || '').trim().toLowerCase();
 
-    return code === '133010' || message.includes('account not registered');
+    return (
+        code === '133010'
+        || code === '131030'
+        || message.includes('account not registered')
+        || message.includes('not in allowed list')
+    );
 }
 
 function formatNumber(value, singular, plural = `${singular}s`) {
