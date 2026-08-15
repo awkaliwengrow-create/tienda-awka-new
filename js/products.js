@@ -9,7 +9,7 @@ const products = [
     "sizes": [
       {
         "size": "30cc",
-        "price": 11009
+        "price": 15000
       }
     ],
     "description": "Atrapa insectos",
