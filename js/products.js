@@ -28,7 +28,7 @@ const products = [
     "sizes": [
       {
         "size": "30cc",
-        "price": 13723
+        "price": 14723
       }
     ],
     "description": "Control específico",
@@ -47,7 +47,7 @@ const products = [
     "sizes": [
       {
         "size": "200gr",
-        "price": 12000
+        "price": 13000
       }
     ],
     "description": "Elimina colonias",
@@ -66,7 +66,7 @@ const products = [
     "sizes": [
       {
         "size": "200ml",
-        "price": 13600
+        "price": 16000
       }
     ],
     "description": "Extracto de algas",
@@ -85,11 +85,11 @@ const products = [
     "sizes": [
       {
         "size": "150gr",
-        "price": 15000
+        "price": 15500
       },
       {
         "size": "300gr",
-        "price": 28000
+        "price": 29000
       }
     ],
     "description": "Fertilizante orgánico completo",
@@ -108,7 +108,7 @@ const products = [
     "sizes": [
       {
         "size": "30ml",
-        "price": 2340
+        "price": 2800
       }
     ],
     "description": "Anti araña roja",
@@ -127,11 +127,11 @@ const products = [
     "sizes": [
       {
         "size": "100gr",
-        "price": 7740
+        "price": 8000
       },
       {
         "size": "200gr",
-        "price": 13068
+        "price": 13500
       }
     ],
     "description": "Bichos bolita y roedores",
@@ -188,7 +188,7 @@ const products = [
     "sizes": [
       {
         "size": "100ml",
-        "price": 13500
+        "price": 16500
       }
     ],
     "description": "Potenciador PK",
@@ -207,7 +207,7 @@ const products = [
     "sizes": [
       {
         "size": "100ml",
-        "price": 10000
+        "price": 14000
       }
     ],
     "description": "Protector biológico",
@@ -291,7 +291,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 8500
+        "price": 25000
       }
     ],
     "description": "Bong de vidrio",
@@ -386,7 +386,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 2500
+        "price": 2900
       }
     ],
     "description": "Papel celulosa",
@@ -405,7 +405,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 6000
+        "price": 6500
       }
     ],
     "description": "Papel celulosa tamaño regular",
@@ -424,7 +424,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3200
+        "price": 3600
       }
     ],
     "description": "Papel celulosa tamaño king",
@@ -580,7 +580,7 @@ const products = [
     "sizes": [
       {
         "size": "250gr",
-        "price": 4200
+        "price": 5200
       }
     ],
     "description": "Tierra de diatomeas",
@@ -599,11 +599,11 @@ const products = [
     "sizes": [
       {
         "size": "150gr",
-        "price": 4000
+        "price": 4500
       },
       {
         "size": "500gr",
-        "price": 7400
+        "price": 8000
       }
     ],
     "description": "Tierra de diatomeas",
@@ -622,7 +622,7 @@ const products = [
     "sizes": [
       {
         "size": "200ml",
-        "price": 13600
+        "price": 16500
       }
     ],
     "description": "Potenciador de floración",
@@ -641,7 +641,7 @@ const products = [
     "sizes": [
       {
         "size": "200ml",
-        "price": 13600
+        "price": 16500
       }
     ],
     "description": "Potenciador orgánico",
@@ -660,7 +660,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1200
+        "price": 1500
       }
     ],
     "description": "Filtros pequeños",
@@ -717,7 +717,7 @@ const products = [
     "sizes": [
       {
         "size": "30ml",
-        "price": 8700
+        "price": 9700
       }
     ],
     "description": "Hongo entomopatógeno",
@@ -797,7 +797,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 800
+        "price": 1000
       }
     ],
     "description": "Papel blanco regular",
@@ -816,7 +816,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1000
+        "price": 1500
       }
     ],
     "description": "Papel blanco King Size",
@@ -835,7 +835,7 @@ const products = [
     "sizes": [
       {
         "size": "X200",
-        "price": 1200
+        "price": 1500
       }
     ],
     "description": "Pack celulosa",
@@ -854,7 +854,7 @@ const products = [
     "sizes": [
       {
         "size": "X200",
-        "price": 2800
+        "price": 3200
       }
     ],
     "description": "Pack celulosa x200 hojas",
@@ -968,7 +968,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 800
+        "price": 1000
       }
     ],
     "description": "Papel sin blanquear regular",
@@ -1273,11 +1273,11 @@ const products = [
     "sizes": [
       {
         "size": "60ml",
-        "price": 3820
+        "price": 5820
       },
       {
         "size": "100ml",
-        "price": 5353
+        "price": 6353
       }
     ],
     "description": "Exterminador rápido",
@@ -1296,11 +1296,11 @@ const products = [
     "sizes": [
       {
         "size": "45ml",
-        "price": 6000
+        "price": 6500
       },
       {
         "size": "200ml",
-        "price": 21000
+        "price": 22000
       }
     ],
     "description": "Control preventivo",
@@ -1319,7 +1319,7 @@ const products = [
     "sizes": [
       {
         "size": "200ml",
-        "price": 10800
+        "price": 11800
       }
     ],
     "description": "Fósforo y calcio",
@@ -1338,7 +1338,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3200
+        "price": 3500
       }
     ],
     "description": "Wrap de cáñamo sabor blueberry",
@@ -1357,7 +1357,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3200
+        "price": 3500
       }
     ],
     "description": "Wrap de cáñamo sabor chicle",
@@ -1376,7 +1376,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3200
+        "price": 3500
       }
     ],
     "description": "Wrap de cáñamo sabor chocolate",
@@ -1452,7 +1452,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3200
+        "price": 3500
       }
     ],
     "description": "Wrap de cáñamo sabor mango",
@@ -1471,7 +1471,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3200
+        "price": 3500
       }
     ],
     "description": "Wrap de cáñamo natural",
@@ -1490,7 +1490,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3200
+        "price": 3500
       }
     ],
     "description": "Wrap de cáñamo sabor frutilla",
@@ -1547,7 +1547,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3200
+        "price": 3500
       }
     ],
     "description": "Wrap de cáñamo sabor tequila",
@@ -1566,7 +1566,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 12500
+        "price": 13500
       }
     ],
     "description": "Lupa con broche",
@@ -1585,7 +1585,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 11500
+        "price": 12500
       }
     ],
     "description": "Lupa sin broche",
@@ -1604,47 +1604,47 @@ const products = [
     "sizes": [
       {
         "size": "4lt",
-        "price": 1400
+        "price": 2400
       },
       {
         "size": "5lt",
-        "price": 1700
+        "price": 2700
       },
       {
         "size": "10lt",
-        "price": 4200
+        "price": 5200
       },
       {
         "size": "12,5lt",
-        "price": 4800
+        "price": 6000
       },
       {
         "size": "24lt",
-        "price": 5000
+        "price": 7000
       },
       {
         "size": "25lt",
-        "price": 5500
-      },
-      {
-        "size": "30lt",
-        "price": 6500
-      },
-      {
-        "size": "40lt",
-        "price": 9000
-      },
-      {
-        "size": "80lt",
-        "price": 10000
-      },
-      {
-        "size": "100lt",
         "price": 12000
       },
       {
-        "size": "200lt",
+        "size": "30lt",
+        "price": 16000
+      },
+      {
+        "size": "40lt",
+        "price": 15000
+      },
+      {
+        "size": "80lt",
+        "price": 18000
+      },
+      {
+        "size": "100lt",
         "price": 19000
+      },
+      {
+        "size": "200lt",
+        "price": 22000
       }
     ],
     "description": "Maceta geotextil transpirable",
@@ -1663,19 +1663,19 @@ const products = [
     "sizes": [
       {
         "size": "250ml",
-        "price": 200
-      },
-      {
-        "size": "500ml",
         "price": 250
       },
       {
+        "size": "500ml",
+        "price": 300
+      },
+      {
         "size": "1lt",
-        "price": 350
+        "price": 400
       },
       {
         "size": "3lt",
-        "price": 400
+        "price": 550
       },
       {
         "size": "5lt",
@@ -1683,15 +1683,15 @@ const products = [
       },
       {
         "size": "7lt",
-        "price": 1000
+        "price": 1200
       },
       {
         "size": "10lt",
-        "price": 1300
+        "price": 1400
       },
       {
         "size": "15lt",
-        "price": 1700
+        "price": 1800
       },
       {
         "size": "20lt",
@@ -1699,7 +1699,7 @@ const products = [
       },
       {
         "size": "30lt",
-        "price": 5200
+        "price": 5500
       }
     ],
     "description": "Maceta plástico soplado",
@@ -1718,19 +1718,19 @@ const products = [
     "sizes": [
       {
         "size": "5lts",
-        "price": 5000
-      },
-      {
-        "size": "10lts",
         "price": 6000
       },
       {
+        "size": "10lts",
+        "price": 8000
+      },
+      {
         "size": "16lts",
-        "price": 9500
+        "price": 11000
       },
       {
         "size": "25lts",
-        "price": 15000
+        "price": 18000
       }
     ],
     "description": "Maceta geotextil premium",
@@ -1749,7 +1749,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 20000
+        "price": 23000
       }
     ],
     "description": "Malla de secado azul",
@@ -1768,7 +1768,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 20000
+        "price": 26000
       }
     ],
     "description": "Malla de secado negra",
@@ -1787,7 +1787,7 @@ const products = [
     "sizes": [
       {
         "size": "30cc",
-        "price": 8500
+        "price": 9500
       }
     ],
     "description": "Insecticida natural",
@@ -1806,7 +1806,7 @@ const products = [
     "sizes": [
       {
         "size": "30cc",
-        "price": 8000
+        "price": 9000
       }
     ],
     "description": "Hongos preventivo",
@@ -1825,7 +1825,7 @@ const products = [
     "sizes": [
       {
         "size": "30cc",
-        "price": 18200
+        "price": 19200
       }
     ],
     "description": "Insecticida contacto",
@@ -1844,11 +1844,11 @@ const products = [
     "sizes": [
       {
         "size": "250cc",
-        "price": 9200
+        "price": 10000
       },
       {
         "size": "100cc",
-        "price": 14500
+        "price": 15500
       }
     ],
     "description": "Multi plagas",
@@ -1867,7 +1867,7 @@ const products = [
     "sizes": [
       {
         "size": "30cc",
-        "price": 9700
+        "price": 11000
       }
     ],
     "description": "Control de plagas",
@@ -1886,7 +1886,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 20000
+        "price": 23000
       }
     ],
     "description": "Medidor de electroconductividad",
@@ -1905,7 +1905,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 32000
+        "price": 33000
       }
     ],
     "description": "Medidor digital de pH",
@@ -1924,11 +1924,11 @@ const products = [
     "sizes": [
       {
         "size": "100gr",
-        "price": 2800
+        "price": 3200
       },
       {
         "size": "200gr",
-        "price": 4500
+        "price": 5500
       }
     ],
     "description": "Elimina hormigas",
@@ -1947,7 +1947,7 @@ const products = [
     "sizes": [
       {
         "size": "30ml",
-        "price": 2340
+        "price": 3040
       }
     ],
     "description": "Contra mosca blanca",
@@ -1993,7 +1993,7 @@ const products = [
     "sizes": [
       {
         "size": "200ml",
-        "price": 13600
+        "price": 15600
       }
     ],
     "description": "Booster de nitrógeno",
@@ -2012,7 +2012,7 @@ const products = [
     "sizes": [
       {
         "size": "200ml",
-        "price": 13600
+        "price": 15600
       }
     ],
     "description": "Nitrógeno orgánico",
@@ -2031,7 +2031,7 @@ const products = [
     "sizes": [
       {
         "size": "100cc",
-        "price": 9635
+        "price": 11635
       }
     ],
     "description": "Aceite mineral",
@@ -2054,7 +2054,7 @@ const products = [
       },
       {
         "size": "100ml",
-        "price": 39000
+        "price": 5500
       },
       {
         "size": "2lts",
@@ -2115,7 +2115,7 @@ const products = [
     "sizes": [
       {
         "size": "200ml",
-        "price": 10890
+        "price": 14890
       }
     ],
     "description": "Regulador de pH down",
@@ -2134,11 +2134,11 @@ const products = [
     "sizes": [
       {
         "size": "100ml",
-        "price": 4770
+        "price": 5770
       },
       {
         "size": "500ml",
-        "price": 15543
+        "price": 16543
       }
     ],
     "description": "Regulador pH down",
@@ -2157,7 +2157,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 2500
+        "price": 0 
       }
     ],
     "description": "Grinder de acero inoxidable",
@@ -2176,7 +2176,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1200
+        "price": 4500
       }
     ],
     "description": "Grinder acrílico transparente",
@@ -2195,7 +2195,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3200
+        "price": 0
       }
     ],
     "description": "Grinder cerámico premium",
@@ -2214,7 +2214,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 2200
+        "price": 0
       }
     ],
     "description": "Grinder de madera natural",
@@ -2233,7 +2233,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1800
+        "price": 0
       }
     ],
     "description": "Grinder metálico",
@@ -2252,7 +2252,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 2800
+        "price": 0    
       }
     ],
     "description": "Pipa de madera artesanal",
@@ -2271,7 +2271,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1500
+        "price": 0 
       }
     ],
     "description": "Pipa de metal resistente",
@@ -2290,7 +2290,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 2400
+        "price": 0
       }
     ],
     "description": "Filtros pre-enrollados",
@@ -2309,7 +2309,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 2500
+        "price": 0
       }
     ],
     "description": "Pulverizador transparente",
@@ -2328,7 +2328,7 @@ const products = [
     "sizes": [
       {
         "size": "Monster",
-        "price": 6000
+        "price": 8500
       }
     ],
     "description": "Papel con bandeja origami",
@@ -2347,7 +2347,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1900
+        "price": 3200
       }
     ],
     "description": "Papel Raw Black regular",
@@ -2366,7 +2366,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3800
+        "price": 6800
       }
     ],
     "description": "Papel Raw Black King Size",
@@ -2385,7 +2385,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1900
+        "price": 3200
       }
     ],
     "description": "Papel Raw Black orgánico",
@@ -2404,7 +2404,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3800
+        "price": 6800
       }
     ],
     "description": "Papel Raw Black Organic KS",
@@ -2423,7 +2423,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 55000
+        "price": 58000
       }
     ],
     "description": "Papel gigante pre rolled",
@@ -2442,7 +2442,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1900
+        "price": 3200
       }
     ],
     "description": "Papel Raw Classic regular",
@@ -2461,7 +2461,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3800
+        "price": 6200
       }
     ],
     "description": "Papel Raw Classic King Size",
@@ -2480,7 +2480,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1900
+        "price": 3200
       }
     ],
     "description": "Papel Raw Classic orgánico",
@@ -2499,7 +2499,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3800
+        "price": 6200
       }
     ],
     "description": "Papel Raw Classic Organic KS",
@@ -2518,7 +2518,7 @@ const products = [
     "sizes": [
       {
         "size": "Medium",
-        "price": 12000
+        "price": 15000
       }
     ],
     "description": "5 papeles pre rolled",
@@ -2537,19 +2537,19 @@ const products = [
     "sizes": [
       {
         "size": "60x60",
-        "price": 6900
+        "price": 7900
       },
       {
         "size": "80x80",
-        "price": 7200
+        "price": 9200
       },
       {
         "size": "100x100",
-        "price": 7600
+        "price": 11000
       },
       {
         "size": "120x120",
-        "price": 8000
+        "price": 13000
       },
       {
         "size": "150x150",
@@ -2572,11 +2572,11 @@ const products = [
     "sizes": [
       {
         "size": "100x100",
-        "price": 18000
+        "price": 25000
       },
       {
         "size": "120x120",
-        "price": 28000
+        "price": 33000
       }
     ],
     "description": "Red scrog",
@@ -2804,7 +2804,7 @@ const products = [
     "sizes": [
       {
         "size": "200ml",
-        "price": 13600
+        "price": 15600
       }
     ],
     "description": "Mejorador de sabor y aroma",
@@ -2823,7 +2823,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 15000
+        "price": 19000
       }
     ],
     "description": "Termohigrometro",
@@ -2842,7 +2842,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 2900
+        "price": 4000
       }
     ],
     "description": "Tijera ergonómica con ojal",
@@ -2861,7 +2861,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3500
+        "price": 4500
       }
     ],
     "description": "Tijera especial cosecha",
@@ -2918,7 +2918,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 16000
+        "price": 18000
       }
     ],
     "description": "Timer mecanico",
@@ -2937,7 +2937,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1200
+        "price": 1500
       }
     ],
     "description": "Tips para armar",
@@ -3089,7 +3089,7 @@ const products = [
     "sizes": [
       {
         "size": "250ml",
-        "price": 11500
+        "price": 14500
       }
     ],
     "description": "Especial autoflorecientes",
@@ -3108,7 +3108,7 @@ const products = [
     "sizes": [
       {
         "size": "100ml",
-        "price": 4473
+        "price": 8073
       }
     ],
     "description": "Protector natural",
@@ -3127,7 +3127,7 @@ const products = [
     "sizes": [
       {
         "size": "250ml",
-        "price": 8200
+        "price": 9200
       },
       {
         "size": "1lts",
@@ -3150,7 +3150,7 @@ const products = [
     "sizes": [
       {
         "size": "100ml",
-        "price": 18000
+        "price": 25000
       }
     ],
     "description": "Engordador de cogollos",
@@ -3211,11 +3211,11 @@ const products = [
     "sizes": [
       {
         "size": "250ml",
-        "price": 8051
+        "price": 9051
       },
       {
         "size": "1lts",
-        "price": 23760
+        "price": 24760
       }
     ],
     "description": "Nutriente crecimiento vegetal",
@@ -3234,7 +3234,7 @@ const products = [
     "sizes": [
       {
         "size": "200ml",
-        "price": 10800
+        "price": 14800
       }
     ],
     "description": "Limpiador final",
@@ -3253,11 +3253,11 @@ const products = [
     "sizes": [
       {
         "size": "45ml",
-        "price": 4500
+        "price": 5500
       },
       {
         "size": "200ml",
-        "price": 11000
+        "price": 15000
       }
     ],
     "description": "Nutriente base parte A",
@@ -3284,7 +3284,7 @@ const products = [
       },
       {
         "size": "500ml",
-        "price": 31600
+        "price": 32600
       }
     ],
     "description": "Potenciador de aroma y sabor",
@@ -3303,15 +3303,15 @@ const products = [
     "sizes": [
       {
         "size": "45ml",
-        "price": 4500
+        "price": 5500
       },
       {
         "size": "200ml",
-        "price": 11000
+        "price": 15000
       },
       {
         "size": "500ml",
-        "price": 22500
+        "price": 25000
       }
     ],
     "description": "Fertilizante para floración",
@@ -3330,11 +3330,11 @@ const products = [
     "sizes": [
       {
         "size": "45ml",
-        "price": 7000
+        "price": 7200
       },
       {
         "size": "200ml",
-        "price": 13000
+        "price": 13500
       }
     ],
     "description": "Micorrizas beneficiosas",
@@ -3353,11 +3353,11 @@ const products = [
     "sizes": [
       {
         "size": "45ml",
-        "price": 4900
+        "price": 5000
       },
       {
         "size": "200ml",
-        "price": 10500
+        "price": 11500
       }
     ],
     "description": "Fertilizante nitrogenado para crecimiento",
@@ -3376,11 +3376,11 @@ const products = [
     "sizes": [
       {
         "size": "45ml",
-        "price": 5500
+        "price": 6500
       },
       {
         "size": "200ml",
-        "price": 15000
+        "price": 16000
       }
     ],
     "description": "Estimulador profesional",
@@ -3399,7 +3399,7 @@ const products = [
     "sizes": [
       {
         "size": "30ml",
-        "price": 6721
+        "price": 7521
       }
     ],
     "description": "Hongo beneficioso",
@@ -3418,11 +3418,11 @@ const products = [
     "sizes": [
       {
         "size": "150gr",
-        "price": 7000
+        "price": 7200
       },
       {
         "size": "250gr",
-        "price": 13000
+        "price": 13500
       }
     ],
     "description": "Trichoderma beneficioso",
@@ -3460,7 +3460,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3500
+        "price": 7500
       }
     ],
     "description": "Pipa tipo turbina",
@@ -3498,7 +3498,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 2200
+        "price": 2500
       }
     ],
     "description": "Papel sin blanquear tamaño king",
@@ -3574,7 +3574,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 4500
+        "price": 6500
       }
     ],
     "description": "Armador metálico",
@@ -3612,7 +3612,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1200
+        "price": 1500
       }
     ],
     "description": "Papel celulosa color azul",
@@ -3631,7 +3631,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 2000
+        "price": 2500
       }
     ],
     "description": "Papel celulosa extra ancho",
@@ -3650,7 +3650,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1200
+        "price": 1500
       }
     ],
     "description": "Papel celulosa color naranja",
@@ -3669,7 +3669,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1200
+        "price": 1500
       }
     ],
     "description": "Papel celulosa color rojo",
@@ -3688,7 +3688,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1200
+        "price": 1500
       }
     ],
     "description": "Papel celulosa color verde",
@@ -3707,7 +3707,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1050
+        "price": 1150
       }
     ],
     "description": "Papel con chalas incluidas",
@@ -3726,7 +3726,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 800
+        "price": 1000
       }
     ],
     "description": "Papel dorado especial",
@@ -3745,7 +3745,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 5500
+        "price": 8000
       }
     ],
     "description": "Estuche Zeus standard",
@@ -3764,7 +3764,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 3600
+        "price": 5500
       }
     ],
     "description": "Estuche Zeus negro",
@@ -3783,7 +3783,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1000
+        "price": 1200
       }
     ],
     "description": "Papel color verde",
@@ -3802,7 +3802,7 @@ const products = [
     "sizes": [
       {
         "size": "1u",
-        "price": 1000
+        "price": 1200
       }
     ],
     "description": "Papel color rosa",
@@ -3821,11 +3821,11 @@ const products = [
     "sizes": [
       {
         "size": "45ml",
-        "price": 8000
+        "price": 9500
       },
       {
         "size": "200ml",
-        "price": 23000
+        "price": 25000
       }
     ],
     "description": "Complejo enzimático",
