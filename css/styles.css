@@ -4695,3 +4695,65 @@ footer {
 .club-member-panel {
     margin-top: 0.2rem;
 }
+
+/* ── ENVIOS SECTION ── */
+.envios-section {
+    background: #f4f0e8;
+    padding: 4rem 0;
+    border-top: 1px solid rgba(0,0,0,0.06);
+}
+.envios-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+.envios-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #3d6b47;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.envios-header h2 {
+    font-size: 1.75rem;
+    color: #1a1f1a;
+    margin-bottom: 0.5rem;
+}
+.envios-header p {
+    color: #6b7068;
+    font-size: 0.95rem;
+    max-width: 480px;
+    margin: 0 auto;
+}
+.envios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+.envio-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 12px;
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+}
+.envio-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+.envio-name { font-weight: 600; color: #1a1f1a; margin-bottom: 0.4rem; font-size: 1rem; }
+.envio-desc { font-size: 0.85rem; color: #6b7068; line-height: 1.5; }
+.envios-nota {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6b7068;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.envios-wa {
+    color: #3d6b47;
+    font-weight: 600;
+    text-decoration: none;
+}
+.envios-wa:hover { text-decoration: underline; }
