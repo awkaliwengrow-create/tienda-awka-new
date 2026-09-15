@@ -2956,7 +2956,7 @@ const products = [
     "sizes": [
       {
         "size": "X200",
-        "price": 1500
+        "price": 1600
       }
     ],
     "description": "Tips Raw",
@@ -2975,7 +2975,7 @@ const products = [
     "sizes": [
       {
         "size": "X200",
-        "price": 1500
+        "price": 1600
       }
     ],
     "description": "Tips curvos",
@@ -2994,7 +2994,7 @@ const products = [
     "sizes": [
       {
         "size": "X200",
-        "price": 1000
+        "price": 1100
       }
     ],
     "description": "Tips de colores",
@@ -3013,7 +3013,7 @@ const products = [
     "sizes": [
       {
         "size": "X200",
-        "price": 1500
+        "price": 1600
       }
     ],
     "description": "Tips silver",
@@ -3032,7 +3032,7 @@ const products = [
     "sizes": [
       {
         "size": "X200",
-        "price": 1500
+        "price": 1600
       }
     ],
     "description": "Tips silver large",
@@ -3051,7 +3051,7 @@ const products = [
     "sizes": [
       {
         "size": "X200",
-        "price": 1500
+        "price": 1600
       }
     ],
     "description": "Tips unbleached",
@@ -3070,7 +3070,7 @@ const products = [
     "sizes": [
       {
         "size": "X200",
-        "price": 1500
+        "price": 1600
       }
     ],
     "description": "Tips unbleached large",
@@ -3835,7 +3835,7 @@ const products = [
     "icon": "",
     "order": 0
   }
-];
+]];
 
 function getCategoryName(category) {
     const names = {
