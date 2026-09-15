@@ -498,6 +498,11 @@ function checkoutWhatsApp() {
 }
 
 // Checkout
+function toggleShippingFields(value) {
+    const fields = document.getElementById('shippingFields');
+    if (fields) fields.style.display = value === 'envio' ? 'block' : 'none';
+}
+
 async function checkout() {
     if (cart.length === 0) {
         alert('Tu carrito esta vacio por ahora.');
@@ -546,9 +551,16 @@ async function submitCheckoutProfile(event) {
     const feedback = document.getElementById('checkoutProfileFeedback');
     const submitButton = event.submitter || event.target.querySelector('button[type="submit"]');
 
+    const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value || 'retiro';
     const customer = {
         name: (nameInput?.value || '').trim(),
-        phone: normalizePhone(phoneInput?.value || '')
+        phone: normalizePhone(phoneInput?.value || ''),
+        delivery: deliveryType,
+        address: deliveryType === 'envio' ? [
+            document.getElementById('checkoutAddress')?.value?.trim(),
+            document.getElementById('checkoutCity')?.value?.trim(),
+            document.getElementById('checkoutProvince')?.value?.trim()
+        ].filter(Boolean).join(', ') : 'Retiro en tienda'
     };
 
     if (!customer.name) {

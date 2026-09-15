@@ -214,6 +214,34 @@
                     <label for="checkoutPhone">WhatsApp</label>
                     <input id="checkoutPhone" name="checkoutPhone" type="tel" inputmode="numeric" placeholder="Ej: 1123456789" autocomplete="tel">
                 </div>
+                <div class="checkout-profile-field">
+                    <label>Entrega</label>
+                    <div class="checkout-delivery-options">
+                        <label class="checkout-delivery-opt">
+                            <input type="radio" name="deliveryType" value="retiro" checked onchange="toggleShippingFields(this.value)">
+                            <span>Retiro en tienda · Castelli 97, Rauch</span>
+                        </label>
+                        <label class="checkout-delivery-opt">
+                            <input type="radio" name="deliveryType" value="envio" onchange="toggleShippingFields(this.value)">
+                            <span>Envío a domicilio (Andreani / Correo)</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="shippingFields" style="display:none">
+                    <div class="checkout-profile-field">
+                        <label for="checkoutAddress">Dirección</label>
+                        <input id="checkoutAddress" name="checkoutAddress" type="text" placeholder="Calle, número, piso/depto" autocomplete="street-address">
+                    </div>
+                    <div class="checkout-profile-field">
+                        <label for="checkoutCity">Ciudad / Localidad</label>
+                        <input id="checkoutCity" name="checkoutCity" type="text" placeholder="Ej: Tandil" autocomplete="address-level2">
+                    </div>
+                    <div class="checkout-profile-field">
+                        <label for="checkoutProvince">Provincia</label>
+                        <input id="checkoutProvince" name="checkoutProvince" type="text" placeholder="Ej: Buenos Aires" autocomplete="address-level1">
+                    </div>
+                    <div class="checkout-profile-note" style="margin-top:0.25rem">El costo de envío se coordina por WhatsApp después del pago.</div>
+                </div>
                 <div class="checkout-profile-help">Tu nombre y tu WhatsApp se usan para acreditar puntos y reconocer tu perfil del club.</div>
                 <div class="checkout-profile-note">Cada $5.000 suma 1 punto en esta etapa. Si ya tienes cuenta, seguimos acumulando sobre el mismo numero.</div>
                 <div id="checkoutProfileFeedback" class="checkout-profile-feedback"></div>
