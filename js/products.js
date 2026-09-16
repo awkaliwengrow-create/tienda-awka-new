@@ -3835,7 +3835,7 @@ const products = [
     "icon": "",
     "order": 0
   }
-]|1;
+];
 
 function getCategoryName(category) {
     const names = {
