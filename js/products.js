@@ -2994,7 +2994,7 @@ const products = [
     "sizes": [
       {
         "size": "X200",
-        "price": 1100
+        "price": 1
       }
     ],
     "description": "Tips de colores",
@@ -3835,7 +3835,7 @@ const products = [
     "icon": "",
     "order": 0
   }
-];
+]|1;
 
 function getCategoryName(category) {
     const names = {
