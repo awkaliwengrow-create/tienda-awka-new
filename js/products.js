@@ -2993,8 +2993,8 @@ const products = [
     "image": "img/productos/zeus-tips.jpg",
     "sizes": [
       {
-        "size": "X200",
-        "price": 1
+        "size": "X50",
+        "price": 10
       }
     ],
     "description": "Tips de colores",
