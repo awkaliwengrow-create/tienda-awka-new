@@ -2936,7 +2936,7 @@ const products = [
     "image": "img/productos/tips.jpg",
     "sizes": [
       {
-        "size": "1u",
+        "size": "x50",
         "price": 1500
       }
     ],
@@ -2955,8 +2955,8 @@ const products = [
     "image": "img/productos/raw-tips.jpg",
     "sizes": [
       {
-        "size": "X200",
-        "price": 1600
+        "size": "X50",
+        "price": 10
       }
     ],
     "description": "Tips Raw",
@@ -2974,8 +2974,8 @@ const products = [
     "image": "img/productos/3rayos.jpg",
     "sizes": [
       {
-        "size": "X200",
-        "price": 1600
+        "size": "X50",
+        "price": 10
       }
     ],
     "description": "Tips curvos",
@@ -3012,8 +3012,8 @@ const products = [
     "image": "img/productos/lion-rolling-tips.jpg",
     "sizes": [
       {
-        "size": "X200",
-        "price": 1600
+        "size": "X50",
+        "price": 10
       }
     ],
     "description": "Tips silver",
@@ -3031,8 +3031,8 @@ const products = [
     "image": "img/productos/lion-rolling-tips.jpg",
     "sizes": [
       {
-        "size": "X200",
-        "price": 1600
+        "size": "X50",
+        "price": 10
       }
     ],
     "description": "Tips silver large",
@@ -3050,8 +3050,8 @@ const products = [
     "image": "img/productos/lion-rolling-tips-unbleached.jpg",
     "sizes": [
       {
-        "size": "X200",
-        "price": 1600
+        "size": "X50",
+        "price": 10
       }
     ],
     "description": "Tips unbleached",
@@ -3069,8 +3069,8 @@ const products = [
     "image": "img/productos/lion-rolling-tips-unbleached-large.jpg",
     "sizes": [
       {
-        "size": "X200",
-        "price": 1600
+        "size": "X50",
+        "price": 10
       }
     ],
     "description": "Tips unbleached large",
