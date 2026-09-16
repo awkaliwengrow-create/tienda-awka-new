@@ -5,15 +5,15 @@
     "sizeLabel": "1u",
     "pointsCost": 2,
     "productName": "Fumanchu Blanco",
-    "referencePrice": 800
+    "referencePrice": 1000
   },
   {
     "key": "3152:1u",
     "productId": 3152,
     "sizeLabel": "1u",
-    "pointsCost": 2,
+    "pointsCost": 3,
     "productName": "Fumanchu Blanco KS",
-    "referencePrice": 1000
+    "referencePrice": 1500
   },
   {
     "key": "1106:1u",
@@ -27,40 +27,40 @@
     "key": "94:1u",
     "productId": 94,
     "sizeLabel": "1u",
-    "pointsCost": 6,
+    "pointsCost": 10,
     "productName": "Picador Acrílico",
-    "referencePrice": 3000
+    "referencePrice": 4600
   },
   {
     "key": "1119:1u",
     "productId": 1119,
     "sizeLabel": "1u",
-    "pointsCost": 7,
+    "pointsCost": 8,
     "productName": "LRC Hemp Wrap Chocolate",
-    "referencePrice": 3200
+    "referencePrice": 3600
   },
   {
     "key": "1111:1u",
     "productId": 1111,
     "sizeLabel": "1u",
-    "pointsCost": 7,
+    "pointsCost": 8,
     "productName": "Celulosa king",
-    "referencePrice": 3200
+    "referencePrice": 3700
   },
   {
     "key": "21:100ml",
     "productId": 21,
     "sizeLabel": "100ml",
-    "pointsCost": 11,
+    "pointsCost": 12,
     "productName": "Oro Negro",
-    "referencePrice": 5490
+    "referencePrice": 5600
   },
   {
     "key": "22:100ml",
     "productId": 22,
     "sizeLabel": "100ml",
-    "pointsCost": 11,
+    "pointsCost": 12,
     "productName": "Flora Booster",
-    "referencePrice": 5490
+    "referencePrice": 5600
   }
 ]
