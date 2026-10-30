@@ -252,10 +252,10 @@
             let priceDisplay = '';
             if (product.sizes && product.sizes.length > 0) {
                 if (product.sizes.length === 1) {
-                    priceDisplay = `<div class="product-price">$${product.sizes[0].price.toLocaleString()}</div>
+                    priceDisplay = priceDisplay = `<div class="product-price">Desde $${Math.min(...product.sizes.map((s) => s.price)).toLocaleString('es-AR')}</div>
                                     <div class="product-size">${product.sizes[0].size}</div>`;
                 } else {
-                    priceDisplay = `<div class="product-price">Desde $${Math.min(...product.sizes.map((s) => s.price)).toLocaleString()}</div>
+                    priceDisplay = `<div class="product-price">Desde ${formatCurrency(Math.min(...product.sizes.map((s) => s.price)))}</div>
                                     <div class="product-size">${product.sizes.length} tamanos</div>`;
                 }
             }

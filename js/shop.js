@@ -213,12 +213,12 @@ function formatCartMessage() {
     cart.forEach(item => {
         const sizeInfo = item.selectedSize ? ` - ${item.selectedSize}` : '';
         const subtotal = item.price * item.quantity;
-        lines.push(`- ${item.name}${sizeInfo} x${item.quantity} | $${subtotal.toLocaleString()}`);
+        lines.push(`- ${item.name}${sizeInfo} x${item.quantity} | ${formatCurrency(subtotal)}`);
     });
 
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     lines.push('');
-    lines.push(`Total: $${total.toLocaleString()}`);
+    lines.push(`Total: ${formatCurrency(total)}`);
     lines.push('Quiero coordinar pago y entrega.');
 
     return lines.join('\n');
@@ -337,7 +337,7 @@ function showProductDetails(productId) {
     sizeOptions.innerHTML = product.sizes.map((size, index) => `
         <div class="size-option" onclick="addToCart(${productId}, ${index})">
             <span class="size-label">${size.size}</span>
-            <span class="size-price">$${size.price.toLocaleString()}</span>
+            <span class="size-price">${formatCurrency(size.price)}</span>
         </div>
     `).join('');
 
@@ -422,7 +422,7 @@ function updateCart() {
     saveCart();
 
     cartCount.textContent = totalItems;
-    cartTotal.textContent = `$${totalPrice.toLocaleString()}`;
+    cartTotal.textContent = formatCurrency(totalPrice);
 
     if (cart.length === 0) {
         cartItems.innerHTML = `
@@ -442,7 +442,7 @@ function updateCart() {
                 <div class="cart-item-image">${imageContent}</div>
                 <div class="cart-item-info">
                     <div class="cart-item-name">${item.name}${sizeInfo}</div>
-                    <div class="cart-item-price">$${item.price.toLocaleString()}</div>
+                    <div class="cart-item-price">${formatCurrency(item.price)}</div>
                     <div class="cart-item-controls">
                         <button class="qty-btn" onclick="updateQuantity('${itemId}', -1)">-</button>
                         <span class="cart-item-quantity">${item.quantity}</span>
