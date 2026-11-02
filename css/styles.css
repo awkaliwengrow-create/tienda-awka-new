@@ -2050,25 +2050,30 @@ footer {
 }
 
 .club-preview-shell-secondary {
-    max-width: 560px;
-    margin: 0 auto;
-    padding: 1rem 1.15rem;
+    max-width: none;
+    margin: 0;
+    padding: 1.6rem 2.2rem;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
     background:
         radial-gradient(circle at 16% 16%, rgba(201,123,77,0.08), transparent 16%),
         linear-gradient(145deg, rgba(61,40,23,0.92), rgba(44,62,41,0.88));
 }
 
 .club-preview-shell-secondary .club-preview-copy h2 {
-    max-width: 10ch;
-    margin-bottom: 0.22rem;
+    max-width: none;
+    margin-bottom: 0.3rem;
     font-size: clamp(1.6rem, 2.7vw, 2.15rem);
 }
 
 .club-preview-shell-secondary .club-preview-copy p {
-    max-width: 26ch;
-    font-size: 0.93rem;
+    max-width: 40ch;
+    font-size: 0.95rem;
 }
 
+.club-preview-shell-secondary .club-preview-actions {
+    margin-top: 0;
+}
 .club-preview-card,
 .club-member-card,
 .club-pillar-card,
