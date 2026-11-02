@@ -223,7 +223,43 @@ function formatCartMessage() {
 
     return lines.join('\n');
 }
+function renderProductCard(product) {
+    let priceDisplay = '';
+    if (product.sizes && product.sizes.length > 0) {
+        if (product.sizes.length === 1) {
+            priceDisplay = `<div class="product-price">$${product.sizes[0].price.toLocaleString('es-AR')}</div>
+                            <div class="product-size">${product.sizes[0].size}</div>`;
+        } else {
+            priceDisplay = `<div class="product-price">Desde $${Math.min(...product.sizes.map(s => s.price)).toLocaleString('es-AR')}</div>
+                            <div class="product-size">${product.sizes.length} tamanos</div>`;
+        }
+    }
 
+    const offerBadge = product.offer
+        ? `<div class="offer-badge">${product.offerText || 'OFERTA'}</div>`
+        : '';
+    const imageContent = renderProductImage(product);
+    const hasOptions = product.sizes && product.sizes.length > 1;
+    const btnAction = hasOptions
+        ? `showProductDetails(${product.id})`
+        : `addToCart(${product.id}, 0)`;
+    const btnLabel = hasOptions ? 'Ver opciones' : 'Agregar';
+
+    return `
+    <div class="product-card" onclick="showProductDetails(${product.id})">
+        ${offerBadge}
+        <div class="product-image">${imageContent}</div>
+        <div class="product-info">
+            <div class="product-category">${product.brand} · ${getCategoryName(product.category)}</div>
+            <div class="product-name">${product.name}</div>
+            <div class="product-description">${product.description}</div>
+            <div class="product-footer">
+                <div>${priceDisplay}</div>
+                <button class="add-to-cart" onclick="event.stopPropagation(); ${btnAction}">${btnLabel}</button>
+            </div>
+        </div>
+    </div>`;
+}
 // Render Products
 function renderProducts(category = 'todos', searchTerm = '') {
     const grid = document.getElementById('productsGrid');
