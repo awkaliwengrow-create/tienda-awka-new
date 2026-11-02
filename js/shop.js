@@ -252,15 +252,15 @@ function renderProducts(category = 'todos', searchTerm = '') {
 
     grid.innerHTML = filteredProducts.map(product => {
         let priceDisplay = '';
-        if (product.sizes && product.sizes.length > 0) {
-           if (product.sizes.length === 1) {
-    // sin "Desde"
-    `<div class="product-price">$${product.sizes[0].price.toLocaleString('es-AR')}</div> ...`
-} else {
-    // con "Desde"
-    `<div class="product-price">Desde $${Math.min(...product.sizes.map(s => s.price)).toLocaleString('es-AR')}</div> ...`
+if (product.sizes && product.sizes.length > 0) {
+    if (product.sizes.length === 1) {
+        priceDisplay = `<div class="product-price">$${product.sizes[0].price.toLocaleString('es-AR')}</div>
+                        <div class="product-size">${product.sizes[0].size}</div>`;
+    } else {
+        priceDisplay = `<div class="product-price">Desde $${Math.min(...product.sizes.map(s => s.price)).toLocaleString('es-AR')}</div>
+                        <div class="product-size">${product.sizes.length} tamanos</div>`;
+    }
 }
-        }
 
         const offerBadge = product.offer ? `<div class="offer-badge">${product.offerText || 'OFERTA'}</div>` : '';
         const imageContent = renderProductImage(product);
